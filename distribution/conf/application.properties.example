@@ -1,5 +1,5 @@
 # spring
 management.security.enabled=false
-server.contextPath=/nacos
-server.servlet.contextPath=/nacos
+server.contextPath=/nas
+server.servlet.contextPath=/nas
 server.port=8848

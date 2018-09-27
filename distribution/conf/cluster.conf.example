@@ -1,5 +1,52 @@
-#it is ip
-#example
-10.10.109.214
-11.16.128.34
-11.16.128.36
+#
+# Config Weed Master Servers;
+#   Examples: [hostname]:[port]
+#   Default Port is : 9333
+#
+[master]
+10.0.0.4:9333
+10.0.0.5:9333
+10.0.0.6:9333
+
+#
+# Config Master MetaData Disk Save Path;
+#   data directory to store meta data
+#   Default: "/var/folders/qv/7xydmfpd7q74sj5t0h70jtj40000gn/T/"
+#
+[master-dir]
+/opt/master-path/
+
+
+#
+# Define Replication Rule;
+#   Default replication type if not specified. (default "000")
+#
+#
+[replication]
+002
+
+
+#
+# Config Volume's Count;
+#   maximum numbers of volumes, count[,count]...
+#   Default: 7
+#
+[maximum-numbers-of-volumes]
+100
+
+#
+# Config Weed Volume Servers;
+#   Examples: [hostname]:[port]
+#   Default Port is : 8080
+#
+[volume]
+10.0.0.7:9998
+10.0.0.8:9998
+
+
+#
+# Config Volume File Data Disk Save Path;
+#   directories to store data files. dir[,dir]...
+#   Default: "/var/folders/qv/7xydmfpd7q74sj5t0h70jtj40000gn/T/"
+[volume-dir]
+/opt/volume-path/
