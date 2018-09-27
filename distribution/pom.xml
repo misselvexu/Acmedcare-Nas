@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.acmedcare.nas</groupId>
+        <artifactId>nas-all</artifactId>
+        <version>Antarctica-RC1</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>nas-distribution</artifactId>
+    <name>nas-distribution ${project.version}</name>
+    <packaging>pom</packaging>
+
+    <dependencies>
+
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>release-nas</id>
+            <dependencies>
+
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>release-nas.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+                <finalName>nas</finalName>
+            </build>
+        </profile>
+    </profiles>
+</project>
