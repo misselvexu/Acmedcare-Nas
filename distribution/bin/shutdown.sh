@@ -1,13 +1,13 @@
 #!/bin/sh
 
-pid=`ps ax | grep -i 'nacos' |grep java | grep -v grep | awk '{print $1}'`
+pid=`ps ax | grep -i 'nas' |grep java | grep -v grep | awk '{print $1}'`
 if [ -z "$pid" ] ; then
-        echo "No nacosServer running."
+        echo "No nasServer running."
         exit -1;
 fi
 
-echo "The nacosServer(${pid}) is running..."
+echo "The nasServer(${pid}) is running..."
 
 kill ${pid}
 
-echo "Send shutdown request to nacosServer(${pid}) OK"
+echo "Send shutdown request to nasServer(${pid}) OK"

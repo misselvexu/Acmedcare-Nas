@@ -5,7 +5,7 @@ setlocal
 
 set "PATH=%JAVA_HOME%\bin;%PATH%"
 
-echo killing nacos server
+echo killing nas server
 
 for /f "tokens=1" %%i in ('jps -m ^| find "nacos"') do ( taskkill /F /PID %%i )
 

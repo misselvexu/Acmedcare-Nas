@@ -11,7 +11,7 @@
 
     <name>Acmedcare Nas ${project.version}</name>
     <description>Top Acmedcare-Nas project pom.xml file</description>
-    <url>http://vopen.xyz</url>
+    <url>http://115.29.47.72:8082/acmedback/Acmedcare-Nas</url>
     <prerequisites>
         <maven>3.2.5</maven>
     </prerequisites>
@@ -28,7 +28,7 @@
         <developer>
             <id>Acmedcare Acmedcare-Nas</id>
             <name>Acmedcare-Nas</name>
-            <url>http://vopen.xyz</url>
+            <url>http://115.29.47.72:8082/acmedback/Acmedcare-Nas</url>
             <email>iskp.me@gmail.com</email>
         </developer>
     </developers>
@@ -43,7 +43,7 @@
 
     <organization>
         <name>Acmedcare Group</name>
-        <url>https://acmedcare.com</url>
+        <url>http://acmedcare.com</url>
     </organization>
 
     <issueManagement>
@@ -337,7 +337,7 @@
                         <version>2.19.1</version>
                         <configuration>
                             <argLine>@{failsafeArgLine}</argLine>
-                            <argLine>-Dnacos.standalone=true</argLine>
+                            <argLine>-Dnas.standalone=true</argLine>
                             <includes>
                                 <include>**/*ITCase.java</include>
                             </includes>
@@ -405,19 +405,19 @@
         <dependencies>
 
             <dependency>
-                <groupId>${project.artifactId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>nas-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>${project.artifactId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>nas-console</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>${project.artifactId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>nas-distribution</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -34,7 +34,7 @@
 		</file>
 		<file>
 			<!--打好的jar包名称和放置目录-->
-			<source>../console/target/nacos-server.jar</source>
+			<source>../console/target/nas-server.jar</source>
 			<outputDirectory>/target/</outputDirectory>
 		</file>
 	</files>
@@ -43,7 +43,7 @@
 		<moduleSet>
 			<useAllReactorProjects>true</useAllReactorProjects>
 			<includes>
-				<include>com.alibaba.nacos:nacos-console</include>
+				<include>com.acmedcare.nas:nas-console</include>
 			</includes>
 		</moduleSet>
 	</moduleSets>

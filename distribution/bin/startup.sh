@@ -35,15 +35,15 @@ export CLASSPATH=.:${BASE_DIR}/conf:${CLASSPATH}
 JAVA_OPT="${JAVA_OPT} -server -Xms2g -Xmx2g -Xmn1g -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m"
 JAVA_OPT="${JAVA_OPT} -Xdebug -Xrunjdwp:transport=dt_socket,address=9555,server=y,suspend=n"
 JAVA_OPT="${JAVA_OPT} -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=70 -XX:+CMSParallelRemarkEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8  -XX:-UseParNewGC"
-JAVA_OPT="${JAVA_OPT} -verbose:gc -Xloggc:${BASE_DIR}/logs/nacos_gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy"
-JAVA_OPT="${JAVA_OPT} -Dnacos.home=${BASE_DIR}"
+JAVA_OPT="${JAVA_OPT} -verbose:gc -Xloggc:${BASE_DIR}/logs/nas_gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy"
+JAVA_OPT="${JAVA_OPT} -Dnas.home=${BASE_DIR}"
 JAVA_OPT="${JAVA_OPT} -Dspring.config.location=${BASE_DIR}/conf/application.properties"
 if [[ "${MODE}" == "standalone" ]]; then
-    JAVA_OPT="${JAVA_OPT} -Dnacos.standalone=true"
+    JAVA_OPT="${JAVA_OPT} -Dnas.standalone=true"
 fi
 JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow"
 JAVA_OPT="${JAVA_OPT} -XX:-UseLargePages"
-JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/target/nacos-server.jar"
+JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/target/nas-server.jar"
 JAVA_OPT="${JAVA_OPT} ${JAVA_OPT_EXT}"
 JAVA_OPT="${JAVA_OPT} -cp ${CLASSPATH}"
 if [ ! -d "${BASE_DIR}/logs" ]; then
@@ -55,4 +55,4 @@ fi
 
 
 nohup $JAVA ${JAVA_OPT} > ${BASE_DIR}/logs/start.log 2>&1 &
-echo "nacos is starting，you can check the ${BASE_DIR}/logs/start.log"
+echo "nas is starting，you can check the ${BASE_DIR}/logs/start.log"

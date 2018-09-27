@@ -22,7 +22,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.acmedcare.nas</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>nas-server</artifactId>
         </dependency>
 
