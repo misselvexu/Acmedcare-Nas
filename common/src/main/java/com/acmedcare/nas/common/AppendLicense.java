@@ -33,7 +33,7 @@ public class AppendLicense {
 
   private static List<File> targetFiles = new LinkedList<File>();
   private static String licenseFile = "/Users/ive/git-acmedcare/Acmedcare-Nas/common/license";
-  private static String targetDirOrFile = "/Users/ive/git-acmedcare/Acmedcare-Nas";
+  private static String targetDirOrFile = "/Users/ive/git-acmedcare/tiffany-security";
 
   public static void main(String[] args) throws Exception {
     List<String> licenseContents =
