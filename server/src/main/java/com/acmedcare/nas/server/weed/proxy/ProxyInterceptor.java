@@ -64,6 +64,10 @@ public abstract class ProxyInterceptor {
       if (StringUtils.isBlank(contentType)) {
         contentType = MediaType.APPLICATION_JSON_UTF8_VALUE;
       }
+
+      // set http response status
+      response.setStatus(httpStatus);
+
       // set content type
       response.setContentType(contentType);
 
@@ -89,7 +93,7 @@ public abstract class ProxyInterceptor {
   /**
    * CHeck is macth current rule
    *
-   * @param frontRequestUri requets url
+   * @param frontRequestUri request url
    * @return true/ false
    */
   public boolean match(String frontRequestUri) {
