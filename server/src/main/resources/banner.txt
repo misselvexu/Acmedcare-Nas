@@ -1,8 +1,8 @@
-${AnsiColor.BLUE}
+
     ___                               __
    /   |  _____ ____ ___   ___   ____/ /_____ ____ _ _____ ___     __
   / /| | / ___// __ `__ \ / _ \ / __  // ___// __ `// ___// _ \ __/ /_
  / ___ |/ /__ / / / / / //  __// /_/ // /__ / /_/ // /   /  __//_  __/
 /_/  |_|\___//_/ /_/ /_/ \___/ \__,_/ \___/ \__,_//_/    \___/  /_/
 
-           ${AnsiColor.BRIGHT_WHITE}Acmedcare+ Microservice Application on Spring Boot ${AnsiColor.GREEN}${spring-boot.version}${AnsiColor.BRIGHT_WHITE}
+           Acmedcare+ Nas Server Build on Spring Boot

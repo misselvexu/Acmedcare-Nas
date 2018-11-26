@@ -5,6 +5,7 @@ import com.acmedcare.nas.common.BizResult.ExceptionWrapper;
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.kits.ByteKits;
 import com.acmedcare.nas.server.NasServer.ApplicationContext;
+import com.acmedcare.nas.server.weed.proxy.ProxyInterceptor.Order;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
@@ -15,6 +16,7 @@ import java.net.HttpCookie;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.BitSet;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.Formatter;
 import java.util.LinkedList;
@@ -183,6 +185,21 @@ public class ProxyServlet extends HttpServlet {
         this.interceptors.add(interceptor);
       }
     }
+
+    // sort
+    this.interceptors.sort(
+        new Comparator<ProxyInterceptor>() {
+          @Override
+          public int compare(ProxyInterceptor o1, ProxyInterceptor o2) {
+            if (o1.getClass().isAnnotationPresent(Order.class)
+                && o2.getClass().isAnnotationPresent(Order.class)) {
+              int v1 = o1.getClass().getAnnotation(Order.class).value();
+              int v2 = o2.getClass().getAnnotation(Order.class).value();
+              return v1 < v2 ? -1 : v1 == v2 ? 0 : 1;
+            }
+            return 0;
+          }
+        });
 
     this.proxyConfig = proxyConfig;
   }

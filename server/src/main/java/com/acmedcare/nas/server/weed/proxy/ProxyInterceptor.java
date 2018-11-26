@@ -28,7 +28,11 @@ public abstract class ProxyInterceptor {
   /** Proxy Request Required Header */
   protected static final String[] EXT_PROXY_HEADERS = {"NAS-APPID", "NAS-APPKEY"};
 
-  private static final Pattern FIX_REGEX = Pattern.compile("/nas/\\d+,[0-9A-Za-z_*\\-]+");
+  protected static final Pattern PUBLIC_URL_REGEX =
+      Pattern.compile("/nas/public/\\d+,[0-9A-Za-z_*\\-]+");
+
+  private static final Pattern FIX_REGEX = Pattern.compile("/nas/.+");
+
   /**
    * Url Mapping Prefix
    *
@@ -46,6 +50,14 @@ public abstract class ProxyInterceptor {
     } else {
       this.urlMappingPrefix = "/";
     }
+  }
+
+  protected boolean isNasPublicRequest(String frontRequestUri) {
+    if (StringUtils.isBlank(frontRequestUri)) {
+      return false;
+    }
+    Matcher matcher = PUBLIC_URL_REGEX.matcher(frontRequestUri);
+    return matcher.matches();
   }
 
   /**
@@ -91,7 +103,7 @@ public abstract class ProxyInterceptor {
   }
 
   /**
-   * CHeck is macth current rule
+   * Check is match current rule
    *
    * @param frontRequestUri request url
    * @return true/ false
@@ -102,7 +114,7 @@ public abstract class ProxyInterceptor {
     }
     Matcher matcher = FIX_REGEX.matcher(frontRequestUri);
     if (matcher.matches()) {
-      return false;
+      return false; // 匹配文件访问标识
     }
     return StringUtils.startsWith(frontRequestUri, urlMappingPrefix);
   }
@@ -113,6 +125,7 @@ public abstract class ProxyInterceptor {
    * @param originalRequest original request
    * @param originalResponse original response
    * @throws NasException exception
+   * @return result
    */
   public abstract int beforeProxy(
       HttpServletRequest originalRequest, HttpServletResponse originalResponse) throws NasException;

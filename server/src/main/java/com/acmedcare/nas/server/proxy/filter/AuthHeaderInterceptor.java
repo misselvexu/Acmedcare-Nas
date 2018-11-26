@@ -51,6 +51,8 @@ public class AuthHeaderInterceptor extends ProxyInterceptor {
       }
     }
 
+    //
+
     BizResult.BizResultBuilder builder = BizResult.builder();
     // check auth token /account /org
     for (String extProxyHeader : EXT_PROXY_HEADERS) {
