@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- * Command Execute
+ * Shell Command Execute
  *
- * @author Elve.xu [iskp.me@gmail.com]
+ * @author Elve.xu
  * @version v1.1 - 23/02/2017.
  */
-public final class CommandKits {
+public final class ShellKits {
 
   /**
    * 执行 Shell 脚本

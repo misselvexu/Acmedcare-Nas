@@ -20,7 +20,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * MD5 generator
  *
- * @author nacos
+ * @author Elve.Xu
  */
 public class MD5Kits {
 

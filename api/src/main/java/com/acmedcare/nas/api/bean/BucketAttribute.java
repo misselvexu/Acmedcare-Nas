@@ -22,9 +22,12 @@ public class BucketAttribute implements Serializable {
   private static final long serialVersionUID = 7938096477226091930L;
 
   /**
-   * bucket privately flag
+   * Nas ACL Config
    *
-   * <p>Default: true
+   * <p>Default: {@link NasACL#PRIVATE}
+   *
+   * @since Antarctica-RC1
+   * @see NasACL
    */
-  @Default private boolean privately = true;
+  @Default private NasACL[] acls = {NasACL.PRIVATE};
 }

@@ -34,7 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * IO related tool methods
  *
- * @author nacos
+ * @author Elve.Xu
  */
 public class IOKits {
 

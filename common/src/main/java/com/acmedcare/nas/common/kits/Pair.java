@@ -18,7 +18,7 @@ package com.acmedcare.nas.common.kits;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @author nacos
+ * @author Elve.Xu
  */
 public class Pair {
     private String key;
