@@ -23,6 +23,11 @@
             <id>release-nas</id>
             <dependencies>
 
+                <dependency>
+                    <groupId>com.acmedcare.nas</groupId>
+                    <artifactId>nas-console</artifactId>
+                </dependency>
+
             </dependencies>
             <build>
                 <plugins>
