@@ -401,6 +401,8 @@
         <module>console</module>
         <module>server</module>
         <module>distribution</module>
+        <module>test</module>
+        <module>nas-fs</module>
     </modules>
 
     <!-- 所有的子项目默认依赖 -->
@@ -455,6 +457,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>nas-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>nas-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

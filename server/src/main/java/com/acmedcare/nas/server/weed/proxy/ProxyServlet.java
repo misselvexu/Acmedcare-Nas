@@ -4,7 +4,7 @@ import com.acmedcare.nas.common.BizResult;
 import com.acmedcare.nas.common.BizResult.ExceptionWrapper;
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.kits.ByteKits;
-import com.acmedcare.nas.server.NasServerAutoConfiguration.ApplicationContext;
+import com.acmedcare.nas.server.NasConfigurationRepository.ApplicationContext;
 import com.acmedcare.nas.server.weed.proxy.ProxyInterceptor.Order;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
