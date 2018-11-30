@@ -6,7 +6,7 @@
     <inceptionYear>2018</inceptionYear>
     <groupId>com.acmedcare.nas</groupId>
     <artifactId>nas-all</artifactId>
-    <version>Antarctica-RC1</version>
+    <version>2.1.0.BUILD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Acmedcare Nas ${project.version}</name>
@@ -54,7 +54,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
         <!-- Maven properties -->
         <maven.test.skip>false</maven.test.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
@@ -65,7 +64,6 @@
         <!-- Exclude all generated code -->
         <sonar.jacoco.itReportPath>${project.basedir}/../test/target/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.exclusions>file:**/generated-sources/**,**/test/**</sonar.exclusions>
-
     </properties>
     <!-- == -->
     <!-- =========================================================Build plugins================================================ -->
@@ -188,13 +186,32 @@
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
                 <version>0.12</version>
+
                 <configuration>
+
                     <excludes>
                         <exclude>.travis.yml</exclude>
                         <exclude>CONTRIBUTING.md</exclude>
-                        <exclude>bin/README.md</exclude>
-                        <exclude>.github/*</exclude>
-                        <exclude>src/test/resources/certs/*</exclude>
+                        <exclude>CODE_OF_CONDUCT.md</exclude>
+                        <exclude>CHANGELOG.md</exclude>
+                        <exclude>style/codeStyle.md</exclude>
+                        <exclude>REPORTING-BUGS.md</exclude>
+                        <exclude>README.md</exclude>
+                        <exclude>.github/**/*</exclude>
+                        <exclude>src/main/resources/*/*/*</exclude>
+                        <exclude>src/main/resources/*/*</exclude>
+                        <exclude>src/main/resources/*</exclude>
+                        <exclude>src/test/resources/*</exclude>
+                        <exclude>src/main/resources/static/**/*.js</exclude>
+                        <exclude>src/main/resources/**/*.svg</exclude>
+                        <exclude>src/main/resources/static/public/css/console1412.css</exclude>
+                        <exclude>src/main/resources/static/js/vs/**/*</exclude>
+                        <exclude>src/main/resources/static/console-fe/public/js/vs/editor/editor.main.css</exclude>
+                        <exclude>src/main/resources/static/console-fe/public/css/console1412.css</exclude>
+                        <exclude>src/main/resources/static/console-fe/.vscode/settings.json</exclude>
+                        <exclude>bin/*</exclude>
+                        <exclude>conf/*</exclude>
+                        <exclude>derby.log</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -252,10 +269,11 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>2.20</version>
                 <configuration>
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
             <plugin>
@@ -377,18 +395,12 @@
 
     <!-- 子模块管理 -->
     <modules>
-        <!--<module>core</module>-->
-        <!--<module>test</module>-->
         <module>api</module>
         <module>client</module>
-        <!--<module>example</module>-->
-        <!--<module>common</module>-->
-        <!--<module>distribution</module>-->
-        <!--<module>console</module>-->
-        <module>distribution</module>
+        <module>common</module>
         <module>console</module>
         <module>server</module>
-        <module>common</module>
+        <module>distribution</module>
     </modules>
 
     <!-- 所有的子项目默认依赖 -->
@@ -564,23 +576,6 @@
                 <artifactId>commons-io</artifactId>
                 <version>2.2</version>
             </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.34</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-dbcp</groupId>
-                <artifactId>commons-dbcp</artifactId>
-                <version>1.4</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.derby</groupId>
-                <artifactId>derby</artifactId>
-                <version>10.10.1.1</version>
-            </dependency>
 
             <dependency>
                 <groupId>cglib</groupId>
@@ -657,7 +652,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!-- naming -->
         </dependencies>
     </dependencyManagement>
 </project>

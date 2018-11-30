@@ -22,11 +22,11 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 /**
  * Nas Main Class
  *
- * @author Elve.Xu [iskp.me<at>gmail.com]
+ * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version v1.0 - 27/09/2018.
  */
-@SpringBootApplication(scanBasePackages = "com.acmedcare.nas")
-@ServletComponentScan
+@SpringBootApplication
+@ServletComponentScan("com.acmedcare.nas")
 public class Nas {
 
   /**

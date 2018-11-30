@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 /**
  * Auth Header Filter
  *
- * @author Elve.Xu [iskp.me<at>gmail.com]
+ * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version v1.0 - 28/08/2018.
  */
 @Order(value = 0)

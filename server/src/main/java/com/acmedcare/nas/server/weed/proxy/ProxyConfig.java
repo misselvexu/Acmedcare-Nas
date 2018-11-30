@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * Proxy Config
  *
- * @author Elve.Xu [iskp.me<at>gmail.com]
+ * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version v1.0 - 28/08/2018.
  */
 @Getter

@@ -3,7 +3,7 @@ package com.acmedcare.nas.common.exception;
 /**
  * Nas Exception
  *
- * @author Elve.Xu [iskp.me<at>gmail.com]
+ * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version v1.0 - 10/10/2018.
  */
 public class NasException extends RuntimeException {

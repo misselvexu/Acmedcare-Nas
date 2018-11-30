@@ -5,9 +5,10 @@
        value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}nas.log}"/>
     <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-    <logger name="com.acmedcare.nas" level="DEBUG"/>
+    <logger name="com.acmedcare.framework" level="DEBUG"/>
     <root level="INFO">
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
+

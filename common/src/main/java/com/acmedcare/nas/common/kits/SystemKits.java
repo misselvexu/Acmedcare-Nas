@@ -17,6 +17,7 @@ package com.acmedcare.nas.common.kits;
 
 import com.acmedcare.nas.common.log.AcmedcareNasLogger;
 import com.sun.management.OperatingSystemMXBean;
+import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -28,6 +29,16 @@ import org.apache.commons.lang3.StringUtils;
 
 /** @author Elve.Xu */
 public class SystemKits {
+
+  /** The key of nacos home. */
+  public static final String NAS_HOME_KEY = "nas.home";
+
+  public static final String NAS_LOCAL_IP_KEY = "NAS_LOCAL_IP";
+
+  public static final String LOCAL_IP = getHostAddress();
+
+  /** The home of nacos. */
+  public static final String NAS_HOME = getNasHome();
 
   private static OperatingSystemMXBean operatingSystemMXBean =
       (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
@@ -42,7 +53,7 @@ public class SystemKits {
   }
 
   public static String getSystemEnv(String key) {
-      return System.getenv(key);
+    return System.getenv(key);
   }
 
   public static float getLoad() {
@@ -81,5 +92,13 @@ public class SystemKits {
     }
 
     return address;
+  }
+
+  private static String getNasHome() {
+    String nacosHome = System.getProperty(NAS_HOME_KEY);
+    if (StringUtils.isBlank(nacosHome)) {
+      nacosHome = System.getProperty("user.home") + File.separator + "nas";
+    }
+    return nacosHome;
   }
 }

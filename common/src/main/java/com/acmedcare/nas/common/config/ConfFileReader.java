@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * </pre>
  *
- * @author Elve.Xu [iskp.me<at>gmail.com]
+ * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version v1.0 - 27/09/2018.
  */
 public class ConfFileReader {
