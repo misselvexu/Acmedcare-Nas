@@ -2,6 +2,8 @@ package com.acmedcare.nas.api;
 
 import com.acmedcare.nas.api.bean.Bucket;
 import com.acmedcare.nas.api.bean.BucketAttribute;
+import com.acmedcare.nas.api.entity.ResponseEntity;
+import com.acmedcare.nas.api.exception.NasException;
 
 /**
  * Nas Service
@@ -14,10 +16,22 @@ public interface NasBucketService {
   /**
    * Create new bucket storage instance
    *
-   * @param name bucket name
+   * @param bucketId bucket id
+   * @param bucketName bucket name
    * @param attribute attribute
    * @return a instance of {@link Bucket}
+   * @throws NasException exception
    * @see BucketAttribute
    */
-  Bucket createNewBucket(String name, BucketAttribute attribute);
+  Bucket createNewBucket(String bucketId, String bucketName, BucketAttribute attribute)
+      throws NasException;
+
+  /**
+   * Delete bucket by bucketId
+   *
+   * @param bucketId bucket id
+   * @return execute result
+   * @throws NasException exception
+   */
+  ResponseEntity deleteBucket(String bucketId) throws NasException;
 }
