@@ -18,9 +18,9 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Getter
 @Setter
+@Configuration
 @PropertySource(value = "classpath:proxy.properties", ignoreResourceNotFound = false)
 @ConfigurationProperties(prefix = "proxy")
-@Configuration
 public class ProxyConfig implements Serializable {
 
   private static final long serialVersionUID = -3047132860550946253L;
@@ -29,6 +29,8 @@ public class ProxyConfig implements Serializable {
 
   /** 是否开启 log */
   private String log;
+
+  private String contextPath = "/nas";
 
   /** 转发地址 */
   private List<String> targetUrls;

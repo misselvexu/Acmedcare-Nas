@@ -2,6 +2,7 @@ package com.acmedcare.nas.server.weed.proxy;
 
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.log.AcmedcareNasLogger;
+import com.acmedcare.nas.server.NasConfigurationRepository.ApplicationContext;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -29,9 +30,11 @@ public abstract class ProxyInterceptor {
   protected static final String[] EXT_PROXY_HEADERS = {"NAS-APPID", "NAS-APPKEY"};
 
   protected static final Pattern PUBLIC_URL_REGEX =
-      Pattern.compile("/acmedcare-nas/nas/public/\\d+,[0-9A-Za-z_*\\-]+");
+      Pattern.compile(
+          ApplicationContext.getProxyConfig().getContextPath() + "/public/\\d+,[0-9A-Za-z_*\\-]+");
 
-  protected static final Pattern FIX_REGEX = Pattern.compile("/nas/.+");
+  protected static final Pattern FIX_REGEX =
+      Pattern.compile(ApplicationContext.getProxyConfig().getContextPath() + "/.+");
 
   /**
    * Url Mapping Prefix
@@ -108,7 +111,7 @@ public abstract class ProxyInterceptor {
    * @param frontRequestUri request url
    * @return true/ false
    */
-  public boolean match(String frontRequestUri){
+  public boolean match(String frontRequestUri) {
     if (StringUtils.isBlank(frontRequestUri)) {
       return false;
     }

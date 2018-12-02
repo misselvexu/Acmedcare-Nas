@@ -510,7 +510,7 @@ public class ProxyServlet extends HttpServlet {
       HttpRequest proxyRequest)
       throws IOException {
     if (doLog) {
-      logger.debug(
+      logger.info(
           "proxy "
               + servletRequest.getMethod()
               + " uri: "

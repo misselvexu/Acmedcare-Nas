@@ -52,10 +52,12 @@ public class NasClientConstants {
   /** Request Defined */
   public interface NasRequest {
 
+    String CONTEXT_PATH = "/acmedcare-nas/nas";
+
     /** Upload file request context path */
-    String UPLOAD = "/nas/submit";
+    String UPLOAD = CONTEXT_PATH + "/submit";
 
     /** Download file with fid */
-    String DOWNLOAD = "/nas/%s";
+    String DOWNLOAD = CONTEXT_PATH + "/%s";
   }
 }

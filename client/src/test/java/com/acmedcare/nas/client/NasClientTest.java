@@ -24,7 +24,7 @@ public class NasClientTest {
       "/Users/ive/git-acmedcare/Acmedcare-Nas/client/src/test/resources/china-map.jpg";
 
   private String destFilePath =
-      "/Users/ive/git-acmedcare/Acmedcare-Nas/client/src/test/resources/downloaded-china-map.jpg";
+      "/Users/ive/git-acmedcare/Acmedcare-Nas/client/src/test/resources/downloaded-china-map-1.jpg";
 
   @Before
   public void init() {
@@ -70,16 +70,7 @@ public class NasClientTest {
   @Test
   public void download() {
 
-    ResponseEntity responseEntity =
-        this.nasClient.download(
-            "2,0ac0ac627d",
-            destFilePath,
-            new ProgressCallback() {
-              @Override
-              public void onProgress(long uploaded, long total) {
-                System.out.println("下载进度:" + uploaded / total);
-              }
-            });
+    ResponseEntity responseEntity = this.nasClient.download("2,0dc2a17774", destFilePath);
 
     Assert.assertNotNull(responseEntity);
     Assert.assertEquals(responseEntity.getResponseCode(), ResponseCode.DOWNLOAD_OK);

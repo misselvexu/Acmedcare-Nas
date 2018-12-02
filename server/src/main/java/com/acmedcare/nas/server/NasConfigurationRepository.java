@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,7 @@ import org.springframework.context.annotation.Configuration;
  * @version ${project.version} - 2018-11-30.
  */
 @Configuration
+@EnableConfigurationProperties(ProxyConfig.class)
 public class NasConfigurationRepository {
 
   @Configuration
@@ -53,7 +55,7 @@ public class NasConfigurationRepository {
               // Interceptor List
               new AuthHeaderInterceptor()),
           // servlet mapping
-          "/nas/*");
+          ApplicationContext.getProxyConfig().getContextPath() + "/*");
     }
 
     @Bean
@@ -65,7 +67,7 @@ public class NasConfigurationRepository {
       registrationBean.setFilter(compressingFilter);
 
       List<String> urlPatterns = Lists.newArrayList();
-      urlPatterns.add("/nas/*");
+      urlPatterns.add(ApplicationContext.getProxyConfig().getContextPath() + "/*");
 
       registrationBean.setUrlPatterns(urlPatterns);
       registrationBean.addInitParameter("debug", "true");
@@ -84,6 +86,9 @@ public class NasConfigurationRepository {
   public static class NasConfig implements Serializable {
 
     private static final long serialVersionUID = -8718095574026379565L;
+
+    @Value("${server.servlet.context-path:/nas}")
+    private String contextPath;
 
     @Value("${nas.export.url.template}")
     private String exportUrlTemplate;

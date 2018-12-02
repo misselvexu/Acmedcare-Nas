@@ -3,6 +3,7 @@ package com.acmedcare.nas.server.proxy.filter;
 import com.acmedcare.nas.common.BizResult;
 import com.acmedcare.nas.common.BizResult.ExceptionWrapper;
 import com.acmedcare.nas.common.exception.NasException;
+import com.acmedcare.nas.server.NasConfigurationRepository.ApplicationContext;
 import com.acmedcare.nas.server.weed.proxy.ProxyInterceptor;
 import com.acmedcare.nas.server.weed.proxy.ProxyInterceptor.Order;
 import com.google.common.collect.Maps;
@@ -24,7 +25,7 @@ import org.springframework.http.MediaType;
 public class AuthHeaderInterceptor extends ProxyInterceptor {
 
   public AuthHeaderInterceptor() {
-    super("/nas/");
+    super(ApplicationContext.getProxyConfig().getContextPath() + "/");
   }
 
   @Override
