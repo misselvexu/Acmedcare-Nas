@@ -8,9 +8,29 @@ Acmedcare+ Distribution Storage System
 
 2.1.0.BUILD-SNAPSHOT
 ----
-[Acmedcare Nas Server]()
+[Acmedcare Nas Server](releases/2.1.0.BUILD-SNAPSHOT/nas-fs-2.1.0.BUILD-SNAPSHOT-assembly.tar.gz)
 
-[Acmedcare Nas Proxy]()
+[Acmedcare Nas Proxy](releases/2.1.0.BUILD-SNAPSHOT/nas-server-2.1.0.BUILD-SNAPSHOT.tar.gz)
+
+- Startup
+----
+
+Acmedcare Nas Server
+
+> ignore
+
+
+Acmedcare Nas Proxy
+
+```bash
+  
+  # startup
+  ./bin/startup.sh -m daemon
+
+  # shutdown
+  ./bin/shutdown.sh
+
+```
 
 
 ### Nas Endpoint
