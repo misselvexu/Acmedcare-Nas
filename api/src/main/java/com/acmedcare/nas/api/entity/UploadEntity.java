@@ -13,4 +13,20 @@ public class UploadEntity extends ResponseEntity {
 
   /** File Public Access Url */
   private String publicUrl;
+
+  public String getFid() {
+    return fid;
+  }
+
+  public void setFid(String fid) {
+    this.fid = fid;
+  }
+
+  public String getPublicUrl() {
+    return publicUrl;
+  }
+
+  public void setPublicUrl(String publicUrl) {
+    this.publicUrl = publicUrl;
+  }
 }

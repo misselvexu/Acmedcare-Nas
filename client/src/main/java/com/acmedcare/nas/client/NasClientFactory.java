@@ -31,7 +31,17 @@ public class NasClientFactory {
       Class<?> aClass = Class.forName("com.acmedcare.nas.client.NasClient");
       Constructor constructor = aClass.getConstructor(List.class, boolean.class);
       Object instance = constructor.newInstance(properties.getServerAddrs(), properties.isHttps());
-      return (NasClient) instance;
+      NasClient client = (NasClient) instance;
+      if (properties.getAppId() == null
+          || properties.getAppId().trim().length() == 0
+          || properties.getAppKey() == null
+          || properties.getAppKey().trim().length() == 0) {
+        throw new NasException("Nas Client init failed with appId & appKey must not be null or ''");
+      }
+
+      // register key
+      client.registerAccessKey(properties.getAppId(), properties.getAppKey());
+      return client;
     } catch (NasException e) {
       throw e;
     } catch (Exception e) {

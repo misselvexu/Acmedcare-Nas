@@ -20,6 +20,12 @@ public class NasProperties {
   /** is https */
   private boolean https;
 
+  /** app id */
+  private String appId;
+
+  /** app key */
+  private String appKey;
+
   public List<String> getServerAddrs() {
     return serverAddrs;
   }
@@ -34,5 +40,21 @@ public class NasProperties {
 
   public void setHttps(boolean https) {
     this.https = https;
+  }
+
+  public String getAppId() {
+    return appId;
+  }
+
+  public void setAppId(String appId) {
+    this.appId = appId;
+  }
+
+  public String getAppKey() {
+    return appKey;
+  }
+
+  public void setAppKey(String appKey) {
+    this.appKey = appKey;
   }
 }

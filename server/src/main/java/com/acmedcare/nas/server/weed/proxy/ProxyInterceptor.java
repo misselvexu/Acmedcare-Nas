@@ -29,9 +29,9 @@ public abstract class ProxyInterceptor {
   protected static final String[] EXT_PROXY_HEADERS = {"NAS-APPID", "NAS-APPKEY"};
 
   protected static final Pattern PUBLIC_URL_REGEX =
-      Pattern.compile("/nas/public/\\d+,[0-9A-Za-z_*\\-]+");
+      Pattern.compile("/acmedcare-nas/nas/public/\\d+,[0-9A-Za-z_*\\-]+");
 
-  private static final Pattern FIX_REGEX = Pattern.compile("/nas/.+");
+  protected static final Pattern FIX_REGEX = Pattern.compile("/nas/.+");
 
   /**
    * Url Mapping Prefix
@@ -41,7 +41,7 @@ public abstract class ProxyInterceptor {
    *
    * </pre>
    */
-  @Getter private final String urlMappingPrefix;
+  @Getter protected final String urlMappingPrefix;
 
   public ProxyInterceptor(String urlMappingPrefix) {
     if (StringUtils.isNoneBlank(urlMappingPrefix)) {
@@ -108,7 +108,7 @@ public abstract class ProxyInterceptor {
    * @param frontRequestUri request url
    * @return true/ false
    */
-  public boolean match(String frontRequestUri) {
+  public boolean match(String frontRequestUri){
     if (StringUtils.isBlank(frontRequestUri)) {
       return false;
     }

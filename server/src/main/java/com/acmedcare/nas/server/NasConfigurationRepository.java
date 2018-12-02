@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Configuration;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2018-11-30.
  */
+@Configuration
 public class NasConfigurationRepository {
 
   @Configuration

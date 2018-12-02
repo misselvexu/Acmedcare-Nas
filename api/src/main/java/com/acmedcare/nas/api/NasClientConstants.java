@@ -20,10 +20,14 @@ public class NasClientConstants {
   public enum ResponseCode {
 
     /** Upload file success */
-    UPLOAD_SUCCESS(10000),
+    UPLOAD_OK(10000),
 
     /** upload file failed */
-    UPLOAD_FAILED(-10000);
+    UPLOAD_FAILED(-10000),
+
+    DOWNLOAD_OK(20000),
+
+    DOWNLOAD_FAILED(-20000);
 
     int code;
 
@@ -39,10 +43,10 @@ public class NasClientConstants {
   public interface AuthHeader {
 
     /** Nas AppId Key */
-    String NAS_APP_ID = "NAS_APPID";
+    String NAS_APP_ID = "NAS-APPID";
 
     /** Nas AppKey Key */
-    String NAS_APP_KEY = "NAS_APPKEY";
+    String NAS_APP_KEY = "NAS-APPKEY";
   }
 
   /** Request Defined */

@@ -1,7 +1,12 @@
 package com.acmedcare.nas.client;
 
-import static org.junit.Assert.*;
-
+import com.acmedcare.nas.api.NasClientConstants.ResponseCode;
+import com.acmedcare.nas.api.ProgressCallback;
+import com.acmedcare.nas.api.entity.ResponseEntity;
+import com.acmedcare.nas.api.entity.UploadEntity;
+import org.assertj.core.util.Lists;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,6 +17,26 @@ import org.junit.Test;
  */
 public class NasClientTest {
 
+  private NasClient nasClient;
+  private String fileName = "china-map";
+  private String fileSuffix = "jpg";
+  private String filePath =
+      "/Users/ive/git-acmedcare/Acmedcare-Nas/client/src/test/resources/china-map.jpg";
+
+  private String destFilePath =
+      "/Users/ive/git-acmedcare/Acmedcare-Nas/client/src/test/resources/downloaded-china-map.jpg";
+
+  @Before
+  public void init() {
+    NasProperties nasProperties = new NasProperties();
+    nasProperties.setServerAddrs(Lists.newArrayList("127.0.0.1:18848"));
+    nasProperties.setHttps(false);
+    nasProperties.setAppId("nas-app-id");
+    nasProperties.setAppKey("nas-app-key");
+
+    nasClient = NasClientFactory.createNewNasClient(nasProperties);
+  }
+
   @Test
   public void createNewBucket() {}
 
@@ -19,11 +44,44 @@ public class NasClientTest {
   public void deleteBucket() {}
 
   @Test
-  public void upload() {}
+  public void upload() {
+    UploadEntity uploadEntity =
+        this.nasClient.upload(
+            fileName,
+            fileSuffix,
+            filePath,
+            new ProgressCallback() {
+              @Override
+              public void onProgress(long uploaded, long total) {
+                System.out.println("上传进度:" + uploaded / total);
+              }
+            });
+    Assert.assertNotNull(uploadEntity);
+    Assert.assertEquals(uploadEntity.getResponseCode(), ResponseCode.UPLOAD_OK);
+    Assert.assertNotNull(uploadEntity.getFid());
+    Assert.assertNotNull(uploadEntity.getPublicUrl());
+  }
 
   @Test
-  public void upload1() {}
+  public void upload1() {
+    upload();
+  }
 
   @Test
-  public void download() {}
+  public void download() {
+
+    ResponseEntity responseEntity =
+        this.nasClient.download(
+            "2,0ac0ac627d",
+            destFilePath,
+            new ProgressCallback() {
+              @Override
+              public void onProgress(long uploaded, long total) {
+                System.out.println("下载进度:" + uploaded / total);
+              }
+            });
+
+    Assert.assertNotNull(responseEntity);
+    Assert.assertEquals(responseEntity.getResponseCode(), ResponseCode.DOWNLOAD_OK);
+  }
 }

@@ -19,10 +19,13 @@ public interface NasFileService {
    * @param fileName file name
    * @param fileSuffix file suffix
    * @param file source file
+   * @param uploadProgressCallback upload progress callback
    * @return upload entity instance of {@link UploadEntity}
    * @throws NasException exception
    */
-  UploadEntity upload(String fileName, String fileSuffix, File file) throws NasException;
+  UploadEntity upload(
+      String fileName, String fileSuffix, File file, ProgressCallback uploadProgressCallback)
+      throws NasException;
 
   /**
    * Upload a new file
@@ -30,10 +33,13 @@ public interface NasFileService {
    * @param fileName file name
    * @param fileSuffix file suffix
    * @param filePath source file path
+   * @param uploadProgressCallback upload progress callback
    * @return upload entity instance of {@link UploadEntity}
    * @throws NasException exception
    */
-  UploadEntity upload(String fileName, String fileSuffix, String filePath) throws NasException;
+  UploadEntity upload(
+      String fileName, String fileSuffix, String filePath, ProgressCallback uploadProgressCallback)
+      throws NasException;
 
   /**
    * Download file from fs server

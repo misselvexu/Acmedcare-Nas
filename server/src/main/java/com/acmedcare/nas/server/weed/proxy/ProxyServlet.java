@@ -453,7 +453,6 @@ public class ProxyServlet extends HttpServlet {
       // Pass the response code. This method with the "reason phrase" is deprecated but it's the
       //   only way to pass the reason along too.
       int statusCode = proxyResponse.getStatusLine().getStatusCode();
-      System.out.println("FS-code = " + statusCode);
       //noinspection deprecation
       servletResponse.setStatus(statusCode, proxyResponse.getStatusLine().getReasonPhrase());
 
