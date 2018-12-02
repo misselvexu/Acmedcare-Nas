@@ -11,8 +11,8 @@ error_exit ()
 [ ! -e "$JAVA_HOME/bin/java" ] && JAVA_HOME=/opt/taobao/java
 [ ! -e "$JAVA_HOME/bin/java" ] && error_exit "Please set the JAVA_HOME variable in your environment, We need java(x64)! jdk8 or later is better!"
 
-export MODE="standalone"
-export PROFILE=""
+export MODE="standalone" # daemon
+export PROFILE="default"
 while getopts ":m:p:" opt
 do
     case $opt in
@@ -53,7 +53,7 @@ else
 fi
 
 JAVA_OPT="${JAVA_OPT} -Dnas.home=${BASE_DIR}"
-JAVA_OPT="${JAVA_OPT} -Xbootclasspath/a:./:${BASE_DIR}/config/"
+JAVA_OPT="${JAVA_OPT} -Xbootclasspath/a:./:${BASE_DIR}/conf/"
 JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/target/nas-server.jar"
 JAVA_OPT="${JAVA_OPT} ${JAVA_OPT_EXT}"
 JAVA_OPT="${JAVA_OPT} --spring.config.location=${CUSTOM_SEARCH_LOCATIONS}"
