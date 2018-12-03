@@ -15,5 +15,5 @@ public enum NasExts {
   QINIU,
 
   /** Aliyun OSS */
-  ALIYUN
+  ALIYUN;
 }

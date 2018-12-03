@@ -11,6 +11,7 @@ import com.acmedcare.nas.api.exception.NasException;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 25/11/2018.
  */
+@Extensible(singleton = false)
 public interface NasBucketService {
 
   /**

@@ -1,5 +1,6 @@
 package com.acmedcare.nas.client.exts.qiniu;
 
+import com.acmedcare.nas.api.Extension;
 import com.acmedcare.nas.api.NasFileService;
 import com.acmedcare.nas.api.ProgressCallback;
 import com.acmedcare.nas.api.entity.ResponseEntity;
@@ -13,6 +14,7 @@ import java.io.File;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2018-12-03.
  */
+@Extension("qiniu")
 public class QiNiuNasFileClient implements NasFileService {
 
   /**
