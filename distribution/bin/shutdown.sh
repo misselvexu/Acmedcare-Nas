@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pid=`ps ax | grep -i 'nas' |grep java | grep -v grep | awk '{print $1}'`
 if [ -z "$pid" ] ; then

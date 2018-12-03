@@ -29,7 +29,7 @@ public class NasClientTest {
   @Before
   public void init() {
     NasProperties nasProperties = new NasProperties();
-    nasProperties.setServerAddrs(Lists.newArrayList("127.0.0.1:18848"));
+    nasProperties.setServerAddrs(Lists.newArrayList("192.168.1.226:18848"));
     nasProperties.setHttps(false);
     nasProperties.setAppId("nas-app-id");
     nasProperties.setAppKey("nas-app-key");
