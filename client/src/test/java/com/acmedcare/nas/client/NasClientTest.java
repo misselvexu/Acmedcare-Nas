@@ -4,6 +4,7 @@ import com.acmedcare.nas.api.NasClientConstants.ResponseCode;
 import com.acmedcare.nas.api.ProgressCallback;
 import com.acmedcare.nas.api.entity.ResponseEntity;
 import com.acmedcare.nas.api.entity.UploadEntity;
+import com.alibaba.fastjson.JSON;
 import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Before;
@@ -60,6 +61,8 @@ public class NasClientTest {
     Assert.assertEquals(uploadEntity.getResponseCode(), ResponseCode.UPLOAD_OK);
     Assert.assertNotNull(uploadEntity.getFid());
     Assert.assertNotNull(uploadEntity.getPublicUrl());
+
+    System.out.println(JSON.toJSONString(uploadEntity));
   }
 
   @Test
