@@ -1,4 +1,4 @@
-package com.acmedcare.nas.exts.factory;
+package com.acmedcare.nas.exts.api;
 
 /**
  * Nas exts factory
