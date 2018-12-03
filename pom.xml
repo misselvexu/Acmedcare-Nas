@@ -407,6 +407,7 @@
         <module>distribution</module>
         <module>test</module>
         <module>nas-fs</module>
+        <module>nas-exts</module>
     </modules>
 
     <!-- 所有的子项目默认依赖 -->
