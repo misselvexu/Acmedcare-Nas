@@ -11,7 +11,7 @@ import java.io.File;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2018-12-01.
  */
-@Extensible(singleton = false)
+@Extensible
 public interface NasFileService {
 
   /**
