@@ -1,7 +1,6 @@
 package com.acmedcare.nas.client.exts.qiniu;
 
 import com.acmedcare.nas.api.Extension;
-import com.acmedcare.nas.exts.api.NasExtType;
 import com.acmedcare.nas.exts.api.NasProperties;
 import com.acmedcare.nas.exts.api.exception.NasContextException;
 import com.acmedcare.nas.exts.api.properties.NasPropertiesLoader;
@@ -28,12 +27,11 @@ public class QiNiuNasPropertiesLoader implements NasPropertiesLoader<QiNiuProper
   /**
    * Load properties from system config
    *
-   * @param nasExtType nas ext type
    * @return instance of {@link NasProperties}
    * @throws NasContextException exception
    */
   @Override
-  public QiNiuProperties loadProperties(NasExtType nasExtType) throws NasContextException {
+  public QiNiuProperties loadProperties() throws NasContextException {
     return null;
   }
 }

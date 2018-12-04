@@ -19,38 +19,15 @@ public class QiNiuProperties extends NasProperties implements Serializable {
 
   private String bucketName;
 
-  public QiNiuProperties(String accessKey, String secretKey) {
-    this.accessKey = accessKey;
-    this.secretKey = secretKey;
-  }
-
-  public QiNiuProperties(String accessKey, String secretKey, String bucketName) {
-    this.accessKey = accessKey;
-    this.secretKey = secretKey;
-    this.bucketName = bucketName;
-  }
-
-  public String getBucketName() {
-    return bucketName;
-  }
-
-  public void setBucketName(String bucketName) {
-    this.bucketName = bucketName;
-  }
-
   public String getAccessKey() {
     return accessKey;
-  }
-
-  public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
   }
 
   public String getSecretKey() {
     return secretKey;
   }
 
-  public void setSecretKey(String secretKey) {
-    this.secretKey = secretKey;
+  public String getBucketName() {
+    return bucketName;
   }
 }

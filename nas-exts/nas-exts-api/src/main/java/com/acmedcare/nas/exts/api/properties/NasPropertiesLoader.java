@@ -1,7 +1,6 @@
 package com.acmedcare.nas.exts.api.properties;
 
 import com.acmedcare.nas.api.Extensible;
-import com.acmedcare.nas.exts.api.NasExtType;
 import com.acmedcare.nas.exts.api.NasProperties;
 import com.acmedcare.nas.exts.api.exception.NasContextException;
 
@@ -24,10 +23,9 @@ public interface NasPropertiesLoader<T> {
   /**
    * Load properties from system config
    *
-   * @param nasExtType nas ext type
    * @param <T> instance class type
    * @return instance of {@link NasProperties}
    * @throws NasContextException exception
    */
-  T loadProperties(NasExtType nasExtType) throws NasContextException;
+  T loadProperties() throws NasContextException;
 }
