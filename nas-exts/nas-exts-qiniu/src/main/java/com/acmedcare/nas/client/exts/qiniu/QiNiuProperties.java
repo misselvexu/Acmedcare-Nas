@@ -1,6 +1,7 @@
 package com.acmedcare.nas.client.exts.qiniu;
 
-import com.acmedcare.nas.exts.api.NasProperties;
+import com.acmedcare.nas.exts.api.properties.AutoConfigureProperties;
+import com.acmedcare.nas.exts.api.properties.PropertiesKey;
 import java.io.Serializable;
 
 /**
@@ -9,15 +10,15 @@ import java.io.Serializable;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2018-12-03.
  */
-public class QiNiuProperties extends NasProperties implements Serializable {
+public class QiNiuProperties extends AutoConfigureProperties implements Serializable {
 
   private static final long serialVersionUID = 4851324617914837957L;
 
-  private String accessKey;
+  @PropertiesKey private String accessKey;
 
-  private String secretKey;
+  @PropertiesKey private String secretKey;
 
-  private String bucketName;
+  @PropertiesKey private String bucketName;
 
   public String getAccessKey() {
     return accessKey;
@@ -29,5 +30,10 @@ public class QiNiuProperties extends NasProperties implements Serializable {
 
   public String getBucketName() {
     return bucketName;
+  }
+
+  @Override
+  protected String getPropertiesPrefix() {
+    return "qiniu";
   }
 }

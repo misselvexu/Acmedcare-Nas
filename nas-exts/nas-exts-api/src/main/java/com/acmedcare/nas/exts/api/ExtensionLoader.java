@@ -1,5 +1,7 @@
 package com.acmedcare.nas.exts.api;
 
+import static com.acmedcare.nas.exts.api.util.ClassLoaderUtils.getClassLoader;
+
 import com.acmedcare.nas.api.Extensible;
 import com.acmedcare.nas.api.Extension;
 import com.acmedcare.nas.exts.api.exception.NasContextException;
@@ -88,26 +90,6 @@ public class ExtensionLoader<T> {
       cl = ExtensionLoader.class.getClassLoader();
     }
     return cl == null ? ClassLoader.getSystemClassLoader() : cl;
-  }
-
-  /**
-   * 得到当前ClassLoader
-   *
-   * @param clazz 某个类
-   * @return ClassLoader
-   */
-  public static ClassLoader getClassLoader(Class<?> clazz) {
-    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    if (loader != null) {
-      return loader;
-    }
-    if (clazz != null) {
-      loader = clazz.getClassLoader();
-      if (loader != null) {
-        return loader;
-      }
-    }
-    return ClassLoader.getSystemClassLoader();
   }
 
   /** @param path path必须以/结尾 */

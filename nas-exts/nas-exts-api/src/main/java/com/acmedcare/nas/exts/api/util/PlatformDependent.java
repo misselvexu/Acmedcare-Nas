@@ -18,7 +18,7 @@ public final class PlatformDependent {
    *
    * @return true/false
    */
-  private static boolean isAndroid0() {
+  public static boolean isAndroid() {
     String vmName = SystemPropertyUtil.get("java.vm.name");
     boolean isAndroid = "Dalvik".equals(vmName);
     if (isAndroid) {

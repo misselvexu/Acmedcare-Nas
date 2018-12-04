@@ -1,0 +1,5 @@
+## qiniu example properties
+
+qiniu.access-key=
+qiniu.secret-key=
+qiniu.bucket-name=

@@ -1,7 +1,9 @@
 package com.acmedcare.nas.client.test;
 
 import com.acmedcare.nas.api.NasFileService;
+import com.acmedcare.nas.client.exts.qiniu.QiNiuProperties;
 import com.acmedcare.nas.exts.api.NasExtType;
+import com.acmedcare.nas.exts.api.NasProperties;
 import com.acmedcare.nas.exts.api.NasServiceFactory;
 import com.acmedcare.nas.exts.api.properties.NasPropertiesLoader;
 
@@ -20,6 +22,11 @@ public class NasExtsTestApplication {
 
     System.out.println(nasPropertiesLoader);
     System.out.println(nasPropertiesLoader.propertyFileName());
+    NasProperties nasProperties = (NasProperties) nasPropertiesLoader.loadProperties(null);
+    System.out.println(nasProperties);
+
+    QiNiuProperties qiNiuProperties = nasProperties.decodePropertiesBean(QiNiuProperties.class);
+    System.out.println(qiNiuProperties);
 
     NasFileService nasFileService = NasServiceFactory.getNasFileService(NasExtType.QINIU);
     System.out.println(nasFileService);
