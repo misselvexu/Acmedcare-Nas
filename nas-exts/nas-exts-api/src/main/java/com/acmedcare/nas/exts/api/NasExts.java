@@ -9,7 +9,7 @@ package com.acmedcare.nas.exts.api;
 public enum NasExts {
 
   /** Default Acmedcare-Nas */
-  DEFAULT,
+  ACMEDCARE,
 
   /** QiNiu OSS */
   QINIU,

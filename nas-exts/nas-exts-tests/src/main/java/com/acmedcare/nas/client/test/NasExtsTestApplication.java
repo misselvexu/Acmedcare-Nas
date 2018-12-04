@@ -1,5 +1,9 @@
 package com.acmedcare.nas.client.test;
 
+import com.acmedcare.nas.api.NasFileService;
+import com.acmedcare.nas.exts.api.NasExts;
+import com.acmedcare.nas.exts.api.NasServiceFactory;
+
 /**
  * Nas Exts Test Application
  *
@@ -10,7 +14,7 @@ public class NasExtsTestApplication {
 
   public static void main(String[] args) {
 
-    // TODO
-
+    NasFileService nasFileService = NasServiceFactory.getNasFileService(NasExts.QINIU);
+    System.out.println(nasFileService);
   }
 }
