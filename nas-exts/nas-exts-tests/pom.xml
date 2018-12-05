@@ -36,6 +36,11 @@
         </dependency>
 
         <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.acmedcare.nas</groupId>
             <artifactId>nas-exts-api</artifactId>
         </dependency>

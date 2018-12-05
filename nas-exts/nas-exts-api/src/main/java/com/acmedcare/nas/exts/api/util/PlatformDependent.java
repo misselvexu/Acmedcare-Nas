@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class PlatformDependent {
 
-  private static final Logger logger = LoggerFactory.getLogger(SystemPropertyUtil.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SystemPropertyUtil.class);
 
   /**
    * is android os system
@@ -22,7 +22,7 @@ public final class PlatformDependent {
     String vmName = SystemPropertyUtil.get("java.vm.name");
     boolean isAndroid = "Dalvik".equals(vmName);
     if (isAndroid) {
-      logger.debug("Platform: Android");
+      LOGGER.debug("Platform: Android");
     }
 
     return isAndroid;

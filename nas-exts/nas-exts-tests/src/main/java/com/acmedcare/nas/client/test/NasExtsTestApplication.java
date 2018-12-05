@@ -19,14 +19,8 @@ public class NasExtsTestApplication {
 
     NasPropertiesLoader nasPropertiesLoader =
         NasServiceFactory.getNasPropertiesLoader(NasExtType.QINIU);
-
-    System.out.println(nasPropertiesLoader);
-    System.out.println(nasPropertiesLoader.propertyFileName());
     NasProperties nasProperties = (NasProperties) nasPropertiesLoader.loadProperties(null);
-    System.out.println(nasProperties);
-
     QiNiuProperties qiNiuProperties = nasProperties.decodePropertiesBean(QiNiuProperties.class);
-    System.out.println(qiNiuProperties);
 
     NasFileService nasFileService = NasServiceFactory.getNasFileService(NasExtType.QINIU);
     System.out.println(nasFileService);

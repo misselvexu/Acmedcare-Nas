@@ -48,4 +48,21 @@ public class QiNiuProperties extends AutoConfigureProperties implements Serializ
   protected String getPropertiesPrefix() {
     return "qiniu";
   }
+
+  @Override
+  public String toString() {
+    String sb =
+        "QiNiuProperties{"
+            + "accessKey='"
+            + accessKey
+            + '\''
+            + ", secretKey='"
+            + secretKey
+            + '\''
+            + ", bucketName='"
+            + bucketName
+            + '\''
+            + '}';
+    return sb;
+  }
 }

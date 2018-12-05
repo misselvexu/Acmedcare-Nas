@@ -6,6 +6,11 @@ import com.acmedcare.nas.api.ProgressCallback;
 import com.acmedcare.nas.api.entity.ResponseEntity;
 import com.acmedcare.nas.api.entity.UploadEntity;
 import com.acmedcare.nas.api.exception.NasException;
+import com.acmedcare.nas.exts.api.NasExtType;
+import com.acmedcare.nas.exts.api.NasProperties;
+import com.acmedcare.nas.exts.api.NasServiceFactory;
+import com.acmedcare.nas.exts.api.properties.NasPropertiesLoader;
+import com.acmedcare.nas.exts.api.util.StringUtils;
 import java.io.File;
 
 /**
@@ -16,6 +21,18 @@ import java.io.File;
  */
 @Extension("qiniu")
 public class QiNiuNasFileClient implements NasFileService {
+
+  private QiNiuProperties qiNiuProperties;
+
+  private QiNiuProperties nasProperties() {
+    if (qiNiuProperties == null) {
+      NasPropertiesLoader nasPropertiesLoader =
+          NasServiceFactory.getNasPropertiesLoader(NasExtType.QINIU);
+      NasProperties nasProperties = (NasProperties) nasPropertiesLoader.loadProperties(null);
+      qiNiuProperties = nasProperties.decodePropertiesBean(QiNiuProperties.class);
+    }
+    return qiNiuProperties;
+  }
 
   /**
    * Upload a new file
@@ -31,6 +48,9 @@ public class QiNiuNasFileClient implements NasFileService {
   public UploadEntity upload(
       String fileName, String fileSuffix, File file, ProgressCallback uploadProgressCallback)
       throws NasException {
+
+    // TODO UPLOAD FILE
+
     return null;
   }
 
@@ -48,7 +68,12 @@ public class QiNiuNasFileClient implements NasFileService {
   public UploadEntity upload(
       String fileName, String fileSuffix, String filePath, ProgressCallback uploadProgressCallback)
       throws NasException {
-    return null;
+
+    if (!StringUtils.hasText(filePath)) {
+      throw new NasException("filepath must be null or empty.");
+    }
+
+    return upload(fileName, fileSuffix, new File(filePath), uploadProgressCallback);
   }
 
   /**

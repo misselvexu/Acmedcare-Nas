@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @version ${project.version} - 2018-12-05.
  */
 public final class SystemPropertyUtil {
-  private static final Logger logger = LoggerFactory.getLogger(SystemPropertyUtil.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SystemPropertyUtil.class);
 
   private SystemPropertyUtil() {}
 
@@ -46,7 +46,7 @@ public final class SystemPropertyUtil {
                       });
         }
       } catch (SecurityException var4) {
-        logger.warn(
+        LOGGER.warn(
             "Unable to retrieve a system property '{}'; default values will be used.", key, var4);
       }
 
@@ -64,7 +64,7 @@ public final class SystemPropertyUtil {
         return def;
       } else if (!"true".equals(value) && !"yes".equals(value) && !"1".equals(value)) {
         if (!"false".equals(value) && !"no".equals(value) && !"0".equals(value)) {
-          logger.warn(
+          LOGGER.warn(
               "Unable to parse the boolean system property '{}':{} - using the default value: {}",
               new Object[] {key, value, def});
           return def;
@@ -87,7 +87,7 @@ public final class SystemPropertyUtil {
       try {
         return Integer.parseInt(value);
       } catch (Exception var4) {
-        logger.warn(
+        LOGGER.warn(
             "Unable to parse the integer system property '{}':{} - using the default value: {}",
             new Object[] {key, value, def});
         return def;
@@ -105,7 +105,7 @@ public final class SystemPropertyUtil {
       try {
         return Long.parseLong(value);
       } catch (Exception var5) {
-        logger.warn(
+        LOGGER.warn(
             "Unable to parse the long integer system property '{}':{} - using the default value: {}",
             new Object[] {key, value, def});
         return def;
