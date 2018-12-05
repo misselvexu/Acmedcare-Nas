@@ -3,3 +3,4 @@
 qiniu.access-key=
 qiniu.secret-key=
 qiniu.bucket-name=
+qiniu.public-url=

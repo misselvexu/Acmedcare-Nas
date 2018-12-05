@@ -24,5 +24,8 @@ public class NasExtsTestApplication {
 
     NasFileService nasFileService = NasServiceFactory.getNasFileService(NasExtType.QINIU);
     System.out.println(nasFileService);
+    nasFileService.upload(
+        "CONTRIBUTING", "md", "/Users/ive/git-acmedcare/Acmedcare-Nas/LICENSE", null);
+    //nasFileService.download("CONTRIBUTING.md", "/tmp/CONTRIBUTING.md");
   }
 }

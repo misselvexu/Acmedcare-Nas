@@ -20,6 +20,16 @@ public class QiNiuProperties extends AutoConfigureProperties implements Serializ
 
   @PropertiesKey private String bucketName;
 
+  @PropertiesKey private String publicUrl;
+
+  public String getPublicUrl() {
+    return publicUrl;
+  }
+
+  public void setPublicUrl(String publicUrl) {
+    this.publicUrl = publicUrl;
+  }
+
   public String getAccessKey() {
     return accessKey;
   }
@@ -61,6 +71,9 @@ public class QiNiuProperties extends AutoConfigureProperties implements Serializ
             + '\''
             + ", bucketName='"
             + bucketName
+            + '\''
+            + ", publicUrl='"
+            + publicUrl
             + '\''
             + '}';
     return sb;
