@@ -2,6 +2,7 @@ package com.acmedcare.nas.exts.api;
 
 import com.acmedcare.nas.exts.api.properties.AutoConfigureProperties;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Properties;
 
 /**
@@ -22,6 +23,9 @@ public class NasProperties extends Properties implements Serializable {
    * @return instance of assigned bean
    */
   public <T> T decodePropertiesBean(Class<? extends AutoConfigureProperties> aClass) {
+
+    Field[] fields = aClass.getDeclaredFields();
+
     return null;
   }
 }

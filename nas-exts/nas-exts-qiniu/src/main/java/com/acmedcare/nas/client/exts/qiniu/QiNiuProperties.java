@@ -24,12 +24,24 @@ public class QiNiuProperties extends AutoConfigureProperties implements Serializ
     return accessKey;
   }
 
+  public void setAccessKey(String accessKey) {
+    this.accessKey = accessKey;
+  }
+
   public String getSecretKey() {
     return secretKey;
   }
 
+  public void setSecretKey(String secretKey) {
+    this.secretKey = secretKey;
+  }
+
   public String getBucketName() {
     return bucketName;
+  }
+
+  public void setBucketName(String bucketName) {
+    this.bucketName = bucketName;
   }
 
   @Override
