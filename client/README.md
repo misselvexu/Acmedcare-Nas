@@ -1,4 +1,7 @@
-## Nas客户端使用
+# Nas客户端
+
+
+## Java 客户端使用
 
 ### Maven 依赖
 
@@ -67,3 +70,40 @@ JSON & Bean Defined
 }
 
 ``` 
+
+## Http Javascript客户端使用
+
+> 基于标准的 `multipart/form-data` 表单上传方式
+----
+
+> Request
+```
+URL:      http://192.168.1.226:18848/acmedcare-nas/nas/submit
+Header:   
+    NAS-APPID: WEB-CLIENT-ID
+    NAS-APPKEY: WEB-CLIENT-KEY
+Method:   POST 
+```
+
+> Response
+
+- 成功
+状态码: 201
+返回值:
+```json
+
+{
+    "code": 0,   // 0-成功
+    "data": {
+        "fid": "2,0d11de6664", // 文件唯一标识 
+        "fileName": "china-map.jpg",  // 文件名称
+        "size": 2441427,        // 文件大小
+        "eTag": "b0e1e8f8",       
+        "fileUrl": "http://192.168.1.226:18848/acmedcare-nas/nas/2,0d11de6664"  // 文件访问路径
+    }
+}
+
+
+```
+
+
