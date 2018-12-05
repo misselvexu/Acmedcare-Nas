@@ -22,13 +22,13 @@
 <dependency>
     <groupId>com.acmedcare.nas</groupId>
     <artifactId>nas-api</artifactId>
-    <version>2.1.0-RC1</version>
+    <version>RELEASE</version>
 </dependency>
 
 <dependency>
     <groupId>com.acmedcare.nas</groupId>
     <artifactId>nas-exts-api</artifactId>
-    <version>2.1.0-RC1</version>
+    <version>RELEASE</version>
 </dependency>
 
 ```
@@ -50,7 +50,7 @@
 <dependency>
     <groupId>com.acmedcare.nas</groupId>
     <artifactId>nas-exts-qiniu</artifactId>
-    <version>2.1.0-RC1</version>
+    <version>RELEASE</version>
 </dependency>
 ```
 - Lib

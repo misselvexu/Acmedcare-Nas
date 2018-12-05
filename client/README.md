@@ -7,20 +7,20 @@
 <dependency>
     <groupId>com.acmedcare.nas</groupId>
     <artifactId>nas-api</artifactId>
-    <version>2.1.0-RC1</version>
+    <version>RELEASE</version>
 </dependency>
 
 <dependency>
     <groupId>com.acmedcare.nas</groupId>
     <artifactId>nas-client</artifactId>
-    <version>2.1.0-RC1</version>
+    <version>RELEASE</version>
 </dependency>
 
 ```
 
 ### 下载依赖文件
 
-> 2.1.0-RC1
+> 2.1.1.BUILD-SNAPSHOT
 ------
 - [Nas Api](http://115.29.47.72:8082/acmedback/Acmedcare-NewIM/uploads/f88083eafe55aac197b4416a94475f17/nas-api-2.1.0.BUILD-20181202.063950-1.jar)
 - [Nas Client](http://115.29.47.72:8082/acmedback/Acmedcare-NewIM/uploads/6f5561a643f2466ffa8181922b281734/nas-client-2.1.0.BUILD-20181202.063952-1.jar)

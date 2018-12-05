@@ -6,7 +6,7 @@ Acmedcare+ Distribution Storage System
 
 #### Download
 
-> 2.1.0-RC1
+> 2.1.1.BUILD-SNAPSHOT
 
 ----
 
