@@ -38,9 +38,9 @@ Acmedcare+ Distribution Storage System
 ### Nas Ext Proxy
 Nas Proxy for client to use, current implements:
 
--[x] Acmedcare Nas OSS  (@see guide [README.md](client/README.md))
--[x] QiNiu OSS (@see guide [README.md](nas-exts/README.md))
--[ ] Aliyun OSS
+- [x] Acmedcare Nas OSS  (@see guide [README.md](client/README.md))
+- [x] QiNiu OSS (@see guide [README.md](nas-exts/README.md))
+- [ ] Aliyun OSS
 
 
 ### Nas Endpoint
