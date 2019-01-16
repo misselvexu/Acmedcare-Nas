@@ -403,6 +403,7 @@
         <module>client</module>
         <module>common</module>
         <module>console</module>
+        <module>ftp</module>
         <module>server</module>
         <module>distribution</module>
         <module>test</module>

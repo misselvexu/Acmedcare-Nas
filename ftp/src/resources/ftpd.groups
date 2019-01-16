@@ -1,0 +1,39 @@
+# group definition
+# in AnomicFTPD we assign every user (see ftpd.accounts) to a group
+# the group defines the home path and access rights of users that
+# are assigned to a specific group.
+# The access rights can also grant execution rights, which in general
+# enables the SITE command for users of that group.
+#
+# the syntax of the definitions here is:
+#
+# <group_name>='{'<path_assignment>(','<path_assignment>)*'}'
+# <path_assignment>=<ftp_path>':'<'r'|'-'><'w'|'-'><'x'|'-'>':'<server_path>
+#
+# this defines read (r), write (x) or execution (x) rights for ftp paths.
+# Multiple paths can be defined and listed using a comma to separate the path assignments
+# This can be used to show the client a completely different directory structure
+# as exists on the ftp server. It is also possible to share sub-paths of the
+# ftp client directory structure for different gorups.
+#
+# the old syntax for a single root path
+# <group_name>=<'r'|'-'><'w'|'-'><'x'|'-'>','<UU>':'<DD>','<root_path>
+# is deprecated but still supported.
+
+# IMPORTANT!
+# IN PRODUCTION, DELETE THESE EXAMPLES AND DEFINE YOUR OWN GROUPS AND ACCOUNTS
+# TO PREVENT THAT UNWANTED CLIENTS CAN ACCESS YOUR COMPUTER
+# THROUGH THE STANDARD SETTINGS!
+
+# general example groups
+# the next path declarations are valid for unix-based (UNIX, LINUX, Mac OS X) OS'
+# they are also valid for Mac OS8/OS9 systems
+usergroup={/:rw-:/Users/misselvexu/Documents/acmedcare.gitlab.com/Acmedcare-Nas/ftp.dir/pri}
+#usergroupmultipathmatch={/:r--:/Users/admin/Documents,/pub:rw-:/Users/admin/Public}
+guestgroup={/:r--:/Users/misselvexu/Documents/acmedcare.gitlab.com/Acmedcare-Nas/ftp.dir/pub}
+
+# special example groups
+# the following path declarations are valid for DOS-bases (any Windows) systems
+# IMPORTANT: Windows-Paths must have a double-backslash (its an escape in java)
+#windowsusergroup={/:rw-:C:\\}
+#windowsguestgroup={/:r--:C:\\pub}
