@@ -28,12 +28,12 @@
 # general example groups
 # the next path declarations are valid for unix-based (UNIX, LINUX, Mac OS X) OS'
 # they are also valid for Mac OS8/OS9 systems
-usergroup={/:rw-:/Users/misselvexu/Documents/acmedcare.gitlab.com/Acmedcare-Nas/ftp.dir/pri}
-#usergroupmultipathmatch={/:r--:/Users/admin/Documents,/pub:rw-:/Users/admin/Public}
-guestgroup={/:r--:/Users/misselvexu/Documents/acmedcare.gitlab.com/Acmedcare-Nas/ftp.dir/pub}
+usergroup={/:rw-:/}
+usergroupmultipathmatch={/:r--:/Users/admin/Documents,/pub:rw-:/Users/admin/Public}
+guestgroup={/:r--:/pub}
 
 # special example groups
 # the following path declarations are valid for DOS-bases (any Windows) systems
 # IMPORTANT: Windows-Paths must have a double-backslash (its an escape in java)
-#windowsusergroup={/:rw-:C:\\}
-#windowsguestgroup={/:r--:C:\\pub}
+windowsusergroup={/:rw-:C:\\}
+windowsguestgroup={/:r--:C:\\pub}

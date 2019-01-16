@@ -14,7 +14,7 @@
 
 # demo accounts for Linux and Max OS
 bob=usergroup,123password
-#bobm=usergroupmultipathmatch,123password
+bobm=usergroupmultipathmatch,123password
 
 # demo accounts for Windows
 jim=windowsusergroup,456password
