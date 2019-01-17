@@ -34,3 +34,4 @@ slave.data/
 tmp-files/
 
 *.log
+ftp.dir/

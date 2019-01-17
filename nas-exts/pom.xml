@@ -33,6 +33,7 @@
         <module>nas-exts-api</module>
         <module>nas-exts-default</module>
         <module>nas-exts-qiniu</module>
+        <module>nas-exts-ftp</module>
 
         <!-- exts tests module -->
         <module>nas-exts-tests</module>

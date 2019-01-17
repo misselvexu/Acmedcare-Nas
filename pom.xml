@@ -325,61 +325,6 @@
             </build>
         </profile>
         <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>it-test</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.19.1</version>
-                        <configuration>
-                            <argLine>@{failsafeArgLine}</argLine>
-                            <argLine>-Dnas.standalone=true</argLine>
-                            <includes>
-                                <include>**/*ITCase.java</include>
-                            </includes>
-                            <excludes>
-                                <exclude>**/RestAPI_ITCase.java</exclude>
-                            </excludes>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>sonar-apache</id>
             <properties>
                 <!-- URL of the ASF SonarQube server -->
@@ -392,7 +337,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.1</version>
             </plugin>
         </plugins>
     </reporting>
@@ -403,6 +347,8 @@
         <module>client</module>
         <module>common</module>
         <module>console</module>
+        <module>ftp</module>
+        <module>ftp-cluster</module>
         <module>server</module>
         <module>distribution</module>
         <module>test</module>
