@@ -34,7 +34,7 @@ import java.util.UUID;
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"ALL"})
 public class FileHandler {
 
   private final FTPConnection con;
@@ -195,7 +195,9 @@ public class FileHandler {
     if (args.length > 0) {
       file = getFile(args[0]);
       int i = args[0].lastIndexOf('.');
-      if (i > 0) ext = args[0].substring(i);
+      if (i > 0) {
+        ext = args[0].substring(i);
+      }
     }
 
     while (file != null && fs.exists(file)) {
@@ -244,19 +246,14 @@ public class FileHandler {
   private void list(String[] args) throws IOException {
     con.sendResponse(150, "Sending file list...");
 
-    // "-l" is not present in any specification, but chrome uses it
-    // TODO remove this when the bug gets fixed
-    // https://bugs.chromium.org/p/chromium/issues/detail?id=706905
-    Object dir = args.length > 0 && !args[0].equals("-l") ? getFile(args[0]) : cwd;
-
-    if (!fs.isDirectory(dir)) {
+    if (!fs.isDirectory(cwd)) {
       con.sendResponse(550, "Not a directory");
       return;
     }
 
     StringBuilder data = new StringBuilder();
 
-    for (Object file : fs.listFiles(dir)) {
+    for (Object file : fs.listFiles(cwd)) {
       data.append(Utils.format(fs, file));
     }
 
@@ -267,19 +264,14 @@ public class FileHandler {
   private void nlst(String[] args) throws IOException {
     con.sendResponse(150, "Sending file list...");
 
-    // "-l" is not present in any specification, but chrome uses it
-    // TODO remove this when the bug gets fixed
-    // https://bugs.chromium.org/p/chromium/issues/detail?id=706905
-    Object dir = args.length > 0 && !args[0].equals("-l") ? getFile(args[0]) : cwd;
-
-    if (!fs.isDirectory(dir)) {
+    if (!fs.isDirectory(cwd)) {
       con.sendResponse(550, "Not a directory");
       return;
     }
 
     StringBuilder data = new StringBuilder();
 
-    for (Object file : fs.listFiles(dir)) {
+    for (Object file : fs.listFiles(cwd)) {
       data.append(fs.getName(file)).append("\r\n");
     }
 
@@ -443,7 +435,9 @@ public class FileHandler {
         byte[] digest = fs.getDigest(file, "MD5");
         String md5 = DatatypeConverter.printHexBinary(digest);
 
-        if (response.length() > 0) response.append(", ");
+        if (response.length() > 0) {
+          response.append(", ");
+        }
         response.append(path).append(" ").append(md5);
       }
 

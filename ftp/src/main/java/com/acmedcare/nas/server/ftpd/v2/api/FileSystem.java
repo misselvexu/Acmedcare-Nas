@@ -27,7 +27,7 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-public interface FileSystem<F extends Object> {
+public interface FileSystem<F> {
 
   /**
    * Retrieves the root file object
