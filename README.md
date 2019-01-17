@@ -2,7 +2,11 @@
 
 Acmedcare+ Distribution Storage System
 
-### Environmental deployment
+### Architecture
+
+<img src="Acmedcare-NAS.jpg" width="50%" height="50%" />
+
+### Environment deployment
 
 #### Download
 
