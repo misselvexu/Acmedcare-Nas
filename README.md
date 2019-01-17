@@ -2,7 +2,7 @@
 
 Acmedcare+ Distribution Storage System
 
-### Environmental deployment
+### Environment deployment
 
 #### Download
 
