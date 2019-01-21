@@ -354,6 +354,7 @@
         <module>test</module>
         <module>nas-fs</module>
         <module>nas-exts</module>
+        <module>sync</module>
     </modules>
 
     <!-- 所有的子项目默认依赖 -->
