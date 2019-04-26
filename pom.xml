@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <inceptionYear>2018</inceptionYear>
@@ -354,6 +354,8 @@
         <module>test</module>
         <module>nas-fs</module>
         <module>nas-exts</module>
+        <module>spring</module>
+        <module>samples</module>
     </modules>
 
     <!-- 所有的子项目默认依赖 -->
@@ -415,6 +417,13 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>nas-test</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.acmedcare.nas</groupId>
+                <artifactId>nas-spring</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
 
             <dependency>
