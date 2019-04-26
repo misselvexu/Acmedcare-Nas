@@ -58,6 +58,7 @@
         <!-- Maven properties -->
         <maven.test.skip>false</maven.test.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
+        <spring-boot.version>2.0.5.RELEASE</spring-boot.version>
         <!-- Compiler settings properties -->
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
@@ -423,6 +424,13 @@
             <dependency>
                 <groupId>com.acmedcare.nas</groupId>
                 <artifactId>nas-spring</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.acmedcare.nas</groupId>
+                <artifactId>nas-exts-parent</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>
