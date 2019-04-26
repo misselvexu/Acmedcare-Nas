@@ -19,10 +19,10 @@ import org.junit.Test;
 public class NasClientTest {
 
   private NasClient nasClient;
-  private String fileName = "china-map";
-  private String fileSuffix = "jpg";
+  private String fileName = "acmed";
+  private String fileSuffix = "xml";
   private String filePath =
-      "/Users/ive/git-acmedcare/Acmedcare-Nas/client/src/test/resources/china-map.jpg";
+      "/Users/misselvexu/Documents/acmedcare.gitlab.com/Acmedcare-Nas/client/src/test/resources/acmed.xml";
 
   private String destFilePath =
       "/Users/ive/git-acmedcare/Acmedcare-Nas/client/src/test/resources/downloaded-china-map-1.jpg";
@@ -30,7 +30,7 @@ public class NasClientTest {
   @Before
   public void init() {
     NasProperties nasProperties = new NasProperties();
-    nasProperties.setServerAddrs(Lists.newArrayList("192.168.1.226:18848"));
+    nasProperties.setServerAddrs(Lists.newArrayList("47.97.26.165:18848"));
     nasProperties.setHttps(false);
     nasProperties.setAppId("nas-app-id");
     nasProperties.setAppKey("nas-app-key");
