@@ -10,13 +10,13 @@
 <dependency>
     <groupId>com.acmedcare.nas</groupId>
     <artifactId>nas-api</artifactId>
-    <version>RELEASE</version>
+    <version>2.1.1.BUILD-SNAPSHOT</version>
 </dependency>
 
 <dependency>
     <groupId>com.acmedcare.nas</groupId>
     <artifactId>nas-client</artifactId>
-    <version>RELEASE</version>
+    <version>2.1.1.BUILD-SNAPSHOT</version>
 </dependency>
 
 ```
