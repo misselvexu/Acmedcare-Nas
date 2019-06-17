@@ -64,10 +64,12 @@ public class DefaultFtpReply implements FtpReply {
     return message;
   }
 
+  @Override
   public long getSentTime() {
     return sentTime;
   }
 
+  @Override
   public boolean isPositive() {
     return code < 400;
   }
