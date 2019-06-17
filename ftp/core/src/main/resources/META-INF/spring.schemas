@@ -14,4 +14,4 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-http\://mina.apache.org/ftpserver/ftpserver-1.0.xsd=../com/acmedcare/nas/ftp/server/config/spring/ftpserver-1.0.xsd
+http\://developer.acmedcare.com/ftpserver/ftpserver-1.0.xsd=com/acmedcare/nas/ftp/server/config/spring/ftpserver-1.0.xsd

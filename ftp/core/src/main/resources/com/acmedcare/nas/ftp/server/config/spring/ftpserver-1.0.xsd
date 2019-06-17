@@ -15,7 +15,8 @@
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:beans="http://www.springframework.org/schema/beans" elementFormDefault="qualified"
-           targetNamespace="http://mina.apache.org/ftpserver/spring/v1" xmlns="http://mina.apache.org/ftpserver/spring/v1">
+           targetNamespace="http://developer.acmedcare.com/ftpserver/spring/v1"
+           xmlns="http://developer.acmedcare.com/ftpserver/spring/v1">
 
     <!-- Import the Spring beans XML schema -->
     <xs:import namespace="http://www.springframework.org/schema/beans"
