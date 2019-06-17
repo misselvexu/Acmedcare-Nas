@@ -1,22 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 package com.acmedcare.nas.ftp.server;
 
 import com.acmedcare.nas.ftp.server.impl.DefaultDataConnectionConfiguration;
@@ -54,18 +35,25 @@ public class DataConnectionConfigurationFactory {
   private boolean implicitSsl;
 
   /**
-   * Create a {@link DataConnectionConfiguration} instance based on the
-   * configuration on this factory
+   * Create a {@link DataConnectionConfiguration} instance based on the configuration on this
+   * factory
    *
    * @return The {@link DataConnectionConfiguration} instance
    */
   public DataConnectionConfiguration createDataConnectionConfiguration() {
     checkValidAddresses();
-    return new DefaultDataConnectionConfiguration(idleTime,
-        ssl, activeEnabled, activeIpCheck,
-        activeLocalAddress, activeLocalPort,
-        passiveAddress, passivePorts,
-        passiveExternalAddress, passiveIpCheck, implicitSsl);
+    return new DefaultDataConnectionConfiguration(
+        idleTime,
+        ssl,
+        activeEnabled,
+        activeIpCheck,
+        activeLocalAddress,
+        activeLocalPort,
+        passiveAddress,
+        passivePorts,
+        passiveExternalAddress,
+        passiveIpCheck,
+        implicitSsl);
   }
 
   /*
@@ -96,7 +84,6 @@ public class DataConnectionConfigurationFactory {
    *
    * @param idleTime The maximum idle time
    */
-
   public void setIdleTime(int idleTime) {
     this.idleTime = idleTime;
   }
@@ -192,19 +179,16 @@ public class DataConnectionConfigurationFactory {
   }
 
   /**
-   * Get the passive address that will be returned to clients on the PASV
-   * command.
+   * Get the passive address that will be returned to clients on the PASV command.
    *
-   * @return The passive address to be returned to clients, null if not
-   * configured.
+   * @return The passive address to be returned to clients, null if not configured.
    */
   public String getPassiveExternalAddress() {
     return passiveExternalAddress;
   }
 
   /**
-   * Set the passive address that will be returned to clients on the PASV
-   * command.
+   * Set the passive address that will be returned to clients on the PASV command.
    *
    * @param passiveExternalAddress The passive address to be returned to clients
    */
@@ -213,33 +197,29 @@ public class DataConnectionConfigurationFactory {
   }
 
   /**
-   * Tells whether or not IP address check is performed when accepting a
-   * passive data connection.
+   * Tells whether or not IP address check is performed when accepting a passive data connection.
    *
-   * @return <code>true</code>, if the IP address checking is enabled;
-   * <code>false</code>, otherwise. A value of <code>true</code> means
-   * that site to site transfers are disabled. In other words, a
-   * passive data connection MUST be made from the same IP address
-   * that issued the PASV command.
+   * @return <code>true</code>, if the IP address checking is enabled; <code>false</code>,
+   *     otherwise. A value of <code>true</code> means that site to site transfers are disabled. In
+   *     other words, a passive data connection MUST be made from the same IP address that issued
+   *     the PASV command.
    */
   public boolean isPassiveIpCheck() {
     return passiveIpCheck;
   }
 
   /**
-   * Sets whether or not IP check is performed before accepting a passive data
-   * connection.
+   * Sets whether or not IP check is performed before accepting a passive data connection.
    *
-   * @param passiveIpCheck whether or not IP check is performed before accepting a
-   *                       passive data connection.
+   * @param passiveIpCheck whether or not IP check is performed before accepting a passive data
+   *     connection.
    */
   public void setPassiveIpCheck(boolean passiveIpCheck) {
     this.passiveIpCheck = passiveIpCheck;
   }
 
   /**
-   * Get passive data port. Data port number zero (0) means that any available
-   * port will be used.
+   * Get passive data port. Data port number zero (0) means that any available port will be used.
    *
    * @return A passive port to use
    */
@@ -248,8 +228,7 @@ public class DataConnectionConfigurationFactory {
     int loopTimes = 2;
     Thread currThread = Thread.currentThread();
 
-    while ((dataPort == -1) && (--loopTimes >= 0)
-        && (!currThread.isInterrupted())) {
+    while ((dataPort == -1) && (--loopTimes >= 0) && (!currThread.isInterrupted())) {
 
       // search for a free port
       dataPort = passivePorts.reserveNextPort();
@@ -276,24 +255,23 @@ public class DataConnectionConfigurationFactory {
   }
 
   /**
-   * Set the passive ports to be used for data connections. Ports can be
-   * defined as single ports, closed or open ranges. Multiple definitions can
-   * be separated by commas, for example:
+   * Set the passive ports to be used for data connections. Ports can be defined as single ports,
+   * closed or open ranges. Multiple definitions can be separated by commas, for example:
+   *
    * <ul>
-   * <li>2300 : only use port 2300 as the passive port</li>
-   * <li>2300-2399 : use all ports in the range</li>
-   * <li>2300- : use all ports larger than 2300</li>
-   * <li>2300, 2305, 2400- : use 2300 or 2305 or any port larger than 2400</li>
+   *   <li>2300 : only use port 2300 as the passive port
+   *   <li>2300-2399 : use all ports in the range
+   *   <li>2300- : use all ports larger than 2300
+   *   <li>2300, 2305, 2400- : use 2300 or 2305 or any port larger than 2400
    * </ul>
-   * <p>
-   * Defaults to using any available port
+   *
+   * <p>Defaults to using any available port
    *
    * @param passivePorts The passive ports string
    */
   public void setPassivePorts(String passivePorts) {
     this.passivePorts = new PassivePorts(passivePorts, true);
   }
-
 
   /**
    * Release data port
@@ -324,9 +302,7 @@ public class DataConnectionConfigurationFactory {
     this.ssl = ssl;
   }
 
-  /**
-   * @return True if ssl is mandatory for the data connection
-   */
+  /** @return True if ssl is mandatory for the data connection */
   public boolean isImplicitSsl() {
     return implicitSsl;
   }

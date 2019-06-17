@@ -45,12 +45,14 @@ public class DefaultConnectionConfig implements ConnectionConfig {
     this(true, 500, 10, 10, 3, 0);
   }
 
-  /**
-   * Internal constructor, do not use directly. Use {@link ConnectionConfigFactory} instead
-   */
-  public DefaultConnectionConfig(boolean anonymousLoginEnabled,
-                                 int loginFailureDelay, int maxLogins, int maxAnonymousLogins,
-                                 int maxLoginFailures, int maxThreads) {
+  /** Internal constructor, do not use directly. Use {@link ConnectionConfigFactory} instead */
+  public DefaultConnectionConfig(
+      boolean anonymousLoginEnabled,
+      int loginFailureDelay,
+      int maxLogins,
+      int maxAnonymousLogins,
+      int maxLoginFailures,
+      int maxThreads) {
     this.anonymousLoginEnabled = anonymousLoginEnabled;
     this.loginFailureDelay = loginFailureDelay;
     this.maxLogins = maxLogins;
@@ -59,28 +61,33 @@ public class DefaultConnectionConfig implements ConnectionConfig {
     this.maxThreads = maxThreads;
   }
 
+  @Override
   public int getLoginFailureDelay() {
     return loginFailureDelay;
   }
 
+  @Override
   public int getMaxAnonymousLogins() {
     return maxAnonymousLogins;
   }
 
+  @Override
   public int getMaxLoginFailures() {
     return maxLoginFailures;
   }
 
+  @Override
   public int getMaxLogins() {
     return maxLogins;
   }
 
+  @Override
   public boolean isAnonymousLoginEnabled() {
     return anonymousLoginEnabled;
   }
 
+  @Override
   public int getMaxThreads() {
     return maxThreads;
   }
-
 }

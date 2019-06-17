@@ -26,9 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.regex.Pattern;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class SiteTest extends ClientTestTemplate {
 
   private static final String TEST_FILENAME = "test.txt";
@@ -66,7 +64,8 @@ public class SiteTest extends ClientTestTemplate {
     String[] siteReplies = client.getReplyString().split("\r\n");
 
     assertEquals("200-", siteReplies[0]);
-    String pattern = "200 admin           127.0.0.1       " + TIMESTAMP_PATTERN + " " + TIMESTAMP_PATTERN + " ";
+    String pattern =
+        "200 admin           127.0.0.1       " + TIMESTAMP_PATTERN + " " + TIMESTAMP_PATTERN + " ";
 
     assertTrue(Pattern.matches(pattern, siteReplies[1]));
   }
@@ -126,13 +125,12 @@ public class SiteTest extends ClientTestTemplate {
     assertTrue(siteReplies[6], Pattern.matches("File Download Bytes      : 8", siteReplies[6]));
     assertTrue(siteReplies[7], Pattern.matches("Directory Create Number  : 2", siteReplies[7]));
     assertTrue(siteReplies[8], Pattern.matches("Directory Remove Number  : 1", siteReplies[8]));
-    //assertTrue(siteReplies[9], Pattern.matches("Current Logins           : 2", siteReplies[9]));
+    // assertTrue(siteReplies[9], Pattern.matches("Current Logins           : 2", siteReplies[9]));
     assertTrue(siteReplies[10], Pattern.matches("Total Logins             : 3", siteReplies[10]));
     assertTrue(siteReplies[11], Pattern.matches("Current Anonymous Logins : 1", siteReplies[11]));
     assertTrue(siteReplies[12], Pattern.matches("Total Anonymous Logins   : 1", siteReplies[12]));
     assertTrue(siteReplies[13], Pattern.matches("Current Connections      : 2", siteReplies[13]));
-    assertTrue(siteReplies[14], Pattern.matches("200 Total Connections        : 3", siteReplies[14]));
+    assertTrue(
+        siteReplies[14], Pattern.matches("200 Total Connections        : 3", siteReplies[14]));
   }
-
-
 }

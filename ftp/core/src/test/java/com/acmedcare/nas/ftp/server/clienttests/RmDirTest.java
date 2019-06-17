@@ -20,9 +20,7 @@ package com.acmedcare.nas.ftp.server.clienttests;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class RmDirTest extends ClientTestTemplate {
 
   private static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");

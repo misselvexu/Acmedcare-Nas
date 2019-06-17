@@ -30,14 +30,11 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>CDUP &lt;CRLF&gt;</code><br>
  *
- * <code>CDUP &lt;CRLF&gt;</code><br>
- * <p>
- * This command is a special case of CWD, and is included to simplify the
- * implementation of programs for transferring directory trees between operating
- * systems having different syntaxes for naming the parent directory. The reply
- * codes shall be identical to the reply codes of CWD.
+ * <p>This command is a special case of CWD, and is included to simplify the implementation of
+ * programs for transferring directory trees between operating systems having different syntaxes for
+ * naming the parent directory. The reply codes shall be identical to the reply codes of CWD.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -45,11 +42,10 @@ public class CDUP extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(CDUP.class);
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variables
@@ -66,14 +62,25 @@ public class CDUP extends AbstractCommand {
     FtpFile cwd = fsview.getWorkingDirectory();
     if (success) {
       String dirName = cwd.getAbsolutePath();
-      session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-          FtpReply.REPLY_250_REQUESTED_FILE_ACTION_OKAY, "CDUP",
-          dirName, cwd));
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_250_REQUESTED_FILE_ACTION_OKAY,
+              "CDUP",
+              dirName,
+              cwd));
     } else {
-      session.write(LocalizedFileActionFtpReply
-          .translate(session, request, context,
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
               FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-              "CDUP", null, cwd));
+              "CDUP",
+              null,
+              cwd));
     }
   }
 }

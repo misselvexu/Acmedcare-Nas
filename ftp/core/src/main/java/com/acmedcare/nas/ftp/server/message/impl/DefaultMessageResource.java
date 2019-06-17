@@ -34,33 +34,26 @@ import java.util.*;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Class to get FtpServer reply messages. This supports i18n. Basic message
- * search path is:
  *
- * <strong><strong>Internal class, do not use directly.</strong></strong>
- * <p>
- * Custom Language Specific Messages -> Default Language Specific Messages ->
- * Custom Common Messages -> Default Common Messages -> null (not found)
+ * <p>Class to get FtpServer reply messages. This supports i18n. Basic message search path is:
+ *
+ * <p><strong><strong>Internal class, do not use directly.</strong></strong>
+ *
+ * <p>Custom Language Specific Messages -> Default Language Specific Messages -> Custom Common
+ * Messages -> Default Common Messages -> null (not found)
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class DefaultMessageResource implements MessageResource {
 
-  private final Logger LOG = LoggerFactory
-      .getLogger(DefaultMessageResource.class);
-
-  private final static String RESOURCE_PATH = "com/acmedcare/nas/ftp/server/message/";
-
+  private static final String RESOURCE_PATH = "com/acmedcare/nas/ftp/server/message/";
+  private final Logger LOG = LoggerFactory.getLogger(DefaultMessageResource.class);
   private final List<String> languages;
 
   private final Map<String, PropertiesPair> messages;
 
-  /**
-   * Internal constructor, do not use directly. Use {@link MessageResourceFactory} instead.
-   */
-  public DefaultMessageResource(List<String> languages,
-                                File customMessageDirectory) {
+  /** Internal constructor, do not use directly. Use {@link MessageResourceFactory} instead. */
+  public DefaultMessageResource(List<String> languages, File customMessageDirectory) {
     if (languages != null) {
       this.languages = Collections.unmodifiableList(languages);
     } else {
@@ -77,19 +70,9 @@ public class DefaultMessageResource implements MessageResource {
     }
     PropertiesPair pair = createPropertiesPair(null, customMessageDirectory);
     messages.put(null, pair);
-
   }
 
-  private static class PropertiesPair {
-    public Properties defaultProperties = new Properties();
-
-    public Properties customProperties = new Properties();
-  }
-
-  /**
-   * Create Properties pair object. It stores the default and the custom
-   * messages.
-   */
+  /** Create Properties pair object. It stores the default and the custom messages. */
   private PropertiesPair createPropertiesPair(String lang, File customMessageDirectory) {
     PropertiesPair pair = new PropertiesPair();
 
@@ -98,23 +81,25 @@ public class DefaultMessageResource implements MessageResource {
     if (lang == null) {
       defaultResourceName = RESOURCE_PATH + "FtpStatus.properties";
     } else {
-      defaultResourceName = RESOURCE_PATH + "FtpStatus_" + lang
-          + ".properties";
+      defaultResourceName = RESOURCE_PATH + "FtpStatus_" + lang + ".properties";
     }
     InputStream in = null;
     try {
-      in = getClass().getClassLoader().getResourceAsStream(
-          defaultResourceName);
+      in = getClass().getClassLoader().getResourceAsStream(defaultResourceName);
       if (in != null) {
         try {
           pair.defaultProperties.load(in);
         } catch (IOException e) {
           throw new FtpServerConfigurationException(
-              "Failed to load messages from \"" + defaultResourceName + "\", file not found in classpath");
+              "Failed to load messages from \""
+                  + defaultResourceName
+                  + "\", file not found in classpath");
         }
       } else {
         throw new FtpServerConfigurationException(
-            "Failed to load messages from \"" + defaultResourceName + "\", file not found in classpath");
+            "Failed to load messages from \""
+                + defaultResourceName
+                + "\", file not found in classpath");
       }
     } finally {
       IoUtils.close(in);
@@ -125,8 +110,7 @@ public class DefaultMessageResource implements MessageResource {
     if (lang == null) {
       resourceFile = new File(customMessageDirectory, "FtpStatus.gen");
     } else {
-      resourceFile = new File(customMessageDirectory, "FtpStatus_" + lang
-          + ".gen");
+      resourceFile = new File(customMessageDirectory, "FtpStatus_" + lang + ".gen");
     }
     in = null;
     try {
@@ -136,8 +120,7 @@ public class DefaultMessageResource implements MessageResource {
       }
     } catch (Exception ex) {
       LOG.warn("MessageResourceImpl.createPropertiesPair()", ex);
-      throw new FtpServerConfigurationException(
-          "MessageResourceImpl.createPropertiesPair()", ex);
+      throw new FtpServerConfigurationException("MessageResourceImpl.createPropertiesPair()", ex);
     } finally {
       IoUtils.close(in);
     }
@@ -145,9 +128,7 @@ public class DefaultMessageResource implements MessageResource {
     return pair;
   }
 
-  /**
-   * Get all the available languages.
-   */
+  /** Get all the available languages. */
   @Override
   public List<String> getAvailableLanguages() {
     if (languages == null) {
@@ -157,9 +138,7 @@ public class DefaultMessageResource implements MessageResource {
     }
   }
 
-  /**
-   * Get the message. If the message not found, it will return null.
-   */
+  /** Get the message. If the message not found, it will return null. */
   @Override
   public String getMessage(int code, String subId, String language) {
     // find the message key
@@ -196,9 +175,7 @@ public class DefaultMessageResource implements MessageResource {
     return value;
   }
 
-  /**
-   * Get all messages.
-   */
+  /** Get all messages. */
   @Override
   public Map<String, String> getMessages(String language) {
     Properties messages = new Properties();
@@ -227,9 +204,7 @@ public class DefaultMessageResource implements MessageResource {
     return Collections.unmodifiableMap(result);
   }
 
-  /**
-   * Dispose component - clear all maps.
-   */
+  /** Dispose component - clear all maps. */
   public void dispose() {
     Iterator<String> it = messages.keySet().iterator();
     while (it.hasNext()) {
@@ -239,5 +214,11 @@ public class DefaultMessageResource implements MessageResource {
       pair.defaultProperties.clear();
     }
     messages.clear();
+  }
+
+  private static class PropertiesPair {
+    public Properties defaultProperties = new Properties();
+
+    public Properties customProperties = new Properties();
   }
 }

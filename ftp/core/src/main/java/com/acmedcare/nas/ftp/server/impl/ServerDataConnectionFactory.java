@@ -32,60 +32,40 @@ import java.net.InetSocketAddress;
  */
 public interface ServerDataConnectionFactory extends DataConnectionFactory {
 
-  /**
-   * Port command.
-   */
+  /** Port command. */
   void initActiveDataConnection(InetSocketAddress address);
 
   /**
    * Initiate the passive data connection.
    *
-   * @return The {@link InetSocketAddress} on which the data connection if
-   * bound.
+   * @return The {@link InetSocketAddress} on which the data connection if bound.
    */
-  InetSocketAddress initPassiveDataConnection()
-      throws DataConnectionException;
+  InetSocketAddress initPassiveDataConnection() throws DataConnectionException;
 
-  /**
-   * Set the security protocol.
-   */
-  void setSecure(boolean secure);
-
-  /**
-   * Sets the server's control address.
-   */
+  /** Sets the server's control address. */
   void setServerControlAddress(InetAddress serverControlAddress);
 
-  void setZipMode(boolean zip);
-
-  /**
-   * Check the data connection idle status.
-   */
+  /** Check the data connection idle status. */
   boolean isTimeout(long currTime);
 
-  /**
-   * Dispose data connection - close all the sockets.
-   */
+  /** Dispose data connection - close all the sockets. */
   void dispose();
 
-  /**
-   * Is secure?
-   */
+  /** Is secure? */
   @Override
   boolean isSecure();
 
-  /**
-   * Is zip mode?
-   */
+  /** Set the security protocol. */
+  void setSecure(boolean secure);
+
+  /** Is zip mode? */
   boolean isZipMode();
 
-  /**
-   * Get client address.
-   */
+  void setZipMode(boolean zip);
+
+  /** Get client address. */
   InetAddress getInetAddress();
 
-  /**
-   * Get port number.
-   */
+  /** Get port number. */
   int getPort();
 }

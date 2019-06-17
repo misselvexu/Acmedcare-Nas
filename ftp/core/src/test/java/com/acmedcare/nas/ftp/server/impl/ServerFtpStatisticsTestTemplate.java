@@ -23,9 +23,7 @@ import junit.framework.TestCase;
 
 import java.util.Date;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public abstract class ServerFtpStatisticsTestTemplate extends TestCase {
 
   public void testConnectionCount() {
@@ -65,9 +63,7 @@ public abstract class ServerFtpStatisticsTestTemplate extends TestCase {
     Date actual = stats.getStartTime();
 
     assertFalse(1 == actual.getYear());
-
   }
 
   protected abstract DefaultFtpStatistics createStatistics();
-
 }

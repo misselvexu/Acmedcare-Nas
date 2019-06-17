@@ -26,9 +26,7 @@ import javax.net.ssl.KeyManagerFactory;
 import java.io.FileInputStream;
 import java.security.KeyStore;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ExtendedAliasKeymanagerTest extends TestCase {
 
   private KeyManager km;
@@ -37,8 +35,7 @@ public class ExtendedAliasKeymanagerTest extends TestCase {
   protected void setUp() throws Exception {
     KeyStore ks = KeyStore.getInstance("JKS");
 
-    FileInputStream fis = new FileInputStream(
-        "src/test/resources/keymanager-test.jks");
+    FileInputStream fis = new FileInputStream("src/test/resources/keymanager-test.jks");
     ks.load(fis, "".toCharArray());
 
     KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
@@ -69,8 +66,7 @@ public class ExtendedAliasKeymanagerTest extends TestCase {
   }
 
   public void testServerAliasNonExistingKey() throws Exception {
-    ExtendedAliasKeyManager akm = new ExtendedAliasKeyManager(km,
-        "nonexisting");
+    ExtendedAliasKeyManager akm = new ExtendedAliasKeyManager(km, "nonexisting");
 
     assertEquals(null, akm.chooseServerAlias("DSA", null, null));
     assertEquals(null, akm.chooseServerAlias("RSA", null, null));
@@ -98,8 +94,7 @@ public class ExtendedAliasKeymanagerTest extends TestCase {
   }
 
   public void testEngineServerAliasNonExistingKey() throws Exception {
-    ExtendedAliasKeyManager akm = new ExtendedAliasKeyManager(km,
-        "nonexisting");
+    ExtendedAliasKeyManager akm = new ExtendedAliasKeyManager(km, "nonexisting");
 
     assertEquals(null, akm.chooseEngineServerAlias("DSA", null, null));
     assertEquals(null, akm.chooseEngineServerAlias("RSA", null, null));

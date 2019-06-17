@@ -33,12 +33,11 @@ import com.acmedcare.nas.ftp.server.impl.*;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * STAT [&lt;SP&gt; &lt;pathname&gt;] &lt;CRLF&gt;</code><br>
  *
- * <code>STAT [&lt;SP&gt; &lt;pathname&gt;] &lt;CRLF&gt;</code><br>
- * <p>
- * This command shall cause a status response to be sent over the control
- * connection in the form of a reply.
+ * <p>This command shall cause a status response to be sent over the control connection in the form
+ * of a reply.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -48,11 +47,9 @@ public class STAT extends AbstractCommand {
 
   private final DirectoryLister directoryLister = new DirectoryLister();
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {
 
     // reset state variables
@@ -66,14 +63,20 @@ public class STAT extends AbstractCommand {
       try {
         file = session.getFileSystemView().getFile(parsedArg.getFile());
         if (!file.doesExist()) {
-          session.write(LocalizedDataTransferFtpReply.translate(session, request, context,
-              FtpReply.REPLY_450_REQUESTED_FILE_ACTION_NOT_TAKEN, "LIST",
-              null, file));
+          session.write(
+              LocalizedDataTransferFtpReply.translate(
+                  session,
+                  request,
+                  context,
+                  FtpReply.REPLY_450_REQUESTED_FILE_ACTION_NOT_TAKEN,
+                  "LIST",
+                  null,
+                  file));
           return;
         }
 
-        String dirList = directoryLister.listFiles(parsedArg,
-            session.getFileSystemView(), LIST_FILE_FORMATER);
+        String dirList =
+            directoryLister.listFiles(parsedArg, session.getFileSystemView(), LIST_FILE_FORMATER);
 
         int replyCode;
         if (file.isDirectory()) {
@@ -82,26 +85,27 @@ public class STAT extends AbstractCommand {
           replyCode = FtpReply.REPLY_213_FILE_STATUS;
         }
 
-        session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-            replyCode, "STAT",
-            dirList, file));
+        session.write(
+            LocalizedFileActionFtpReply.translate(
+                session, request, context, replyCode, "STAT", dirList, file));
 
       } catch (FtpException e) {
-        session
-            .write(LocalizedFileActionFtpReply
-                .translate(
-                    session,
-                    request,
-                    context,
-                    FtpReply.REPLY_450_REQUESTED_FILE_ACTION_NOT_TAKEN,
-                    "STAT", null, file));
+        session.write(
+            LocalizedFileActionFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_450_REQUESTED_FILE_ACTION_NOT_TAKEN,
+                "STAT",
+                null,
+                file));
       }
 
     } else {
       // write the status info
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_211_SYSTEM_STATUS_REPLY, "STAT", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_211_SYSTEM_STATUS_REPLY, "STAT", null));
     }
   }
-
 }

@@ -17,9 +17,9 @@
  specific language governing permissions and limitations
  under the License. -->
 
-<server id="server" xmlns="http://mina.apache.org/ftpserver/spring/v1"
-        xmlns:beans="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<server xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        id="server"
+        xmlns="http://mina.apache.org/ftpserver/spring/v1"
         xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
 	   http://mina.apache.org/ftpserver/spring/v1 http://mina.apache.org/ftpserver/ftpserver-1.0.xsd	

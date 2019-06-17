@@ -24,14 +24,15 @@ import com.acmedcare.nas.ftp.server.DataConnectionConfigurationFactory;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * Spring {@link FactoryBean} which extends {@link DataConnectionConfigurationFactory}
- * making it easier to use Spring's standard &lt;bean&gt; tag instead of
- * FtpServer's custom XML tags to configure things.
+ * Spring {@link FactoryBean} which extends {@link DataConnectionConfigurationFactory} making it
+ * easier to use Spring's standard &lt;bean&gt; tag instead of FtpServer's custom XML tags to
+ * configure things.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @see DataConnectionConfigurationFactory
  */
-public class DataConnectionConfigurationFactoryBean extends DataConnectionConfigurationFactory implements FactoryBean {
+public class DataConnectionConfigurationFactoryBean extends DataConnectionConfigurationFactory
+    implements FactoryBean {
 
   public Object getObject() throws Exception {
     return createDataConnectionConfiguration();
@@ -44,5 +45,4 @@ public class DataConnectionConfigurationFactoryBean extends DataConnectionConfig
   public boolean isSingleton() {
     return false;
   }
-
 }

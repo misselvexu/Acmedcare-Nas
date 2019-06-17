@@ -24,28 +24,33 @@ import com.acmedcare.nas.ftp.server.ftplet.FtpRequest;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * FTP reply translator.
+ *
+ * <p>FTP reply translator.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class LocalizedFtpReply extends DefaultFtpReply {
 
-  public static LocalizedFtpReply translate(FtpIoSession session, FtpRequest request,
-                                            FtpServerContext context, int code, String subId, String basicMsg) {
-    String msg = FtpReplyTranslator.translateMessage(session, request, context, code, subId,
-        basicMsg);
-
-    return new LocalizedFtpReply(code, msg);
-  }
-
   /**
    * Creates a new instance of <code>LocalizedFtpReply</code>.
    *
-   * @param code    the reply code
+   * @param code the reply code
    * @param message the reply text
    */
   public LocalizedFtpReply(int code, String message) {
     super(code, message);
+  }
+
+  public static LocalizedFtpReply translate(
+      FtpIoSession session,
+      FtpRequest request,
+      FtpServerContext context,
+      int code,
+      String subId,
+      String basicMsg) {
+    String msg =
+        FtpReplyTranslator.translateMessage(session, request, context, code, subId, basicMsg);
+
+    return new LocalizedFtpReply(code, msg);
   }
 }

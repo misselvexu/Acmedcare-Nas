@@ -34,36 +34,29 @@ import java.util.zip.InflaterInputStream;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * An active open data connection, used for transfering data over the data
- * connection.
+ *
+ * <p>An active open data connection, used for transfering data over the data connection.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class IODataConnection implements DataConnection {
 
-  private final Logger LOG = LoggerFactory
-      .getLogger(IODataConnection.class);
-
-
   private static final byte[] EOL = System.getProperty("line.separator").getBytes();
-
+  private final Logger LOG = LoggerFactory.getLogger(IODataConnection.class);
   private final FtpIoSession session;
 
   private final Socket socket;
 
   private final ServerDataConnectionFactory factory;
 
-  public IODataConnection(final Socket socket, final FtpIoSession session,
-                          final ServerDataConnectionFactory factory) {
+  public IODataConnection(
+      final Socket socket, final FtpIoSession session, final ServerDataConnectionFactory factory) {
     this.session = session;
     this.socket = socket;
     this.factory = factory;
   }
 
-  /**
-   * Get data input stream. The return value will never be null.
-   */
+  /** Get data input stream. The return value will never be null. */
   private InputStream getDataInputStream() throws IOException {
     try {
 
@@ -85,9 +78,7 @@ public class IODataConnection implements DataConnection {
     }
   }
 
-  /**
-   * Get data output stream. The return value will never be null.
-   */
+  /** Get data output stream. The return value will never be null. */
   private OutputStream getDataOutputStream() throws IOException {
     try {
 
@@ -112,15 +103,14 @@ public class IODataConnection implements DataConnection {
   /*
    * (non-Javadoc)
    *
-   * @seeorg.apache.ftpserver.FtpDataConnection2#transferFromClient(java.io.
+   * @seecom.acmedcare.nas.ftp.server.FtpDataConnection2#transferFromClient(java.io.
    * OutputStream)
    */
   @Override
-  public final long transferFromClient(FtpSession session,
-                                       final OutputStream out) throws IOException {
+  public final long transferFromClient(FtpSession session, final OutputStream out)
+      throws IOException {
     TransferRateRequest transferRateRequest = new TransferRateRequest();
-    transferRateRequest = (TransferRateRequest) session.getUser()
-        .authorize(transferRateRequest);
+    transferRateRequest = (TransferRateRequest) session.getUser().authorize(transferRateRequest);
     int maxRate = 0;
     if (transferRateRequest != null) {
       maxRate = transferRateRequest.getMaxUploadRate();
@@ -138,15 +128,13 @@ public class IODataConnection implements DataConnection {
    * (non-Javadoc)
    *
    * @see
-   * org.apache.ftpserver.FtpDataConnection2#transferToClient(java.io.InputStream
+   * com.acmedcare.nas.ftp.server.FtpDataConnection2#transferToClient(java.io.InputStream
    * )
    */
   @Override
-  public final long transferToClient(FtpSession session, final InputStream in)
-      throws IOException {
+  public final long transferToClient(FtpSession session, final InputStream in) throws IOException {
     TransferRateRequest transferRateRequest = new TransferRateRequest();
-    transferRateRequest = (TransferRateRequest) session.getUser()
-        .authorize(transferRateRequest);
+    transferRateRequest = (TransferRateRequest) session.getUser().authorize(transferRateRequest);
     int maxRate = 0;
     if (transferRateRequest != null) {
       maxRate = transferRateRequest.getMaxDownloadRate();
@@ -164,12 +152,11 @@ public class IODataConnection implements DataConnection {
    * (non-Javadoc)
    *
    * @see
-   * org.apache.ftpserver.FtpDataConnection2#transferToClient(java.lang.String
+   * com.acmedcare.nas.ftp.server.FtpDataConnection2#transferToClient(java.lang.String
    * )
    */
   @Override
-  public final void transferToClient(FtpSession session, final String str)
-      throws IOException {
+  public final void transferToClient(FtpSession session, final String str) throws IOException {
     OutputStream out = getDataOutputStream();
     Writer writer = null;
     try {
@@ -178,8 +165,7 @@ public class IODataConnection implements DataConnection {
 
       // update session
       if (session instanceof DefaultFtpSession) {
-        ((DefaultFtpSession) session).increaseWrittenDataBytes(str
-            .getBytes("UTF-8").length);
+        ((DefaultFtpSession) session).increaseWrittenDataBytes(str.getBytes("UTF-8").length);
       }
     } finally {
       if (writer != null) {
@@ -187,11 +173,14 @@ public class IODataConnection implements DataConnection {
       }
       IoUtils.close(writer);
     }
-
   }
 
-  private final long transfer(FtpSession session, boolean isWrite,
-                              final InputStream in, final OutputStream out, final int maxRate)
+  private final long transfer(
+      FtpSession session,
+      boolean isWrite,
+      final InputStream in,
+      final OutputStream out,
+      final int maxRate)
       throws IOException {
     long transferredSize = 0L;
 
@@ -268,7 +257,8 @@ public class IODataConnection implements DataConnection {
                 // for reads, we should always get \r\n
                 // so what we do here is to ignore \n bytes
                 // and on \r dump the system local line ending.
-                // Some clients won't transform new lines into \r\n so we make sure we don't delete new lines
+                // Some clients won't transform new lines into \r\n so we make sure we don't delete
+                // new lines
                 if (lastByte != '\r') {
                   bos.write(EOL);
                 }
@@ -307,9 +297,7 @@ public class IODataConnection implements DataConnection {
     return transferredSize;
   }
 
-  /**
-   * Notify connection manager observer.
-   */
+  /** Notify connection manager observer. */
   protected void notifyObserver() {
     session.updateLastAccessTime();
 

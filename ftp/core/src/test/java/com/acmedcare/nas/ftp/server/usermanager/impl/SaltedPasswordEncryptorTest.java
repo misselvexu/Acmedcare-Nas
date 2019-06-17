@@ -22,10 +22,7 @@ package com.acmedcare.nas.ftp.server.usermanager.impl;
 import com.acmedcare.nas.ftp.server.usermanager.PasswordEncryptor;
 import com.acmedcare.nas.ftp.server.usermanager.SaltedPasswordEncryptor;
 
-
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class SaltedPasswordEncryptorTest extends ClearTextPasswordEncryptorTest {
 
   @Override

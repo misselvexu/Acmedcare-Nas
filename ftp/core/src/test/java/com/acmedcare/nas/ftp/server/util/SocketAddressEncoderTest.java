@@ -23,9 +23,7 @@ import junit.framework.TestCase;
 
 import java.net.InetSocketAddress;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class SocketAddressEncoderTest extends TestCase {
 
   public void testEncodeLowPort() {

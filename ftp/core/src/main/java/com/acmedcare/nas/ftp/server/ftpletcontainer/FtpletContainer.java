@@ -24,21 +24,19 @@ import com.acmedcare.nas.ftp.server.ftplet.Ftplet;
 import java.util.Map;
 
 /**
- * Interface describing an Ftplet container. Ftplet containers extend the
- * {@link Ftplet} interface and forward any events to the Ftplets hosted by the
- * container.
+ * Interface describing an Ftplet container. Ftplet containers extend the {@link Ftplet} interface
+ * and forward any events to the Ftplets hosted by the container.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public interface FtpletContainer extends Ftplet {
 
   /**
-   * Retrieve the {@link Ftplet} identified by the name (as provided in the
-   * {@link #addFtplet(String, Ftplet)} method.
+   * Retrieve the {@link Ftplet} identified by the name (as provided in the {@link
+   * #addFtplet(String, Ftplet)} method.
    *
    * @param name The name of the Ftplet to retrive
-   * @return The Ftplet if found, or null if the name is unknown to the
-   * container.
+   * @return The Ftplet if found, or null if the name is unknown to the container.
    */
   Ftplet getFtplet(String name);
 

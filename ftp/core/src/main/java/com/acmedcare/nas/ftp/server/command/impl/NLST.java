@@ -34,32 +34,26 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * NLST [&lt;SP&gt; &lt;pathname&gt;] &lt;CRLF&gt;</code><br>
  *
- * <code>NLST [&lt;SP&gt; &lt;pathname&gt;] &lt;CRLF&gt;</code><br>
- * <p>
- * This command causes a directory listing to be sent from server to user site.
- * The pathname should specify a directory or other system-specific file group
- * descriptor; a null argument implies the current directory. The server will
- * return a stream of names of files and no other information.
+ * <p>This command causes a directory listing to be sent from server to user site. The pathname
+ * should specify a directory or other system-specific file group descriptor; a null argument
+ * implies the current directory. The server will return a stream of names of files and no other
+ * information.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class NLST extends AbstractCommand {
 
-  private final Logger LOG = LoggerFactory.getLogger(NLST.class);
-
   private static final NLSTFileFormater NLST_FILE_FORMATER = new NLSTFileFormater();
-
   private static final LISTFileFormater LIST_FILE_FORMATER = new LISTFileFormater();
-
+  private final Logger LOG = LoggerFactory.getLogger(NLST.class);
   private final DirectoryLister directoryLister = new DirectoryLister();
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     try {
@@ -71,19 +65,20 @@ public class NLST extends AbstractCommand {
       // https://issues.apache.org/jira/browse/FTPSERVER-110
       DataConnectionFactory connFactory = session.getDataConnection();
       if (connFactory instanceof IODataConnectionFactory) {
-        InetAddress address = ((IODataConnectionFactory) connFactory)
-            .getInetAddress();
+        InetAddress address = ((IODataConnectionFactory) connFactory).getInetAddress();
         if (address == null) {
-          session.write(new DefaultFtpReply(
-              FtpReply.REPLY_503_BAD_SEQUENCE_OF_COMMANDS,
-              "PORT or PASV must be issued first"));
+          session.write(
+              new DefaultFtpReply(
+                  FtpReply.REPLY_503_BAD_SEQUENCE_OF_COMMANDS,
+                  "PORT or PASV must be issued first"));
           return;
         }
       }
 
       // get data connection
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_150_FILE_STATUS_OKAY, "NLST", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_150_FILE_STATUS_OKAY, "NLST", null));
 
       // print listing data
       DataConnection dataConnection;
@@ -91,17 +86,21 @@ public class NLST extends AbstractCommand {
         dataConnection = session.getDataConnection().openConnection();
       } catch (Exception e) {
         LOG.debug("Exception getting the output data stream", e);
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_425_CANT_OPEN_DATA_CONNECTION, "NLST",
-            null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_425_CANT_OPEN_DATA_CONNECTION,
+                "NLST",
+                null));
         return;
       }
 
       boolean failure = false;
       try {
         // parse argument
-        ListArgument parsedArg = ListArgumentParser.parse(request
-            .getArgument());
+        ListArgument parsedArg = ListArgumentParser.parse(request.getArgument());
 
         FileFormater formater;
         if (parsedArg.hasOption('l')) {
@@ -110,45 +109,54 @@ public class NLST extends AbstractCommand {
           formater = NLST_FILE_FORMATER;
         }
 
-        dataConnection.transferToClient(session.getFtpletSession(), directoryLister.listFiles(
-            parsedArg, session.getFileSystemView(), formater));
+        dataConnection.transferToClient(
+            session.getFtpletSession(),
+            directoryLister.listFiles(parsedArg, session.getFileSystemView(), formater));
       } catch (SocketException ex) {
         LOG.debug("Socket exception during data transfer", ex);
         failure = true;
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_426_CONNECTION_CLOSED_TRANSFER_ABORTED,
-            "NLST", null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_426_CONNECTION_CLOSED_TRANSFER_ABORTED,
+                "NLST",
+                null));
       } catch (IOException ex) {
         LOG.debug("IOException during data transfer", ex);
         failure = true;
-        session
-            .write(LocalizedFtpReply
-                .translate(
-                    session,
-                    request,
-                    context,
-                    FtpReply.REPLY_551_REQUESTED_ACTION_ABORTED_PAGE_TYPE_UNKNOWN,
-                    "NLST", null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_551_REQUESTED_ACTION_ABORTED_PAGE_TYPE_UNKNOWN,
+                "NLST",
+                null));
       } catch (IllegalArgumentException e) {
-        LOG
-            .debug("Illegal listing syntax: "
-                + request.getArgument(), e);
+        LOG.debug("Illegal listing syntax: " + request.getArgument(), e);
         // if listing syntax error - send message
-        session
-            .write(LocalizedFtpReply
-                .translate(
-                    session,
-                    request,
-                    context,
-                    FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-                    "LIST", null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+                "LIST",
+                null));
       }
 
       // if data transfer ok - send transfer complete message
       if (!failure) {
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_226_CLOSING_DATA_CONNECTION, "NLST",
-            null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_226_CLOSING_DATA_CONNECTION,
+                "NLST",
+                null));
       }
     } finally {
       session.getDataConnection().closeDataConnection();

@@ -16,9 +16,9 @@
  KIND, either express or implied.  See the License for the
  specific language governing permissions and limitations
  under the License. -->
-<beans:beans xmlns="http://mina.apache.org/ftpserver/spring/v1"
-             xmlns:beans="http://www.springframework.org/schema/beans"
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://mina.apache.org/ftpserver/spring/v1"
              xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
 	   http://mina.apache.org/ftpserver/spring/v1 http://mina.apache.org/ftpserver/ftpserver-1.0.xsd	
@@ -38,12 +38,12 @@
                 <blacklist>1.2.3.0/16, 1.2.4.0/16, 1.2.3.4</blacklist>
             </nio-listener>
             <listener name="myCustomListener">
-                <beans:bean class="org.apache.ftpserver.examples.MyListener"/>
+                <beans:bean class="com.acmedcare.nas.ftp.server.examples.MyListener"/>
             </listener>
         </listeners>
         <ftplets>
             <ftplet name="ftplet1">
-                <beans:bean class="org.apache.ftpserver.examples.MyFtplet">
+                <beans:bean class="com.acmedcare.nas.ftp.server.examples.MyFtplet">
                     <beans:property name="foo" value="123"/>
                 </beans:bean>
             </ftplet>
@@ -52,7 +52,7 @@
         <native-filesystem case-insensitive="false" create-home="true"/>
         <commands use-default="false">
             <command name="MYHELP">
-                <beans:bean class="org.apache.ftpserver.examples.MYHELP"/>
+                <beans:bean class="com.acmedcare.nas.ftp.server.examples.MYHELP"/>
             </command>
         </commands>
         <messages languages="se, no ,da"/>

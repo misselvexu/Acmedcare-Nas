@@ -24,9 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class SymbolicLinkTest extends ClientTestTemplate {
   private static final File TEST_REAL_DIR1 = new File(ROOT_DIR, "dir1");
 
@@ -47,7 +45,8 @@ public class SymbolicLinkTest extends ClientTestTemplate {
     assertTrue(TEST_REAL_DIR1.mkdir());
 
     // try creating the symbolic link
-    String[] command = new String[]{"ln", "-s", TEST_REAL_DIR1.getName(), TEST_SYMBOLIC_DIR1.getName()};
+    String[] command =
+        new String[] {"ln", "-s", TEST_REAL_DIR1.getName(), TEST_SYMBOLIC_DIR1.getName()};
     ProcessBuilder pb = new ProcessBuilder(command);
     pb.directory(ROOT_DIR);
     pb.redirectErrorStream(true);
@@ -92,4 +91,3 @@ public class SymbolicLinkTest extends ClientTestTemplate {
     }
   }
 }
-

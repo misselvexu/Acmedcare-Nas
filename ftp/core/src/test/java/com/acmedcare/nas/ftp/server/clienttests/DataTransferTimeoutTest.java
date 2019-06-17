@@ -80,38 +80,38 @@ public class DataTransferTimeoutTest extends ClientTestTemplate {
     client.noop();
   }
 
-    /*
-     * Disabled for now, test is not stable on Solaris
-    
-    public void testTimeoutForRetreive() throws Exception {
-        // as used by IODataConnection
-        int bufferSize = 4096 * 10;
-        byte[] buffer = new byte[bufferSize];
-        
-        byte[] testData = new byte[200 * bufferSize];
-        Arrays.fill(testData, (byte)1);
-        
-        TestUtil.writeDataToFile(TEST_FILE, testData);
-        InputStream is = client.retrieveFileStream(TEST_FILENAME);
+  /*
+       * Disabled for now, test is not stable on Solaris
 
-        // read ten buffer sizes at a time, trying to trigger IODataConnection to update
-        // the session timeout for each read
-        for(int i = 0; i<100; i++) {
-            long startTime = System.currentTimeMillis();
-            Thread.sleep(20);
-            is.read(buffer);
-            
-            if((System.currentTimeMillis() - startTime) > 500 ) {
-                fail("Read took to long, test not safe");
-            }
-        }
-        
-        is.close();
+      public void testTimeoutForRetreive() throws Exception {
+          // as used by IODataConnection
+          int bufferSize = 4096 * 10;
+          byte[] buffer = new byte[bufferSize];
 
-        client.completePendingCommand();
-        
-        // we should not have been disconnected
-        client.noop();
-    }
-*/
+          byte[] testData = new byte[200 * bufferSize];
+          Arrays.fill(testData, (byte)1);
+
+          TestUtil.writeDataToFile(TEST_FILE, testData);
+          InputStream is = client.retrieveFileStream(TEST_FILENAME);
+
+          // read ten buffer sizes at a time, trying to trigger IODataConnection to update
+          // the session timeout for each read
+          for(int i = 0; i<100; i++) {
+              long startTime = System.currentTimeMillis();
+              Thread.sleep(20);
+              is.read(buffer);
+
+              if((System.currentTimeMillis() - startTime) > 500 ) {
+                  fail("Read took to long, test not safe");
+              }
+          }
+
+          is.close();
+
+          client.completePendingCommand();
+
+          // we should not have been disconnected
+          client.noop();
+      }
+  */
 }

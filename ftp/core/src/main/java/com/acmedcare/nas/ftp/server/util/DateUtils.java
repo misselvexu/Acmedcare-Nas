@@ -29,8 +29,8 @@ import java.util.TimeZone;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Standard date related utility methods.
+ *
+ * <p>Standard date related utility methods.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -38,29 +38,28 @@ public class DateUtils {
 
   private static final TimeZone TIME_ZONE_UTC = TimeZone.getTimeZone("UTC");
 
-  private final static String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May",
-      "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+  private static final String[] MONTHS = {
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  };
 
   /*
    * Creates the DateFormat object used to parse/format
    * dates in FTP format.
    */
-  private static final ThreadLocal<DateFormat> FTP_DATE_FORMAT = new ThreadLocal<DateFormat>() {
+  private static final ThreadLocal<DateFormat> FTP_DATE_FORMAT =
+      new ThreadLocal<DateFormat>() {
 
-    @Override
-    protected DateFormat initialValue() {
-      DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-      df.setLenient(false);
-      df.setTimeZone(TimeZone.getTimeZone("GMT"));
-      return df;
-    }
+        @Override
+        protected DateFormat initialValue() {
+          DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+          df.setLenient(false);
+          df.setTimeZone(TimeZone.getTimeZone("GMT"));
+          return df;
+        }
+      };
 
-  };
-
-  /**
-   * Get unix style date string.
-   */
-  public final static String getUnixDate(long millis) {
+  /** Get unix style date string. */
+  public static final String getUnixDate(long millis) {
     if (millis < 0) {
       return "------------";
     }
@@ -109,10 +108,8 @@ public class DateUtils {
     return sb.toString();
   }
 
-  /**
-   * Get ISO 8601 timestamp.
-   */
-  public final static String getISO8601Date(long millis) {
+  /** Get ISO 8601 timestamp. */
+  public static final String getISO8601Date(long millis) {
     StringBuilder sb = new StringBuilder(19);
     Calendar cal = new GregorianCalendar();
     cal.setTimeInMillis(millis);
@@ -163,16 +160,13 @@ public class DateUtils {
     return sb.toString();
   }
 
-  /**
-   * Get FTP date.
-   */
-  public final static String getFtpDate(long millis) {
+  /** Get FTP date. */
+  public static final String getFtpDate(long millis) {
     StringBuilder sb = new StringBuilder(20);
 
     // MLST should use UTC
     Calendar cal = new GregorianCalendar(TIME_ZONE_UTC);
     cal.setTimeInMillis(millis);
-
 
     // year
     sb.append(cal.get(Calendar.YEAR));
@@ -229,9 +223,7 @@ public class DateUtils {
    *  Parses a date in the format used by the FTP commands
    *  involving dates(MFMT, MDTM)
    */
-  public final static Date parseFTPDate(String dateStr) throws ParseException {
+  public static final Date parseFTPDate(String dateStr) throws ParseException {
     return FTP_DATE_FORMAT.get().parse(dateStr);
-
   }
-
 }

@@ -35,15 +35,13 @@ import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 
 /**
- * Used to configure the SSL settings for the control channel or the data
- * channel.
+ * Used to configure the SSL settings for the control channel or the data channel.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class SslConfigurationFactory {
 
-  private final Logger LOG = LoggerFactory
-      .getLogger(SslConfigurationFactory.class);
+  private final Logger LOG = LoggerFactory.getLogger(SslConfigurationFactory.class);
 
   private File keystoreFile = new File("./res/.keystore");
 
@@ -141,12 +139,11 @@ public class SslConfigurationFactory {
    */
   public void setKeystoreAlgorithm(String keystoreAlgorithm) {
     this.keystoreAlgorithm = keystoreAlgorithm;
-
   }
 
   /**
-   * The SSL protocol used for this channel. Supported values are "SSL" and
-   * "TLS". Defaults to "TLS".
+   * The SSL protocol used for this channel. Supported values are "SSL" and "TLS". Defaults to
+   * "TLS".
    *
    * @return The SSL protocol
    */
@@ -155,8 +152,8 @@ public class SslConfigurationFactory {
   }
 
   /**
-   * Set the SSL protocol used for this channel. Supported values are "SSL"
-   * and "TLS". Defaults to "TLS".
+   * Set the SSL protocol used for this channel. Supported values are "SSL" and "TLS". Defaults to
+   * "TLS".
    *
    * @param sslProtocol The SSL protocol
    */
@@ -165,9 +162,9 @@ public class SslConfigurationFactory {
   }
 
   /**
-   * Set what client authentication level to use, supported values are "yes"
-   * or "true" for required authentication, "want" for wanted authentication
-   * and "false" or "none" for no authentication. Defaults to "none".
+   * Set what client authentication level to use, supported values are "yes" or "true" for required
+   * authentication, "want" for wanted authentication and "false" or "none" for no authentication.
+   * Defaults to "none".
    *
    * @param clientAuthReqd The desired authentication level
    */
@@ -271,11 +268,10 @@ public class SslConfigurationFactory {
    */
   public void setTruststoreAlgorithm(String trustStoreAlgorithm) {
     this.trustStoreAlgorithm = trustStoreAlgorithm;
-
   }
 
-  private KeyStore loadStore(File storeFile, String storeType,
-                             String storePass) throws IOException, GeneralSecurityException {
+  private KeyStore loadStore(File storeFile, String storeType, String storePass)
+      throws IOException, GeneralSecurityException {
     InputStream fin = null;
     try {
       if (storeFile.exists()) {
@@ -286,7 +282,8 @@ public class SslConfigurationFactory {
         fin = getClass().getClassLoader().getResourceAsStream(storeFile.getPath());
 
         if (fin == null) {
-          throw new FtpServerConfigurationException("Key store could not be loaded from " + storeFile.getPath());
+          throw new FtpServerConfigurationException(
+              "Key store could not be loaded from " + storeFile.getPath());
         }
       }
 
@@ -300,8 +297,7 @@ public class SslConfigurationFactory {
   }
 
   /**
-   * Create an instance of {@link SslConfiguration} based on the configuration
-   * of this factory.
+   * Create an instance of {@link SslConfiguration} based on the configuration of this factory.
    *
    * @return The {@link SslConfiguration} instance
    */
@@ -309,22 +305,19 @@ public class SslConfigurationFactory {
 
     try {
       // initialize keystore
-      LOG
-          .debug(
-              "Loading key store from \"{}\", using the key store type \"{}\"",
-              keystoreFile.getAbsolutePath(), keystoreType);
-      KeyStore keyStore = loadStore(keystoreFile, keystoreType,
-          keystorePass);
+      LOG.debug(
+          "Loading key store from \"{}\", using the key store type \"{}\"",
+          keystoreFile.getAbsolutePath(),
+          keystoreType);
+      KeyStore keyStore = loadStore(keystoreFile, keystoreType, keystorePass);
 
       KeyStore trustStore;
       if (trustStoreFile != null) {
-        LOG
-            .debug(
-                "Loading trust store from \"{}\", using the key store type \"{}\"",
-                trustStoreFile.getAbsolutePath(),
-                trustStoreType);
-        trustStore = loadStore(trustStoreFile, trustStoreType,
-            trustStorePass);
+        LOG.debug(
+            "Loading trust store from \"{}\", using the key store type \"{}\"",
+            trustStoreFile.getAbsolutePath(),
+            trustStoreType);
+        trustStore = loadStore(trustStoreFile, trustStoreType, trustStorePass);
       } else {
         trustStore = keyStore;
       }
@@ -336,13 +329,12 @@ public class SslConfigurationFactory {
         keyPassToUse = keyPass;
       }
       // initialize key manager factory
-      KeyManagerFactory keyManagerFactory = KeyManagerFactory
-          .getInstance(keystoreAlgorithm);
+      KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(keystoreAlgorithm);
       keyManagerFactory.init(keyStore, keyPassToUse.toCharArray());
 
       // initialize trust manager factory
-      TrustManagerFactory trustManagerFactory = TrustManagerFactory
-          .getInstance(trustStoreAlgorithm);
+      TrustManagerFactory trustManagerFactory =
+          TrustManagerFactory.getInstance(trustStoreAlgorithm);
       trustManagerFactory.init(trustStore);
 
       return new DefaultSslConfiguration(
@@ -351,27 +343,24 @@ public class SslConfigurationFactory {
           enabledCipherSuites, keyAlias);
     } catch (Exception ex) {
       LOG.error("DefaultSsl.configure()", ex);
-      throw new FtpServerConfigurationException("DefaultSsl.configure()",
-          ex);
+      throw new FtpServerConfigurationException("DefaultSsl.configure()", ex);
     }
   }
 
   /**
    * Return the required client authentication setting
    *
-   * @return {@link ClientAuth#NEED} if client authentication is required,
-   * {@link ClientAuth#WANT} is client authentication is wanted or
-   * {@link ClientAuth#NONE} if no client authentication is the be
-   * performed
+   * @return {@link ClientAuth#NEED} if client authentication is required, {@link ClientAuth#WANT}
+   *     is client authentication is wanted or {@link ClientAuth#NONE} if no client authentication
+   *     is the be performed
    */
   public ClientAuth getClientAuth() {
     return clientAuth;
   }
 
   /**
-   * Returns the cipher suites that should be enabled for this connection.
-   * Must return null if the default (as decided by the JVM) cipher suites
-   * should be used.
+   * Returns the cipher suites that should be enabled for this connection. Must return null if the
+   * default (as decided by the JVM) cipher suites should be used.
    *
    * @return An array of cipher suites, or null.
    */
@@ -384,8 +373,8 @@ public class SslConfigurationFactory {
   }
 
   /**
-   * Set the allowed cipher suites, note that the exact list of supported
-   * cipher suites differs between JRE implementations.
+   * Set the allowed cipher suites, note that the exact list of supported cipher suites differs
+   * between JRE implementations.
    *
    * @param enabledCipherSuites
    */
@@ -407,12 +396,10 @@ public class SslConfigurationFactory {
   }
 
   /**
-   * Set the alias for the key to be used for SSL communication. If the
-   * specified key store contains multiple keys, this alias can be set to
-   * select a specific key.
+   * Set the alias for the key to be used for SSL communication. If the specified key store contains
+   * multiple keys, this alias can be set to select a specific key.
    *
-   * @param keyAlias The alias to use, or null if JSSE should be allowed to choose
-   *                 the key.
+   * @param keyAlias The alias to use, or null if JSSE should be allowed to choose the key.
    */
   public void setKeyAlias(String keyAlias) {
     this.keyAlias = keyAlias;

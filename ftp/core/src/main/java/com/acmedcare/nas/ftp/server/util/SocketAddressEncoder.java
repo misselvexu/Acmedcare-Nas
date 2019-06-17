@@ -26,9 +26,9 @@ import java.util.StringTokenizer;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Encodes and decodes socket addresses (IP and port) from and to the format
- * used with for example the PORT and PASV command
+ *
+ * <p>Encodes and decodes socket addresses (IP and port) from and to the format used with for
+ * example the PORT and PASV command
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -39,15 +39,13 @@ public class SocketAddressEncoder {
     if (i < 0) {
       throw new IllegalArgumentException("Token can not be less than 0");
     } else if (i > 255) {
-      throw new IllegalArgumentException(
-          "Token can not be larger than 255");
+      throw new IllegalArgumentException("Token can not be larger than 255");
     }
 
     return i;
   }
 
-  public static InetSocketAddress decode(String str)
-      throws UnknownHostException {
+  public static InetSocketAddress decode(String str) throws UnknownHostException {
     StringTokenizer st = new StringTokenizer(str, ",");
     if (st.countTokens() != 6) {
       throw new IllegalInetAddressException("Illegal amount of tokens");
@@ -84,8 +82,10 @@ public class SocketAddressEncoder {
   public static String encode(InetSocketAddress address) {
     InetAddress servAddr = address.getAddress();
     int servPort = address.getPort();
-    return servAddr.getHostAddress().replace('.', ',') + ','
-        + (servPort >> 8) + ',' + (servPort & 0xFF);
+    return servAddr.getHostAddress().replace('.', ',')
+        + ','
+        + (servPort >> 8)
+        + ','
+        + (servPort & 0xFF);
   }
-
 }

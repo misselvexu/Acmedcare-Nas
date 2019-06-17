@@ -31,27 +31,26 @@ import java.io.IOException;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Client-Server encoding negotiation. Force server from default encoding to
- * UTF-8 and back. Note that the servers default encoding is UTF-8. So this
- * command has no effect.
+ *
+ * <p>Client-Server encoding negotiation. Force server from default encoding to UTF-8 and back. Note
+ * that the servers default encoding is UTF-8. So this command has no effect.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class OPTS_UTF8 extends AbstractCommand {
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state
     session.resetState();
 
     // send default message
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_200_COMMAND_OKAY, "OPTS.UTF8", null));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "OPTS.UTF8", null));
   }
 }

@@ -34,8 +34,8 @@ import java.io.IOException;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Handle SITE command.
+ *
+ * <p>Handle SITE command.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -43,11 +43,10 @@ public class SITE extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(SITE.class);
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // get request name
@@ -63,8 +62,9 @@ public class SITE extends AbstractCommand {
     // no params
     if (argument == null) {
       session.resetState();
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_200_COMMAND_OKAY, "SITE", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "SITE", null));
       return;
     }
 
@@ -76,17 +76,26 @@ public class SITE extends AbstractCommand {
         command.execute(session, context, request);
       } else {
         session.resetState();
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_502_COMMAND_NOT_IMPLEMENTED, "SITE",
-            argument));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_502_COMMAND_NOT_IMPLEMENTED,
+                "SITE",
+                argument));
       }
     } catch (Exception ex) {
       LOG.warn("SITE.execute()", ex);
       session.resetState();
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_500_SYNTAX_ERROR_COMMAND_UNRECOGNIZED,
-          "SITE", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_500_SYNTAX_ERROR_COMMAND_UNRECOGNIZED,
+              "SITE",
+              null));
     }
-
   }
 }

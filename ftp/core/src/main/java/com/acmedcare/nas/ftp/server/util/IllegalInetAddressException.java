@@ -21,9 +21,8 @@ package com.acmedcare.nas.ftp.server.util;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Thrown if the provided string representation does not match a valid IP
- * address
+ *
+ * <p>Thrown if the provided string representation does not match a valid IP address
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */

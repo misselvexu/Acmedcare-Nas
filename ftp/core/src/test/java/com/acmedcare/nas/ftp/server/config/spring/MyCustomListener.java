@@ -40,10 +40,6 @@ public class MyCustomListener implements Listener {
 
   private int port;
 
-  public void setPort(int port) {
-    this.port = port;
-  }
-
   public Set<FtpIoSession> getActiveSessions() {
     return null;
   }
@@ -58,6 +54,10 @@ public class MyCustomListener implements Listener {
 
   public int getPort() {
     return port;
+  }
+
+  public void setPort(int port) {
+    this.port = port;
   }
 
   public String getServerAddress() {
@@ -80,21 +80,13 @@ public class MyCustomListener implements Listener {
     return false;
   }
 
-  public void resume() {
+  public void resume() {}
 
-  }
+  public void start(FtpServerContext serverContext) {}
 
-  public void start(FtpServerContext serverContext) {
+  public void stop() {}
 
-  }
-
-  public void stop() {
-
-  }
-
-  public void suspend() {
-
-  }
+  public void suspend() {}
 
   public List<InetAddress> getBlockedAddresses() {
     return null;
@@ -107,5 +99,4 @@ public class MyCustomListener implements Listener {
   public SessionFilter getSessionFilter() {
     return null;
   }
-
 }

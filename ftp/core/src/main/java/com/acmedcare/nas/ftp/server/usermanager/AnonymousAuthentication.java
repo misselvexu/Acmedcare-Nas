@@ -31,9 +31,7 @@ public class AnonymousAuthentication implements Authentication {
 
   private UserMetadata userMetadata;
 
-  /**
-   * Default constructor
-   */
+  /** Default constructor */
   public AnonymousAuthentication() {
     // empty
   }
@@ -55,5 +53,4 @@ public class AnonymousAuthentication implements Authentication {
   public UserMetadata getUserMetadata() {
     return userMetadata;
   }
-
 }

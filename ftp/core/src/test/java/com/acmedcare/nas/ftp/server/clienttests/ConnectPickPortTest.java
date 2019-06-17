@@ -23,9 +23,7 @@ import com.acmedcare.nas.ftp.server.FtpServerFactory;
 import com.acmedcare.nas.ftp.server.listener.ListenerFactory;
 import com.acmedcare.nas.ftp.server.listener.nio.NioListener;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ConnectPickPortTest extends ClientTestTemplate {
 
   @Override
@@ -51,12 +49,10 @@ public class ConnectPickPortTest extends ClientTestTemplate {
   }
 
   public void testPortWithZeroPort() throws Exception {
-    assertEquals(0, ((NioListener) server.getServerContext().getListener(
-        "default")).getPort());
+    assertEquals(0, ((NioListener) server.getServerContext().getListener("default")).getPort());
 
     server.start();
 
-    assertTrue(((NioListener) server.getServerContext().getListener(
-        "default")).getPort() > 0);
+    assertTrue(((NioListener) server.getServerContext().getListener("default")).getPort() > 0);
   }
 }

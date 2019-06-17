@@ -23,18 +23,15 @@ import java.util.Map;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * String utility methods.
+ *
+ * <p>String utility methods.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class StringUtils {
 
-  /**
-   * This is a string replacement method.
-   */
-  public final static String replaceString(String source, String oldStr,
-                                           String newStr) {
+  /** This is a string replacement method. */
+  public static final String replaceString(String source, String oldStr, String newStr) {
     StringBuilder sb = new StringBuilder(source.length());
     int sind = 0;
     int cind = 0;
@@ -47,10 +44,8 @@ public class StringUtils {
     return sb.toString();
   }
 
-  /**
-   * Replace string
-   */
-  public final static String replaceString(String source, Object[] args) {
+  /** Replace string */
+  public static final String replaceString(String source, Object[] args) {
     int startIndex = 0;
     int openIndex = source.indexOf('{', startIndex);
     if (openIndex == -1) {
@@ -86,11 +81,8 @@ public class StringUtils {
     return sb.toString();
   }
 
-  /**
-   * Replace string.
-   */
-  public final static String replaceString(String source,
-                                           Map<String, Object> args) {
+  /** Replace string. */
+  public static final String replaceString(String source, Map<String, Object> args) {
     int startIndex = 0;
     int openIndex = source.indexOf('{', startIndex);
     if (openIndex == -1) {
@@ -131,14 +123,13 @@ public class StringUtils {
   /**
    * This method is used to insert HTML block dynamically
    *
-   * @param source        the HTML code to be processes
-   * @param bReplaceNl    if true '\n' will be replaced by <br>
-   * @param bReplaceTag   if true '<' will be replaced by &lt; and
-   *                      '>' will be replaced by &gt;
+   * @param source the HTML code to be processes
+   * @param bReplaceNl if true '\n' will be replaced by <br>
+   * @param bReplaceTag if true '<' will be replaced by &lt; and '>' will be replaced by &gt;
    * @param bReplaceQuote if true '\"' will be replaced by &quot;
    */
-  public final static String formatHtml(String source, boolean bReplaceNl,
-                                        boolean bReplaceTag, boolean bReplaceQuote) {
+  public static final String formatHtml(
+      String source, boolean bReplaceNl, boolean bReplaceTag, boolean bReplaceQuote) {
 
     StringBuilder sb = new StringBuilder();
     int len = source.length();
@@ -146,32 +137,24 @@ public class StringUtils {
       char c = source.charAt(i);
       switch (c) {
         case '\"':
-          if (bReplaceQuote)
-            sb.append("&quot;");
-          else
-            sb.append(c);
+          if (bReplaceQuote) sb.append("&quot;");
+          else sb.append(c);
           break;
 
         case '<':
-          if (bReplaceTag)
-            sb.append("&lt;");
-          else
-            sb.append(c);
+          if (bReplaceTag) sb.append("&lt;");
+          else sb.append(c);
           break;
 
         case '>':
-          if (bReplaceTag)
-            sb.append("&gt;");
-          else
-            sb.append(c);
+          if (bReplaceTag) sb.append("&gt;");
+          else sb.append(c);
           break;
 
         case '\n':
           if (bReplaceNl) {
-            if (bReplaceTag)
-              sb.append("&lt;br&gt;");
-            else
-              sb.append("<br>");
+            if (bReplaceTag) sb.append("&lt;br&gt;");
+            else sb.append("<br>");
           } else {
             sb.append(c);
           }
@@ -192,11 +175,8 @@ public class StringUtils {
     return sb.toString();
   }
 
-  /**
-   * Pad string object
-   */
-  public final static String pad(String src, char padChar, boolean rightPad,
-                                 int totalLength) {
+  /** Pad string object */
+  public static final String pad(String src, char padChar, boolean rightPad, int totalLength) {
 
     int srcLength = src.length();
     if (srcLength >= totalLength) {
@@ -216,10 +196,8 @@ public class StringUtils {
     }
   }
 
-  /**
-   * Get hex string from byte array
-   */
-  public final static String toHexString(byte[] res) {
+  /** Get hex string from byte array */
+  public static final String toHexString(byte[] res) {
     StringBuilder sb = new StringBuilder(res.length << 1);
     for (int i = 0; i < res.length; i++) {
       String digit = Integer.toHexString(0xFF & res[i]);
@@ -231,10 +209,8 @@ public class StringUtils {
     return sb.toString().toUpperCase();
   }
 
-  /**
-   * Get byte array from hex string
-   */
-  public final static byte[] toByteArray(String hexString) {
+  /** Get byte array from hex string */
+  public static final byte[] toByteArray(String hexString) {
     int arrLength = hexString.length() >> 1;
     byte buff[] = new byte[arrLength];
     for (int i = 0; i < arrLength; i++) {
@@ -244,5 +220,4 @@ public class StringUtils {
     }
     return buff;
   }
-
 }

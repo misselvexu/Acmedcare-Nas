@@ -26,9 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class I18NTest extends ClientTestTemplate {
 
   private static final String TESTDATA = "TESTDATA";
@@ -63,8 +61,7 @@ public class I18NTest extends ClientTestTemplate {
     String oddFileName = "����";
     File testFile = new File(ROOT_DIR, oddFileName);
 
-    assertTrue(client.storeFile(oddFileName, new ByteArrayInputStream(
-        testData)));
+    assertTrue(client.storeFile(oddFileName, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
 

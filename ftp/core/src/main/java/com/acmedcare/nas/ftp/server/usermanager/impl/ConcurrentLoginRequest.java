@@ -23,8 +23,8 @@ import com.acmedcare.nas.ftp.server.ftplet.AuthorizationRequest;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Class representing a request to log in a number of concurrent times
+ *
+ * <p>Class representing a request to log in a number of concurrent times
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -42,8 +42,7 @@ public class ConcurrentLoginRequest implements AuthorizationRequest {
    * @param concurrentLogins
    * @param concurrentLoginsFromThisIP
    */
-  public ConcurrentLoginRequest(int concurrentLogins,
-                                int concurrentLoginsFromThisIP) {
+  public ConcurrentLoginRequest(int concurrentLogins, int concurrentLoginsFromThisIP) {
     super();
     this.concurrentLogins = concurrentLogins;
     this.concurrentLoginsFromThisIP = concurrentLoginsFromThisIP;
@@ -61,16 +60,15 @@ public class ConcurrentLoginRequest implements AuthorizationRequest {
   /**
    * The number of concurrent logins from this IP requested
    *
-   * @return the concurrentLoginsFromThisIP The number of current concurrent
-   * logins from this IP
+   * @return the concurrentLoginsFromThisIP The number of current concurrent logins from this IP
    */
   public int getConcurrentLoginsFromThisIP() {
     return concurrentLoginsFromThisIP;
   }
 
   /**
-   * The maximum allowed concurrent logins for this user, or 0 if no limit is
-   * set. This is normally populated by {@link ConcurrentLoginPermission}
+   * The maximum allowed concurrent logins for this user, or 0 if no limit is set. This is normally
+   * populated by {@link ConcurrentLoginPermission}
    *
    * @return The maximum allowed concurrent logins
    */
@@ -88,9 +86,8 @@ public class ConcurrentLoginRequest implements AuthorizationRequest {
   }
 
   /**
-   * The maximum allowed concurrent logins per IP for this user, or 0 if no
-   * limit is set. This is normally populated by
-   * {@link ConcurrentLoginPermission}
+   * The maximum allowed concurrent logins per IP for this user, or 0 if no limit is set. This is
+   * normally populated by {@link ConcurrentLoginPermission}
    *
    * @return The maximum allowed concurrent logins per IP
    */

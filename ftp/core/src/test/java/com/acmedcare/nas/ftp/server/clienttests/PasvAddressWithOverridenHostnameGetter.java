@@ -27,22 +27,12 @@ import com.acmedcare.nas.ftp.server.impl.FtpIoSession;
 import com.acmedcare.nas.ftp.server.listener.ListenerFactory;
 
 /**
- * Test for external passive address configured as hostname rather than IP
- * address.
+ * Test for external passive address configured as hostname rather than IP address.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version $Rev$, $Date$
  */
 public class PasvAddressWithOverridenHostnameGetter extends ClientTestTemplate {
-
-  class PASVTest extends PASV {
-
-    @Override
-    protected String getPassiveExternalAddress(FtpIoSession session) {
-      return "10.10.10.10";
-    }
-
-  }
 
   @Override
   protected FtpServerFactory createServer() throws Exception {
@@ -69,5 +59,13 @@ public class PasvAddressWithOverridenHostnameGetter extends ClientTestTemplate {
     client.pasv();
 
     assertTrue(client.getReplyString().indexOf("(10,10,10,10,") > -1);
+  }
+
+  class PASVTest extends PASV {
+
+    @Override
+    protected String getPassiveExternalAddress(FtpIoSession session) {
+      return "10.10.10.10";
+    }
   }
 }

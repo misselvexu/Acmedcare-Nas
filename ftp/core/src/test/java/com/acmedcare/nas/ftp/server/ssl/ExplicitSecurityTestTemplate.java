@@ -28,9 +28,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.security.Security;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public abstract class ExplicitSecurityTestTemplate extends SSLTestTemplate {
 
   protected static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
@@ -56,8 +54,8 @@ public abstract class ExplicitSecurityTestTemplate extends SSLTestTemplate {
   }
 
   /**
-   * Tests that we can send command over the command channel. This is, in fact
-   * already tested by login in setup but an explicit test is good anyways.
+   * Tests that we can send command over the command channel. This is, in fact already tested by
+   * login in setup but an explicit test is good anyways.
    */
   public void testCommandChannel() throws Exception {
     assertTrue(getActiveSession().isSecure());
@@ -87,15 +85,13 @@ public abstract class ExplicitSecurityTestTemplate extends SSLTestTemplate {
 
     assertTrue(getActiveSession().getDataConnection().isSecure());
 
-    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-        TEST_DATA));
+    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TEST_DATA));
 
     assertTrue(TEST_FILE1.exists());
     assertEquals(TEST_DATA.length, TEST_FILE1.length());
   }
 
-  public void testStoreWithProtPAndReturnToProtCInPassiveMode()
-      throws Exception {
+  public void testStoreWithProtPAndReturnToProtCInPassiveMode() throws Exception {
     client.setRemoteVerificationEnabled(false);
     client.enterLocalPassiveMode();
 
@@ -103,8 +99,7 @@ public abstract class ExplicitSecurityTestTemplate extends SSLTestTemplate {
 
     assertTrue(getActiveSession().getDataConnection().isSecure());
 
-    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-        TEST_DATA));
+    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TEST_DATA));
 
     assertTrue(TEST_FILE1.exists());
     assertEquals(TEST_DATA.length, TEST_FILE1.length());
@@ -113,8 +108,7 @@ public abstract class ExplicitSecurityTestTemplate extends SSLTestTemplate {
 
     assertFalse(getActiveSession().getDataConnection().isSecure());
 
-    client.storeFile(TEST_FILE2.getName(), new ByteArrayInputStream(
-        TEST_DATA));
+    client.storeFile(TEST_FILE2.getName(), new ByteArrayInputStream(TEST_DATA));
 
     assertTrue(TEST_FILE2.exists());
     assertEquals(TEST_DATA.length, TEST_FILE2.length());
@@ -126,20 +120,17 @@ public abstract class ExplicitSecurityTestTemplate extends SSLTestTemplate {
     ((FTPSClient) client).execPROT("P");
     assertTrue(getActiveSession().getDataConnection().isSecure());
 
-    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-        TEST_DATA));
+    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TEST_DATA));
 
     assertTrue(TEST_FILE1.exists());
     assertEquals(TEST_DATA.length, TEST_FILE1.length());
   }
 
-  public void testStoreWithProtPAndReturnToProtCInActiveMode()
-      throws Exception {
+  public void testStoreWithProtPAndReturnToProtCInActiveMode() throws Exception {
     ((FTPSClient) client).execPROT("P");
     assertTrue(getActiveSession().getDataConnection().isSecure());
 
-    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-        TEST_DATA));
+    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TEST_DATA));
 
     assertTrue(TEST_FILE1.exists());
     assertEquals(TEST_DATA.length, TEST_FILE1.length());
@@ -149,8 +140,7 @@ public abstract class ExplicitSecurityTestTemplate extends SSLTestTemplate {
 
     ((FTPSClient) client).execPROT("C");
 
-    client.storeFile(TEST_FILE2.getName(), new ByteArrayInputStream(
-        TEST_DATA));
+    client.storeFile(TEST_FILE2.getName(), new ByteArrayInputStream(TEST_DATA));
 
     assertTrue(TEST_FILE2.exists());
     assertEquals(TEST_DATA.length, TEST_FILE2.length());

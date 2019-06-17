@@ -13,8 +13,8 @@
     the specific language governing permissions and limitations under the
     License.
 -->
-<server xmlns="http://mina.apache.org/ftpserver/spring/v1"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<server xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://mina.apache.org/ftpserver/spring/v1"
         xsi:schemaLocation="
 	   http://mina.apache.org/ftpserver/spring/v1 http://mina.apache.org/ftpserver/ftpserver-1.0.xsd	
 	   "

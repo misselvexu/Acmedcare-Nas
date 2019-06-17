@@ -38,5 +38,4 @@ public class ConcatedCommandsTest extends ClientTestTemplate {
 
     assertTrue(FTPReply.isPositiveCompletion(client.noop()));
   }
-
 }

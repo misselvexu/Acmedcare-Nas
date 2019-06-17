@@ -23,9 +23,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class RenameTest extends ClientTestTemplate {
   private static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
 
@@ -37,14 +35,11 @@ public class RenameTest extends ClientTestTemplate {
 
   private static final File TEST_DIR2 = new File(ROOT_DIR, "dir2");
 
-  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1,
-      "test4.txt");
+  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1, "test4.txt");
 
-  private static final File TEST_FILE_IN_DIR2 = new File(TEST_DIR2,
-      "test4.txt");
+  private static final File TEST_FILE_IN_DIR2 = new File(TEST_DIR2, "test4.txt");
 
-  private static final File TEST_FILE2_IN_DIR2 = new File(TEST_DIR2,
-      "test5.txt");
+  private static final File TEST_FILE2_IN_DIR2 = new File(TEST_DIR2, "test5.txt");
 
   /*
    * (non-Javadoc)
@@ -109,9 +104,10 @@ public class RenameTest extends ClientTestTemplate {
     assertTrue(TEST_FILE_IN_DIR1.exists());
     assertFalse(TEST_FILE2_IN_DIR2.exists());
 
-    assertTrue(client.rename(TEST_DIR1.getName() + "/"
-        + TEST_FILE_IN_DIR1.getName(), TEST_DIR2.getName() + "/"
-        + TEST_FILE2_IN_DIR2.getName()));
+    assertTrue(
+        client.rename(
+            TEST_DIR1.getName() + "/" + TEST_FILE_IN_DIR1.getName(),
+            TEST_DIR2.getName() + "/" + TEST_FILE2_IN_DIR2.getName()));
 
     assertTrue(TEST_DIR1.exists());
     assertTrue(TEST_DIR2.exists());
@@ -164,11 +160,9 @@ public class RenameTest extends ClientTestTemplate {
     assertTrue(TEST_FILE1.exists());
     assertFalse(TEST_FILE2.exists());
 
-    assertTrue(FTPReply.isPositiveIntermediate(client.rnfr(TEST_FILE1
-        .getName())));
+    assertTrue(FTPReply.isPositiveIntermediate(client.rnfr(TEST_FILE1.getName())));
     assertTrue(FTPReply.isPositiveCompletion(client.noop()));
-    assertTrue(FTPReply.isNegativePermanent(client.rnto(TEST_FILE2
-        .getName())));
+    assertTrue(FTPReply.isNegativePermanent(client.rnto(TEST_FILE2.getName())));
 
     assertTrue(TEST_FILE1.exists());
     assertFalse(TEST_FILE2.exists());
@@ -182,12 +176,9 @@ public class RenameTest extends ClientTestTemplate {
     assertFalse(TEST_FILE2.exists());
     assertTrue(TEST_FILE3.exists());
 
-    assertTrue(FTPReply.isPositiveIntermediate(client.rnfr(TEST_FILE1
-        .getName())));
-    assertTrue(FTPReply.isPositiveIntermediate(client.rnfr(TEST_FILE3
-        .getName())));
-    assertTrue(FTPReply.isPositiveCompletion(client.rnto(TEST_FILE2
-        .getName())));
+    assertTrue(FTPReply.isPositiveIntermediate(client.rnfr(TEST_FILE1.getName())));
+    assertTrue(FTPReply.isPositiveIntermediate(client.rnfr(TEST_FILE3.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.rnto(TEST_FILE2.getName())));
 
     assertTrue(TEST_FILE1.exists());
     assertTrue(TEST_FILE2.exists());
@@ -195,8 +186,7 @@ public class RenameTest extends ClientTestTemplate {
   }
 
   public void testRenameOnlyRnto() throws Exception {
-    assertTrue(FTPReply.isNegativePermanent(client.rnto(TEST_FILE2
-        .getName())));
+    assertTrue(FTPReply.isNegativePermanent(client.rnto(TEST_FILE2.getName())));
   }
 
   public void testRenameWithNullRnfrPath() throws Exception {
@@ -217,12 +207,10 @@ public class RenameTest extends ClientTestTemplate {
     assertTrue(TEST_FILE1.exists());
     assertFalse(TEST_FILE2.exists());
 
-    assertTrue(FTPReply.isPositiveIntermediate(client.rnfr(TEST_FILE1
-        .getName())));
+    assertTrue(FTPReply.isPositiveIntermediate(client.rnfr(TEST_FILE1.getName())));
     assertTrue(FTPReply.isNegativePermanent(client.rnto(null)));
 
     assertTrue(TEST_FILE1.exists());
     assertFalse(TEST_FILE2.exists());
   }
-
 }

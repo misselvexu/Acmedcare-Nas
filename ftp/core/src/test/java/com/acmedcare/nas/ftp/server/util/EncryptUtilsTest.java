@@ -21,18 +21,14 @@ package com.acmedcare.nas.ftp.server.util;
 
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class EncryptUtilsTest extends TestCase {
 
   public void testEncryptMd5() {
-    assertEquals("21232F297A57A5A743894A0E4A801FC3", EncryptUtils
-        .encryptMD5("admin"));
+    assertEquals("21232F297A57A5A743894A0E4A801FC3", EncryptUtils.encryptMD5("admin"));
   }
 
   public void testEncryptSha() {
-    assertEquals("D033E22AE348AEB5660FC2140AEC35850C4DA997", EncryptUtils
-        .encryptSHA("admin"));
+    assertEquals("D033E22AE348AEB5660FC2140AEC35850C4DA997", EncryptUtils.encryptSHA("admin"));
   }
 }

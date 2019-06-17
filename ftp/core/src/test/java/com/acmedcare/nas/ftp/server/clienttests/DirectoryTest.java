@@ -23,9 +23,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class DirectoryTest extends ClientTestTemplate {
   private static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");
 
@@ -46,8 +44,7 @@ public class DirectoryTest extends ClientTestTemplate {
   public void testMkdir() throws Exception {
     assertFalse(TEST_DIR1.exists());
 
-    assertTrue(FTPReply.isPositiveCompletion(client
-        .mkd(TEST_DIR1.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.mkd(TEST_DIR1.getName())));
 
     assertTrue(TEST_DIR1.exists());
   }
@@ -56,15 +53,14 @@ public class DirectoryTest extends ClientTestTemplate {
     assertEquals(501, client.sendCommand("MKD"));
   }
 
-  /**
-   * FTPSERVER-233, we should not recursively create directories
-   */
+  /** FTPSERVER-233, we should not recursively create directories */
   public void testMkdirDouble() throws Exception {
     assertFalse(TEST_DIR1.exists());
     assertFalse(TEST_DIR_IN_DIR1.exists());
 
-    assertFalse(FTPReply.isPositiveCompletion(client.mkd(TEST_DIR1.getName()
-        + '/' + TEST_DIR_IN_DIR1.getName())));
+    assertFalse(
+        FTPReply.isPositiveCompletion(
+            client.mkd(TEST_DIR1.getName() + '/' + TEST_DIR_IN_DIR1.getName())));
 
     assertFalse(TEST_DIR1.exists());
     assertFalse(TEST_DIR_IN_DIR1.exists());
@@ -75,8 +71,9 @@ public class DirectoryTest extends ClientTestTemplate {
     assertTrue(TEST_DIR1.exists());
     assertFalse(TEST_DIR_IN_DIR1.exists());
 
-    assertTrue(FTPReply.isPositiveCompletion(client.mkd(TEST_DIR1.getName()
-        + '/' + TEST_DIR_IN_DIR1.getName())));
+    assertTrue(
+        FTPReply.isPositiveCompletion(
+            client.mkd(TEST_DIR1.getName() + '/' + TEST_DIR_IN_DIR1.getName())));
 
     assertTrue(TEST_DIR1.exists());
     assertTrue(TEST_DIR_IN_DIR1.exists());
@@ -87,8 +84,7 @@ public class DirectoryTest extends ClientTestTemplate {
 
     assertTrue(TEST_DIR1.exists());
 
-    assertTrue(FTPReply
-        .isNegativePermanent(client.mkd(TEST_DIR1.getName())));
+    assertTrue(FTPReply.isNegativePermanent(client.mkd(TEST_DIR1.getName())));
 
     assertTrue(TEST_DIR1.exists());
   }
@@ -98,8 +94,7 @@ public class DirectoryTest extends ClientTestTemplate {
 
     assertTrue(TEST_DIR1.exists());
 
-    assertTrue(FTPReply
-        .isNegativePermanent(client.mkd(TEST_DIR1.getName())));
+    assertTrue(FTPReply.isNegativePermanent(client.mkd(TEST_DIR1.getName())));
 
     assertTrue(TEST_DIR1.exists());
   }
@@ -110,8 +105,7 @@ public class DirectoryTest extends ClientTestTemplate {
 
     assertFalse(TEST_DIR1.exists());
 
-    assertTrue(FTPReply
-        .isNegativePermanent(client.mkd(TEST_DIR1.getName())));
+    assertTrue(FTPReply.isNegativePermanent(client.mkd(TEST_DIR1.getName())));
 
     assertFalse(TEST_DIR1.exists());
   }

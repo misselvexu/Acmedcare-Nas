@@ -24,8 +24,8 @@ import com.acmedcare.nas.ftp.server.ftplet.AuthorizationRequest;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Class representing a write permission
+ *
+ * <p>Class representing a write permission
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -33,16 +33,13 @@ public class WritePermission implements Authority {
 
   private String permissionRoot;
 
-  /**
-   * Construct a write permission for the user home directory (/)
-   */
+  /** Construct a write permission for the user home directory (/) */
   public WritePermission() {
     this.permissionRoot = "/";
   }
 
   /**
-   * Construct a write permission for a file or directory relative to the user
-   * home directory
+   * Construct a write permission for a file or directory relative to the user home directory
    *
    * @param permissionRoot The file or directory
    */
@@ -50,9 +47,7 @@ public class WritePermission implements Authority {
     this.permissionRoot = permissionRoot;
   }
 
-  /**
-   * @see Authority#authorize(AuthorizationRequest)
-   */
+  /** @see Authority#authorize(AuthorizationRequest) */
   @Override
   public AuthorizationRequest authorize(final AuthorizationRequest request) {
     if (request instanceof WriteRequest) {
@@ -70,12 +65,9 @@ public class WritePermission implements Authority {
     }
   }
 
-  /**
-   * @see Authority#canAuthorize(AuthorizationRequest)
-   */
+  /** @see Authority#canAuthorize(AuthorizationRequest) */
   @Override
   public boolean canAuthorize(final AuthorizationRequest request) {
     return request instanceof WriteRequest;
   }
-
 }

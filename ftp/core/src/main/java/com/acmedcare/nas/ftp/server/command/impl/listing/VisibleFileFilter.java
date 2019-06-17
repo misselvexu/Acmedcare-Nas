@@ -22,8 +22,8 @@ import com.acmedcare.nas.ftp.server.ftplet.FtpFile;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Selects files that are visible
+ *
+ * <p>Selects files that are visible
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -31,9 +31,7 @@ public class VisibleFileFilter implements FileFilter {
 
   private final FileFilter wrappedFilter;
 
-  /**
-   * Default constructor
-   */
+  /** Default constructor */
   public VisibleFileFilter() {
     this(null);
   }
@@ -47,9 +45,7 @@ public class VisibleFileFilter implements FileFilter {
     this.wrappedFilter = wrappedFilter;
   }
 
-  /**
-   * @see FileFilter#accept(FtpFile)
-   */
+  /** @see FileFilter#accept(FtpFile) */
   public boolean accept(FtpFile file) {
     if (wrappedFilter != null && !wrappedFilter.accept(file)) {
       return false;

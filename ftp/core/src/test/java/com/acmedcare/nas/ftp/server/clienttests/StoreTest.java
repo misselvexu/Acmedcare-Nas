@@ -26,9 +26,7 @@ import org.apache.commons.net.ftp.FTPReply;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class StoreTest extends ClientTestTemplate {
 
   private static final String EOL = System.getProperty("line.separator");
@@ -69,38 +67,32 @@ public class StoreTest extends ClientTestTemplate {
   public void testStore() throws Exception {
     File testFile = new File(ROOT_DIR, TEST_FILENAME);
 
-    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(testData, testFile);
   }
 
-  /**
-   * We should always store files with the local line endings (FTPSERVER-184)
-   */
+  /** We should always store files with the local line endings (FTPSERVER-184) */
   public void testStoreWithCrLf() throws Exception {
     File testFile = new File(ROOT_DIR, TEST_FILENAME);
 
-    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(
-        testDataCrLf)));
+    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(testDataCrLf)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(testData, testFile);
   }
 
-  /**
-   * We should always store files with the local line endings (FTPSERVER-184)
-   */
+  /** We should always store files with the local line endings (FTPSERVER-184) */
   public void testStoreWithLf() throws Exception {
     File testFile = new File(ROOT_DIR, TEST_FILENAME);
     // We set the client to binary mode while we inform the server that we want to use ASCII mode
-    // This way, we can test FTPSERVER-306 in the cases where the FTPClient does not transform line separators to \r\n
+    // This way, we can test FTPSERVER-306 in the cases where the FTPClient does not transform line
+    // separators to \r\n
     client.setFileType(FTP.BINARY_FILE_TYPE);
     assertTrue(FTPReply.isPositiveCompletion(client.type(FTP.ASCII_FILE_TYPE)));
 
-    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(
-        testDataLf)));
+    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(testDataLf)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(testData, testFile);
@@ -109,8 +101,8 @@ public class StoreTest extends ClientTestTemplate {
   public void testStoreWithLeadingSpace() throws Exception {
     File testFile = new File(ROOT_DIR, TEST_FILENAME_WITH_LEADING_SPACE);
 
-    assertTrue(client.storeFile(TEST_FILENAME_WITH_LEADING_SPACE,
-        new ByteArrayInputStream(testData)));
+    assertTrue(
+        client.storeFile(TEST_FILENAME_WITH_LEADING_SPACE, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(testData, testFile);
@@ -131,8 +123,7 @@ public class StoreTest extends ClientTestTemplate {
     TestUtil.writeDataToFile(testFile, testData);
 
     client.setRestartOffset(SKIP_LEN);
-    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(oneAndAHalfTestData, testFile);
@@ -141,8 +132,7 @@ public class StoreTest extends ClientTestTemplate {
   public void testStoreEmptyFile() throws Exception {
     File testFile = new File(ROOT_DIR, TEST_FILENAME);
 
-    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(
-        new byte[0])));
+    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(new byte[0])));
 
     assertTrue(testFile.exists());
     assertEquals(0, testFile.length());
@@ -155,8 +145,7 @@ public class StoreTest extends ClientTestTemplate {
     assertTrue(testFile.exists());
     assertEquals(0, testFile.length());
 
-    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertTrue(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(testData, testFile);
@@ -168,8 +157,7 @@ public class StoreTest extends ClientTestTemplate {
     assertTrue(testFile.mkdirs());
 
     assertTrue(testFile.exists());
-    assertFalse(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertFalse(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     assertTrue(testFile.isDirectory());
@@ -179,8 +167,7 @@ public class StoreTest extends ClientTestTemplate {
     TEST_DIR.mkdirs();
     File testFile = new File(TEST_DIR, TEST_FILENAME);
 
-    assertTrue(client.storeFile("foo/bar/" + TEST_FILENAME,
-        new ByteArrayInputStream(testData)));
+    assertTrue(client.storeFile("foo/bar/" + TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(testData, testFile);
@@ -190,8 +177,7 @@ public class StoreTest extends ClientTestTemplate {
     TEST_DIR.mkdirs();
     File testFile = new File(ROOT_DIR, TEST_FILENAME);
 
-    assertTrue(client.storeFile("/" + TEST_FILENAME,
-        new ByteArrayInputStream(testData)));
+    assertTrue(client.storeFile("/" + TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(testData, testFile);
@@ -200,8 +186,7 @@ public class StoreTest extends ClientTestTemplate {
   public void testStoreWithNonExistingPath() throws Exception {
     File testFile = new File(TEST_DIR, TEST_FILENAME);
 
-    assertFalse(client.storeFile("foo/bar/" + TEST_FILENAME,
-        new ByteArrayInputStream(testData)));
+    assertFalse(client.storeFile("foo/bar/" + TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertFalse(testFile.exists());
   }
@@ -212,8 +197,7 @@ public class StoreTest extends ClientTestTemplate {
     client.rein();
     client.login("anonymous", "foo@bar.com");
 
-    assertFalse(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertFalse(client.storeFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
     assertFalse(testFile.exists());
   }
 
@@ -229,8 +213,8 @@ public class StoreTest extends ClientTestTemplate {
     File existingFile = new File(TEST_DIR, "existingFile.txt");
     existingFile.createNewFile();
 
-    assertTrue(client.storeUniqueFile("foo/bar/existingFile.txt",
-        new ByteArrayInputStream(testData)));
+    assertTrue(
+        client.storeUniqueFile("foo/bar/existingFile.txt", new ByteArrayInputStream(testData)));
 
     doAssertOfUniqueFile(client, ROOT_DIR);
   }
@@ -238,27 +222,21 @@ public class StoreTest extends ClientTestTemplate {
   public void testStoreUniqueWithDirectory() throws Exception {
     TEST_DIR.mkdirs();
 
-    assertTrue(client.storeUniqueFile("foo/bar", new ByteArrayInputStream(
-        testData)));
+    assertTrue(client.storeUniqueFile("foo/bar", new ByteArrayInputStream(testData)));
 
     doAssertOfUniqueFile(client, ROOT_DIR);
   }
 
-  public void testStoreUniqueWithDirectoryWithTrailingSlash()
-      throws Exception {
+  public void testStoreUniqueWithDirectoryWithTrailingSlash() throws Exception {
     TEST_DIR.mkdirs();
 
-    assertTrue(client.storeUniqueFile("foo/bar/", new ByteArrayInputStream(
-        testData)));
+    assertTrue(client.storeUniqueFile("foo/bar/", new ByteArrayInputStream(testData)));
 
     doAssertOfUniqueFile(client, ROOT_DIR);
   }
 
-  /**
-   * @throws Exception
-   */
-  private void doAssertOfUniqueFile(FTPClient client, File dir)
-      throws Exception {
+  /** @throws Exception */
+  private void doAssertOfUniqueFile(FTPClient client, File dir) throws Exception {
     String reply = client.getReplyString();
     String generatedFileName = reply.substring(5, reply.indexOf(':'));
     File testFile = new File(dir, generatedFileName);
@@ -272,8 +250,7 @@ public class StoreTest extends ClientTestTemplate {
 
     TestUtil.writeDataToFile(testFile, testData);
 
-    assertTrue(client.appendFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertTrue(client.appendFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(doubleTestData, testFile);
@@ -288,8 +265,7 @@ public class StoreTest extends ClientTestTemplate {
     testFile.mkdirs();
 
     assertTrue(testFile.exists());
-    assertFalse(client.appendFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertFalse(client.appendFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     assertTrue(testFile.isDirectory());
@@ -301,8 +277,7 @@ public class StoreTest extends ClientTestTemplate {
 
     TestUtil.writeDataToFile(testFile, testData);
 
-    assertTrue(client.appendFile("foo/bar/" + TEST_FILENAME,
-        new ByteArrayInputStream(testData)));
+    assertTrue(client.appendFile("foo/bar/" + TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(doubleTestData, testFile);
@@ -314,8 +289,7 @@ public class StoreTest extends ClientTestTemplate {
 
     File testFile = new File(ROOT_DIR, TEST_FILENAME);
 
-    assertFalse(client.appendFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertFalse(client.appendFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertFalse(testFile.exists());
   }
@@ -323,8 +297,7 @@ public class StoreTest extends ClientTestTemplate {
   public void testAppendToNoExistingFile() throws Exception {
     File testFile = new File(ROOT_DIR, TEST_FILENAME);
 
-    assertTrue(client.appendFile(TEST_FILENAME, new ByteArrayInputStream(
-        testData)));
+    assertTrue(client.appendFile(TEST_FILENAME, new ByteArrayInputStream(testData)));
 
     assertTrue(testFile.exists());
     TestUtil.assertFileEqual(testData, testFile);

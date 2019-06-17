@@ -1,4 +1,4 @@
-package org.apache.ftpserver.examples;
+package com.acmedcare.nas.ftp.server.examples;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,11 +19,11 @@ package org.apache.ftpserver.examples;
  * under the License.
  */
 
-import org.apache.ftpserver.FtpServer;
-import org.apache.ftpserver.FtpServerFactory;
-import org.apache.ftpserver.listener.ListenerFactory;
-import org.apache.ftpserver.ssl.SslConfigurationFactory;
-import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
+import com.acmedcare.nas.ftp.server.FtpServer;
+import com.acmedcare.nas.ftp.server.FtpServerFactory;
+import com.acmedcare.nas.ftp.server.listener.ListenerFactory;
+import com.acmedcare.nas.ftp.server.ssl.SslConfigurationFactory;
+import com.acmedcare.nas.ftp.server.usermanager.PropertiesUserManagerFactory;
 
 import java.io.File;
 
@@ -32,34 +32,34 @@ import java.io.File;
  */
 public class EmbeddingFtpServer {
 
-    public static void main(String[] args) throws Exception {
-        FtpServerFactory serverFactory = new FtpServerFactory();
-        
-        ListenerFactory factory = new ListenerFactory();
-        
-        // set the port of the listener
-        factory.setPort(2221);
+  public static void main(String[] args) throws Exception {
+    FtpServerFactory serverFactory = new FtpServerFactory();
 
-        // define SSL configuration
-        SslConfigurationFactory ssl = new SslConfigurationFactory();
-        ssl.setKeystoreFile(new File("src/test/resources/ftpserver.jks"));
-        ssl.setKeystorePassword("password");
+    ListenerFactory factory = new ListenerFactory();
 
-        // set the SSL configuration for the listener
-        factory.setSslConfiguration(ssl.createSslConfiguration());
-        factory.setImplicitSsl(true);
+    // set the port of the listener
+    factory.setPort(2221);
 
-        // replace the default listener
-        serverFactory.addListener("default", factory.createListener());
-        
-        PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
-        userManagerFactory.setFile(new File("myusers.properties"));
-        
-        serverFactory.setUserManager(userManagerFactory.createUserManager());
-        
-        // start the server
-        FtpServer server = serverFactory.createServer(); 
-        
-        server.start();
-    }
+    // define SSL configuration
+    SslConfigurationFactory ssl = new SslConfigurationFactory();
+    ssl.setKeystoreFile(new File("src/test/resources/ftpserver.jks"));
+    ssl.setKeystorePassword("password");
+
+    // set the SSL configuration for the listener
+    factory.setSslConfiguration(ssl.createSslConfiguration());
+    factory.setImplicitSsl(true);
+
+    // replace the default listener
+    serverFactory.addListener("default", factory.createListener());
+
+    PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
+    userManagerFactory.setFile(new File("myusers.properties"));
+
+    serverFactory.setUserManager(userManagerFactory.createUserManager());
+
+    // start the server
+    FtpServer server = serverFactory.createServer();
+
+    server.start();
+  }
 }

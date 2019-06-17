@@ -29,9 +29,7 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 @SuppressWarnings("deprecation")
 public class LISTFileFormaterTest extends TestCase {
 
@@ -39,11 +37,39 @@ public class LISTFileFormaterTest extends TestCase {
 
   private static final FtpFile TEST_FILE = new MockFileObject();
 
-  private static final String TEST_FILE_FORMAT = "-r--------   1 owner group           13 Feb  2  2005 short\r\n";
+  private static final String TEST_FILE_FORMAT =
+      "-r--------   1 owner group           13 Feb  2  2005 short\r\n";
 
-  private static final String TEST_DIR_FORMAT = "dr-x------   3 owner group            0 Feb  2  2005 short\r\n";
+  private static final String TEST_DIR_FORMAT =
+      "dr-x------   3 owner group            0 Feb  2  2005 short\r\n";
 
   public LISTFileFormater formater = new LISTFileFormater();
+
+  public void testSingleFile() {
+    assertEquals(TEST_FILE_FORMAT, formater.format(TEST_FILE));
+  }
+
+  public void testSingleDir() {
+    FtpFile dir =
+        new MockFileObject() {
+          @Override
+          public int getLinkCount() {
+            return 3;
+          }
+
+          @Override
+          public boolean isDirectory() {
+            return true;
+          }
+
+          @Override
+          public boolean isFile() {
+            return false;
+          }
+        };
+
+    assertEquals(TEST_DIR_FORMAT, formater.format(dir));
+  }
 
   public static class MockFileObject implements FtpFile {
     @Override
@@ -156,31 +182,4 @@ public class LISTFileFormaterTest extends TestCase {
       return "/short";
     }
   }
-
-  public void testSingleFile() {
-    assertEquals(TEST_FILE_FORMAT, formater.format(TEST_FILE));
-  }
-
-  public void testSingleDir() {
-    FtpFile dir = new MockFileObject() {
-      @Override
-      public int getLinkCount() {
-        return 3;
-      }
-
-      @Override
-      public boolean isDirectory() {
-        return true;
-      }
-
-      @Override
-      public boolean isFile() {
-        return false;
-      }
-
-    };
-
-    assertEquals(TEST_DIR_FORMAT, formater.format(dir));
-  }
-
 }

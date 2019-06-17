@@ -32,8 +32,8 @@ import org.apache.mina.filter.logging.MdcInjectionFilter;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Adapter between MINA handler and the {@link FtpHandler} interface
+ *
+ * <p>Adapter between MINA handler and the {@link FtpHandler} interface
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -47,14 +47,12 @@ public class FtpHandlerAdapter extends IoHandlerAdapter {
     this.ftpHandler = ftpHandler;
   }
 
-  public void exceptionCaught(IoSession session, Throwable cause)
-      throws Exception {
+  public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
     FtpIoSession ftpSession = new FtpIoSession(session, context);
     ftpHandler.exceptionCaught(ftpSession, cause);
   }
 
-  public void messageReceived(IoSession session, Object message)
-      throws Exception {
+  public void messageReceived(IoSession session, Object message) throws Exception {
     FtpIoSession ftpSession = new FtpIoSession(session, context);
     FtpRequest request = new DefaultFtpRequest(message.toString());
 
@@ -76,11 +74,9 @@ public class FtpHandlerAdapter extends IoHandlerAdapter {
     MdcInjectionFilter.setProperty(session, "session", ftpSession.getSessionId().toString());
 
     ftpHandler.sessionCreated(ftpSession);
-
   }
 
-  public void sessionIdle(IoSession session, IdleStatus status)
-      throws Exception {
+  public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
     FtpIoSession ftpSession = new FtpIoSession(session, context);
     ftpHandler.sessionIdle(ftpSession, status);
   }
@@ -96,7 +92,5 @@ public class FtpHandlerAdapter extends IoHandlerAdapter {
 
   public void setFtpHandler(FtpHandler handler) {
     this.ftpHandler = handler;
-
   }
-
 }

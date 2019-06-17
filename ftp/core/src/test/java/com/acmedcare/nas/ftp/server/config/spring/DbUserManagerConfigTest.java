@@ -24,27 +24,29 @@ import com.acmedcare.nas.ftp.server.usermanager.SaltedPasswordEncryptor;
 import com.acmedcare.nas.ftp.server.usermanager.impl.DbUserManager;
 import org.hsqldb.jdbc.jdbcDataSource;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class DbUserManagerConfigTest extends SpringConfigTestTemplate {
 
   public void test() throws Throwable {
-    DefaultFtpServer server = (DefaultFtpServer) createServer("<db-user-manager  encrypt-passwords=\"salted\">"
-        + "<data-source>"
-        + "    <beans:bean class=\"org.hsqldb.jdbc.jdbcDataSource\">"
-        + "        <beans:property name=\"database\" value=\"jdbc:hsqldb:mem:foo\" />"
-        + "        <beans:property name=\"user\" value=\"sa\" />"
-        + "        <beans:property name=\"password\" value=\"\" />"
-        + "    </beans:bean>" + "</data-source>"
-        + "<insert-user>INSERT USER</insert-user>"
-        + "<update-user>UPDATE USER</update-user>"
-        + "<delete-user>DELETE USER</delete-user>"
-        + "<select-user>SELECT USER</select-user>"
-        + "<select-all-users>SELECT ALL USERS</select-all-users>"
-        + "<is-admin>IS ADMIN</is-admin>"
-        + "<authenticate>AUTHENTICATE</authenticate>"
-        + "</db-user-manager>");
+    DefaultFtpServer server =
+        (DefaultFtpServer)
+            createServer(
+                "<db-user-manager  encrypt-passwords=\"salted\">"
+                    + "<data-source>"
+                    + "    <beans:bean class=\"org.hsqldb.jdbc.jdbcDataSource\">"
+                    + "        <beans:property name=\"database\" value=\"jdbc:hsqldb:mem:foo\" />"
+                    + "        <beans:property name=\"user\" value=\"sa\" />"
+                    + "        <beans:property name=\"password\" value=\"\" />"
+                    + "    </beans:bean>"
+                    + "</data-source>"
+                    + "<insert-user>INSERT USER</insert-user>"
+                    + "<update-user>UPDATE USER</update-user>"
+                    + "<delete-user>DELETE USER</delete-user>"
+                    + "<select-user>SELECT USER</select-user>"
+                    + "<select-all-users>SELECT ALL USERS</select-all-users>"
+                    + "<is-admin>IS ADMIN</is-admin>"
+                    + "<authenticate>AUTHENTICATE</authenticate>"
+                    + "</db-user-manager>");
 
     DbUserManager um = (DbUserManager) server.getUserManager();
     assertTrue(um.getDataSource() instanceof jdbcDataSource);
@@ -57,6 +59,5 @@ public class DbUserManagerConfigTest extends SpringConfigTestTemplate {
     assertEquals("SELECT ALL USERS", um.getSqlUserSelectAll());
     assertEquals("IS ADMIN", um.getSqlUserAdmin());
     assertEquals("AUTHENTICATE", um.getSqlUserAuthenticate());
-
   }
 }

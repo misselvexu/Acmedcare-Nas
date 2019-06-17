@@ -24,8 +24,7 @@ import com.acmedcare.nas.ftp.server.FtpServerFactory;
 import com.acmedcare.nas.ftp.server.listener.ListenerFactory;
 
 /**
- * Test for external passive address configured as hostname rather than IP
- * address.
+ * Test for external passive address configured as hostname rather than IP address.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */

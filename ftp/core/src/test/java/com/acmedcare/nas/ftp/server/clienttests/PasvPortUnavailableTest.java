@@ -25,10 +25,7 @@ import com.acmedcare.nas.ftp.server.listener.ListenerFactory;
 import com.acmedcare.nas.ftp.server.test.TestUtil;
 import org.apache.commons.net.ftp.FTPClient;
 
-
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class PasvPortUnavailableTest extends ClientTestTemplate {
 
   private int passivePort;
@@ -37,8 +34,7 @@ public class PasvPortUnavailableTest extends ClientTestTemplate {
   protected FtpServerFactory createServer() throws Exception {
     FtpServerFactory server = super.createServer();
 
-    ListenerFactory listenerFactory = new ListenerFactory(server
-        .getListener("default"));
+    ListenerFactory listenerFactory = new ListenerFactory(server.getListener("default"));
 
     DataConnectionConfigurationFactory dccFactory = new DataConnectionConfigurationFactory();
 
@@ -46,8 +42,7 @@ public class PasvPortUnavailableTest extends ClientTestTemplate {
 
     dccFactory.setPassivePorts(String.valueOf(passivePort));
 
-    listenerFactory.setDataConnectionConfiguration(dccFactory
-        .createDataConnectionConfiguration());
+    listenerFactory.setDataConnectionConfiguration(dccFactory.createDataConnectionConfiguration());
 
     server.addListener("default", listenerFactory.createListener());
 
@@ -62,9 +57,11 @@ public class PasvPortUnavailableTest extends ClientTestTemplate {
       clients[i].login(ADMIN_USERNAME, ADMIN_PASSWORD);
       clients[i].pasv();
       if (i < 1) {
-        assertTrue(clients[i].getReplyString(), clients[i].getReplyString().trim().startsWith("227"));
+        assertTrue(
+            clients[i].getReplyString(), clients[i].getReplyString().trim().startsWith("227"));
       } else {
-        assertTrue(clients[i].getReplyString(), clients[i].getReplyString().trim().startsWith("425"));
+        assertTrue(
+            clients[i].getReplyString(), clients[i].getReplyString().trim().startsWith("425"));
       }
     }
     for (int i = 0; i < 3; i++) {

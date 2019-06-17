@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
- * Invokes FtpServer as a daemon, running in the background. Used for example
- * for the Windows service.
+ * Invokes FtpServer as a daemon, running in the background. Used for example for the Windows
+ * service.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -82,9 +82,7 @@ public class Daemon {
     }
   }
 
-  /**
-   * Get the configuration object.
-   */
+  /** Get the configuration object. */
   private static FtpServer getConfiguration(String[] args) throws Exception {
 
     FtpServer server = null;
@@ -93,8 +91,7 @@ public class Daemon {
       server = new FtpServerFactory().createServer();
     } else if ((args.length == 2) && args[1].equals("-default")) {
       // supported for backwards compatibility, but not documented
-      System.out
-          .println("The -default switch is deprecated, please use --default instead");
+      System.out.println("The -default switch is deprecated, please use --default instead");
       LOG.info("Using default configuration....");
       server = new FtpServerFactory().createServer();
     } else if ((args.length == 2) && args[1].equals("--default")) {
@@ -102,8 +99,7 @@ public class Daemon {
       server = new FtpServerFactory().createServer();
     } else if (args.length == 2) {
       LOG.info("Using xml configuration file " + args[1] + "...");
-      FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext(
-          args[1]);
+      FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext(args[1]);
 
       if (ctx.containsBean("server")) {
         server = (FtpServer) ctx.getBean("server");
@@ -112,13 +108,11 @@ public class Daemon {
         if (beanNames.length == 1) {
           server = (FtpServer) ctx.getBean(beanNames[0]);
         } else if (beanNames.length > 1) {
-          System.out
-              .println("Using the first server defined in the configuration, named "
-                  + beanNames[0]);
+          System.out.println(
+              "Using the first server defined in the configuration, named " + beanNames[0]);
           server = (FtpServer) ctx.getBean(beanNames[0]);
         } else {
-          System.err
-              .println("XML configuration does not contain a server configuration");
+          System.err.println("XML configuration does not contain a server configuration");
         }
       }
     } else {

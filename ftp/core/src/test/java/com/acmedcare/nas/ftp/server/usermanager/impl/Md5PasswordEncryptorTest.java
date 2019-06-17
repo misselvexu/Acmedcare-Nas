@@ -22,10 +22,7 @@ package com.acmedcare.nas.ftp.server.usermanager.impl;
 import com.acmedcare.nas.ftp.server.usermanager.Md5PasswordEncryptor;
 import com.acmedcare.nas.ftp.server.usermanager.PasswordEncryptor;
 
-
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class Md5PasswordEncryptorTest extends ClearTextPasswordEncryptorTest {
 
   @Override

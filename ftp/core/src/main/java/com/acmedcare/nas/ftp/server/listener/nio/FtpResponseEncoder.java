@@ -31,17 +31,16 @@ import java.nio.charset.CharsetEncoder;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * A {@link MessageEncoder} that encodes {@link FtpReply}.
+ *
+ * <p>A {@link MessageEncoder} that encodes {@link FtpReply}.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class FtpResponseEncoder extends ProtocolEncoderAdapter {
-  private static final CharsetEncoder ENCODER = Charset.forName("UTF-8")
-      .newEncoder();
+  private static final CharsetEncoder ENCODER = Charset.forName("UTF-8").newEncoder();
 
-  public void encode(IoSession session, Object message,
-                     ProtocolEncoderOutput out) throws Exception {
+  public void encode(IoSession session, Object message, ProtocolEncoderOutput out)
+      throws Exception {
     String value = message.toString();
 
     IoBuffer buf = IoBuffer.allocate(value.length()).setAutoExpand(true);

@@ -32,11 +32,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * TYPE &lt;SP&gt; &lt;type-code&gt; &lt;CRLF&gt;</code><br>
  *
- * <code>TYPE &lt;SP&gt; &lt;type-code&gt; &lt;CRLF&gt;</code><br>
- * <p>
- * The argument specifies the representation type.
+ * <p>The argument specifies the representation type.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -44,11 +43,9 @@ public class TYPE extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(TYPE.class);
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {
 
     // reset state variables
@@ -60,33 +57,33 @@ public class TYPE extends AbstractCommand {
       type = request.getArgument().charAt(0);
     } else {
       // no type specified
-      session
-          .write(LocalizedFtpReply
-              .translate(
-                  session,
-                  request,
-                  context,
-                  FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-                  "TYPE", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "TYPE",
+              null));
       return;
     }
 
     // set type
     try {
       session.setDataType(DataType.parseArgument(type));
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_200_COMMAND_OKAY, "TYPE", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "TYPE", null));
     } catch (IllegalArgumentException e) {
       LOG.debug("Illegal type argument: " + request.getArgument(), e);
-      session
-          .write(LocalizedFtpReply
-              .translate(
-                  session,
-                  request,
-                  context,
-                  FtpReply.REPLY_504_COMMAND_NOT_IMPLEMENTED_FOR_THAT_PARAMETER,
-                  "TYPE", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_504_COMMAND_NOT_IMPLEMENTED_FOR_THAT_PARAMETER,
+              "TYPE",
+              null));
     }
   }
-
 }

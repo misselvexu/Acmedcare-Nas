@@ -26,8 +26,8 @@ import com.acmedcare.nas.ftp.server.usermanager.PasswordEncryptor;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Abstract common base type for {@link UserManager} implementations
+ *
+ * <p>Abstract common base type for {@link UserManager} implementations
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -61,36 +61,29 @@ public abstract class AbstractUserManager implements UserManager {
     this(null, new Md5PasswordEncryptor());
   }
 
-  /**
-   * Internal constructor, do not use directly
-   */
+  /** Internal constructor, do not use directly */
   public AbstractUserManager(String adminName, PasswordEncryptor passwordEncryptor) {
     this.adminName = adminName;
     this.passwordEncryptor = passwordEncryptor;
   }
 
-  /**
-   * Get the admin name.
-   */
+  /** Get the admin name. */
   @Override
   public String getAdminName() {
     return adminName;
   }
 
-  /**
-   * @return true if user with this login is administrator
-   */
+  /** @return true if user with this login is administrator */
   @Override
   public boolean isAdmin(String login) throws FtpException {
     return adminName.equals(login);
   }
 
-
   /**
    * Retrieve the password encryptor used for this user manager
    *
-   * @return The password encryptor. Default to {@link Md5PasswordEncryptor}
-   * if no other has been provided
+   * @return The password encryptor. Default to {@link Md5PasswordEncryptor} if no other has been
+   *     provided
    */
   public PasswordEncryptor getPasswordEncryptor() {
     return passwordEncryptor;

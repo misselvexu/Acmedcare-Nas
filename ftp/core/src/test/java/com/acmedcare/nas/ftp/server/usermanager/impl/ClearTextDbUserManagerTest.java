@@ -27,23 +27,19 @@ import com.acmedcare.nas.ftp.server.usermanager.UserManagerFactory;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ClearTextDbUserManagerTest extends DbUserManagerTest {
 
   @Override
   protected File getInitSqlScript() {
-    return new File(TestUtil.getBaseDir(),
-        "src/test/resources/dbusermanagertest-cleartext-hsql.sql");
+    return new File(
+        TestUtil.getBaseDir(), "src/test/resources/dbusermanagertest-cleartext-hsql.sql");
   }
-
 
   @Override
   protected UserManagerFactory createUserManagerFactory() throws FtpException {
     DbUserManagerFactory manager = (DbUserManagerFactory) super.createUserManagerFactory();
     manager.setPasswordEncryptor(new ClearTextPasswordEncryptor());
     return manager;
-
   }
 }

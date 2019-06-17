@@ -23,9 +23,7 @@ import org.apache.commons.net.ftp.FTPConnectionClosedException;
 
 import java.net.SocketException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class DefaultMaxLoginTest extends ClientTestTemplate {
   private static final String UNKNOWN_USERNAME = "foo";
 

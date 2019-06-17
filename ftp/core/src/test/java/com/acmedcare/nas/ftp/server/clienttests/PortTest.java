@@ -21,9 +21,7 @@ package com.acmedcare.nas.ftp.server.clienttests;
 
 import java.net.InetAddress;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class PortTest extends ClientTestTemplate {
 
   @Override
@@ -36,5 +34,4 @@ public class PortTest extends ClientTestTemplate {
   public void testInvalidIpAndPort() throws Exception {
     assertEquals(501, client.port(InetAddress.getByName("0.0.0.0"), 0));
   }
-
 }

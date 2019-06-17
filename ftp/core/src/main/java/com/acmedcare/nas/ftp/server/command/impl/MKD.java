@@ -34,13 +34,12 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * MKD  &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
  *
- * <code>MKD  &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
- * <p>
- * This command causes the directory specified in the pathname to be created as
- * a directory (if the pathname is absolute) or as a subdirectory of the current
- * working directory (if the pathname is relative).
+ * <p>This command causes the directory specified in the pathname to be created as a directory (if
+ * the pathname is absolute) or as a subdirectory of the current working directory (if the pathname
+ * is relative).
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -48,11 +47,10 @@ public class MKD extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(MKD.class);
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state
@@ -61,9 +59,15 @@ public class MKD extends AbstractCommand {
     // argument check
     String fileName = request.getArgument();
     if (fileName == null) {
-      session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "MKD", null, null));
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "MKD",
+              null,
+              null));
       return;
     }
 
@@ -75,47 +79,77 @@ public class MKD extends AbstractCommand {
       LOG.debug("Exception getting file object", ex);
     }
     if (file == null) {
-      session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-          FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-          "MKD.invalid", fileName, file));
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+              "MKD.invalid",
+              fileName,
+              file));
       return;
     }
 
     // check permission
     fileName = file.getAbsolutePath();
     if (!file.isWritable()) {
-      session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-          FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-          "MKD.permission", fileName, file));
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+              "MKD.permission",
+              fileName,
+              file));
       return;
     }
 
     // check file existance
     if (file.doesExist()) {
-      session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-          FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-          "MKD.exists", fileName, file));
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+              "MKD.exists",
+              fileName,
+              file));
       return;
     }
 
     // now create directory
     if (file.mkdir()) {
-      session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-          FtpReply.REPLY_257_PATHNAME_CREATED, "MKD", fileName, file));
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_257_PATHNAME_CREATED,
+              "MKD",
+              fileName,
+              file));
 
       // write log message
       String userName = session.getUser().getName();
       LOG.info("Directory create : " + userName + " - " + fileName);
 
       // notify statistics object
-      ServerFtpStatistics ftpStat = (ServerFtpStatistics) context
-          .getFtpStatistics();
+      ServerFtpStatistics ftpStat = (ServerFtpStatistics) context.getFtpStatistics();
       ftpStat.setMkdir(session, file);
 
     } else {
-      session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-          FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN, "MKD",
-          fileName, file));
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+              "MKD",
+              fileName,
+              file));
     }
   }
 }

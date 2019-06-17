@@ -37,11 +37,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * MLST &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
  *
- * <code>MLST &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
- * <p>
- * Returns info on the file over the control connection.
+ * <p>Returns info on the file over the control connection.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -49,45 +48,51 @@ public class MLST extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(MLST.class);
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {
 
     // reset state variables
     session.resetState();
 
     // parse argument
-    ListArgument parsedArg = ListArgumentParser
-        .parse(request.getArgument());
+    ListArgument parsedArg = ListArgumentParser.parse(request.getArgument());
 
     FtpFile file = null;
     try {
-      file = session.getFileSystemView().getFile(
-          parsedArg.getFile());
+      file = session.getFileSystemView().getFile(parsedArg.getFile());
       if (file != null && file.doesExist()) {
-        FileFormater formater = new MLSTFileFormater((String[]) session
-            .getAttribute("MLST.types"));
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_250_REQUESTED_FILE_ACTION_OKAY, "MLST",
-            formater.format(file)));
+        FileFormater formater = new MLSTFileFormater((String[]) session.getAttribute("MLST.types"));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_250_REQUESTED_FILE_ACTION_OKAY,
+                "MLST",
+                formater.format(file)));
       } else {
-        session
-            .write(LocalizedFtpReply
-                .translate(
-                    session,
-                    request,
-                    context,
-                    FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-                    "MLST", null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+                "MLST",
+                null));
       }
     } catch (FtpException ex) {
       LOG.debug("Exception sending the file listing", ex);
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "MLST", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "MLST",
+              null));
     }
   }
 }

@@ -24,9 +24,8 @@ import com.acmedcare.nas.ftp.server.listener.ListenerFactory;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * Spring {@link FactoryBean} which extends {@link ListenerFactory}
- * making it easier to use Spring's standard &lt;bean&gt; tag instead of
- * FtpServer's custom XML tags to configure things.
+ * Spring {@link FactoryBean} which extends {@link ListenerFactory} making it easier to use Spring's
+ * standard &lt;bean&gt; tag instead of FtpServer's custom XML tags to configure things.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @see ListenerFactory
@@ -44,5 +43,4 @@ public class ListenerFactoryBean extends ListenerFactory implements FactoryBean 
   public boolean isSingleton() {
     return false;
   }
-
 }

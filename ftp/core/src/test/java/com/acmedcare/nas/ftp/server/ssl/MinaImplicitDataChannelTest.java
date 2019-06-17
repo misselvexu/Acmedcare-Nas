@@ -32,9 +32,7 @@ import java.io.ByteArrayInputStream;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class MinaImplicitDataChannelTest extends ImplicitSecurityTestTemplate {
 
   @Override
@@ -49,8 +47,7 @@ public class MinaImplicitDataChannelTest extends ImplicitSecurityTestTemplate {
 
   @Override
   protected DataConnectionConfigurationFactory createDataConnectionConfigurationFactory() {
-    DataConnectionConfigurationFactory result = super
-        .createDataConnectionConfigurationFactory();
+    DataConnectionConfigurationFactory result = super.createDataConnectionConfigurationFactory();
     result.setImplicitSsl(true);
     return result;
   }
@@ -64,21 +61,17 @@ public class MinaImplicitDataChannelTest extends ImplicitSecurityTestTemplate {
     return true;
   }
 
-  /**
-   * Simple test that the {@link ServerDataConnectionFactory#isSecure()}
-   * works as expected
-   */
+  /** Simple test that the {@link ServerDataConnectionFactory#isSecure()} works as expected */
   public void testThatDataChannelIsSecure() {
     assertTrue(getActiveSession().getDataConnection().isSecure());
   }
 
   /**
-   * Test that implicit SSL data connections works with clients that
-   * use implicit SSL for the data connection, without sending PROT P.
-   * In this case in active mode.
-   * <p>
-   * The inherited tests from {@link ExplicitSecurityTestTemplate} ensures that
-   * data transfers work when using PROT P
+   * Test that implicit SSL data connections works with clients that use implicit SSL for the data
+   * connection, without sending PROT P. In this case in active mode.
+   *
+   * <p>The inherited tests from {@link ExplicitSecurityTestTemplate} ensures that data transfers
+   * work when using PROT P
    */
   public void testStoreWithoutProtPInActiveMode() throws Exception {
     secureClientDataConnection();
@@ -88,17 +81,15 @@ public class MinaImplicitDataChannelTest extends ImplicitSecurityTestTemplate {
     // make sure we use a implicit SSL data connection
     assertTrue(getActiveSession().getDataConnection().isSecure());
 
-    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-        TEST_DATA));
+    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TEST_DATA));
 
     assertTrue(TEST_FILE1.exists());
     assertEquals(TEST_DATA.length, TEST_FILE1.length());
   }
 
   /**
-   * Test that implicit SSL data connections works with clients that
-   * use implicit SSL for the data connection, without sending PROT P.
-   * In this case in active mode.
+   * Test that implicit SSL data connections works with clients that use implicit SSL for the data
+   * connection, without sending PROT P. In this case in active mode.
    */
   @Override
   public void testStoreWithProtPInPassiveMode() throws Exception {
@@ -110,24 +101,22 @@ public class MinaImplicitDataChannelTest extends ImplicitSecurityTestTemplate {
     // make sure we use a implicit SSL data connection
     assertTrue(getActiveSession().getDataConnection().isSecure());
 
-    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-        TEST_DATA));
+    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TEST_DATA));
 
     assertTrue(TEST_FILE1.exists());
     assertEquals(TEST_DATA.length, TEST_FILE1.length());
   }
 
-
-  private void secureClientDataConnection() throws NoSuchAlgorithmException,
-      KeyManagementException {
+  private void secureClientDataConnection()
+      throws NoSuchAlgorithmException, KeyManagementException {
 
     // FTPSClient does not support implicit data connections, so we hack it ourselves
     FTPSClient sclient = (FTPSClient) client;
     SSLContext context = SSLContext.getInstance("TLS");
 
     // these are the same key and trust managers that we initialize the client with
-    context.init(new KeyManager[]{clientKeyManager},
-        new TrustManager[]{clientTrustManager}, null);
+    context.init(
+        new KeyManager[] {clientKeyManager}, new TrustManager[] {clientTrustManager}, null);
     sclient.setSocketFactory(new FTPSSocketFactory(context));
     SSLServerSocketFactory ssf = context.getServerSocketFactory();
     sclient.setServerSocketFactory(ssf);

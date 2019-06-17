@@ -30,14 +30,12 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * CWD  &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
  *
- * <code>CWD  &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
- * <p>
- * This command allows the user to work with a different directory for file
- * storage or retrieval without altering his login or accounting information.
- * Transfer parameters are similarly unchanged. The argument is a pathname
- * specifying a directory.
+ * <p>This command allows the user to work with a different directory for file storage or retrieval
+ * without altering his login or accounting information. Transfer parameters are similarly
+ * unchanged. The argument is a pathname specifying a directory.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -45,11 +43,9 @@ public class CWD extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(CWD.class);
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variables
@@ -72,14 +68,25 @@ public class CWD extends AbstractCommand {
     FtpFile cwd = fsview.getWorkingDirectory();
     if (success) {
       dirName = cwd.getAbsolutePath();
-      session.write(LocalizedFileActionFtpReply.translate(session, request, context,
-          FtpReply.REPLY_250_REQUESTED_FILE_ACTION_OKAY, "CWD",
-          dirName, cwd));
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_250_REQUESTED_FILE_ACTION_OKAY,
+              "CWD",
+              dirName,
+              cwd));
     } else {
-      session
-          .write(LocalizedFileActionFtpReply.translate(session, request, context,
+      session.write(
+          LocalizedFileActionFtpReply.translate(
+              session,
+              request,
+              context,
               FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-              "CWD", null, cwd));
+              "CWD",
+              null,
+              cwd));
     }
   }
 }

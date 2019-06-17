@@ -28,14 +28,33 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class NLSTFileFormaterTest extends TestCase {
 
   private static final FtpFile TEST_FILE = new MockFileObject();
 
   public NLSTFileFormater formater = new NLSTFileFormater();
+
+  public void testSingleFile() {
+    assertEquals("short\r\n", formater.format(TEST_FILE));
+  }
+
+  public void testSingleDir() {
+    FtpFile dir =
+        new MockFileObject() {
+          @Override
+          public boolean isDirectory() {
+            return true;
+          }
+
+          @Override
+          public boolean isFile() {
+            return false;
+          }
+        };
+
+    assertEquals("short\r\n", formater.format(dir));
+  }
 
   public static class MockFileObject implements FtpFile {
     @Override
@@ -141,7 +160,6 @@ public class NLSTFileFormaterTest extends TestCase {
     @Override
     public boolean setLastModified(long time) {
       return false;
-
     }
 
     @Override
@@ -149,26 +167,4 @@ public class NLSTFileFormaterTest extends TestCase {
       return "/short";
     }
   }
-
-  public void testSingleFile() {
-    assertEquals("short\r\n", formater.format(TEST_FILE));
-  }
-
-  public void testSingleDir() {
-    FtpFile dir = new MockFileObject() {
-      @Override
-      public boolean isDirectory() {
-        return true;
-      }
-
-      @Override
-      public boolean isFile() {
-        return false;
-      }
-
-    };
-
-    assertEquals("short\r\n", formater.format(dir));
-  }
-
 }

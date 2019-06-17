@@ -24,9 +24,7 @@ import com.acmedcare.nas.ftp.server.test.TestUtil;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class RetrieveTest extends ClientTestTemplate {
   private static final String TEST_FILENAME = "test.txt";
 
@@ -34,8 +32,8 @@ public class RetrieveTest extends ClientTestTemplate {
 
   private static final File TEST_FILE = new File(ROOT_DIR, TEST_FILENAME);
 
-  private static final File TEST_FILE_WITH_LEADING_SPACE = new File(ROOT_DIR,
-      TEST_FILENAME_WITH_LEADING_SPACE);
+  private static final File TEST_FILE_WITH_LEADING_SPACE =
+      new File(ROOT_DIR, TEST_FILENAME_WITH_LEADING_SPACE);
 
   private static final String EOL = System.getProperty("line.separator");
 

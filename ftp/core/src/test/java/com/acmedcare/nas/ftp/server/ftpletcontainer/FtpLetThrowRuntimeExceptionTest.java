@@ -21,11 +21,8 @@ package com.acmedcare.nas.ftp.server.ftpletcontainer;
 
 import java.io.IOException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
-public class FtpLetThrowRuntimeExceptionTest extends
-    FtpLetThrowFtpExceptionTest {
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
+public class FtpLetThrowRuntimeExceptionTest extends FtpLetThrowFtpExceptionTest {
   @Override
   protected void throwException() throws IOException {
     throw new IOException();

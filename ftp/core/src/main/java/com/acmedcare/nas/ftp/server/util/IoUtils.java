@@ -24,29 +24,22 @@ import java.util.Random;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * IO utility methods.
  *
- * <b>Note: Why not use commons-io?</b>
- * While many of these utility methods are also provided by the Apache
- * commons-io library we prefer to our own implementation to, using a external
- * library might cause additional constraints on users embedding FtpServer.
+ * <p>IO utility methods.
+ *
+ * <p><b>Note: Why not use commons-io?</b> While many of these utility methods are also provided by
+ * the Apache commons-io library we prefer to our own implementation to, using a external library
+ * might cause additional constraints on users embedding FtpServer.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class IoUtils {
 
-  /**
-   * Random number generator to make unique file name
-   */
-  private final static Random RANDOM_GEN = new Random(System
-      .currentTimeMillis());
+  /** Random number generator to make unique file name */
+  private static final Random RANDOM_GEN = new Random(System.currentTimeMillis());
 
-  /**
-   * Get a <code>BufferedInputStream</code>.
-   */
-  public final static BufferedInputStream getBufferedInputStream(
-      InputStream in) {
+  /** Get a <code>BufferedInputStream</code>. */
+  public static final BufferedInputStream getBufferedInputStream(InputStream in) {
     BufferedInputStream bin = null;
     if (in instanceof java.io.BufferedInputStream) {
       bin = (BufferedInputStream) in;
@@ -56,11 +49,8 @@ public class IoUtils {
     return bin;
   }
 
-  /**
-   * Get a <code>BufferedOutputStream</code>.
-   */
-  public final static BufferedOutputStream getBufferedOutputStream(
-      OutputStream out) {
+  /** Get a <code>BufferedOutputStream</code>. */
+  public static final BufferedOutputStream getBufferedOutputStream(OutputStream out) {
     BufferedOutputStream bout = null;
     if (out instanceof java.io.BufferedOutputStream) {
       bout = (BufferedOutputStream) out;
@@ -70,10 +60,8 @@ public class IoUtils {
     return bout;
   }
 
-  /**
-   * Get <code>BufferedReader</code>.
-   */
-  public final static BufferedReader getBufferedReader(Reader reader) {
+  /** Get <code>BufferedReader</code>. */
+  public static final BufferedReader getBufferedReader(Reader reader) {
     BufferedReader buffered = null;
     if (reader instanceof java.io.BufferedReader) {
       buffered = (BufferedReader) reader;
@@ -83,10 +71,8 @@ public class IoUtils {
     return buffered;
   }
 
-  /**
-   * Get <code>BufferedWriter</code>.
-   */
-  public final static BufferedWriter getBufferedWriter(Writer wr) {
+  /** Get <code>BufferedWriter</code>. */
+  public static final BufferedWriter getBufferedWriter(Writer wr) {
     BufferedWriter bw = null;
     if (wr instanceof java.io.BufferedWriter) {
       bw = (BufferedWriter) wr;
@@ -96,25 +82,20 @@ public class IoUtils {
     return bw;
   }
 
-  /**
-   * Get unique file object.
-   */
-  public final static File getUniqueFile(File oldFile) {
+  /** Get unique file object. */
+  public static final File getUniqueFile(File oldFile) {
     File newFile = oldFile;
     while (true) {
       if (!newFile.exists()) {
         break;
       }
-      newFile = new File(oldFile.getAbsolutePath() + '.'
-          + Math.abs(RANDOM_GEN.nextLong()));
+      newFile = new File(oldFile.getAbsolutePath() + '.' + Math.abs(RANDOM_GEN.nextLong()));
     }
     return newFile;
   }
 
-  /**
-   * No exception <code>InputStream</code> close method.
-   */
-  public final static void close(InputStream is) {
+  /** No exception <code>InputStream</code> close method. */
+  public static final void close(InputStream is) {
     if (is != null) {
       try {
         is.close();
@@ -123,10 +104,8 @@ public class IoUtils {
     }
   }
 
-  /**
-   * No exception <code>OutputStream</code> close method.
-   */
-  public final static void close(OutputStream os) {
+  /** No exception <code>OutputStream</code> close method. */
+  public static final void close(OutputStream os) {
     if (os != null) {
       try {
         os.close();
@@ -135,10 +114,8 @@ public class IoUtils {
     }
   }
 
-  /**
-   * No exception <code>java.io.Reader</code> close method.
-   */
-  public final static void close(Reader rd) {
+  /** No exception <code>java.io.Reader</code> close method. */
+  public static final void close(Reader rd) {
     if (rd != null) {
       try {
         rd.close();
@@ -147,10 +124,8 @@ public class IoUtils {
     }
   }
 
-  /**
-   * No exception <code>java.io.Writer</code> close method.
-   */
-  public final static void close(Writer wr) {
+  /** No exception <code>java.io.Writer</code> close method. */
+  public static final void close(Writer wr) {
     if (wr != null) {
       try {
         wr.close();
@@ -159,10 +134,8 @@ public class IoUtils {
     }
   }
 
-  /**
-   * Get exception stack trace.
-   */
-  public final static String getStackTrace(Throwable ex) {
+  /** Get exception stack trace. */
+  public static final String getStackTrace(Throwable ex) {
     String result = "";
     if (ex != null) {
       try {
@@ -184,8 +157,7 @@ public class IoUtils {
    *
    * @param bufferSize Size of internal buffer to use.
    */
-  public final static void copy(Reader input, Writer output, int bufferSize)
-      throws IOException {
+  public static final void copy(Reader input, Writer output, int bufferSize) throws IOException {
     char buffer[] = new char[bufferSize];
     int n = 0;
     while ((n = input.read(buffer)) != -1) {
@@ -194,13 +166,12 @@ public class IoUtils {
   }
 
   /**
-   * Copy chars from a <code>InputStream</code> to a <code>OutputStream</code>
-   * .
+   * Copy chars from a <code>InputStream</code> to a <code>OutputStream</code> .
    *
    * @param bufferSize Size of internal buffer to use.
    */
-  public final static void copy(InputStream input, OutputStream output,
-                                int bufferSize) throws IOException {
+  public static final void copy(InputStream input, OutputStream output, int bufferSize)
+      throws IOException {
     byte buffer[] = new byte[bufferSize];
     int n = 0;
     while ((n = input.read(buffer)) != -1) {
@@ -208,26 +179,22 @@ public class IoUtils {
     }
   }
 
-  /**
-   * Read fully from reader
-   */
-  public final static String readFully(Reader reader) throws IOException {
+  /** Read fully from reader */
+  public static final String readFully(Reader reader) throws IOException {
     StringWriter writer = new StringWriter();
     copy(reader, writer, 1024);
     return writer.toString();
   }
 
-  /**
-   * Read fully from stream
-   */
-  public final static String readFully(InputStream input) throws IOException {
+  /** Read fully from stream */
+  public static final String readFully(InputStream input) throws IOException {
     StringWriter writer = new StringWriter();
     InputStreamReader reader = new InputStreamReader(input);
     copy(reader, writer, 1024);
     return writer.toString();
   }
 
-  public final static void delete(File file) throws IOException {
+  public static final void delete(File file) throws IOException {
     if (file.isDirectory()) {
       deleteDir(file);
     } else {
@@ -235,7 +202,7 @@ public class IoUtils {
     }
   }
 
-  private final static void deleteDir(File dir) throws IOException {
+  private static final void deleteDir(File dir) throws IOException {
     File[] children = dir.listFiles();
 
     if (children == null) {
@@ -250,10 +217,9 @@ public class IoUtils {
     if (!dir.delete()) {
       throw new IOException("Failed to delete directory: " + dir);
     }
-
   }
 
-  private final static void deleteFile(File file) throws IOException {
+  private static final void deleteFile(File file) throws IOException {
     if (!file.delete()) {
       // hack around bug where files will sometimes not be deleted on
       // Windows

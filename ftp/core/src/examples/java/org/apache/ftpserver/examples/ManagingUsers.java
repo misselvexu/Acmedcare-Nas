@@ -1,4 +1,4 @@
-package org.apache.ftpserver.examples;
+package com.acmedcare.nas.ftp.server.examples;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,30 +19,28 @@ package org.apache.ftpserver.examples;
  * under the License.
  */
 
-import org.apache.ftpserver.ftplet.User;
-import org.apache.ftpserver.ftplet.UserManager;
-import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
-import org.apache.ftpserver.usermanager.SaltedPasswordEncryptor;
-import org.apache.ftpserver.usermanager.UserFactory;
+import com.acmedcare.nas.ftp.server.ftplet.User;
+import com.acmedcare.nas.ftp.server.ftplet.UserManager;
+import com.acmedcare.nas.ftp.server.usermanager.PropertiesUserManagerFactory;
+import com.acmedcare.nas.ftp.server.usermanager.SaltedPasswordEncryptor;
+import com.acmedcare.nas.ftp.server.usermanager.UserFactory;
 
 import java.io.File;
 
-/**
-* @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>*
-*/
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>* */
 public class ManagingUsers {
 
-    public static void main(String[] args) throws Exception {
-        PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
-        userManagerFactory.setFile(new File("myusers.properties"));
-        userManagerFactory.setPasswordEncryptor(new SaltedPasswordEncryptor());
-        UserManager um = userManagerFactory.createUserManager();
+  public static void main(String[] args) throws Exception {
+    PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
+    userManagerFactory.setFile(new File("myusers.properties"));
+    userManagerFactory.setPasswordEncryptor(new SaltedPasswordEncryptor());
+    UserManager um = userManagerFactory.createUserManager();
 
-        UserFactory userFact = new UserFactory();
-        userFact.setName("myNewUser");
-        userFact.setPassword("secret");
-        userFact.setHomeDirectory("ftproot");
-        User user = userFact.createUser();
-        um.save(user);
-    }
+    UserFactory userFact = new UserFactory();
+    userFact.setName("myNewUser");
+    userFact.setPassword("secret");
+    userFact.setHomeDirectory("ftproot");
+    User user = userFact.createUser();
+    um.save(user);
+  }
 }

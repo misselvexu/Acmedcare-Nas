@@ -37,26 +37,23 @@ import java.util.List;
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-public class CommandFactoryBeanDefinitionParser extends
-    AbstractSingleBeanDefinitionParser {
+public class CommandFactoryBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   protected Class<? extends CommandFactory> getBeanClass(final Element element) {
     return null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
-  protected void doParse(final Element element,
-                         final ParserContext parserContext,
-                         final BeanDefinitionBuilder builder) {
+  protected void doParse(
+      final Element element,
+      final ParserContext parserContext,
+      final BeanDefinitionBuilder builder) {
 
-    BeanDefinitionBuilder factoryBuilder = BeanDefinitionBuilder.genericBeanDefinition(CommandFactoryFactory.class);
+    BeanDefinitionBuilder factoryBuilder =
+        BeanDefinitionBuilder.genericBeanDefinition(CommandFactoryFactory.class);
 
     ManagedMap commands = new ManagedMap();
 
@@ -64,16 +61,15 @@ public class CommandFactoryBeanDefinitionParser extends
 
     for (Element commandElm : childs) {
       String name = commandElm.getAttribute("name");
-      Object bean = SpringUtil.parseSpringChildElement(commandElm,
-          parserContext, builder);
+      Object bean = SpringUtil.parseSpringChildElement(commandElm, parserContext, builder);
       commands.put(name, bean);
     }
 
     factoryBuilder.addPropertyValue("commandMap", commands);
 
     if (StringUtils.hasText(element.getAttribute("use-default"))) {
-      factoryBuilder.addPropertyValue("useDefaultCommands", Boolean
-          .valueOf(element.getAttribute("use-default")));
+      factoryBuilder.addPropertyValue(
+          "useDefaultCommands", Boolean.valueOf(element.getAttribute("use-default")));
     }
 
     BeanDefinition factoryDefinition = factoryBuilder.getBeanDefinition();
@@ -85,6 +81,5 @@ public class CommandFactoryBeanDefinitionParser extends
     // set the factory on the listener bean
     builder.getRawBeanDefinition().setFactoryBeanName(factoryId);
     builder.getRawBeanDefinition().setFactoryMethodName("createCommandFactory");
-
   }
 }

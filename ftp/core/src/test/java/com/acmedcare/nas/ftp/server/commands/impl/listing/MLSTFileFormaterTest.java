@@ -30,21 +30,48 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class MLSTFileFormaterTest extends TestCase {
 
-  private static final Calendar LAST_MODIFIED_IN_2005 = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+  private static final Calendar LAST_MODIFIED_IN_2005 =
+      Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+  private static final FtpFile TEST_FILE = new MockFileObject();
 
   static {
     LAST_MODIFIED_IN_2005.clear();
     LAST_MODIFIED_IN_2005.set(2005, Calendar.JANUARY, 2, 3, 4, 5);
   }
 
-  private static final FtpFile TEST_FILE = new MockFileObject();
-
   public MLSTFileFormater formater = new MLSTFileFormater(null);
+
+  public void testSingleFile() {
+    // time should be in UTC
+    assertEquals(
+        "Size=13;Modify=20050102030405.000;Type=file; short\r\n", formater.format(TEST_FILE));
+  }
+
+  public void testSingleDir() {
+    FtpFile dir =
+        new MockFileObject() {
+          @Override
+          public boolean isDirectory() {
+            return true;
+          }
+
+          @Override
+          public boolean isFile() {
+            return false;
+          }
+
+          @Override
+          public long getSize() {
+            return 0;
+          }
+        };
+
+    // time should be in UTC
+    assertEquals("Size=0;Modify=20050102030405.000;Type=dir; short\r\n", formater.format(dir));
+  }
 
   public static class MockFileObject implements FtpFile {
     @Override
@@ -150,42 +177,11 @@ public class MLSTFileFormaterTest extends TestCase {
     @Override
     public boolean setLastModified(long time) {
       return false;
-
     }
 
     @Override
     public Object getPhysicalFile() {
       return "/short";
     }
-  }
-
-  public void testSingleFile() {
-    // time should be in UTC
-    assertEquals("Size=13;Modify=20050102030405.000;Type=file; short\r\n",
-        formater.format(TEST_FILE));
-  }
-
-  public void testSingleDir() {
-    FtpFile dir = new MockFileObject() {
-      @Override
-      public boolean isDirectory() {
-        return true;
-      }
-
-      @Override
-      public boolean isFile() {
-        return false;
-      }
-
-      @Override
-      public long getSize() {
-        return 0;
-      }
-
-    };
-
-    // time should be in UTC
-    assertEquals("Size=0;Modify=20050102030405.000;Type=dir; short\r\n",
-        formater.format(dir));
   }
 }

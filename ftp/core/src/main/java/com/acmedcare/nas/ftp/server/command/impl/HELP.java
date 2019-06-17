@@ -30,24 +30,21 @@ import com.acmedcare.nas.ftp.server.message.MessageResource;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * HELP [&lt;SP&gt; <string>] &lt;CRLF&gt;</code><br>
  *
- * <code>HELP [&lt;SP&gt; <string>] &lt;CRLF&gt;</code><br>
- * <p>
- * This command shall cause the server to send helpful information regarding its
- * implementation status over the control connection to the user. The command
- * may take an argument (e.g., any command name) and return more specific
- * information as a response.
+ * <p>This command shall cause the server to send helpful information regarding its implementation
+ * status over the control connection to the user. The command may take an argument (e.g., any
+ * command name) and return more specific information as a response.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class HELP extends AbstractCommand {
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {
 
     // reset state variables
@@ -55,19 +52,21 @@ public class HELP extends AbstractCommand {
 
     // print global help
     if (!request.hasArgument()) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_214_HELP_MESSAGE, null, null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_214_HELP_MESSAGE, null, null));
       return;
     }
 
     // print command specific help if available
     String ftpCmd = request.getArgument().toUpperCase();
     MessageResource resource = context.getMessageResource();
-    if (resource.getMessage(FtpReply.REPLY_214_HELP_MESSAGE, ftpCmd,
-        session.getLanguage()) == null) {
+    if (resource.getMessage(FtpReply.REPLY_214_HELP_MESSAGE, ftpCmd, session.getLanguage())
+        == null) {
       ftpCmd = null;
     }
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_214_HELP_MESSAGE, ftpCmd, null));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_214_HELP_MESSAGE, ftpCmd, null));
   }
 }

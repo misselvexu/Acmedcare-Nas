@@ -31,17 +31,16 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Interface for the component responsible for waiting for incoming socket
- * requests and kicking off {@link FtpIoSession}s
+ * Interface for the component responsible for waiting for incoming socket requests and kicking off
+ * {@link FtpIoSession}s
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public interface Listener {
 
   /**
-   * Start the listener, will initiate the listener waiting on the socket. The
-   * method should not return until the listener has started accepting socket
-   * requests.
+   * Start the listener, will initiate the listener waiting on the socket. The method should not
+   * return until the listener has started accepting socket requests.
    *
    * @param serverContext The current {@link FtpServerContext}
    * @throws Exception On error during start up
@@ -49,9 +48,8 @@ public interface Listener {
   void start(FtpServerContext serverContext);
 
   /**
-   * Stop the listener, it should no longer except socket requests. The method
-   * should not return until the listener has stopped accepting socket
-   * requests.
+   * Stop the listener, it should no longer except socket requests. The method should not return
+   * until the listener has stopped accepting socket requests.
    */
   void stop();
 
@@ -63,15 +61,15 @@ public interface Listener {
   boolean isStopped();
 
   /**
-   * Temporarily stops the listener from accepting socket requests. Resume the
-   * listener by using the {@link #resume()} method. The method should not
-   * return until the listener has stopped accepting socket requests.
+   * Temporarily stops the listener from accepting socket requests. Resume the listener by using the
+   * {@link #resume()} method. The method should not return until the listener has stopped accepting
+   * socket requests.
    */
   void suspend();
 
   /**
-   * Resumes a suspended listener. The method should not return until the
-   * listener has started accepting socket requests.
+   * Resumes a suspended listener. The method should not return until the listener has started
+   * accepting socket requests.
    */
   void resume();
 
@@ -83,19 +81,17 @@ public interface Listener {
   boolean isSuspended();
 
   /**
-   * Returns the currently active sessions for this listener. If no sessions
-   * are active, an empty {@link Set} would be returned.
+   * Returns the currently active sessions for this listener. If no sessions are active, an empty
+   * {@link Set} would be returned.
    *
    * @return The currently active sessions
    */
   Set<FtpIoSession> getActiveSessions();
 
   /**
-   * Is this listener in SSL mode automatically or must the client explicitly
-   * request to use SSL
+   * Is this listener in SSL mode automatically or must the client explicitly request to use SSL
    *
-   * @return true is the listener is automatically in SSL mode, false
-   * otherwise
+   * @return true is the listener is automatically in SSL mode, false otherwise
    */
   boolean isImplicitSsl();
 
@@ -107,17 +103,16 @@ public interface Listener {
   SslConfiguration getSslConfiguration();
 
   /**
-   * Get the port on which this listener is waiting for requests. For
-   * listeners where the port is automatically assigned, this will return the
-   * bound port.
+   * Get the port on which this listener is waiting for requests. For listeners where the port is
+   * automatically assigned, this will return the bound port.
    *
    * @return The port
    */
   int getPort();
 
   /**
-   * Get the {@link InetAddress} used for binding the local socket. Defaults
-   * to null, that is, the server binds to all available network interfaces
+   * Get the {@link InetAddress} used for binding the local socket. Defaults to null, that is, the
+   * server binds to all available network interfaces
    *
    * @return The local socket {@link InetAddress}, if set
    */
@@ -131,43 +126,41 @@ public interface Listener {
   DataConnectionConfiguration getDataConnectionConfiguration();
 
   /**
-   * Get the number of seconds during which no network activity
-   * is allowed before a session is closed due to inactivity.
+   * Get the number of seconds during which no network activity is allowed before a session is
+   * closed due to inactivity.
    *
    * @return The idle time out
    */
   int getIdleTimeout();
 
   /**
-   * @return The list of {@link InetAddress}es. This method returns a valid
-   * list if and only if there is an <code>IpFilter</code> set, and,
-   * if it is an instance of <code>DefaultIpFilter</code> and it is of
-   * type <code>IpFilterType.DENY</code>. This functionality is
-   * provided for backward compatibility purpose only.
-   * @deprecated Replaced by IpFilter. Retrieves the {@link InetAddress} for
-   * which this listener blocks connections.
+   * @return The list of {@link InetAddress}es. This method returns a valid list if and only if
+   *     there is an <code>IpFilter</code> set, and, if it is an instance of <code>DefaultIpFilter
+   *     </code> and it is of type <code>IpFilterType.DENY</code>. This functionality is provided
+   *     for backward compatibility purpose only.
+   * @deprecated Replaced by IpFilter. Retrieves the {@link InetAddress} for which this listener
+   *     blocks connections.
    */
   @Deprecated
   List<InetAddress> getBlockedAddresses();
 
   /**
-   * @return The list of {@link Subnet}s. This method returns a valid list if
-   * and only if there is an <code>IpFilter</code> set, and, if it is
-   * an instance of <code>DefaultIpFilter</code> and it is of type
-   * <code>IpFilterType.DENY</code>. This functionality is provided
-   * for backward compatibility purpose only.
-   * @deprecated Replaced by IpFilter. Retrieves the {@link Subnet}s for this
-   * listener blocks connections.
+   * @return The list of {@link Subnet}s. This method returns a valid list if and only if there is
+   *     an <code>IpFilter</code> set, and, if it is an instance of <code>DefaultIpFilter</code> and
+   *     it is of type <code>IpFilterType.DENY</code>. This functionality is provided for backward
+   *     compatibility purpose only.
+   * @deprecated Replaced by IpFilter. Retrieves the {@link Subnet}s for this listener blocks
+   *     connections.
    */
   @Deprecated
   List<Subnet> getBlockedSubnets();
 
   /**
-   * Returns the <code>SessionFilter</code> associated with this listener. May
-   * return <code>null</code>.
+   * Returns the <code>SessionFilter</code> associated with this listener. May return <code>null
+   * </code>.
    *
-   * @return the <code>SessionFilter</code> associated with this listener. May
-   * return <code>null</code>.
+   * @return the <code>SessionFilter</code> associated with this listener. May return <code>null
+   *     </code>.
    */
   SessionFilter getSessionFilter();
 }

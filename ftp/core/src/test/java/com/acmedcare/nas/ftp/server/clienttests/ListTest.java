@@ -28,9 +28,7 @@ import org.apache.commons.net.ftp.FTPReply;
 import java.io.File;
 import java.util.Calendar;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ListTest extends ClientTestTemplate {
   private static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
 
@@ -40,8 +38,7 @@ public class ListTest extends ClientTestTemplate {
 
   private static final File TEST_DIR2 = new File(ROOT_DIR, "dir2");
 
-  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1,
-      "test3.txt");
+  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1, "test3.txt");
 
   private static final File TEST_DIR_IN_DIR1 = new File(TEST_DIR1, "dir3");
 
@@ -89,7 +86,6 @@ public class ListTest extends ClientTestTemplate {
     assertEquals("user", file.getUser());
     assertFalse(file.isFile());
     assertTrue(file.isDirectory());
-
   }
 
   public void testListFilesInNonExistingDir() throws Exception {
@@ -191,90 +187,85 @@ public class ListTest extends ClientTestTemplate {
   public void testMLST() throws Exception {
     TEST_FILE1.createNewFile();
 
-    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST "
-        + TEST_FILE1.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST " + TEST_FILE1.getName())));
 
     String[] reply = client.getReplyString().split("\\r\\n");
 
-    assertEquals("Size=0;Modify="
-        + DateUtils.getFtpDate(TEST_FILE1.lastModified())
-        + ";Type=file; " + TEST_FILE1.getName(), reply[1]);
+    assertEquals(
+        "Size=0;Modify="
+            + DateUtils.getFtpDate(TEST_FILE1.lastModified())
+            + ";Type=file; "
+            + TEST_FILE1.getName(),
+        reply[1]);
   }
 
   public void testOPTSMLST() throws Exception {
     TEST_FILE1.createNewFile();
 
-    assertTrue(FTPReply.isPositiveCompletion(client
-        .sendCommand("OPTS MLST Size;Modify")));
-    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST "
-        + TEST_FILE1.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("OPTS MLST Size;Modify")));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST " + TEST_FILE1.getName())));
 
     String[] reply = client.getReplyString().split("\\r\\n");
 
-    assertEquals("Size=0;Modify="
-        + DateUtils.getFtpDate(TEST_FILE1.lastModified()) + "; "
-        + TEST_FILE1.getName(), reply[1]);
+    assertEquals(
+        "Size=0;Modify="
+            + DateUtils.getFtpDate(TEST_FILE1.lastModified())
+            + "; "
+            + TEST_FILE1.getName(),
+        reply[1]);
   }
 
   public void testOPTSMLSTCaseInsensitive() throws Exception {
     TEST_FILE1.createNewFile();
 
-    assertTrue(FTPReply.isPositiveCompletion(client
-        .sendCommand("OPTS MLST size;Modify")));
-    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST "
-        + TEST_FILE1.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("OPTS MLST size;Modify")));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST " + TEST_FILE1.getName())));
 
     String[] reply = client.getReplyString().split("\\r\\n");
 
-    assertEquals("Size=0;Modify="
-        + DateUtils.getFtpDate(TEST_FILE1.lastModified()) + "; "
-        + TEST_FILE1.getName(), reply[1]);
+    assertEquals(
+        "Size=0;Modify="
+            + DateUtils.getFtpDate(TEST_FILE1.lastModified())
+            + "; "
+            + TEST_FILE1.getName(),
+        reply[1]);
   }
 
   /**
-   * "Facts requested that are not
-   * supported, or that are inappropriate to the file or directory being
-   * listed should simply be omitted from the MLSx output."
-   * <p>
-   * http://tools.ietf.org/html/rfc3659#section-7.9
+   * "Facts requested that are not supported, or that are inappropriate to the file or directory
+   * being listed should simply be omitted from the MLSx output."
+   *
+   * <p>http://tools.ietf.org/html/rfc3659#section-7.9
    */
   public void testOPTSMLSTUnknownFact() throws Exception {
     TEST_FILE1.createNewFile();
 
-    assertTrue(FTPReply.isPositiveCompletion(client
-        .sendCommand("OPTS MLST Foo;Size")));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("OPTS MLST Foo;Size")));
 
-    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST "
-        + TEST_FILE1.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST " + TEST_FILE1.getName())));
 
     String[] reply = client.getReplyString().split("\\r\\n");
 
-    assertEquals("Size=0; "
-        + TEST_FILE1.getName(), reply[1]);
+    assertEquals("Size=0; " + TEST_FILE1.getName(), reply[1]);
   }
 
   /**
-   * "Facts requested that are not
-   * supported, or that are inappropriate to the file or directory being
-   * listed should simply be omitted from the MLSx output."
-   * <p>
-   * http://tools.ietf.org/html/rfc3659#section-7.9
+   * "Facts requested that are not supported, or that are inappropriate to the file or directory
+   * being listed should simply be omitted from the MLSx output."
+   *
+   * <p>http://tools.ietf.org/html/rfc3659#section-7.9
    */
   public void testOPTSMLSTNoFacts() throws Exception {
     TEST_FILE1.createNewFile();
 
-    assertTrue(FTPReply.isPositiveCompletion(client
-        .sendCommand("OPTS MLST")));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("OPTS MLST")));
 
-    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST "
-        + TEST_FILE1.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("MLST " + TEST_FILE1.getName())));
 
     String[] reply = client.getReplyString().split("\\r\\n");
 
-    assertEquals(" "
-        + TEST_FILE1.getName(), reply[1]);
+    assertEquals(" " + TEST_FILE1.getName(), reply[1]);
   }
-
 
   private FTPFile getFile(FTPFile[] files, String name) {
     for (int i = 0; i < files.length; i++) {

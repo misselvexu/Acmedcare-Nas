@@ -35,18 +35,17 @@ import java.util.Map;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Sends the list of all the connected users.
+ *
+ * <p>Sends the list of all the connected users.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class SITE_WHO extends AbstractCommand {
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variables
@@ -56,23 +55,22 @@ public class SITE_WHO extends AbstractCommand {
     UserManager userManager = context.getUserManager();
     boolean isAdmin = userManager.isAdmin(session.getUser().getName());
     if (!isAdmin) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_530_NOT_LOGGED_IN, "SITE", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_530_NOT_LOGGED_IN, "SITE", null));
       return;
     }
 
     // print all the connected user information
     StringBuilder sb = new StringBuilder();
 
-    Map<Long, IoSession> sessions = session.getService()
-        .getManagedSessions();
+    Map<Long, IoSession> sessions = session.getService().getManagedSessions();
 
     sb.append('\n');
     Iterator<IoSession> sessionIterator = sessions.values().iterator();
 
     while (sessionIterator.hasNext()) {
-      FtpIoSession managedSession = new FtpIoSession(sessionIterator
-          .next(), context);
+      FtpIoSession managedSession = new FtpIoSession(sessionIterator.next(), context);
 
       if (!managedSession.isLoggedIn()) {
         continue;
@@ -82,19 +80,27 @@ public class SITE_WHO extends AbstractCommand {
       sb.append(StringUtils.pad(tmpUsr.getName(), ' ', true, 16));
 
       if (managedSession.getRemoteAddress() instanceof InetSocketAddress) {
-        sb.append(StringUtils.pad(((InetSocketAddress) managedSession
-                .getRemoteAddress()).getAddress().getHostAddress(),
-            ' ', true, 16));
+        sb.append(
+            StringUtils.pad(
+                ((InetSocketAddress) managedSession.getRemoteAddress())
+                    .getAddress()
+                    .getHostAddress(),
+                ' ',
+                true,
+                16));
       }
-      sb.append(StringUtils.pad(DateUtils.getISO8601Date(managedSession
-          .getLoginTime().getTime()), ' ', true, 20));
-      sb.append(StringUtils.pad(DateUtils.getISO8601Date(managedSession
-          .getLastAccessTime().getTime()), ' ', true, 20));
+      sb.append(
+          StringUtils.pad(
+              DateUtils.getISO8601Date(managedSession.getLoginTime().getTime()), ' ', true, 20));
+      sb.append(
+          StringUtils.pad(
+              DateUtils.getISO8601Date(managedSession.getLastAccessTime().getTime()),
+              ' ',
+              true,
+              20));
       sb.append('\n');
     }
     sb.append('\n');
-    session.write(new DefaultFtpReply(FtpReply.REPLY_200_COMMAND_OKAY, sb
-        .toString()));
+    session.write(new DefaultFtpReply(FtpReply.REPLY_200_COMMAND_OKAY, sb.toString()));
   }
-
 }

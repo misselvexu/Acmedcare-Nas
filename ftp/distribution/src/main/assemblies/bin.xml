@@ -82,7 +82,7 @@
             <outputDirectory>common/lib</outputDirectory>
             <scope>runtime</scope>
             <excludes>
-                <exclude>org.apache.ftpserver:ftpserver</exclude>
+                <exclude>com.acmedcare.nas:ftpserver</exclude>
             </excludes>
         </dependencySet>
     </dependencySets>

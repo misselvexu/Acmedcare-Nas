@@ -25,20 +25,18 @@ import java.util.Arrays;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Formats files according to the LIST specification
+ *
+ * <p>Formats files according to the LIST specification
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class LISTFileFormater implements FileFormater {
 
-  private final static char DELIM = ' ';
+  private static final char DELIM = ' ';
 
-  private final static char[] NEWLINE = {'\r', '\n'};
+  private static final char[] NEWLINE = {'\r', '\n'};
 
-  /**
-   * @see FileFormater#format(FtpFile)
-   */
+  /** @see FileFormater#format(FtpFile) */
   public String format(FtpFile file) {
     StringBuilder sb = new StringBuilder();
     sb.append(getPermission(file));
@@ -61,9 +59,7 @@ public class LISTFileFormater implements FileFormater {
     return sb.toString();
   }
 
-  /**
-   * Get size
-   */
+  /** Get size */
   private String getLength(FtpFile file) {
     String initStr = "            ";
     long sz = 0;
@@ -77,16 +73,12 @@ public class LISTFileFormater implements FileFormater {
     return initStr.substring(0, initStr.length() - szStr.length()) + szStr;
   }
 
-  /**
-   * Get last modified date string.
-   */
+  /** Get last modified date string. */
   private String getLastModified(FtpFile file) {
     return DateUtils.getUnixDate(file.getLastModified());
   }
 
-  /**
-   * Get permission string.
-   */
+  /** Get permission string. */
   private char[] getPermission(FtpFile file) {
     char permission[] = new char[10];
     Arrays.fill(permission, '-');

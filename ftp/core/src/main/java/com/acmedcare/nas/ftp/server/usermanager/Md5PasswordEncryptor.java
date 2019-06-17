@@ -23,23 +23,19 @@ import com.acmedcare.nas.ftp.server.util.EncryptUtils;
 import com.acmedcare.nas.ftp.server.util.PasswordUtil;
 
 /**
- * Password encryptor that hashes the password using MD5. Please note that this
- * form of encryption is sensitive to lookup attacks.
+ * Password encryptor that hashes the password using MD5. Please note that this form of encryption
+ * is sensitive to lookup attacks.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class Md5PasswordEncryptor implements PasswordEncryptor {
 
-  /**
-   * Hashes the password using MD5
-   */
+  /** Hashes the password using MD5 */
   public String encrypt(String password) {
     return EncryptUtils.encryptMD5(password);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   public boolean matches(String passwordToCheck, String storedPassword) {
     if (storedPassword == null) {
       throw new NullPointerException("storedPassword can not be null");
@@ -48,6 +44,7 @@ public class Md5PasswordEncryptor implements PasswordEncryptor {
       throw new NullPointerException("passwordToCheck can not be null");
     }
 
-    return PasswordUtil.secureCompareFast(encrypt(passwordToCheck).toLowerCase(), storedPassword.toLowerCase());
+    return PasswordUtil.secureCompareFast(
+        encrypt(passwordToCheck).toLowerCase(), storedPassword.toLowerCase());
   }
 }

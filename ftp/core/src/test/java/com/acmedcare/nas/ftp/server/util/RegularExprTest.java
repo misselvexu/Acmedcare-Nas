@@ -21,9 +21,7 @@ package com.acmedcare.nas.ftp.server.util;
 
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class RegularExprTest extends TestCase {
 
   public void testMatchText() {
@@ -137,9 +135,7 @@ public class RegularExprTest extends TestCase {
     assertFalse(expr.isMatch("fooabbar"));
   }
 
-  /**
-   * Star is allowed as a choice character
-   */
+  /** Star is allowed as a choice character */
   public void testMatchChoiceWithStar() {
     RegularExpr expr = new RegularExpr("foo[*]bar");
     assertFalse(expr.isMatch("foobar"));
@@ -148,9 +144,7 @@ public class RegularExprTest extends TestCase {
     assertFalse(expr.isMatch("fooabar"));
   }
 
-  /**
-   * Question mark is allowed as a choice character
-   */
+  /** Question mark is allowed as a choice character */
   public void testMatchChoiceWithQuestionMark() {
     RegularExpr expr = new RegularExpr("foo[?]bar");
     assertFalse(expr.isMatch("foobar"));

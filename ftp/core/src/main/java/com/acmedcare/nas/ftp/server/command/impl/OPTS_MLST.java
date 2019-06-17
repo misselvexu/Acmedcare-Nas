@@ -34,22 +34,20 @@ import java.util.StringTokenizer;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Client-Server listing negotation. Instruct the server what listing types to
- * include in machine directory/file listings.
+ *
+ * <p>Client-Server listing negotation. Instruct the server what listing types to include in machine
+ * directory/file listings.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class OPTS_MLST extends AbstractCommand {
 
-  private final static String[] AVAILABLE_TYPES = {"Size", "Modify", "Type",
-      "Perm"};
+  private static final String[] AVAILABLE_TYPES = {"Size", "Modify", "Type", "Perm"};
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state
@@ -78,12 +76,18 @@ public class OPTS_MLST extends AbstractCommand {
     String[] validatedTypes = validateSelectedTypes(types);
     if (validatedTypes != null) {
       session.setAttribute("MLST.types", validatedTypes);
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_200_COMMAND_OKAY, "OPTS.MLST", listTypes));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "OPTS.MLST", listTypes));
     } else {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "OPTS.MLST", listTypes));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "OPTS.MLST",
+              listTypes));
     }
   }
 

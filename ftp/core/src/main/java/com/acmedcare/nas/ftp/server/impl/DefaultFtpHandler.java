@@ -40,31 +40,31 @@ import java.nio.charset.MalformedInputException;
  */
 public class DefaultFtpHandler implements FtpHandler {
 
+  private static final String[] NON_AUTHENTICATED_COMMANDS =
+      new String[] {"USER", "PASS", "AUTH", "QUIT", "PROT", "PBSZ"};
   private final Logger LOG = LoggerFactory.getLogger(DefaultFtpHandler.class);
-
-  private final static String[] NON_AUTHENTICATED_COMMANDS = new String[]{
-      "USER", "PASS", "AUTH", "QUIT", "PROT", "PBSZ"};
-
   private FtpServerContext context;
 
   private Listener listener;
 
+  @Override
   public void init(final FtpServerContext context, final Listener listener) {
     this.context = context;
     this.listener = listener;
   }
 
+  @Override
   public void sessionCreated(final FtpIoSession session) throws Exception {
     session.setListener(listener);
 
-    ServerFtpStatistics stats = ((ServerFtpStatistics) context
-        .getFtpStatistics());
+    ServerFtpStatistics stats = ((ServerFtpStatistics) context.getFtpStatistics());
 
     if (stats != null) {
       stats.setOpenConnection(session);
     }
   }
 
+  @Override
   public void sessionOpened(final FtpIoSession session) throws Exception {
     FtpletContainer ftplets = context.getFtpletContainer();
 
@@ -81,16 +81,17 @@ public class DefaultFtpHandler implements FtpHandler {
     } else {
       session.updateLastAccessTime();
 
-      session.write(LocalizedFtpReply.translate(session, null, context,
-          FtpReply.REPLY_220_SERVICE_READY, null, null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, null, context, FtpReply.REPLY_220_SERVICE_READY, null, null));
     }
   }
 
+  @Override
   public void sessionClosed(final FtpIoSession session) throws Exception {
     LOG.debug("Closing session");
     try {
-      context.getFtpletContainer().onDisconnect(
-          session.getFtpletSession());
+      context.getFtpletContainer().onDisconnect(session.getFtpletSession());
     } catch (Exception e) {
       // swallow the exception, we're closing down the session anyways
       LOG.warn("Ftplet threw an exception on disconnect", e);
@@ -116,8 +117,7 @@ public class DefaultFtpHandler implements FtpHandler {
       }
     }
 
-    ServerFtpStatistics stats = ((ServerFtpStatistics) context
-        .getFtpStatistics());
+    ServerFtpStatistics stats = ((ServerFtpStatistics) context.getFtpStatistics());
 
     if (stats != null) {
       stats.setLogout(session);
@@ -129,18 +129,21 @@ public class DefaultFtpHandler implements FtpHandler {
     LOG.debug("Session closed");
   }
 
-  public void exceptionCaught(final FtpIoSession session,
-                              final Throwable cause) throws Exception {
+  @Override
+  public void exceptionCaught(final FtpIoSession session, final Throwable cause) throws Exception {
 
-    if (cause instanceof ProtocolDecoderException &&
-        cause.getCause() instanceof MalformedInputException) {
+    if (cause instanceof ProtocolDecoderException
+        && cause.getCause() instanceof MalformedInputException) {
       // client probably sent something which is not UTF-8 and we failed to
       // decode it
 
       LOG.warn(
           "Client sent command that could not be decoded: {}",
           ((ProtocolDecoderException) cause).getHexdump());
-      session.write(new DefaultFtpReply(FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS, "Invalid character in command"));
+      session.write(
+          new DefaultFtpReply(
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "Invalid character in command"));
     } else if (cause instanceof WriteToClosedSessionException) {
       WriteToClosedSessionException writeToClosedSessionException =
           (WriteToClosedSessionException) cause;
@@ -152,8 +155,6 @@ public class DefaultFtpHandler implements FtpHandler {
       LOG.error("Exception caught, closing session", cause);
       session.close(false).awaitUninterruptibly(10000);
     }
-
-
   }
 
   private boolean isCommandOkWithoutAuthentication(String command) {
@@ -167,8 +168,9 @@ public class DefaultFtpHandler implements FtpHandler {
     return okay;
   }
 
-  public void messageReceived(final FtpIoSession session,
-                              final FtpRequest request) throws Exception {
+  @Override
+  public void messageReceived(final FtpIoSession session, final FtpRequest request)
+      throws Exception {
     try {
       session.updateLastAccessTime();
 
@@ -177,11 +179,10 @@ public class DefaultFtpHandler implements FtpHandler {
       Command command = commandFactory.getCommand(commandName);
 
       // make sure the user is authenticated before he issues commands
-      if (!session.isLoggedIn()
-          && !isCommandOkWithoutAuthentication(commandName)) {
-        session.write(LocalizedFtpReply.translate(session, request,
-            context, FtpReply.REPLY_530_NOT_LOGGED_IN,
-            "permission", null));
+      if (!session.isLoggedIn() && !isCommandOkWithoutAuthentication(commandName)) {
+        session.write(
+            LocalizedFtpReply.translate(
+                session, request, context, FtpReply.REPLY_530_NOT_LOGGED_IN, "permission", null));
         return;
       }
 
@@ -189,8 +190,7 @@ public class DefaultFtpHandler implements FtpHandler {
 
       FtpletResult ftpletRet;
       try {
-        ftpletRet = ftplets.beforeCommand(session.getFtpletSession(),
-            request);
+        ftpletRet = ftplets.beforeCommand(session.getFtpletSession(), request);
       } catch (Exception e) {
         LOG.debug("Ftplet container threw exception", e);
         ftpletRet = FtpletResult.DISCONNECT;
@@ -206,16 +206,19 @@ public class DefaultFtpHandler implements FtpHandler {
             command.execute(session, context, request);
           }
         } else {
-          session.write(LocalizedFtpReply.translate(session, request,
-              context,
-              FtpReply.REPLY_502_COMMAND_NOT_IMPLEMENTED,
-              "not.implemented", null));
+          session.write(
+              LocalizedFtpReply.translate(
+                  session,
+                  request,
+                  context,
+                  FtpReply.REPLY_502_COMMAND_NOT_IMPLEMENTED,
+                  "not.implemented",
+                  null));
         }
 
         try {
-          ftpletRet = ftplets.afterCommand(
-              session.getFtpletSession(), request, session
-                  .getLastReply());
+          ftpletRet =
+              ftplets.afterCommand(session.getFtpletSession(), request, session.getLastReply());
         } catch (Exception e) {
           LOG.debug("Ftplet container threw exception", e);
           ftpletRet = FtpletResult.DISCONNECT;
@@ -232,9 +235,14 @@ public class DefaultFtpHandler implements FtpHandler {
 
       // send error reply
       try {
-        session.write(LocalizedFtpReply.translate(session, request,
-            context, FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-            null, null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+                null,
+                null));
       } catch (Exception ex1) {
       }
 
@@ -244,17 +252,16 @@ public class DefaultFtpHandler implements FtpHandler {
         LOG.warn("RequestHandler.service()", ex);
       }
     }
-
   }
 
-  public void sessionIdle(final FtpIoSession session, final IdleStatus status)
-      throws Exception {
+  @Override
+  public void sessionIdle(final FtpIoSession session, final IdleStatus status) throws Exception {
     LOG.info("Session idle, closing");
     session.close(false).awaitUninterruptibly(10000);
   }
 
-  public void messageSent(final FtpIoSession session, final FtpReply reply)
-      throws Exception {
+  @Override
+  public void messageSent(final FtpIoSession session, final FtpReply reply) throws Exception {
     // do nothing
 
   }

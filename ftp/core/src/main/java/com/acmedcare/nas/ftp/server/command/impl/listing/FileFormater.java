@@ -22,8 +22,8 @@ import com.acmedcare.nas.ftp.server.ftplet.FtpFile;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Interface for formating output based on a {@link FtpFile}
+ *
+ * <p>Interface for formating output based on a {@link FtpFile}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -36,5 +36,4 @@ public interface FileFormater {
    * @return The formated string based on the {@link FtpFile}
    */
   String format(FtpFile file);
-
 }

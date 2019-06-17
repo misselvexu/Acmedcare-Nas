@@ -27,9 +27,7 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class PassivePortsTest extends TestCase {
 
   public void testParseSingleValue() {
@@ -91,7 +89,6 @@ public class PassivePortsTest extends TestCase {
     }
     assertEquals(-1, ports.reserveNextPort());
     assertTrue(valid.isEmpty());
-
   }
 
   private List<Integer> valid(int... ints) {
@@ -158,7 +155,6 @@ public class PassivePortsTest extends TestCase {
     assertEquals(ss.getLocalPort(), ports.reserveNextPort());
   }
 
-
   public void testParseRelease() {
     PassivePorts ports = new PassivePorts("123, 456,789", false);
 
@@ -177,5 +173,4 @@ public class PassivePortsTest extends TestCase {
     assertEquals(-1, ports.reserveNextPort());
     assertEquals(0, valid.size());
   }
-
 }

@@ -26,16 +26,10 @@ package com.acmedcare.nas.ftp.server.ipfilter;
  */
 public enum IpFilterType {
 
-  /**
-   * filter type that allows a set of predefined IP addresses, also known as a
-   * white list.
-   */
+  /** filter type that allows a set of predefined IP addresses, also known as a white list. */
   ALLOW,
 
-  /**
-   * filter type that blocks a set of predefined IP addresses, also known as a
-   * black list.
-   */
+  /** filter type that blocks a set of predefined IP addresses, also known as a black list. */
   DENY;
 
   /**
@@ -52,5 +46,4 @@ public enum IpFilterType {
     }
     throw new IllegalArgumentException("Invalid IpFilterType: " + value);
   }
-
 }

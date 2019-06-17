@@ -34,8 +34,8 @@ public interface ConnectionConfig {
   int getMaxLoginFailures();
 
   /**
-   * The delay in number of milliseconds between login failures. Important to
-   * make brute force attacks harder.
+   * The delay in number of milliseconds between login failures. Important to make brute force
+   * attacks harder.
    *
    * @return The delay time in milliseconds
    */
@@ -63,11 +63,11 @@ public interface ConnectionConfig {
   boolean isAnonymousLoginEnabled();
 
   /**
-   * Returns the maximum number of threads the server is allowed to create for
-   * processing client requests.
+   * Returns the maximum number of threads the server is allowed to create for processing client
+   * requests.
    *
-   * @return the maximum number of threads the server is allowed to create for
-   * processing client requests.
+   * @return the maximum number of threads the server is allowed to create for processing client
+   *     requests.
    */
   int getMaxThreads();
 }

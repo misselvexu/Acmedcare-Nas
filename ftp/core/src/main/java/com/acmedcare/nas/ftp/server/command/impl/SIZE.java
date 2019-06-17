@@ -33,11 +33,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * SIZE &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
  *
- * <code>SIZE &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
- * <p>
- * Returns the size of the file in bytes.
+ * <p>Returns the size of the file in bytes.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -45,11 +44,10 @@ public class SIZE extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(SIZE.class);
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variables
@@ -58,9 +56,14 @@ public class SIZE extends AbstractCommand {
     // argument check
     String fileName = request.getArgument();
     if (fileName == null) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "SIZE", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "SIZE",
+              null));
       return;
     }
 
@@ -72,27 +75,42 @@ public class SIZE extends AbstractCommand {
       LOG.debug("Exception getting file object", ex);
     }
     if (file == null) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-          "SIZE.missing", fileName));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+              "SIZE.missing",
+              fileName));
       return;
     }
 
     // print file size
     fileName = file.getAbsolutePath();
     if (!file.doesExist()) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-          "SIZE.missing", fileName));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+              "SIZE.missing",
+              fileName));
     } else if (!file.isFile()) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-          "SIZE.invalid", fileName));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+              "SIZE.invalid",
+              fileName));
     } else {
       String fileLen = String.valueOf(file.getSize());
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_213_FILE_STATUS, "SIZE", fileLen));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_213_FILE_STATUS, "SIZE", fileLen));
     }
   }
-
 }

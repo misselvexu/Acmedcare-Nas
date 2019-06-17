@@ -1,22 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 package com.acmedcare.nas.ftp.server.impl;
 
 import org.slf4j.Logger;
@@ -28,20 +9,17 @@ import java.util.*;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Provides support for parsing a passive ports string as well as keeping track
- * of reserved passive ports.
+ *
+ * <p>Provides support for parsing a passive ports string as well as keeping track of reserved
+ * passive ports.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class PassivePorts {
 
-  private Logger log = LoggerFactory.getLogger(PassivePorts.class);
-
   private static final int MAX_PORT = 65535;
-
-  private static final Integer MAX_PORT_INTEGER = Integer.valueOf(MAX_PORT);
-
+  private static final Integer MAX_PORT_INTEGER = MAX_PORT;
+  private Logger log = LoggerFactory.getLogger(PassivePorts.class);
   private List<Integer> freeList;
 
   private Set<Integer> usedList;
@@ -52,23 +30,42 @@ public class PassivePorts {
 
   private boolean checkIfBound;
 
+  public PassivePorts(final String passivePorts, boolean checkIfBound) {
+    this(parse(passivePorts), checkIfBound);
+
+    this.passivePortsString = passivePorts;
+  }
+
+  public PassivePorts(Set<Integer> passivePorts, boolean checkIfBound) {
+    if (passivePorts == null) {
+      throw new NullPointerException("passivePorts can not be null");
+    } else if (passivePorts.isEmpty()) {
+      passivePorts = new HashSet<Integer>();
+      passivePorts.add(0);
+    }
+
+    this.freeList = new ArrayList<Integer>(passivePorts);
+    this.usedList = new HashSet<Integer>(passivePorts.size());
+
+    this.checkIfBound = checkIfBound;
+  }
+
   /**
    * Parse a string containing passive ports
    *
-   * @param portsString A string of passive ports, can contain a single port (as an
-   *                    integer), multiple ports seperated by commas (e.g.
-   *                    123,124,125) or ranges of ports, including open ended ranges
-   *                    (e.g. 123-125, 30000-, -1023). Combinations for single ports
-   *                    and ranges is also supported.
+   * @param portsString A string of passive ports, can contain a single port (as an integer),
+   *     multiple ports seperated by commas (e.g. 123,124,125) or ranges of ports, including open
+   *     ended ranges (e.g. 123-125, 30000-, -1023). Combinations for single ports and ranges is
+   *     also supported.
    * @return A list of Integer objects, based on the parsed string
    * @throws IllegalArgumentException If any of of the ports in the string is invalid (e.g. not an
-   *                                  integer or too large for a port number)
+   *     integer or too large for a port number)
    */
   private static Set<Integer> parse(final String portsString) {
     Set<Integer> passivePortsList = new HashSet<Integer>();
 
     boolean inRange = false;
-    Integer lastPort = Integer.valueOf(1);
+    Integer lastPort = 1;
     StringTokenizer st = new StringTokenizer(portsString, ",;-", true);
     while (st.hasMoreTokens()) {
       String token = st.nextToken().trim();
@@ -79,7 +76,7 @@ public class PassivePorts {
         }
 
         // reset state
-        lastPort = Integer.valueOf(1);
+        lastPort = 1;
         inRange = false;
       } else if ("-".equals(token)) {
         inRange = true;
@@ -110,25 +107,20 @@ public class PassivePorts {
     return passivePortsList;
   }
 
-  /**
-   * Fill a range of ports
-   */
-  private static void fillRange(final Set<Integer> passivePortsList, final Integer beginPort, final Integer endPort) {
+  /** Fill a range of ports */
+  private static void fillRange(
+      final Set<Integer> passivePortsList, final Integer beginPort, final Integer endPort) {
     for (int i = beginPort; i <= endPort; i++) {
-      addPort(passivePortsList, Integer.valueOf(i));
+      addPort(passivePortsList, i);
     }
   }
 
-  /**
-   * Add a single port if not already in list
-   */
+  /** Add a single port if not already in list */
   private static void addPort(final Set<Integer> passivePortsList, final Integer port) {
     passivePortsList.add(port);
   }
 
-  /**
-   * Verify that the port is within the range of allowed ports
-   */
+  /** Verify that the port is within the range of allowed ports */
   private static void verifyPort(final int port) {
     if (port < 0) {
       throw new IllegalArgumentException("Port can not be negative: " + port);
@@ -137,29 +129,7 @@ public class PassivePorts {
     }
   }
 
-  public PassivePorts(final String passivePorts, boolean checkIfBound) {
-    this(parse(passivePorts), checkIfBound);
-
-    this.passivePortsString = passivePorts;
-  }
-
-  public PassivePorts(Set<Integer> passivePorts, boolean checkIfBound) {
-    if (passivePorts == null) {
-      throw new NullPointerException("passivePorts can not be null");
-    } else if (passivePorts.isEmpty()) {
-      passivePorts = new HashSet<Integer>();
-      passivePorts.add(0);
-    }
-
-    this.freeList = new ArrayList<Integer>(passivePorts);
-    this.usedList = new HashSet<Integer>(passivePorts.size());
-
-    this.checkIfBound = checkIfBound;
-  }
-
-  /**
-   * Checks that the port of not bound by another application
-   */
+  /** Checks that the port of not bound by another application */
   private boolean checkPortUnbound(int port) {
     // is this check disabled?
     if (!checkIfBound) {
@@ -252,5 +222,4 @@ public class PassivePorts {
     sb.deleteCharAt(sb.length() - 1);
     return sb.toString();
   }
-
 }

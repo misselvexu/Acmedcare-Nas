@@ -28,9 +28,7 @@ import junit.framework.TestCase;
 
 import java.net.BindException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class DefaultFtpServerTest extends TestCase {
 
   public void testFailStartingSecondListener() throws Exception {
@@ -46,7 +44,6 @@ public class DefaultFtpServerTest extends TestCase {
     Listener defaultListener = listenerFactory.createListener();
     Listener secondListener = listenerFactory.createListener();
 
-
     serverFactory.addListener("default", defaultListener);
     serverFactory.addListener("second", secondListener);
 
@@ -56,7 +53,7 @@ public class DefaultFtpServerTest extends TestCase {
       server.start();
 
       // Windows seems to allow for both listeners to bind on the same port...
-      //fail("Must throw FtpServerConfigurationException");
+      // fail("Must throw FtpServerConfigurationException");
     } catch (FtpServerConfigurationException e) {
       if (e.getCause() instanceof BindException) {
         // OK!
@@ -84,7 +81,6 @@ public class DefaultFtpServerTest extends TestCase {
     Listener defaultListener = listenerFactory.createListener();
     Listener secondListener = listenerFactory.createListener();
 
-
     serverFactory.addListener("default", defaultListener);
 
     FtpServer server = serverFactory.createServer();
@@ -93,7 +89,7 @@ public class DefaultFtpServerTest extends TestCase {
       server.start();
 
       // Windows seems to allow for both listeners to bind on the same port...
-      //fail("Must throw FtpServerConfigurationException");
+      // fail("Must throw FtpServerConfigurationException");
     } catch (FtpServerConfigurationException e) {
       if (e.getCause() instanceof BindException) {
         // OK!

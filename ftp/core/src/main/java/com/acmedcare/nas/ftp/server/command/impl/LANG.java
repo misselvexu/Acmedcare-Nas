@@ -33,20 +33,18 @@ import java.util.List;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * A new command "LANG" is added to the FTP command set to allow server-FTP
- * process to determine in which language to present server greetings and the
- * textual part of command responses.
+ *
+ * <p>A new command "LANG" is added to the FTP command set to allow server-FTP process to determine
+ * in which language to present server greetings and the textual part of command responses.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class LANG extends AbstractCommand {
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state
@@ -56,8 +54,9 @@ public class LANG extends AbstractCommand {
     String language = request.getArgument();
     if (language == null) {
       session.setLanguage(null);
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_200_COMMAND_OKAY, "LANG", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "LANG", null));
       return;
     }
 
@@ -69,17 +68,22 @@ public class LANG extends AbstractCommand {
       for (int i = 0; i < availableLanguages.size(); ++i) {
         if (availableLanguages.get(i).equals(language)) {
           session.setLanguage(language);
-          session.write(LocalizedFtpReply.translate(session, request,
-              context, FtpReply.REPLY_200_COMMAND_OKAY, "LANG",
-              null));
+          session.write(
+              LocalizedFtpReply.translate(
+                  session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "LANG", null));
           return;
         }
       }
     }
 
     // not found - send error message
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_504_COMMAND_NOT_IMPLEMENTED_FOR_THAT_PARAMETER,
-        "LANG", null));
+    session.write(
+        LocalizedFtpReply.translate(
+            session,
+            request,
+            context,
+            FtpReply.REPLY_504_COMMAND_NOT_IMPLEMENTED_FOR_THAT_PARAMETER,
+            "LANG",
+            null));
   }
 }

@@ -29,26 +29,21 @@ import com.acmedcare.nas.ftp.server.impl.LocalizedFtpReply;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>ABOR &lt;CRLF&gt;</code><br>
  *
- * <code>ABOR &lt;CRLF&gt;</code><br>
- * <p>
- * This command tells the server to abort the previous FTP service command and
- * any associated transfer of data. No action is to be taken if the previous
- * command has been completed (including data transfer). The control connection
- * is not to be closed by the server, but the data connection must be closed.
- * Current implementation does not do anything. As here data transfers are not
+ * <p>This command tells the server to abort the previous FTP service command and any associated
+ * transfer of data. No action is to be taken if the previous command has been completed (including
+ * data transfer). The control connection is not to be closed by the server, but the data connection
+ * must be closed. Current implementation does not do anything. As here data transfers are not
  * multi-threaded.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class ABOR extends AbstractCommand {
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {
 
     // reset state variables
@@ -56,7 +51,8 @@ public class ABOR extends AbstractCommand {
 
     // and abort any data connection
     session.getDataConnection().closeDataConnection();
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_226_CLOSING_DATA_CONNECTION, "ABOR", null));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_226_CLOSING_DATA_CONNECTION, "ABOR", null));
   }
 }

@@ -21,10 +21,7 @@ package com.acmedcare.nas.ftp.server.clienttests;
 
 import java.io.IOException;
 
-
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class SuspendResumeTest extends ClientTestTemplate {
 
   @Override
@@ -77,5 +74,4 @@ public class SuspendResumeTest extends ClientTestTemplate {
     client.connect("localhost", getListenerPort());
     client.disconnect();
   }
-
 }

@@ -27,14 +27,12 @@ import com.acmedcare.nas.ftp.server.ftplet.*;
 public class MockUserManager implements UserManager {
 
   @Override
-  public User authenticate(Authentication authentication)
-      throws AuthenticationFailedException {
+  public User authenticate(Authentication authentication) throws AuthenticationFailedException {
     return null;
   }
 
   @Override
-  public void delete(String username) throws FtpException {
-  }
+  public void delete(String username) throws FtpException {}
 
   @Override
   public boolean doesExist(String username) throws FtpException {
@@ -62,7 +60,5 @@ public class MockUserManager implements UserManager {
   }
 
   @Override
-  public void save(User user) throws FtpException {
-  }
-
+  public void save(User user) throws FtpException {}
 }

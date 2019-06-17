@@ -39,17 +39,14 @@ import java.util.List;
  */
 public class AddUser extends CommandLine {
 
-  /**
-   * Instance methods only used internaly
-   */
-  protected AddUser() {
-  }
+  /** Instance methods only used internaly */
+  protected AddUser() {}
 
   /**
    * Used to add users to the user manager for a particular FtpServer configuration
    *
-   * @param args The first element of this array must specify the kind of
-   *             configuration to be used to start the server.
+   * @param args The first element of this array must specify the kind of configuration to be used
+   *     to start the server.
    */
   public static void main(String args[]) {
     AddUser addUser = new AddUser();
@@ -96,7 +93,8 @@ public class AddUser extends CommandLine {
       }
 
       int maxLogins = askForInt(in, "Maximum number of concurrent logins (0 for no restriction)");
-      int maxLoginsPerIp = askForInt(in, "Maximum number of concurrent logins per IP (0 for no restriction)");
+      int maxLoginsPerIp =
+          askForInt(in, "Maximum number of concurrent logins per IP (0 for no restriction)");
 
       authorities.add(new ConcurrentLoginPermission(maxLogins, maxLoginsPerIp));
 
@@ -115,7 +113,8 @@ public class AddUser extends CommandLine {
         if (file != null) {
           System.out.println("User saved to file: " + file.getAbsolutePath());
         } else {
-          System.err.println("User manager does not have a file configured, will not save user to file");
+          System.err.println(
+              "User manager does not have a file configured, will not save user to file");
         }
       } else {
         System.out.println("User saved");
@@ -123,7 +122,6 @@ public class AddUser extends CommandLine {
     } catch (Exception ex) {
       ex.printStackTrace();
     }
-
   }
 
   private static String askForString(BufferedReader in, String question) throws IOException {
@@ -131,7 +129,8 @@ public class AddUser extends CommandLine {
     return in.readLine();
   }
 
-  private static String askForString(BufferedReader in, String question, String mandatoryMessage) throws IOException {
+  private static String askForString(BufferedReader in, String question, String mandatoryMessage)
+      throws IOException {
     String s = askForString(in, question);
     if (isEmpty(s)) {
       System.err.println(mandatoryMessage);
@@ -140,7 +139,6 @@ public class AddUser extends CommandLine {
       return s;
     }
   }
-
 
   private static int askForInt(BufferedReader in, String question) throws IOException {
     System.out.println(question);
@@ -162,21 +160,16 @@ public class AddUser extends CommandLine {
     }
   }
 
-  /**
-   * Print the usage message.
-   */
+  /** Print the usage message. */
   @Override
   protected void usage() {
     System.err.println("Usage: java " + AddUser.class.getName() + " [OPTION] [CONFIGFILE]");
-    System.err
-        .println("Starts the user management application, asking for user settings");
+    System.err.println("Starts the user management application, asking for user settings");
     System.err.println("");
-    System.err
-        .println("      --default              use the default configuration, ");
-    System.err
-        .println("                             also used if no command line argument is given ");
+    System.err.println("      --default              use the default configuration, ");
+    System.err.println(
+        "                             also used if no command line argument is given ");
 
     System.err.println("  -?, --help                 print this message");
   }
-
 }

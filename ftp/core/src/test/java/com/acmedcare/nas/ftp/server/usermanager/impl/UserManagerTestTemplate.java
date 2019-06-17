@@ -27,9 +27,7 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public abstract class UserManagerTestTemplate extends TestCase {
 
   protected UserManager userManager;
@@ -47,14 +45,12 @@ public abstract class UserManagerTestTemplate extends TestCase {
   }
 
   public void testAuthenticate() throws Exception {
-    assertNotNull(userManager
-        .authenticate(new UsernamePasswordAuthentication("user1", "pw1")));
+    assertNotNull(userManager.authenticate(new UsernamePasswordAuthentication("user1", "pw1")));
   }
 
   public void testAuthenticateWrongPassword() throws Exception {
     try {
-      userManager.authenticate(new UsernamePasswordAuthentication(
-          "user1", "foo"));
+      userManager.authenticate(new UsernamePasswordAuthentication("user1", "foo"));
       fail("Must throw AuthenticationFailedException");
     } catch (AuthenticationFailedException e) {
       // ok
@@ -63,8 +59,7 @@ public abstract class UserManagerTestTemplate extends TestCase {
 
   public void testAuthenticateUnknownUser() throws Exception {
     try {
-      userManager.authenticate(new UsernamePasswordAuthentication("foo",
-          "foo"));
+      userManager.authenticate(new UsernamePasswordAuthentication("foo", "foo"));
       fail("Must throw AuthenticationFailedException");
     } catch (AuthenticationFailedException e) {
       // ok
@@ -72,22 +67,16 @@ public abstract class UserManagerTestTemplate extends TestCase {
   }
 
   public void testAuthenticateEmptyPassword() throws Exception {
-    assertNotNull(userManager
-        .authenticate(new UsernamePasswordAuthentication("user3", "")));
+    assertNotNull(userManager.authenticate(new UsernamePasswordAuthentication("user3", "")));
   }
 
   public void testAuthenticateNullPassword() throws Exception {
-    assertNotNull(userManager
-        .authenticate(new UsernamePasswordAuthentication("user3", null)));
-  }
-
-  public static class FooAuthentication implements Authentication {
+    assertNotNull(userManager.authenticate(new UsernamePasswordAuthentication("user3", null)));
   }
 
   public void testAuthenticateNullUser() throws Exception {
     try {
-      userManager.authenticate(new UsernamePasswordAuthentication(null,
-          "foo"));
+      userManager.authenticate(new UsernamePasswordAuthentication(null, "foo"));
       fail("Must throw AuthenticationFailedException");
     } catch (AuthenticationFailedException e) {
       // ok
@@ -171,8 +160,7 @@ public abstract class UserManagerTestTemplate extends TestCase {
 
   private int getMaxDownloadRate(User user) {
     TransferRateRequest transferRateRequest = new TransferRateRequest();
-    transferRateRequest = (TransferRateRequest) user
-        .authorize(transferRateRequest);
+    transferRateRequest = (TransferRateRequest) user.authorize(transferRateRequest);
 
     if (transferRateRequest != null) {
       return transferRateRequest.getMaxDownloadRate();
@@ -183,8 +171,7 @@ public abstract class UserManagerTestTemplate extends TestCase {
 
   private int getMaxUploadRate(User user) {
     TransferRateRequest transferRateRequest = new TransferRateRequest();
-    transferRateRequest = (TransferRateRequest) user
-        .authorize(transferRateRequest);
+    transferRateRequest = (TransferRateRequest) user.authorize(transferRateRequest);
 
     if (transferRateRequest != null) {
       return transferRateRequest.getMaxUploadRate();
@@ -194,10 +181,8 @@ public abstract class UserManagerTestTemplate extends TestCase {
   }
 
   private int getMaxLoginNumber(User user) {
-    ConcurrentLoginRequest concurrentLoginRequest = new ConcurrentLoginRequest(
-        0, 0);
-    concurrentLoginRequest = (ConcurrentLoginRequest) user
-        .authorize(concurrentLoginRequest);
+    ConcurrentLoginRequest concurrentLoginRequest = new ConcurrentLoginRequest(0, 0);
+    concurrentLoginRequest = (ConcurrentLoginRequest) user.authorize(concurrentLoginRequest);
 
     if (concurrentLoginRequest != null) {
       return concurrentLoginRequest.getMaxConcurrentLogins();
@@ -207,10 +192,8 @@ public abstract class UserManagerTestTemplate extends TestCase {
   }
 
   private int getMaxLoginPerIP(User user) {
-    ConcurrentLoginRequest concurrentLoginRequest = new ConcurrentLoginRequest(
-        0, 0);
-    concurrentLoginRequest = (ConcurrentLoginRequest) user
-        .authorize(concurrentLoginRequest);
+    ConcurrentLoginRequest concurrentLoginRequest = new ConcurrentLoginRequest(0, 0);
+    concurrentLoginRequest = (ConcurrentLoginRequest) user.authorize(concurrentLoginRequest);
 
     if (concurrentLoginRequest != null) {
       return concurrentLoginRequest.getMaxConcurrentLoginsPerIP();
@@ -269,12 +252,12 @@ public abstract class UserManagerTestTemplate extends TestCase {
       // ok
     }
 
-
     // save and update the users password
     user.setPassword("newerpw");
     userManager.save(user);
 
-    assertNotNull(userManager.authenticate(new UsernamePasswordAuthentication("newuser", "newerpw")));
+    assertNotNull(
+        userManager.authenticate(new UsernamePasswordAuthentication("newuser", "newerpw")));
 
     try {
       userManager.authenticate(new UsernamePasswordAuthentication("newuser", "newpw"));
@@ -282,7 +265,6 @@ public abstract class UserManagerTestTemplate extends TestCase {
     } catch (AuthenticationFailedException e) {
       // ok
     }
-
   }
 
   public void testSavePersistent() throws Exception {
@@ -317,7 +299,8 @@ public abstract class UserManagerTestTemplate extends TestCase {
     assertEquals(getMaxUploadRate(user), getMaxUploadRate(actualUser));
 
     // verify the password
-    assertNotNull(newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "newpw")));
+    assertNotNull(
+        newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "newpw")));
 
     try {
       newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "dummy"));
@@ -330,7 +313,8 @@ public abstract class UserManagerTestTemplate extends TestCase {
     userManager.save(user);
 
     newUserManager = createUserManagerFactory().createUserManager();
-    assertNotNull(newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "newpw")));
+    assertNotNull(
+        newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "newpw")));
     try {
       newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "dummy"));
       fail("Must throw AuthenticationFailedException");
@@ -338,13 +322,13 @@ public abstract class UserManagerTestTemplate extends TestCase {
       // ok
     }
 
-
     // save and update the users password
     user.setPassword("newerpw");
     userManager.save(user);
 
     newUserManager = createUserManagerFactory().createUserManager();
-    assertNotNull(newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "newerpw")));
+    assertNotNull(
+        newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "newerpw")));
 
     try {
       newUserManager.authenticate(new UsernamePasswordAuthentication("newuser", "newpw"));
@@ -352,9 +336,7 @@ public abstract class UserManagerTestTemplate extends TestCase {
     } catch (AuthenticationFailedException e) {
       // ok
     }
-
   }
-
 
   public void testSaveWithExistingUser() throws Exception {
     BaseUser user = new BaseUser();
@@ -395,4 +377,6 @@ public abstract class UserManagerTestTemplate extends TestCase {
     assertEquals(0, getMaxLoginPerIP(actualUser));
     assertEquals(0, getMaxUploadRate(actualUser));
   }
+
+  public static class FooAuthentication implements Authentication {}
 }

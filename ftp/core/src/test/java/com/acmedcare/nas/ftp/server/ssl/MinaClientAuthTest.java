@@ -28,9 +28,7 @@ import java.io.FileInputStream;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class MinaClientAuthTest extends SSLTestTemplate {
 
   @Override
@@ -43,8 +41,7 @@ public class MinaClientAuthTest extends SSLTestTemplate {
     ks.load(fis, KEYSTORE_PASSWORD.toCharArray());
     fis.close();
 
-    KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory
-        .getDefaultAlgorithm());
+    KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
     kmf.init(ks, KEYSTORE_PASSWORD.toCharArray());
 
     client.setKeyManager(kmf.getKeyManagers()[0]);
@@ -68,14 +65,11 @@ public class MinaClientAuthTest extends SSLTestTemplate {
   }
 
   public void testClientCertificates() throws Exception {
-    FtpIoSession session = server.getListener("default")
-        .getActiveSessions().iterator().next();
+    FtpIoSession session = server.getListener("default").getActiveSessions().iterator().next();
     assertEquals(1, session.getClientCertificates().length);
 
-    X509Certificate cert = (X509Certificate) session
-        .getClientCertificates()[0];
+    X509Certificate cert = (X509Certificate) session.getClientCertificates()[0];
 
     assertTrue(cert.getSubjectDN().toString().contains("FtpClient"));
   }
-
 }

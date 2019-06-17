@@ -33,9 +33,7 @@ import java.net.SocketException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   private static final byte[] TESTDATA = "TESTDATA".getBytes();
 
@@ -77,14 +75,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringLogin() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onLogin(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onLogin(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     try {
       client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
@@ -98,14 +97,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringDeleteStart() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onDeleteStart(FtpSession session,
-                                        FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onDeleteStart(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TestUtil.writeDataToFile(TEST_FILE1, TESTDATA);
 
@@ -123,14 +123,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringDeleteEnd() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onDeleteEnd(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onDeleteEnd(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TestUtil.writeDataToFile(TEST_FILE1, TESTDATA);
 
@@ -149,14 +150,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringMkdirStart() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onMkdirStart(FtpSession session,
-                                       FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onMkdirStart(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
     try {
@@ -172,14 +174,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringMkdirEnd() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onMkdirEnd(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onMkdirEnd(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
     assertTrue(client.makeDirectory(TEST_DIR1.getName()));
@@ -196,14 +199,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringRmdirStart() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onRmdirStart(FtpSession session,
-                                       FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onRmdirStart(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TEST_DIR1.mkdirs();
 
@@ -221,14 +225,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringRmdirEnd() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onRmdirEnd(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onRmdirEnd(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TEST_DIR1.mkdirs();
 
@@ -247,14 +252,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringSite() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onSite(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onSite(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
     try {
@@ -269,14 +275,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringRenameStart() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onRenameStart(FtpSession session,
-                                        FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onRenameStart(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TestUtil.writeDataToFile(TEST_FILE1, TESTDATA);
 
@@ -295,14 +302,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringRenameEnd() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onRenameEnd(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onRenameEnd(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TestUtil.writeDataToFile(TEST_FILE1, TESTDATA);
 
@@ -319,18 +327,18 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
 
     assertFalse(TEST_FILE1.exists());
     assertTrue(TEST_FILE2.exists());
-
   }
 
   public void testExceptionDuringDownloadStart() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onDownloadStart(FtpSession session,
-                                          FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onDownloadStart(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TestUtil.writeDataToFile(TEST_FILE1, TESTDATA);
 
@@ -346,14 +354,15 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringDownloadEnd() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onDownloadEnd(FtpSession session,
-                                        FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onDownloadEnd(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TestUtil.writeDataToFile(TEST_FILE1, TESTDATA);
 
@@ -373,21 +382,21 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringAppendStart() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onAppendStart(FtpSession session,
-                                        FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onAppendStart(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     TestUtil.writeDataToFile(TEST_FILE1, TESTDATA);
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
     try {
-      client.appendFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-          TESTDATA));
+      client.appendFile(TEST_FILE1.getName(), new ByteArrayInputStream(TESTDATA));
       fail("Must throw FTPConnectionClosedException");
     } catch (FTPConnectionClosedException e) {
       // OK
@@ -399,20 +408,20 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringAppendEnd() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onAppendEnd(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        // throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onAppendEnd(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            // throwException();
+            return mockReturnValue;
+          }
+        };
 
     TestUtil.writeDataToFile(TEST_FILE1, TESTDATA);
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
-    assertTrue(client.appendFile(TEST_FILE1.getName(),
-        new ByteArrayInputStream(TESTDATA)));
+    assertTrue(client.appendFile(TEST_FILE1.getName(), new ByteArrayInputStream(TESTDATA)));
     try {
       client.noop();
       fail("Must throw FTPConnectionClosedException");
@@ -426,19 +435,19 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringUploadStart() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onUploadStart(FtpSession session,
-                                        FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onUploadStart(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
     try {
-      client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-          TESTDATA));
+      client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TESTDATA));
       fail("Must throw FTPConnectionClosedException");
     } catch (FTPConnectionClosedException e) {
       // OK
@@ -450,18 +459,18 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringUploadEnd() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onUploadEnd(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onUploadEnd(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
-    assertTrue(client.storeFile(TEST_FILE1.getName(),
-        new ByteArrayInputStream(TESTDATA)));
+    assertTrue(client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TESTDATA)));
     try {
       client.noop();
       fail("Must throw FTPConnectionClosedException");
@@ -475,19 +484,19 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringUploadUniqueStart() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onUploadUniqueStart(FtpSession session,
-                                              FtpRequest request) throws FtpException, IOException {
-        throwException();
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onUploadUniqueStart(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
+            return mockReturnValue;
+          }
+        };
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
     try {
-      client.storeUniqueFile(TEST_FILE1.getName(),
-          new ByteArrayInputStream(TESTDATA));
+      client.storeUniqueFile(TEST_FILE1.getName(), new ByteArrayInputStream(TESTDATA));
       fail("Must throw FTPConnectionClosedException");
     } catch (FTPConnectionClosedException e) {
       // OK
@@ -499,15 +508,16 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionDuringUploadUniqueEnd() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onUploadUniqueEnd(FtpSession session,
-                                            FtpRequest request) throws FtpException, IOException {
-        throwException();
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onUploadUniqueEnd(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            throwException();
 
-        return mockReturnValue;
-      }
-    };
+            return mockReturnValue;
+          }
+        };
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
     assertTrue(client.storeUniqueFile(new ByteArrayInputStream(TESTDATA)));

@@ -27,9 +27,7 @@ import org.apache.commons.net.ftp.FTPConnectionClosedException;
 
 import java.util.Random;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class PasvTest extends ClientTestTemplate {
 
   @Override
@@ -68,11 +66,10 @@ public class PasvTest extends ClientTestTemplate {
   }
 
   /**
-   * This tests that the correct IP is returned, that is the IP that the
-   * client has connected to.
-   * <p>
-   * Note that this test will only work if you got more than one NIC and the
-   * server is allowed to listen an all NICs
+   * This tests that the correct IP is returned, that is the IP that the client has connected to.
+   *
+   * <p>Note that this test will only work if you got more than one NIC and the server is allowed to
+   * listen an all NICs
    */
   public void testPasvIp() throws Exception {
     String[] ips = TestUtil.getHostAddresses();
@@ -93,7 +90,9 @@ public class PasvTest extends ClientTestTemplate {
         client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
         client.pasv();
 
-        assertTrue("Can't find " + ftpIp + " in " + client.getReplyString(), client.getReplyString().indexOf(ftpIp) > -1);
+        assertTrue(
+            "Can't find " + ftpIp + " in " + client.getReplyString(),
+            client.getReplyString().indexOf(ftpIp) > -1);
 
         client.quit();
         client.disconnect();

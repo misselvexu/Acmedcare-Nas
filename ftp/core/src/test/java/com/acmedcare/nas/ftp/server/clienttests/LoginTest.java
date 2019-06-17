@@ -26,9 +26,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.ByteArrayInputStream;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class LoginTest extends ClientTestTemplate {
   private static final String UNKNOWN_USERNAME = "foo";
 
@@ -39,8 +37,7 @@ public class LoginTest extends ClientTestTemplate {
   }
 
   public void testCommandWithoutLogin() throws Exception {
-    assertFalse(client.storeFile("foo", new ByteArrayInputStream("foo"
-        .getBytes())));
+    assertFalse(client.storeFile("foo", new ByteArrayInputStream("foo".getBytes())));
   }
 
   public void testLoginNoUser() throws Exception {
@@ -83,8 +80,9 @@ public class LoginTest extends ClientTestTemplate {
 
   public void testDoubleLoginDifferentUser() throws Exception {
     assertTrue(client.login(ADMIN_USERNAME, ADMIN_PASSWORD));
-    assertFalse("Login with different user not allowed", client.login(
-        TESTUSER1_USERNAME, TESTUSER_PASSWORD));
+    assertFalse(
+        "Login with different user not allowed",
+        client.login(TESTUSER1_USERNAME, TESTUSER_PASSWORD));
   }
 
   public void testREIN() throws Exception {
@@ -199,7 +197,5 @@ public class LoginTest extends ClientTestTemplate {
     } catch (Exception e) {
       // ignore
     }
-
   }
-
 }

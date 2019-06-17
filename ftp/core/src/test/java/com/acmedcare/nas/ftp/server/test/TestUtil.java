@@ -31,9 +31,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class TestUtil {
 
   private static final int DEFAULT_PORT = 12321;
@@ -67,8 +65,7 @@ public class TestUtil {
   /**
    * Attempts to find a free port
    *
-   * @param initPort The first port to try, before resolving to
-   *                 brute force searching
+   * @param initPort The first port to try, before resolving to brute force searching
    * @throws IOException
    * @throws IOException
    */
@@ -97,9 +94,7 @@ public class TestUtil {
         }
 
       } catch (IOException e1) {
-        throw new IOException(
-            "Failed to find a port to use for testing: "
-                + e1.getMessage());
+        throw new IOException("Failed to find a port to use for testing: " + e1.getMessage());
       }
     } finally {
       if (tmpSocket != null) {
@@ -116,8 +111,7 @@ public class TestUtil {
   }
 
   public static String[] getHostAddresses() throws Exception {
-    Enumeration<NetworkInterface> nifs = NetworkInterface
-        .getNetworkInterfaces();
+    Enumeration<NetworkInterface> nifs = NetworkInterface.getNetworkInterfaces();
 
     List<String> hostIps = new ArrayList<String>();
     while (nifs.hasMoreElements()) {
@@ -138,8 +132,7 @@ public class TestUtil {
   }
 
   public static InetAddress findNonLocalhostIp() throws Exception {
-    Enumeration<NetworkInterface> nifs = NetworkInterface
-        .getNetworkInterfaces();
+    Enumeration<NetworkInterface> nifs = NetworkInterface.getNetworkInterfaces();
 
     while (nifs.hasMoreElements()) {
       NetworkInterface nif = nifs.nextElement();
@@ -147,8 +140,7 @@ public class TestUtil {
 
       while (ips.hasMoreElements()) {
         InetAddress ip = ips.nextElement();
-        if (ip instanceof java.net.Inet4Address
-            && !ip.isLoopbackAddress()) {
+        if (ip instanceof java.net.Inet4Address && !ip.isLoopbackAddress()) {
           return ip;
         } else {
           // IPv6 not tested
@@ -159,8 +151,7 @@ public class TestUtil {
     return null;
   }
 
-  public static void writeDataToFile(File file, byte[] data)
-      throws IOException {
+  public static void writeDataToFile(File file, byte[] data) throws IOException {
     FileOutputStream fos = null;
 
     try {
@@ -172,8 +163,7 @@ public class TestUtil {
     }
   }
 
-  public static void assertFileEqual(byte[] expected, File file)
-      throws Exception {
+  public static void assertFileEqual(byte[] expected, File file) throws Exception {
     ByteArrayOutputStream baos = null;
     FileInputStream fis = null;
 

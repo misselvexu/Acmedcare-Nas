@@ -27,9 +27,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class InetAddressBlacklistTest extends ClientTestTemplate {
   @Override
   protected FtpServerFactory createServer() throws Exception {

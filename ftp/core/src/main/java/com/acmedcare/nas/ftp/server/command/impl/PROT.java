@@ -34,8 +34,8 @@ import java.io.IOException;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Data channel protection level.
+ *
+ * <p>Data channel protection level.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -54,11 +54,10 @@ public class PROT extends AbstractCommand {
     return configuration;
   }
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variables
@@ -67,9 +66,14 @@ public class PROT extends AbstractCommand {
     // check argument
     String arg = request.getArgument();
     if (arg == null) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "PROT", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "PROT",
+              null));
       return;
     }
 
@@ -78,27 +82,27 @@ public class PROT extends AbstractCommand {
     ServerDataConnectionFactory dcon = session.getDataConnection();
     if (arg.equals("C")) {
       dcon.setSecure(false);
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_200_COMMAND_OKAY, "PROT", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "PROT", null));
     } else if (arg.equals("P")) {
       if (getSslConfiguration(session) == null) {
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            431, "PROT", null));
+        session.write(LocalizedFtpReply.translate(session, request, context, 431, "PROT", null));
       } else {
         dcon.setSecure(true);
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_200_COMMAND_OKAY, "PROT", null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "PROT", null));
       }
     } else {
-      session
-          .write(LocalizedFtpReply
-              .translate(
-                  session,
-                  request,
-                  context,
-                  FtpReply.REPLY_504_COMMAND_NOT_IMPLEMENTED_FOR_THAT_PARAMETER,
-                  "PROT", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_504_COMMAND_NOT_IMPLEMENTED_FOR_THAT_PARAMETER,
+              "PROT",
+              null));
     }
   }
-
 }

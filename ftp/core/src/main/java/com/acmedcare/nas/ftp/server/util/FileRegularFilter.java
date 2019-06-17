@@ -24,8 +24,8 @@ import java.io.FilenameFilter;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This is regular expression filename filter.
+ *
+ * <p>This is regular expression filename filter.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -49,7 +49,7 @@ public class FileRegularFilter implements FilenameFilter {
   /**
    * Tests if a specified file should be included in a file list.
    *
-   * @param dir  - the directory in which the file was found
+   * @param dir - the directory in which the file was found
    * @param name - the name of the file.
    */
   public boolean accept(File dir, String name) {

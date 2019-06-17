@@ -46,7 +46,7 @@
     -->
     <ftplets>
         <ftplet name="ftplet1">
-            <beans:bean class="org.apache.ftpserver.examples.MyFtplet">
+            <beans:bean class="com.acmedcare.nas.ftp.server.examples.MyFtplet">
                 <beans:property name="foo" value="123"/>
             </beans:bean>
         </ftplet>
@@ -95,7 +95,7 @@
     -->
     <commands use-default="false">
         <command name="MYHELP">
-            <beans:bean class="org.apache.ftpserver.examples.MYHELP"/>
+            <beans:bean class="com.acmedcare.nas.ftp.server.examples.MYHELP"/>
         </command>
     </commands>
     <!-- Define the available languages -->

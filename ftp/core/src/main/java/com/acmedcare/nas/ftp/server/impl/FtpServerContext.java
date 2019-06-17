@@ -31,9 +31,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This is basically <code>FtpletContext</code> with
- * added connection manager, message resource functionalities.
+ *
+ * <p>This is basically <code>FtpletContext</code> with added connection manager, message resource
+ * functionalities.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -41,28 +41,20 @@ public interface FtpServerContext extends FtpletContext {
 
   ConnectionConfig getConnectionConfig();
 
-  /**
-   * Get message resource.
-   */
+  /** Get message resource. */
   MessageResource getMessageResource();
 
-  /**
-   * Get ftplet container.
-   */
+  /** Get ftplet container. */
   FtpletContainer getFtpletContainer();
 
   Listener getListener(String name);
 
   Map<String, Listener> getListeners();
 
-  /**
-   * Get the command factory.
-   */
+  /** Get the command factory. */
   CommandFactory getCommandFactory();
 
-  /**
-   * Release all components.
-   */
+  /** Release all components. */
   void dispose();
 
   /**

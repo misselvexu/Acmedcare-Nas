@@ -22,23 +22,18 @@ package com.acmedcare.nas.ftp.server.usermanager;
 import com.acmedcare.nas.ftp.server.util.PasswordUtil;
 
 /**
- * Password encryptor that does no encryption, that is, keps the
- * password in clear text
+ * Password encryptor that does no encryption, that is, keps the password in clear text
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class ClearTextPasswordEncryptor implements PasswordEncryptor {
 
-  /**
-   * Returns the clear text password
-   */
+  /** Returns the clear text password */
   public String encrypt(String password) {
     return password;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   public boolean matches(String passwordToCheck, String storedPassword) {
     if (storedPassword == null) {
       throw new NullPointerException("storedPassword can not be null");
@@ -49,5 +44,4 @@ public class ClearTextPasswordEncryptor implements PasswordEncryptor {
 
     return PasswordUtil.secureCompareFast(passwordToCheck, storedPassword);
   }
-
 }

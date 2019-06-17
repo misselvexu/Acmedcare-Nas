@@ -20,8 +20,8 @@ package com.acmedcare.nas.ftp.server.command.impl.listing;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Contains the parsed argument for a list command (e.g. LIST or NLST)
+ *
+ * <p>Contains the parsed argument for a list command (e.g. LIST or NLST)
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -34,7 +34,7 @@ public class ListArgument {
   private final char[] options;
 
   /**
-   * @param file    The file path including the directory
+   * @param file The file path including the directory
    * @param pattern A regular expression pattern that files must match
    * @param options List options, such as -la
    */
@@ -90,5 +90,4 @@ public class ListArgument {
   public String getFile() {
     return file;
   }
-
 }

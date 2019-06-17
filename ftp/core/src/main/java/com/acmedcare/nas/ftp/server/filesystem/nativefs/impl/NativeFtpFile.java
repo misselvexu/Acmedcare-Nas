@@ -33,8 +33,8 @@ import java.util.List;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This class wraps native file object.
+ *
+ * <p>This class wraps native file object.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -51,11 +51,8 @@ public class NativeFtpFile implements FtpFile {
 
   private final User user;
 
-  /**
-   * Constructor, internal do not use directly.
-   */
-  protected NativeFtpFile(final String fileName, final File file,
-                          final User user) {
+  /** Constructor, internal do not use directly. */
+  protected NativeFtpFile(final String fileName, final File file, final User user) {
     if (fileName == null) {
       throw new IllegalArgumentException("fileName can not be null");
     }
@@ -66,8 +63,7 @@ public class NativeFtpFile implements FtpFile {
     if (fileName.length() == 0) {
       throw new IllegalArgumentException("fileName can not be empty");
     } else if (fileName.charAt(0) != '/') {
-      throw new IllegalArgumentException(
-          "fileName must be an absolut path");
+      throw new IllegalArgumentException("fileName must be an absolut path");
     }
 
     this.fileName = fileName;
@@ -75,9 +71,7 @@ public class NativeFtpFile implements FtpFile {
     this.user = user;
   }
 
-  /**
-   * Get full name.
-   */
+  /** Get full name. */
   @Override
   public String getAbsolutePath() {
 
@@ -91,9 +85,7 @@ public class NativeFtpFile implements FtpFile {
     return fullName;
   }
 
-  /**
-   * Get short name.
-   */
+  /** Get short name. */
   @Override
   public String getName() {
 
@@ -117,97 +109,73 @@ public class NativeFtpFile implements FtpFile {
     return shortName;
   }
 
-  /**
-   * Is a hidden file?
-   */
+  /** Is a hidden file? */
   @Override
   public boolean isHidden() {
     return file.isHidden();
   }
 
-  /**
-   * Is it a directory?
-   */
+  /** Is it a directory? */
   @Override
   public boolean isDirectory() {
     return file.isDirectory();
   }
 
-  /**
-   * Is it a file?
-   */
+  /** Is it a file? */
   @Override
   public boolean isFile() {
     return file.isFile();
   }
 
-  /**
-   * Does this file exists?
-   */
+  /** Does this file exists? */
   @Override
   public boolean doesExist() {
     return file.exists();
   }
 
-  /**
-   * Get file size.
-   */
+  /** Get file size. */
   @Override
   public long getSize() {
     return file.length();
   }
 
-  /**
-   * Get file owner.
-   */
+  /** Get file owner. */
   @Override
   public String getOwnerName() {
     return "user";
   }
 
-  /**
-   * Get group name
-   */
+  /** Get group name */
   @Override
   public String getGroupName() {
     return "group";
   }
 
-  /**
-   * Get link count
-   */
+  /** Get link count */
   @Override
   public int getLinkCount() {
     return file.isDirectory() ? 3 : 1;
   }
 
-  /**
-   * Get last modified time.
-   */
+  /** Get last modified time. */
   @Override
   public long getLastModified() {
     return file.lastModified();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public boolean setLastModified(long time) {
     return file.setLastModified(time);
   }
 
-  /**
-   * Check read permission.
-   */
+  /** Check read permission. */
   @Override
   public boolean isReadable() {
     return file.canRead();
   }
 
-  /**
-   * Check file write permission.
-   */
+  /** Check file write permission. */
   @Override
   public boolean isWritable() {
     LOG.debug("Checking authorization for " + getAbsolutePath());
@@ -226,9 +194,7 @@ public class NativeFtpFile implements FtpFile {
     return true;
   }
 
-  /**
-   * Has delete permission.
-   */
+  /** Has delete permission. */
   @Override
   public boolean isRemovable() {
 
@@ -247,7 +213,8 @@ public class NativeFtpFile implements FtpFile {
     if (user.authorize(new WriteRequest(fullName)) == null) {
       return false;
     }
-    // In order to maintain consistency, when possible we delete the last '/' character in the String
+    // In order to maintain consistency, when possible we delete the last '/' character in the
+    // String
     int indexOfSlash = fullName.lastIndexOf('/');
     String parentFullName;
     if (indexOfSlash == 0) {
@@ -257,14 +224,12 @@ public class NativeFtpFile implements FtpFile {
     }
 
     // we check if the parent FileObject is writable.
-    NativeFtpFile parentObject = new NativeFtpFile(parentFullName, file
-        .getAbsoluteFile().getParentFile(), user);
+    NativeFtpFile parentObject =
+        new NativeFtpFile(parentFullName, file.getAbsoluteFile().getParentFile(), user);
     return parentObject.isWritable();
   }
 
-  /**
-   * Delete file.
-   */
+  /** Delete file. */
   @Override
   public boolean delete() {
     boolean retVal = false;
@@ -274,9 +239,7 @@ public class NativeFtpFile implements FtpFile {
     return retVal;
   }
 
-  /**
-   * Move file object.
-   */
+  /** Move file object. */
   @Override
   public boolean move(final FtpFile dest) {
     boolean retVal = false;
@@ -295,9 +258,7 @@ public class NativeFtpFile implements FtpFile {
     return retVal;
   }
 
-  /**
-   * Create directory.
-   */
+  /** Create directory. */
   @Override
   public boolean mkdir() {
     boolean retVal = false;
@@ -307,17 +268,13 @@ public class NativeFtpFile implements FtpFile {
     return retVal;
   }
 
-  /**
-   * Get the physical file object.
-   */
+  /** Get the physical file object. */
   @Override
   public File getPhysicalFile() {
     return file;
   }
 
-  /**
-   * List files. If not a directory or does not exist, null will be returned.
-   */
+  /** List files. If not a directory or does not exist, null will be returned. */
   @Override
   public List<FtpFile> listFiles() {
 
@@ -333,11 +290,13 @@ public class NativeFtpFile implements FtpFile {
     }
 
     // make sure the files are returned in order
-    Arrays.sort(files, new Comparator<File>() {
-      public int compare(File f1, File f2) {
-        return f1.getName().compareTo(f2.getName());
-      }
-    });
+    Arrays.sort(
+        files,
+        new Comparator<File>() {
+          public int compare(File f1, File f2) {
+            return f1.getName().compareTo(f2.getName());
+          }
+        });
 
     // get the virtual name of the base directory
     String virtualFileStr = getAbsolutePath();
@@ -356,12 +315,9 @@ public class NativeFtpFile implements FtpFile {
     return Collections.unmodifiableList(Arrays.asList(virtualFiles));
   }
 
-  /**
-   * Create output stream for writing.
-   */
+  /** Create output stream for writing. */
   @Override
-  public OutputStream createOutputStream(final long offset)
-      throws IOException {
+  public OutputStream createOutputStream(final long offset) throws IOException {
 
     // permission check
     if (!isWritable()) {
@@ -384,9 +340,7 @@ public class NativeFtpFile implements FtpFile {
     };
   }
 
-  /**
-   * Create input stream for reading.
-   */
+  /** Create input stream for reading. */
   @Override
   public InputStream createInputStream(final long offset) throws IOException {
 
@@ -411,8 +365,8 @@ public class NativeFtpFile implements FtpFile {
   }
 
   /**
-   * Implements equals by comparing getCanonicalPath() for the underlying file instabnce.
-   * Ignores the fileName and User fields
+   * Implements equals by comparing getCanonicalPath() for the underlying file instabnce. Ignores
+   * the fileName and User fields
    */
   @Override
   public boolean equals(Object obj) {
@@ -421,11 +375,9 @@ public class NativeFtpFile implements FtpFile {
       String otherCanonicalPath;
       try {
         thisCanonicalPath = this.file.getCanonicalPath();
-        otherCanonicalPath = ((NativeFtpFile) obj).file
-            .getCanonicalPath();
+        otherCanonicalPath = ((NativeFtpFile) obj).file.getCanonicalPath();
       } catch (IOException e) {
-        throw new RuntimeException("Failed to get the canonical path",
-            e);
+        throw new RuntimeException("Failed to get the canonical path", e);
       }
 
       return thisCanonicalPath.equals(otherCanonicalPath);

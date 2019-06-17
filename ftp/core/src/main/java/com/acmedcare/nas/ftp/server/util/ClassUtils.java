@@ -27,11 +27,11 @@ package com.acmedcare.nas.ftp.server.util;
 public class ClassUtils {
 
   /**
-   * Checks if a class is a subclass of a class with the specified name. Used
-   * as an instanceOf without having to load the class, useful when trying to
-   * check for classes that might not be available in the runtime JRE.
+   * Checks if a class is a subclass of a class with the specified name. Used as an instanceOf
+   * without having to load the class, useful when trying to check for classes that might not be
+   * available in the runtime JRE.
    *
-   * @param clazz     The class to check
+   * @param clazz The class to check
    * @param className The class name to look for in the super classes
    * @return true if the class extends a class by the specified name.
    */
@@ -43,7 +43,6 @@ public class ClassUtils {
         return true;
       }
       superClass = superClass.getSuperclass();
-
     }
     return false;
   }

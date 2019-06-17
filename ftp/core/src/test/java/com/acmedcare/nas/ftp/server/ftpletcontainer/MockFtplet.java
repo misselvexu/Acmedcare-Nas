@@ -23,9 +23,7 @@ import com.acmedcare.nas.ftp.server.ftplet.*;
 
 import java.io.IOException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class MockFtplet extends DefaultFtplet {
 
   protected static MockFtpletCallback callback = new MockFtpletCallback();
@@ -60,8 +58,7 @@ public class MockFtplet extends DefaultFtplet {
   }
 
   @Override
-  public FtpletResult onConnect(FtpSession session) throws FtpException,
-      IOException {
+  public FtpletResult onConnect(FtpSession session) throws FtpException, IOException {
     return callback.onConnect(session);
   }
 
@@ -78,8 +75,7 @@ public class MockFtplet extends DefaultFtplet {
   }
 
   @Override
-  public FtpletResult onDisconnect(FtpSession session) throws FtpException,
-      IOException {
+  public FtpletResult onDisconnect(FtpSession session) throws FtpException, IOException {
     return callback.onDisconnect(session);
   }
 

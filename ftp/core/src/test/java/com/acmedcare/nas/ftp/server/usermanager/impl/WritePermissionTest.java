@@ -21,9 +21,7 @@ package com.acmedcare.nas.ftp.server.usermanager.impl;
 
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class WritePermissionTest extends TestCase {
 
   public void testRootDir() throws Exception {
@@ -40,5 +38,4 @@ public class WritePermissionTest extends TestCase {
     assertNotNull(permission.authorize(new WriteRequest("/bar")));
     assertNotNull(permission.authorize(new WriteRequest("/bar/foo")));
   }
-
 }

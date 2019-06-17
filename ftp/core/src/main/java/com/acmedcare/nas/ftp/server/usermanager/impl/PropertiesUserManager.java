@@ -37,10 +37,9 @@ import java.util.*;
 /**
  * <strong>Internal class, do not use directly.</strong>
  *
- * <p>Properties file based <code>UserManager</code> implementation. We use
- * <code>user.properties</code> file to store user data.</p>
+ * <p>Properties file based <code>UserManager</code> implementation. We use <code>user.properties
+ * </code> file to store user data. The file will use the following properties for storing users:
  *
- * </p>The file will use the following properties for storing users:</p>
  * <table>
  * <tr>
  * <th>Property</th>
@@ -88,7 +87,8 @@ import java.util.*;
  * </tr>
  * </table>
  *
- * <p>Example:</p>
+ * <p>Example:
+ *
  * <pre>
  * ftpserver.user.admin.homedirectory=/ftproot
  * ftpserver.user.admin.userpassword=admin
@@ -105,11 +105,8 @@ import java.util.*;
  */
 public class PropertiesUserManager extends AbstractUserManager {
 
-  private final Logger LOG = LoggerFactory
-      .getLogger(PropertiesUserManager.class);
-
-  private final static String PREFIX = "ftpserver.user.";
-
+  private static final String PREFIX = "ftpserver.user.";
+  private final Logger LOG = LoggerFactory.getLogger(PropertiesUserManager.class);
   private BaseProperties userDataProp;
 
   private File userDataFile;
@@ -119,8 +116,8 @@ public class PropertiesUserManager extends AbstractUserManager {
   /**
    * Internal constructor, do not use directly. Use {@link PropertiesUserManagerFactory} instead.
    */
-  public PropertiesUserManager(PasswordEncryptor passwordEncryptor,
-                               File userDataFile, String adminName) {
+  public PropertiesUserManager(
+      PasswordEncryptor passwordEncryptor, File userDataFile, String adminName) {
     super(adminName, passwordEncryptor);
 
     loadFromFile(userDataFile);
@@ -129,8 +126,8 @@ public class PropertiesUserManager extends AbstractUserManager {
   /**
    * Internal constructor, do not use directly. Use {@link PropertiesUserManagerFactory} instead.
    */
-  public PropertiesUserManager(PasswordEncryptor passwordEncryptor,
-                               URL userDataPath, String adminName) {
+  public PropertiesUserManager(
+      PasswordEncryptor passwordEncryptor, URL userDataPath, String adminName) {
     super(adminName, passwordEncryptor);
 
     loadFromUrl(userDataPath);
@@ -156,11 +153,9 @@ public class PropertiesUserManager extends AbstractUserManager {
           }
         } else {
           // try loading it from the classpath
-          LOG
-              .debug("File not found on file system, try loading from classpath");
+          LOG.debug("File not found on file system, try loading from classpath");
 
-          InputStream is = getClass().getClassLoader()
-              .getResourceAsStream(userDataFile.getPath());
+          InputStream is = getClass().getClassLoader().getResourceAsStream(userDataFile.getPath());
 
           if (is != null) {
             try {
@@ -207,19 +202,18 @@ public class PropertiesUserManager extends AbstractUserManager {
   }
 
   /**
-   * Reloads the contents of the user.properties file. This allows any manual modifications to the file to be recognised by the running server.
+   * Reloads the contents of the user.properties file. This allows any manual modifications to the
+   * file to be recognised by the running server.
    */
   public void refresh() {
     synchronized (userDataProp) {
       if (userDataFile != null) {
-        LOG.debug("Refreshing user manager using file: "
-            + userDataFile.getAbsolutePath());
+        LOG.debug("Refreshing user manager using file: " + userDataFile.getAbsolutePath());
         loadFromFile(userDataFile);
 
       } else {
-        //file is null, must have been created using URL
-        LOG.debug("Refreshing user manager using URL: "
-            + userUrl.toString());
+        // file is null, must have been created using URL
+        LOG.debug("Refreshing user manager using URL: " + userUrl.toString());
         loadFromUrl(userUrl);
       }
     }
@@ -234,9 +228,7 @@ public class PropertiesUserManager extends AbstractUserManager {
     return userDataFile;
   }
 
-  /**
-   * Save user data. Store the properties.
-   */
+  /** Save user data. Store the properties. */
   @Override
   public synchronized void save(User usr) throws FtpException {
     // null value check
@@ -254,36 +246,32 @@ public class PropertiesUserManager extends AbstractUserManager {
     }
     userDataProp.setProperty(thisPrefix + ATTR_HOME, home);
     userDataProp.setProperty(thisPrefix + ATTR_ENABLE, usr.getEnabled());
-    userDataProp.setProperty(thisPrefix + ATTR_WRITE_PERM, usr
-        .authorize(new WriteRequest()) != null);
-    userDataProp.setProperty(thisPrefix + ATTR_MAX_IDLE_TIME, usr
-        .getMaxIdleTime());
+    userDataProp.setProperty(
+        thisPrefix + ATTR_WRITE_PERM, usr.authorize(new WriteRequest()) != null);
+    userDataProp.setProperty(thisPrefix + ATTR_MAX_IDLE_TIME, usr.getMaxIdleTime());
 
     TransferRateRequest transferRateRequest = new TransferRateRequest();
-    transferRateRequest = (TransferRateRequest) usr
-        .authorize(transferRateRequest);
+    transferRateRequest = (TransferRateRequest) usr.authorize(transferRateRequest);
 
     if (transferRateRequest != null) {
-      userDataProp.setProperty(thisPrefix + ATTR_MAX_UPLOAD_RATE,
-          transferRateRequest.getMaxUploadRate());
-      userDataProp.setProperty(thisPrefix + ATTR_MAX_DOWNLOAD_RATE,
-          transferRateRequest.getMaxDownloadRate());
+      userDataProp.setProperty(
+          thisPrefix + ATTR_MAX_UPLOAD_RATE, transferRateRequest.getMaxUploadRate());
+      userDataProp.setProperty(
+          thisPrefix + ATTR_MAX_DOWNLOAD_RATE, transferRateRequest.getMaxDownloadRate());
     } else {
       userDataProp.remove(thisPrefix + ATTR_MAX_UPLOAD_RATE);
       userDataProp.remove(thisPrefix + ATTR_MAX_DOWNLOAD_RATE);
     }
 
     // request that always will succeed
-    ConcurrentLoginRequest concurrentLoginRequest = new ConcurrentLoginRequest(
-        0, 0);
-    concurrentLoginRequest = (ConcurrentLoginRequest) usr
-        .authorize(concurrentLoginRequest);
+    ConcurrentLoginRequest concurrentLoginRequest = new ConcurrentLoginRequest(0, 0);
+    concurrentLoginRequest = (ConcurrentLoginRequest) usr.authorize(concurrentLoginRequest);
 
     if (concurrentLoginRequest != null) {
-      userDataProp.setProperty(thisPrefix + ATTR_MAX_LOGIN_NUMBER,
-          concurrentLoginRequest.getMaxConcurrentLogins());
-      userDataProp.setProperty(thisPrefix + ATTR_MAX_LOGIN_PER_IP,
-          concurrentLoginRequest.getMaxConcurrentLoginsPerIP());
+      userDataProp.setProperty(
+          thisPrefix + ATTR_MAX_LOGIN_NUMBER, concurrentLoginRequest.getMaxConcurrentLogins());
+      userDataProp.setProperty(
+          thisPrefix + ATTR_MAX_LOGIN_PER_IP, concurrentLoginRequest.getMaxConcurrentLoginsPerIP());
     } else {
       userDataProp.remove(thisPrefix + ATTR_MAX_LOGIN_NUMBER);
       userDataProp.remove(thisPrefix + ATTR_MAX_LOGIN_PER_IP);
@@ -292,9 +280,7 @@ public class PropertiesUserManager extends AbstractUserManager {
     saveUserData();
   }
 
-  /**
-   * @throws FtpException
-   */
+  /** @throws FtpException */
   private void saveUserData() throws FtpException {
     if (userDataFile == null) {
       return;
@@ -321,8 +307,8 @@ public class PropertiesUserManager extends AbstractUserManager {
   }
 
   /**
-   * Delete an user. Removes all this user entries from the properties. After
-   * removing the corresponding from the properties, save the data.
+   * Delete an user. Removes all this user entries from the properties. After removing the
+   * corresponding from the properties, save the data.
    */
   @Override
   public void delete(String usrName) throws FtpException {
@@ -376,9 +362,7 @@ public class PropertiesUserManager extends AbstractUserManager {
     return password;
   }
 
-  /**
-   * Get all user names.
-   */
+  /** Get all user names. */
   @Override
   public String[] getAllUserNames() {
     // get all user names
@@ -401,9 +385,7 @@ public class PropertiesUserManager extends AbstractUserManager {
     return ulst.toArray(new String[0]);
   }
 
-  /**
-   * Load user data.
-   */
+  /** Load user data. */
   @Override
   public User getUserByName(String userName) {
     if (!doesExist(userName)) {
@@ -414,8 +396,7 @@ public class PropertiesUserManager extends AbstractUserManager {
     BaseUser user = new BaseUser();
     user.setName(userName);
     user.setEnabled(userDataProp.getBoolean(baseKey + ATTR_ENABLE, true));
-    user.setHomeDirectory(userDataProp
-        .getProperty(baseKey + ATTR_HOME, "/"));
+    user.setHomeDirectory(userDataProp.getProperty(baseKey + ATTR_HOME, "/"));
 
     List<Authority> authorities = new ArrayList<Authority>();
 
@@ -423,43 +404,33 @@ public class PropertiesUserManager extends AbstractUserManager {
       authorities.add(new WritePermission());
     }
 
-    int maxLogin = userDataProp.getInteger(baseKey + ATTR_MAX_LOGIN_NUMBER,
-        0);
-    int maxLoginPerIP = userDataProp.getInteger(baseKey
-        + ATTR_MAX_LOGIN_PER_IP, 0);
+    int maxLogin = userDataProp.getInteger(baseKey + ATTR_MAX_LOGIN_NUMBER, 0);
+    int maxLoginPerIP = userDataProp.getInteger(baseKey + ATTR_MAX_LOGIN_PER_IP, 0);
 
     authorities.add(new ConcurrentLoginPermission(maxLogin, maxLoginPerIP));
 
-    int uploadRate = userDataProp.getInteger(
-        baseKey + ATTR_MAX_UPLOAD_RATE, 0);
-    int downloadRate = userDataProp.getInteger(baseKey
-        + ATTR_MAX_DOWNLOAD_RATE, 0);
+    int uploadRate = userDataProp.getInteger(baseKey + ATTR_MAX_UPLOAD_RATE, 0);
+    int downloadRate = userDataProp.getInteger(baseKey + ATTR_MAX_DOWNLOAD_RATE, 0);
 
     authorities.add(new TransferRatePermission(downloadRate, uploadRate));
 
     user.setAuthorities(authorities);
 
-    user.setMaxIdleTime(userDataProp.getInteger(baseKey
-        + ATTR_MAX_IDLE_TIME, 0));
+    user.setMaxIdleTime(userDataProp.getInteger(baseKey + ATTR_MAX_IDLE_TIME, 0));
 
     return user;
   }
 
-  /**
-   * User existance check
-   */
+  /** User existance check */
   @Override
   public boolean doesExist(String name) {
     String key = PREFIX + name + '.' + ATTR_HOME;
     return userDataProp.containsKey(key);
   }
 
-  /**
-   * User authenticate method
-   */
+  /** User authenticate method */
   @Override
-  public User authenticate(Authentication authentication)
-      throws AuthenticationFailedException {
+  public User authenticate(Authentication authentication) throws AuthenticationFailedException {
     if (authentication instanceof UsernamePasswordAuthentication) {
       UsernamePasswordAuthentication upauth = (UsernamePasswordAuthentication) authentication;
 
@@ -474,8 +445,7 @@ public class PropertiesUserManager extends AbstractUserManager {
         password = "";
       }
 
-      String storedPassword = userDataProp.getProperty(PREFIX + user
-          + '.' + ATTR_PASSWORD);
+      String storedPassword = userDataProp.getProperty(PREFIX + user + '.' + ATTR_PASSWORD);
 
       if (storedPassword == null) {
         // user does not exist
@@ -495,19 +465,15 @@ public class PropertiesUserManager extends AbstractUserManager {
         throw new AuthenticationFailedException("Authentication failed");
       }
     } else {
-      throw new IllegalArgumentException(
-          "Authentication not supported by this user manager");
+      throw new IllegalArgumentException("Authentication not supported by this user manager");
     }
   }
 
-  /**
-   * Close the user manager - remove existing entries.
-   */
+  /** Close the user manager - remove existing entries. */
   public synchronized void dispose() {
     if (userDataProp != null) {
       userDataProp.clear();
       userDataProp = null;
     }
   }
-
 }

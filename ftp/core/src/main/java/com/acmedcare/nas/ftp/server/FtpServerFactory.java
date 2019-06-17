@@ -1,22 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 package com.acmedcare.nas.ftp.server;
 
 import com.acmedcare.nas.ftp.server.command.CommandFactory;
@@ -33,8 +14,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * This is the starting point of all the servers. Creates server instances based on
- * the provided configuration.
+ * This is the starting point of all the servers. Creates server instances based on the provided
+ * configuration.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -42,16 +23,13 @@ public class FtpServerFactory {
 
   private DefaultFtpServerContext serverContext;
 
-  /**
-   * Creates a server with the default configuration
-   */
+  /** Creates a server with the default configuration */
   public FtpServerFactory() {
     serverContext = new DefaultFtpServerContext();
   }
 
   /**
-   * Create a {@link DefaultFtpServer} instance based
-   * on the provided configuration
+   * Create a {@link DefaultFtpServer} instance based on the provided configuration
    *
    * @return The {@link DefaultFtpServer} instance
    */
@@ -69,6 +47,17 @@ public class FtpServerFactory {
   }
 
   /**
+   * Set the listeners for servers created by this factory, replaces existing listeners
+   *
+   * @param listeners The listeners to use for this server with the name as the key and the listener
+   *     as the value
+   * @throws IllegalStateException If a custom server context has been set
+   */
+  public void setListeners(final Map<String, Listener> listeners) {
+    serverContext.setListeners(listeners);
+  }
+
+  /**
    * Get a specific {@link Listener} identified by its name
    *
    * @param name The name of the listener
@@ -81,22 +70,11 @@ public class FtpServerFactory {
   /**
    * Add a {@link Listener} to this factory
    *
-   * @param name     The name of the listener
+   * @param name The name of the listener
    * @param listener The {@link Listener}
    */
   public void addListener(final String name, final Listener listener) {
     serverContext.addListener(name, listener);
-  }
-
-  /**
-   * Set the listeners for servers created by this factory, replaces existing listeners
-   *
-   * @param listeners The listeners to use for this server with the name as the key
-   *                  and the listener as the value
-   * @throws IllegalStateException If a custom server context has been set
-   */
-  public void setListeners(final Map<String, Listener> listeners) {
-    serverContext.setListeners(listeners);
   }
 
   /**
@@ -112,10 +90,10 @@ public class FtpServerFactory {
    * Set the {@link Ftplet}s to be active by servers created by this factory. Replaces existing
    * {@link Ftplet}s
    *
-   * @param ftplets Ftplets as a map with the name as the key and the Ftplet as
-   *                the value. The Ftplet container will iterate over the map in the
-   *                order provided by the Map. If invocation order of Ftplets is of importance,
-   *                make sure to provide a ordered Map, for example {@link LinkedHashMap}.
+   * @param ftplets Ftplets as a map with the name as the key and the Ftplet as the value. The
+   *     Ftplet container will iterate over the map in the order provided by the Map. If invocation
+   *     order of Ftplets is of importance, make sure to provide a ordered Map, for example {@link
+   *     LinkedHashMap}.
    * @throws IllegalStateException If a custom server context has been set
    */
   public void setFtplets(final Map<String, Ftplet> ftplets) {
@@ -210,8 +188,8 @@ public class FtpServerFactory {
   /**
    * Set the message resource to be used with this server
    *
-   * @param connectionConfig The {@link ConnectionConfig} to be used
-   *                         by servers created by this factory
+   * @param connectionConfig The {@link ConnectionConfig} to be used by servers created by this
+   *     factory
    */
   public void setConnectionConfig(final ConnectionConfig connectionConfig) {
     serverContext.setConnectionConfig(connectionConfig);

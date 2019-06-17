@@ -24,9 +24,8 @@ import com.acmedcare.nas.ftp.server.FtpServerFactory;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * Spring {@link FactoryBean} which extends {@link FtpServerFactory}
- * making it easier to use Spring's standard &lt;bean&gt; tag instead of
- * FtpServer's custom XML tags to configure things.
+ * Spring {@link FactoryBean} which extends {@link FtpServerFactory} making it easier to use
+ * Spring's standard &lt;bean&gt; tag instead of FtpServer's custom XML tags to configure things.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @see FtpServerFactory
@@ -44,5 +43,4 @@ public class FtpServerFactoryBean extends FtpServerFactory implements FactoryBea
   public boolean isSingleton() {
     return false;
   }
-
 }

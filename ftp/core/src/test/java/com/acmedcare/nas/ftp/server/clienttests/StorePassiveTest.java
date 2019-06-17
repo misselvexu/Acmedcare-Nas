@@ -19,9 +19,7 @@
 
 package com.acmedcare.nas.ftp.server.clienttests;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class StorePassiveTest extends StoreTest {
   /*
    * (non-Javadoc)

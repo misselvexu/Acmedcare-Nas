@@ -23,9 +23,7 @@ import org.apache.commons.net.ftp.FTPSClient;
 
 import javax.net.ssl.SSLHandshakeException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class MinaCipherSuitesTest extends SSLTestTemplate {
 
   @Override
@@ -42,8 +40,7 @@ public class MinaCipherSuitesTest extends SSLTestTemplate {
   protected SslConfigurationFactory createSslConfiguration() {
     SslConfigurationFactory sslConfigFactory = super.createSslConfiguration();
 
-    sslConfigFactory
-        .setEnabledCipherSuites(new String[]{"SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA"});
+    sslConfigFactory.setEnabledCipherSuites(new String[] {"SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA"});
 
     return sslConfigFactory;
   }
@@ -66,14 +63,14 @@ public class MinaCipherSuitesTest extends SSLTestTemplate {
   public void testEnabled() throws Exception {
 
     ((FTPSClient) client)
-        .setEnabledCipherSuites(new String[]{"SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA"});
+        .setEnabledCipherSuites(new String[] {"SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA"});
 
     connectClient();
   }
 
   public void testDisabled() throws Exception {
     ((FTPSClient) client)
-        .setEnabledCipherSuites(new String[]{"SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA"});
+        .setEnabledCipherSuites(new String[] {"SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA"});
 
     try {
       doConnect();

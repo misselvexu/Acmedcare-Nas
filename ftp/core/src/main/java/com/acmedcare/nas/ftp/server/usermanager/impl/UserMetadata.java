@@ -24,8 +24,8 @@ import java.security.cert.Certificate;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * User metadata used during authentication
+ *
+ * <p>User metadata used during authentication
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -38,8 +38,8 @@ public class UserMetadata {
   /**
    * Retrive the certificate chain used for an SSL connection.
    *
-   * @return The certificate chain, can be null if no peer certificate is
-   * available (e.g. SSL not used)
+   * @return The certificate chain, can be null if no peer certificate is available (e.g. SSL not
+   *     used)
    */
   public Certificate[] getCertificateChain() {
     if (certificateChain != null) {
@@ -79,5 +79,4 @@ public class UserMetadata {
   public void setInetAddress(final InetAddress inetAddress) {
     this.inetAddress = inetAddress;
   }
-
 }

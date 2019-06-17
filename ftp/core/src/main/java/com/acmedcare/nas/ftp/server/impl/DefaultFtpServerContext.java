@@ -1,22 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 package com.acmedcare.nas.ftp.server.impl;
 
 import com.acmedcare.nas.ftp.server.ConnectionConfig;
@@ -49,39 +30,15 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * FTP server configuration implementation. It holds all the components used.
+ *
+ * <p>FTP server configuration implementation. It holds all the components used.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class DefaultFtpServerContext implements FtpServerContext {
 
-  private final Logger LOG = LoggerFactory
-      .getLogger(DefaultFtpServerContext.class);
-
-  private MessageResource messageResource = new MessageResourceFactory().createMessageResource();
-
-  private UserManager userManager = new PropertiesUserManagerFactory().createUserManager();
-
-  private FileSystemFactory fileSystemManager = new NativeFileSystemFactory();
-
-  private FtpletContainer ftpletContainer = new DefaultFtpletContainer();
-
-  private FtpStatistics statistics = new DefaultFtpStatistics();
-
-  private CommandFactory commandFactory = new CommandFactoryFactory().createCommandFactory();
-
-  private ConnectionConfig connectionConfig = new ConnectionConfigFactory().createConnectionConfig();
-
-  private Map<String, Listener> listeners = new HashMap<String, Listener>();
-
   private static final List<Authority> ADMIN_AUTHORITIES = new ArrayList<Authority>();
   private static final List<Authority> ANON_AUTHORITIES = new ArrayList<Authority>();
-
-  /**
-   * The thread pool executor to be used by the server using this context
-   */
-  private ThreadPoolExecutor threadPoolExecutor = null;
 
   static {
     ADMIN_AUTHORITIES.add(new WritePermission());
@@ -90,15 +47,25 @@ public class DefaultFtpServerContext implements FtpServerContext {
     ANON_AUTHORITIES.add(new TransferRatePermission(4800, 4800));
   }
 
+  private final Logger LOG = LoggerFactory.getLogger(DefaultFtpServerContext.class);
+  private MessageResource messageResource = new MessageResourceFactory().createMessageResource();
+  private UserManager userManager = new PropertiesUserManagerFactory().createUserManager();
+  private FileSystemFactory fileSystemManager = new NativeFileSystemFactory();
+  private FtpletContainer ftpletContainer = new DefaultFtpletContainer();
+  private FtpStatistics statistics = new DefaultFtpStatistics();
+  private CommandFactory commandFactory = new CommandFactoryFactory().createCommandFactory();
+  private ConnectionConfig connectionConfig =
+      new ConnectionConfigFactory().createConnectionConfig();
+  private Map<String, Listener> listeners = new HashMap<String, Listener>();
+  /** The thread pool executor to be used by the server using this context */
+  private ThreadPoolExecutor threadPoolExecutor = null;
 
   public DefaultFtpServerContext() {
     // create the default listener
     listeners.put("default", new ListenerFactory().createListener());
   }
 
-  /**
-   * Create default users.
-   */
+  /** Create default users. */
   public void createDefaultUsers() throws Exception {
     UserManager userManager = getUserManager();
 
@@ -135,32 +102,37 @@ public class DefaultFtpServerContext implements FtpServerContext {
     }
   }
 
-  /**
-   * Get user manager.
-   */
+  /** Get user manager. */
   @Override
   public UserManager getUserManager() {
     return userManager;
   }
 
-  /**
-   * Get file system manager.
-   */
+  public void setUserManager(UserManager userManager) {
+    this.userManager = userManager;
+  }
+
+  /** Get file system manager. */
   @Override
   public FileSystemFactory getFileSystemManager() {
     return fileSystemManager;
   }
 
-  /**
-   * Get message resource.
-   */
+  public void setFileSystemManager(FileSystemFactory fileSystemManager) {
+    this.fileSystemManager = fileSystemManager;
+  }
+
+  /** Get message resource. */
+  @Override
   public MessageResource getMessageResource() {
     return messageResource;
   }
 
-  /**
-   * Get ftp statistics.
-   */
+  public void setMessageResource(MessageResource messageResource) {
+    this.messageResource = messageResource;
+  }
+
+  /** Get ftp statistics. */
   @Override
   public FtpStatistics getFtpStatistics() {
     return statistics;
@@ -170,30 +142,34 @@ public class DefaultFtpServerContext implements FtpServerContext {
     this.statistics = statistics;
   }
 
-  /**
-   * Get ftplet handler.
-   */
+  /** Get ftplet handler. */
+  @Override
   public FtpletContainer getFtpletContainer() {
     return ftpletContainer;
   }
 
-  /**
-   * Get the command factory.
-   */
+  public void setFtpletContainer(FtpletContainer ftpletContainer) {
+    this.ftpletContainer = ftpletContainer;
+  }
+
+  /** Get the command factory. */
+  @Override
   public CommandFactory getCommandFactory() {
     return commandFactory;
   }
 
-  /**
-   * Get Ftplet.
-   */
+  public void setCommandFactory(CommandFactory commandFactory) {
+    this.commandFactory = commandFactory;
+  }
+
+  /** Get Ftplet. */
+  @Override
   public Ftplet getFtplet(String name) {
     return ftpletContainer.getFtplet(name);
   }
 
-  /**
-   * Close all the components.
-   */
+  /** Close all the components. */
+  @Override
   public void dispose() {
     listeners.clear();
     ftpletContainer.getFtplets().clear();
@@ -209,6 +185,7 @@ public class DefaultFtpServerContext implements FtpServerContext {
     }
   }
 
+  @Override
   public Listener getListener(String name) {
     return listeners.get(name);
   }
@@ -217,6 +194,7 @@ public class DefaultFtpServerContext implements FtpServerContext {
     listeners.put(name, listener);
   }
 
+  @Override
   public Map<String, Listener> getListeners() {
     return listeners;
   }
@@ -233,26 +211,7 @@ public class DefaultFtpServerContext implements FtpServerContext {
     return listeners.remove(name);
   }
 
-  public void setCommandFactory(CommandFactory commandFactory) {
-    this.commandFactory = commandFactory;
-  }
-
-  public void setFileSystemManager(FileSystemFactory fileSystemManager) {
-    this.fileSystemManager = fileSystemManager;
-  }
-
-  public void setFtpletContainer(FtpletContainer ftpletContainer) {
-    this.ftpletContainer = ftpletContainer;
-  }
-
-  public void setMessageResource(MessageResource messageResource) {
-    this.messageResource = messageResource;
-  }
-
-  public void setUserManager(UserManager userManager) {
-    this.userManager = userManager;
-  }
-
+  @Override
   public ConnectionConfig getConnectionConfig() {
     return connectionConfig;
   }
@@ -261,6 +220,7 @@ public class DefaultFtpServerContext implements FtpServerContext {
     this.connectionConfig = connectionConfig;
   }
 
+  @Override
   public synchronized ThreadPoolExecutor getThreadPoolExecutor() {
     if (threadPoolExecutor == null) {
       int maxThreads = connectionConfig.getMaxThreads();

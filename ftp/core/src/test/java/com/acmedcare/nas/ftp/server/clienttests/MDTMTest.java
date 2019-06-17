@@ -25,20 +25,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class MDTMTest extends ClientTestTemplate {
-  private static final SimpleDateFormat FTP_DATE_FORMAT = new SimpleDateFormat(
-      "yyyyMMddHHmmss.SSS");
+  private static final SimpleDateFormat FTP_DATE_FORMAT =
+      new SimpleDateFormat("yyyyMMddHHmmss.SSS");
+  private static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
+  private static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");
 
   static {
     FTP_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
   }
-
-  private static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
-
-  private static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");
 
   /*
    * (non-Javadoc)
@@ -63,8 +59,7 @@ public class MDTMTest extends ClientTestTemplate {
 
     Calendar actual = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     actual.clear();
-    actual.setTime(FTP_DATE_FORMAT.parse(client.getReplyString()
-        .substring(4).trim()));
+    actual.setTime(FTP_DATE_FORMAT.parse(client.getReplyString().substring(4).trim()));
     assertEquals(expected, actual);
   }
 
@@ -75,8 +70,7 @@ public class MDTMTest extends ClientTestTemplate {
     Date expected = new Date(TEST_DIR1.lastModified());
     assertEquals(213, client.sendCommand("MDTM " + TEST_DIR1.getName()));
 
-    Date actual = FTP_DATE_FORMAT.parse(client.getReplyString()
-        .substring(4).trim());
+    Date actual = FTP_DATE_FORMAT.parse(client.getReplyString().substring(4).trim());
     assertEquals(expected, actual);
   }
 

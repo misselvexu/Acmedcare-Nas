@@ -23,9 +23,7 @@ import com.acmedcare.nas.ftp.server.ftplet.DataType;
 import com.acmedcare.nas.ftp.server.ftplet.FtpSession;
 import org.apache.commons.net.ftp.FTPReply;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class TypeTest extends ClientTestTemplate {
 
   /*
@@ -75,5 +73,4 @@ public class TypeTest extends ClientTestTemplate {
 
     assertEquals(DataType.ASCII, getFtpSession().getDataType());
   }
-
 }

@@ -29,9 +29,7 @@ import com.acmedcare.nas.ftp.server.util.SocketAddressEncoder;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class PasvAddressTest extends ClientTestTemplate {
 
   private String passiveAddress;
@@ -61,10 +59,12 @@ public class PasvAddressTest extends ClientTestTemplate {
 
     String reply = client.getReplyString();
 
-    String ipEncoded = SocketAddressEncoder.encode(new InetSocketAddress(
-        InetAddress.getByName(passiveAddress), 12347));
+    String ipEncoded =
+        SocketAddressEncoder.encode(
+            new InetSocketAddress(InetAddress.getByName(passiveAddress), 12347));
 
-    assertTrue("The PASV address should contain \"" + ipEncoded
-        + "\" but was \"" + reply + "\"", reply.indexOf(ipEncoded) > -1);
+    assertTrue(
+        "The PASV address should contain \"" + ipEncoded + "\" but was \"" + reply + "\"",
+        reply.indexOf(ipEncoded) > -1);
   }
 }

@@ -29,29 +29,27 @@ import com.acmedcare.nas.ftp.server.impl.LocalizedFtpReply;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>ACCT &lt;CRLF&gt;</code><br>
  *
- * <code>ACCT &lt;CRLF&gt;</code><br>
- * <p>
- * Acknowledges the ACCT (account) command with a 202 reply. The command however
- * is irrelevant to any workings.
+ * <p>Acknowledges the ACCT (account) command with a 202 reply. The command however is irrelevant to
+ * any workings.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class ACCT extends AbstractCommand {
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {
 
     // reset state variables
     session.resetState();
 
     // and abort any data connection
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_202_COMMAND_NOT_IMPLEMENTED, "ACCT", null));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_202_COMMAND_NOT_IMPLEMENTED, "ACCT", null));
   }
 }

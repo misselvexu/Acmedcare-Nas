@@ -29,22 +29,22 @@ import java.util.List;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Generic user class. The user attributes are:
+ *
+ * <p>Generic user class. The user attributes are:
+ *
  * <ul>
- * <li>userid</li>
- * <li>userpassword</li>
- * <li>enableflag</li>
- * <li>homedirectory</li>
- * <li>writepermission</li>
- * <li>idletime</li>
- * <li>uploadrate</li>
- * <li>downloadrate</li>
+ *   <li>userid
+ *   <li>userpassword
+ *   <li>enableflag
+ *   <li>homedirectory
+ *   <li>writepermission
+ *   <li>idletime
+ *   <li>uploadrate
+ *   <li>downloadrate
  * </ul>
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-
 public class BaseUser implements User {
 
   private String name = null;
@@ -59,15 +59,10 @@ public class BaseUser implements User {
 
   private List<? extends Authority> authorities = new ArrayList<Authority>();
 
-  /**
-   * Default constructor.
-   */
-  public BaseUser() {
-  }
+  /** Default constructor. */
+  public BaseUser() {}
 
-  /**
-   * Copy constructor.
-   */
+  /** Copy constructor. */
   public BaseUser(User user) {
     name = user.getName();
     password = user.getPassword();
@@ -77,32 +72,24 @@ public class BaseUser implements User {
     isEnabled = user.getEnabled();
   }
 
-  /**
-   * Get the user name.
-   */
+  /** Get the user name. */
   @Override
   public String getName() {
     return name;
   }
 
-  /**
-   * Set user name.
-   */
+  /** Set user name. */
   public void setName(String name) {
     this.name = name;
   }
 
-  /**
-   * Get the user password.
-   */
+  /** Get the user password. */
   @Override
   public String getPassword() {
     return password;
   }
 
-  /**
-   * Set user password.
-   */
+  /** Set user password. */
   public void setPassword(String pass) {
     password = pass;
   }
@@ -124,17 +111,13 @@ public class BaseUser implements User {
     }
   }
 
-  /**
-   * Get the maximum idle time in second.
-   */
+  /** Get the maximum idle time in second. */
   @Override
   public int getMaxIdleTime() {
     return maxIdleTimeSec;
   }
 
-  /**
-   * Set the maximum idle time in second.
-   */
+  /** Set the maximum idle time in second. */
   public void setMaxIdleTime(int idleSec) {
     maxIdleTimeSec = idleSec;
     if (maxIdleTimeSec < 0) {
@@ -142,47 +125,35 @@ public class BaseUser implements User {
     }
   }
 
-  /**
-   * Get the user enable status.
-   */
+  /** Get the user enable status. */
   @Override
   public boolean getEnabled() {
     return isEnabled;
   }
 
-  /**
-   * Set the user enable status.
-   */
+  /** Set the user enable status. */
   public void setEnabled(boolean enb) {
     isEnabled = enb;
   }
 
-  /**
-   * Get the user home directory.
-   */
+  /** Get the user home directory. */
   @Override
   public String getHomeDirectory() {
     return homeDir;
   }
 
-  /**
-   * Set the user home directory.
-   */
+  /** Set the user home directory. */
   public void setHomeDirectory(String home) {
     homeDir = home;
   }
 
-  /**
-   * String representation.
-   */
+  /** String representation. */
   @Override
   public String toString() {
     return name;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public AuthorizationRequest authorize(AuthorizationRequest request) {
     // check for no authorities at all
@@ -202,7 +173,6 @@ public class BaseUser implements User {
           return null;
         }
       }
-
     }
 
     if (someoneCouldAuthorize) {
@@ -212,9 +182,7 @@ public class BaseUser implements User {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public List<Authority> getAuthorities(Class<? extends Authority> clazz) {
     List<Authority> selected = new ArrayList<Authority>();

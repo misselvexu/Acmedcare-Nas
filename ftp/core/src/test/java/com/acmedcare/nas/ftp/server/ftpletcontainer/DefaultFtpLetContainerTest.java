@@ -24,14 +24,11 @@ import com.acmedcare.nas.ftp.server.ftpletcontainer.impl.DefaultFtpletContainer;
 
 import java.util.Map;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class DefaultFtpLetContainerTest extends FtpLetContainerTestTemplate {
 
   @Override
   protected FtpletContainer createFtpletContainer(Map<String, Ftplet> ftplets) {
     return new DefaultFtpletContainer(ftplets);
   }
-
 }

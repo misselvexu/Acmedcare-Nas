@@ -26,16 +26,14 @@ import org.apache.mina.core.session.IoSession;
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-
 public interface SessionFilter {
 
   /**
    * Tells whether or not the given session is accepted by this filter.
    *
    * @param session the session to check
-   * @return <code>true</code>, if the given session is accepted by this
-   * filter; <code>false</code>, otherwise.
+   * @return <code>true</code>, if the given session is accepted by this filter; <code>false</code>,
+   *     otherwise.
    */
   public boolean accept(IoSession session);
-
 }

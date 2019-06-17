@@ -26,9 +26,7 @@ import com.acmedcare.nas.ftp.server.command.impl.NOOP;
 import com.acmedcare.nas.ftp.server.command.impl.STOR;
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class DefaultCommandFactoryTest extends TestCase {
 
   public void testReturnFromDefaultUpper() {

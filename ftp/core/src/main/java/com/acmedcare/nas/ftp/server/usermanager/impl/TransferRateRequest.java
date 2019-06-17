@@ -23,8 +23,8 @@ import com.acmedcare.nas.ftp.server.ftplet.AuthorizationRequest;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Request for getting the maximum allowed transfer rates for a user
+ *
+ * <p>Request for getting the maximum allowed transfer rates for a user
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -34,32 +34,23 @@ public class TransferRateRequest implements AuthorizationRequest {
 
   private int maxUploadRate = 0;
 
-  /**
-   * @return the maxDownloadRate
-   */
+  /** @return the maxDownloadRate */
   public int getMaxDownloadRate() {
     return maxDownloadRate;
   }
 
-  /**
-   * @param maxDownloadRate the maxDownloadRate to set
-   */
+  /** @param maxDownloadRate the maxDownloadRate to set */
   public void setMaxDownloadRate(int maxDownloadRate) {
     this.maxDownloadRate = maxDownloadRate;
   }
 
-  /**
-   * @return the maxUploadRate
-   */
+  /** @return the maxUploadRate */
   public int getMaxUploadRate() {
     return maxUploadRate;
   }
 
-  /**
-   * @param maxUploadRate the maxUploadRate to set
-   */
+  /** @param maxUploadRate the maxUploadRate to set */
   public void setMaxUploadRate(int maxUploadRate) {
     this.maxUploadRate = maxUploadRate;
   }
-
 }

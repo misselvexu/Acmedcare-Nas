@@ -36,8 +36,7 @@ import java.io.File;
  */
 public class NativeFileSystemFactory implements FileSystemFactory {
 
-  private final Logger LOG = LoggerFactory
-      .getLogger(NativeFileSystemFactory.class);
+  private final Logger LOG = LoggerFactory.getLogger(NativeFileSystemFactory.class);
 
   private boolean createHome;
 
@@ -57,14 +56,13 @@ public class NativeFileSystemFactory implements FileSystemFactory {
    *
    * @param createHome true if the file system will create the home directory if not available
    */
-
   public void setCreateHome(boolean createHome) {
     this.createHome = createHome;
   }
 
   /**
-   * Is this file system case insensitive.
-   * Enabling might cause problems when working against case-sensitive file systems, like on Linux
+   * Is this file system case insensitive. Enabling might cause problems when working against
+   * case-sensitive file systems, like on Linux
    *
    * @return true if this file system is case insensitive
    */
@@ -73,8 +71,8 @@ public class NativeFileSystemFactory implements FileSystemFactory {
   }
 
   /**
-   * Should this file system be case insensitive.
-   * Enabling might cause problems when working against case-sensitive file systems, like on Linux
+   * Should this file system be case insensitive. Enabling might cause problems when working against
+   * case-sensitive file systems, like on Linux
    *
    * @param caseInsensitive true if this file system should be case insensitive
    */
@@ -82,9 +80,7 @@ public class NativeFileSystemFactory implements FileSystemFactory {
     this.caseInsensitive = caseInsensitive;
   }
 
-  /**
-   * Create the appropriate user file system view.
-   */
+  /** Create the appropriate user file system view. */
   @Override
   public FileSystemView createFileSystemView(User user) throws FtpException {
     synchronized (user) {
@@ -98,15 +94,12 @@ public class NativeFileSystemFactory implements FileSystemFactory {
         }
         if ((!homeDir.exists()) && (!homeDir.mkdirs())) {
           LOG.warn("Cannot create user home :: " + homeDirStr);
-          throw new FtpException("Cannot create user home :: "
-              + homeDirStr);
+          throw new FtpException("Cannot create user home :: " + homeDirStr);
         }
       }
 
-      FileSystemView fsView = new NativeFileSystemView(user,
-          caseInsensitive);
+      FileSystemView fsView = new NativeFileSystemView(user, caseInsensitive);
       return fsView;
     }
   }
-
 }

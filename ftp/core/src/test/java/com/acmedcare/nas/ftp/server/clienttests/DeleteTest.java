@@ -21,19 +21,15 @@ package com.acmedcare.nas.ftp.server.clienttests;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class DeleteTest extends ClientTestTemplate {
   private static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
 
-  private static final File TEST_FILE_WITH_SPACE = new File(ROOT_DIR,
-      "test 2.txt");
+  private static final File TEST_FILE_WITH_SPACE = new File(ROOT_DIR, "test 2.txt");
 
   private static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");
 
-  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1,
-      "test2.txt");
+  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1, "test2.txt");
 
   /*
    * (non-Javadoc)
@@ -118,8 +114,7 @@ public class DeleteTest extends ClientTestTemplate {
     assertTrue(TEST_DIR1.exists());
     assertTrue(TEST_FILE_IN_DIR1.exists());
 
-    assertTrue(client.deleteFile(TEST_DIR1.getName() + '/'
-        + TEST_FILE_IN_DIR1.getName()));
+    assertTrue(client.deleteFile(TEST_DIR1.getName() + '/' + TEST_FILE_IN_DIR1.getName()));
 
     assertTrue(TEST_DIR1.exists());
     assertFalse(TEST_FILE_IN_DIR1.exists());

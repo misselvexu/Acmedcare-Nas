@@ -24,9 +24,7 @@ import com.acmedcare.nas.ftp.server.impl.DefaultFtpServer;
 
 import java.util.Map;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class FtpletsConfigTest extends SpringConfigTestTemplate {
 
   private static final String USER_FILE_PATH = "src/test/resources/users.properties";
@@ -38,25 +36,32 @@ public class FtpletsConfigTest extends SpringConfigTestTemplate {
   }
 
   public void testFtplet() throws Throwable {
-    Map<String, Ftplet> ftplets = createFtplets("<ftplet name=\"foo\">" +
-        "<beans:bean class=\"" + TestFtplet.class.getName() + "\">" +
-        "<beans:property name=\"foo\" value=\"123\" />" +
-        "</beans:bean></ftplet>");
+    Map<String, Ftplet> ftplets =
+        createFtplets(
+            "<ftplet name=\"foo\">"
+                + "<beans:bean class=\""
+                + TestFtplet.class.getName()
+                + "\">"
+                + "<beans:property name=\"foo\" value=\"123\" />"
+                + "</beans:bean></ftplet>");
 
     assertEquals(1, ftplets.size());
     assertEquals(123, ((TestFtplet) ftplets.get("foo")).getFoo());
   }
 
   public void testFtpletMap() throws Throwable {
-    Map<String, Ftplet> ftplets = createFtplets("<beans:map>" +
-        "<beans:entry key=\"foo\">" +
-        "<beans:bean class=\"" + TestFtplet.class.getName() + "\">" +
-        "<beans:property name=\"foo\" value=\"123\" />" +
-        "</beans:bean>" +
-        "</beans:entry></beans:map>");
+    Map<String, Ftplet> ftplets =
+        createFtplets(
+            "<beans:map>"
+                + "<beans:entry key=\"foo\">"
+                + "<beans:bean class=\""
+                + TestFtplet.class.getName()
+                + "\">"
+                + "<beans:property name=\"foo\" value=\"123\" />"
+                + "</beans:bean>"
+                + "</beans:entry></beans:map>");
 
     assertEquals(1, ftplets.size());
     assertEquals(123, ((TestFtplet) ftplets.get("foo")).getFoo());
   }
-
 }

@@ -54,53 +54,66 @@ import java.util.Set;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * The default {@link Listener} implementation.
+ *
+ * <p>The default {@link Listener} implementation.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class NioListener extends AbstractListener {
 
   private final Logger LOG = LoggerFactory.getLogger(NioListener.class);
-
-  private SocketAcceptor acceptor;
-
-  private InetSocketAddress address;
-
   boolean suspended = false;
-
+  private SocketAcceptor acceptor;
+  private InetSocketAddress address;
   private FtpHandler handler = new DefaultFtpHandler();
 
   private FtpServerContext context;
 
   /**
-   * @deprecated Use the constructor with IpFilter instead.
-   * Constructor for internal use, do not use directly. Instead use {@link ListenerFactory}
+   * @deprecated Use the constructor with IpFilter instead. Constructor for internal use, do not use
+   *     directly. Instead use {@link ListenerFactory}
    */
   @Deprecated
-  public NioListener(String serverAddress, int port,
-                     boolean implicitSsl,
-                     SslConfiguration sslConfiguration,
-                     DataConnectionConfiguration dataConnectionConfig,
-                     int idleTimeout, List<InetAddress> blockedAddresses, List<Subnet> blockedSubnets) {
-    super(serverAddress, port, implicitSsl, sslConfiguration, dataConnectionConfig,
-        idleTimeout, blockedAddresses, blockedSubnets);
+  public NioListener(
+      String serverAddress,
+      int port,
+      boolean implicitSsl,
+      SslConfiguration sslConfiguration,
+      DataConnectionConfiguration dataConnectionConfig,
+      int idleTimeout,
+      List<InetAddress> blockedAddresses,
+      List<Subnet> blockedSubnets) {
+    super(
+        serverAddress,
+        port,
+        implicitSsl,
+        sslConfiguration,
+        dataConnectionConfig,
+        idleTimeout,
+        blockedAddresses,
+        blockedSubnets);
   }
 
-  /**
-   * Constructor for internal use, do not use directly. Instead use {@link ListenerFactory}
-   */
-  public NioListener(String serverAddress, int port, boolean implicitSsl,
-                     SslConfiguration sslConfiguration,
-                     DataConnectionConfiguration dataConnectionConfig, int idleTimeout,
-                     SessionFilter sessionFilter) {
-    super(serverAddress, port, implicitSsl, sslConfiguration,
-        dataConnectionConfig, idleTimeout, sessionFilter);
+  /** Constructor for internal use, do not use directly. Instead use {@link ListenerFactory} */
+  public NioListener(
+      String serverAddress,
+      int port,
+      boolean implicitSsl,
+      SslConfiguration sslConfiguration,
+      DataConnectionConfiguration dataConnectionConfig,
+      int idleTimeout,
+      SessionFilter sessionFilter) {
+    super(
+        serverAddress,
+        port,
+        implicitSsl,
+        sslConfiguration,
+        dataConnectionConfig,
+        idleTimeout,
+        sessionFilter);
   }
 
-  /**
-   * @see Listener#start(FtpServerContext)
-   */
+  /** @see Listener#start(FtpServerContext) */
   public synchronized void start(FtpServerContext context) {
     if (!isStopped()) {
       // listener already started, don't allow
@@ -111,8 +124,7 @@ public class NioListener extends AbstractListener {
 
       this.context = context;
 
-      acceptor = new NioSocketAcceptor(Runtime.getRuntime()
-          .availableProcessors());
+      acceptor = new NioSocketAcceptor(Runtime.getRuntime().availableProcessors());
 
       if (getServerAddress() != null) {
         address = new InetSocketAddress(getServerAddress(), getPort());
@@ -122,8 +134,7 @@ public class NioListener extends AbstractListener {
 
       acceptor.setReuseAddress(true);
       acceptor.getSessionConfig().setReadBufferSize(2048);
-      acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE,
-          getIdleTimeout());
+      acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, getIdleTimeout());
       // Decrease the default receiver buffer size
       acceptor.getSessionConfig().setReceiveBufferSize(512);
 
@@ -134,14 +145,15 @@ public class NioListener extends AbstractListener {
       SessionFilter sessionFilter = getSessionFilter();
       if (sessionFilter != null) {
         // add and IP filter to the filter chain.
-        acceptor.getFilterChain().addLast("sessionFilter",
-            new MinaSessionFilter(sessionFilter));
+        acceptor.getFilterChain().addLast("sessionFilter", new MinaSessionFilter(sessionFilter));
       }
 
-      acceptor.getFilterChain().addLast("threadPool",
-          new ExecutorFilter(context.getThreadPoolExecutor()));
-      acceptor.getFilterChain().addLast("codec",
-          new ProtocolCodecFilter(new FtpServerProtocolCodecFactory()));
+      acceptor
+          .getFilterChain()
+          .addLast("threadPool", new ExecutorFilter(context.getThreadPoolExecutor()));
+      acceptor
+          .getFilterChain()
+          .addLast("codec", new ProtocolCodecFilter(new FtpServerProtocolCodecFactory()));
       acceptor.getFilterChain().addLast("mdcFilter2", mdcFilter);
       acceptor.getFilterChain().addLast("logger", new FtpLoggingFilter());
 
@@ -151,7 +163,8 @@ public class NioListener extends AbstractListener {
         try {
           sslFilter = new SslFilter(ssl.getSSLContext());
         } catch (GeneralSecurityException e) {
-          throw new FtpServerConfigurationException("SSL could not be initialized, check configuration");
+          throw new FtpServerConfigurationException(
+              "SSL could not be initialized, check configuration");
         }
 
         if (ssl.getClientAuth() == ClientAuth.NEED) {
@@ -173,7 +186,8 @@ public class NioListener extends AbstractListener {
       try {
         acceptor.bind(address);
       } catch (IOException e) {
-        throw new FtpServerConfigurationException("Failed to bind to address " + address + ", check configuration", e);
+        throw new FtpServerConfigurationException(
+            "Failed to bind to address " + address + ", check configuration", e);
       }
 
       updatePort();
@@ -191,9 +205,7 @@ public class NioListener extends AbstractListener {
     setPort(acceptor.getLocalAddress().getPort());
   }
 
-  /**
-   * @see Listener#stop()
-   */
+  /** @see Listener#stop() */
   public synchronized void stop() {
     // close server socket
     if (acceptor != null) {
@@ -204,24 +216,17 @@ public class NioListener extends AbstractListener {
     context = null;
   }
 
-  /**
-   * @see Listener#isStopped()
-   */
+  /** @see Listener#isStopped() */
   public boolean isStopped() {
     return acceptor == null;
   }
 
-  /**
-   * @see Listener#isSuspended()
-   */
+  /** @see Listener#isSuspended() */
   public boolean isSuspended() {
     return suspended;
-
   }
 
-  /**
-   * @see Listener#resume()
-   */
+  /** @see Listener#resume() */
   public synchronized void resume() {
     if (acceptor != null && suspended) {
       try {
@@ -238,9 +243,7 @@ public class NioListener extends AbstractListener {
     }
   }
 
-  /**
-   * @see Listener#suspend()
-   */
+  /** @see Listener#suspend() */
   public synchronized void suspend() {
     if (acceptor != null && !suspended) {
       LOG.debug("Suspending listener");
@@ -251,9 +254,7 @@ public class NioListener extends AbstractListener {
     }
   }
 
-  /**
-   * @see Listener#getActiveSessions()
-   */
+  /** @see Listener#getActiveSessions() */
   public synchronized Set<FtpIoSession> getActiveSessions() {
     Map<Long, IoSession> sessions = acceptor.getManagedSessions();
 

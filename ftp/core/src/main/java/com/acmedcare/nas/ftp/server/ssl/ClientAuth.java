@@ -17,25 +17,18 @@
 package com.acmedcare.nas.ftp.server.ssl;
 
 /**
- * Enumeration of possible levels of client authentication during an SSL
- * session.
+ * Enumeration of possible levels of client authentication during an SSL session.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public enum ClientAuth {
 
-  /**
-   * Client authentication is required
-   */
+  /** Client authentication is required */
   NEED,
 
-  /**
-   * Client authentication is requested but not required
-   */
+  /** Client authentication is requested but not required */
   WANT,
 
-  /**
-   * Client authentication is not performed
-   */
+  /** Client authentication is not performed */
   NONE
 }

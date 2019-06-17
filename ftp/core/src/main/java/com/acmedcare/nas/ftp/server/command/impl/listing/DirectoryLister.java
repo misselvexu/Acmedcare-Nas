@@ -29,15 +29,15 @@ import java.util.List;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This class prints file listing.
+ *
+ * <p>This class prints file listing.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class DirectoryLister {
 
-  private String traverseFiles(final List<? extends FtpFile> files,
-                               final FileFilter filter, final FileFormater formater) {
+  private String traverseFiles(
+      final List<? extends FtpFile> files, final FileFilter filter, final FileFormater formater) {
     StringBuilder sb = new StringBuilder();
 
     sb.append(traverseFiles(files, filter, formater, true));
@@ -46,9 +46,11 @@ public class DirectoryLister {
     return sb.toString();
   }
 
-  private String traverseFiles(final List<? extends FtpFile> files,
-                               final FileFilter filter, final FileFormater formater,
-                               boolean matchDirs) {
+  private String traverseFiles(
+      final List<? extends FtpFile> files,
+      final FileFilter filter,
+      final FileFormater formater,
+      boolean matchDirs) {
     StringBuilder sb = new StringBuilder();
     for (FtpFile file : files) {
       if (file == null) {
@@ -65,8 +67,8 @@ public class DirectoryLister {
     return sb.toString();
   }
 
-  public String listFiles(final ListArgument argument,
-                          final FileSystemView fileSystemView, final FileFormater formater)
+  public String listFiles(
+      final ListArgument argument, final FileSystemView fileSystemView, final FileFormater formater)
       throws IOException {
 
     StringBuilder sb = new StringBuilder();
@@ -88,9 +90,7 @@ public class DirectoryLister {
     return sb.toString();
   }
 
-  /**
-   * Get the file list. Files will be listed in alphabetlical order.
-   */
+  /** Get the file list. Files will be listed in alphabetlical order. */
   private List<? extends FtpFile> listFiles(FileSystemView fileSystemView, String file) {
     List<? extends FtpFile> files = null;
     try {

@@ -34,27 +34,29 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * OPTS&lt;SP&gt; <command> &lt;SP&gt; <option> &lt;CRLF&gt;</code><br>
  *
- * <code>OPTS&lt;SP&gt; <command> &lt;SP&gt; <option> &lt;CRLF&gt;</code><br>
- * <p>
- * This command shall cause the server use optional features for the command
- * specified.
+ * <p>This command shall cause the server use optional features for the command specified.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class OPTS extends AbstractCommand {
 
+  private static final HashMap<String, Command> COMMAND_MAP = new HashMap<String, Command>(16);
+
+  // initialize all the OPTS command handlers
+  static {
+    COMMAND_MAP.put("OPTS_MLST", new OPTS_MLST());
+    COMMAND_MAP.put("OPTS_UTF8", new OPTS_UTF8());
+  }
+
   private final Logger LOG = LoggerFactory.getLogger(OPTS.class);
 
-  private static final HashMap<String, Command> COMMAND_MAP = new HashMap<String, Command>(
-      16);
-
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state
@@ -63,9 +65,14 @@ public class OPTS extends AbstractCommand {
     // no params
     String argument = request.getArgument();
     if (argument == null) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "OPTS", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "OPTS",
+              null));
       return;
     }
 
@@ -84,24 +91,26 @@ public class OPTS extends AbstractCommand {
         command.execute(session, context, request);
       } else {
         session.resetState();
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_502_COMMAND_NOT_IMPLEMENTED,
-            "OPTS.not.implemented", argument));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_502_COMMAND_NOT_IMPLEMENTED,
+                "OPTS.not.implemented",
+                argument));
       }
     } catch (Exception ex) {
       LOG.warn("OPTS.execute()", ex);
       session.resetState();
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_500_SYNTAX_ERROR_COMMAND_UNRECOGNIZED,
-          "OPTS", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_500_SYNTAX_ERROR_COMMAND_UNRECOGNIZED,
+              "OPTS",
+              null));
     }
-  }
-
-  // initialize all the OPTS command handlers
-  static {
-    COMMAND_MAP.put("OPTS_MLST",
-        new OPTS_MLST());
-    COMMAND_MAP.put("OPTS_UTF8",
-        new OPTS_UTF8());
   }
 }

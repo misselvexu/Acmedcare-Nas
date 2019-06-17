@@ -24,8 +24,8 @@ import java.io.FileFilter;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * FileFilter used for simple file name matching
+ *
+ * <p>FileFilter used for simple file name matching
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -38,11 +38,10 @@ public class NameEqualsFileFilter implements FileFilter {
   /**
    * Constructor
    *
-   * @param nameToMatch     The exact file name to match
+   * @param nameToMatch The exact file name to match
    * @param caseInsensitive Wether that match should be case insensitive
    */
-  public NameEqualsFileFilter(final String nameToMatch,
-                              final boolean caseInsensitive) {
+  public NameEqualsFileFilter(final String nameToMatch, final boolean caseInsensitive) {
     this.nameToMatch = nameToMatch;
     this.caseInsensitive = caseInsensitive;
   }
@@ -55,5 +54,4 @@ public class NameEqualsFileFilter implements FileFilter {
       return file.getName().equals(nameToMatch);
     }
   }
-
 }

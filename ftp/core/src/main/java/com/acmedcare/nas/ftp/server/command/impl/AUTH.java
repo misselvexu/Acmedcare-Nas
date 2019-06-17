@@ -39,24 +39,21 @@ import java.util.List;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This server supports explicit SSL support.
+ *
+ * <p>This server supports explicit SSL support.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class AUTH extends AbstractCommand {
 
   private static final String SSL_SESSION_FILTER_NAME = "sslSessionFilter";
-
+  private static final List<String> VALID_AUTH_TYPES =
+      Arrays.asList("SSL", "TLS", "TLS-C", "TLS-P");
   private final Logger LOG = LoggerFactory.getLogger(AUTH.class);
 
-  private static final List<String> VALID_AUTH_TYPES = Arrays.asList("SSL", "TLS", "TLS-C", "TLS-P");
-
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variables
@@ -64,16 +61,20 @@ public class AUTH extends AbstractCommand {
 
     // argument check
     if (!request.hasArgument()) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "AUTH", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "AUTH",
+              null));
       return;
     }
 
     // check SSL configuration
     if (session.getListener().getSslConfiguration() == null) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          431, "AUTH", null));
+      session.write(LocalizedFtpReply.translate(session, request, context, 431, "AUTH", null));
       return;
     }
 
@@ -92,8 +93,7 @@ public class AUTH extends AbstractCommand {
 
     // Here we choose not to support reissued AUTH
     if (session.getFilterChain().contains(SslFilter.class)) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          534, "AUTH", null));
+      session.write(LocalizedFtpReply.translate(session, request, context, 534, "AUTH", null));
       return;
     }
 
@@ -108,8 +108,8 @@ public class AUTH extends AbstractCommand {
 
       try {
         secureSession(session, authType);
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            234, "AUTH." + authType, null));
+        session.write(
+            LocalizedFtpReply.translate(session, request, context, 234, "AUTH." + authType, null));
       } catch (FtpException ex) {
         throw ex;
       } catch (Exception ex) {
@@ -117,8 +117,9 @@ public class AUTH extends AbstractCommand {
         throw new FtpException("AUTH.execute()", ex);
       }
     } else {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_502_COMMAND_NOT_IMPLEMENTED, "AUTH", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_502_COMMAND_NOT_IMPLEMENTED, "AUTH", null));
     }
   }
 
@@ -144,8 +145,7 @@ public class AUTH extends AbstractCommand {
         sslFilter.setEnabledCipherSuites(ssl.getEnabledCipherSuites());
       }
 
-      session.getFilterChain().addFirst(SSL_SESSION_FILTER_NAME,
-          sslFilter);
+      session.getFilterChain().addFirst(SSL_SESSION_FILTER_NAME, sslFilter);
 
       if ("SSL".equals(type)) {
         session.getDataConnection().setSecure(true);

@@ -23,9 +23,7 @@ import com.acmedcare.nas.ftp.server.usermanager.ClearTextPasswordEncryptor;
 import com.acmedcare.nas.ftp.server.usermanager.PasswordEncryptor;
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ClearTextPasswordEncryptorTest extends TestCase {
 
   protected PasswordEncryptor createPasswordEncryptor() {
@@ -61,5 +59,4 @@ public class ClearTextPasswordEncryptorTest extends TestCase {
       // OK
     }
   }
-
 }

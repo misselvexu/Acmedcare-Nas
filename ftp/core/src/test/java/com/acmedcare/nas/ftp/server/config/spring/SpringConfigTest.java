@@ -36,47 +36,44 @@ import java.net.InetAddress;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class SpringConfigTest extends TestCase {
 
   public void test() throws Throwable {
-    XmlBeanFactory factory = new XmlBeanFactory(new FileSystemResource(
-        "src/test/resources/spring-config/config-spring-1.xml"));
+    XmlBeanFactory factory =
+        new XmlBeanFactory(
+            new FileSystemResource("src/test/resources/spring-config/config-spring-1.xml"));
 
     DefaultFtpServer server = (DefaultFtpServer) factory.getBean("server");
 
     assertEquals(500, server.getConnectionConfig().getMaxLogins());
-    assertEquals(false, server.getConnectionConfig()
-        .isAnonymousLoginEnabled());
+    assertEquals(false, server.getConnectionConfig().isAnonymousLoginEnabled());
     assertEquals(123, server.getConnectionConfig().getMaxAnonymousLogins());
     assertEquals(124, server.getConnectionConfig().getMaxLoginFailures());
     assertEquals(125, server.getConnectionConfig().getLoginFailureDelay());
 
-    Map<String, Listener> listeners = server.getServerContext()
-        .getListeners();
+    Map<String, Listener> listeners = server.getServerContext().getListeners();
     assertEquals(3, listeners.size());
 
     Listener listener = listeners.get("listener0");
     assertNotNull(listener);
     assertTrue(listener instanceof NioListener);
     assertEquals(2222, ((NioListener) listener).getPort());
-    assertEquals(InetAddress.getByName("1.2.3.4"), InetAddress.getByName(((NioListener) listener)
-        .getServerAddress()));
-    assertEquals(100, ((NioListener) listener)
-        .getDataConnectionConfiguration().getIdleTime());
-    assertTrue(((NioListener) listener)
-        .getDataConnectionConfiguration().isActiveEnabled());
-    assertTrue(((NioListener) listener)
-        .getDataConnectionConfiguration().isImplicitSsl());
+    assertEquals(
+        InetAddress.getByName("1.2.3.4"),
+        InetAddress.getByName(((NioListener) listener).getServerAddress()));
+    assertEquals(100, ((NioListener) listener).getDataConnectionConfiguration().getIdleTime());
+    assertTrue(((NioListener) listener).getDataConnectionConfiguration().isActiveEnabled());
+    assertTrue(((NioListener) listener).getDataConnectionConfiguration().isImplicitSsl());
 
-    assertEquals(InetAddress.getByName("1.2.3.4"), InetAddress.getByName(((NioListener) listener)
-        .getDataConnectionConfiguration().getActiveLocalAddress()));
-    assertEquals("123-125", ((NioListener) listener)
-        .getDataConnectionConfiguration().getPassivePorts());
-    assertEquals(false, ((NioListener) listener)
-        .getDataConnectionConfiguration().isPassiveIpCheck());
+    assertEquals(
+        InetAddress.getByName("1.2.3.4"),
+        InetAddress.getByName(
+            ((NioListener) listener).getDataConnectionConfiguration().getActiveLocalAddress()));
+    assertEquals(
+        "123-125", ((NioListener) listener).getDataConnectionConfiguration().getPassivePorts());
+    assertEquals(
+        false, ((NioListener) listener).getDataConnectionConfiguration().isPassiveIpCheck());
 
     RemoteIpFilter filter = (RemoteIpFilter) listener.getSessionFilter();
     assertEquals(3, filter.size());
@@ -97,8 +94,7 @@ public class SpringConfigTest extends TestCase {
     assertTrue(cf.getCommand("FOO") instanceof HELP);
     assertTrue(cf.getCommand("FOO2") instanceof STAT);
 
-    List<String> languages = server.getServerContext().getMessageResource()
-        .getAvailableLanguages();
+    List<String> languages = server.getServerContext().getMessageResource().getAvailableLanguages();
 
     assertEquals(2, languages.size());
     assertEquals("en", languages.get(0));

@@ -21,13 +21,13 @@ package com.acmedcare.nas.ftp.server.util;
 
 public class PasswordUtil {
   /**
-   * Securely compares two strings up to a maximum number of characters in a way
-   * that obscures the password length from timing attacks
+   * Securely compares two strings up to a maximum number of characters in a way that obscures the
+   * password length from timing attacks
    *
-   * @param input    user input
+   * @param input user input
    * @param password correct password
-   * @param loops    number of characters to compare; must be larger than password
-   *                 length; 1024 is a good number
+   * @param loops number of characters to compare; must be larger than password length; 1024 is a
+   *     good number
    * @return true if the passwords match
    * @throws IllegalArgumentException when the limit is less than the password length
    */
@@ -57,10 +57,10 @@ public class PasswordUtil {
   }
 
   /**
-   * Securely compares two strings forcing the number of loops equal to password length
-   * thereby obscuring the password length based on user input
+   * Securely compares two strings forcing the number of loops equal to password length thereby
+   * obscuring the password length based on user input
    *
-   * @param input    user input
+   * @param input user input
    * @param password correct password
    * @return true if the passwords match
    * @throws IllegalArgumentException when the limit is less than the password length

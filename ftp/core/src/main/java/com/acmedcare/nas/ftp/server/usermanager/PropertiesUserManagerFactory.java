@@ -40,17 +40,13 @@ public class PropertiesUserManagerFactory implements UserManagerFactory {
 
   private PasswordEncryptor passwordEncryptor = new Md5PasswordEncryptor();
 
-  /**
-   * Creates a {@link PropertiesUserManager} instance based on the provided configuration
-   */
+  /** Creates a {@link PropertiesUserManager} instance based on the provided configuration */
   public UserManager createUserManager() {
     if (userDataURL != null) {
-      return new PropertiesUserManager(passwordEncryptor, userDataURL,
-          adminName);
+      return new PropertiesUserManager(passwordEncryptor, userDataURL, adminName);
     } else {
 
-      return new PropertiesUserManager(passwordEncryptor, userDataFile,
-          adminName);
+      return new PropertiesUserManager(passwordEncryptor, userDataFile, adminName);
     }
   }
 
@@ -64,8 +60,7 @@ public class PropertiesUserManagerFactory implements UserManagerFactory {
   }
 
   /**
-   * Set the name to use as the administrator of the server. The default value
-   * is "admin".
+   * Set the name to use as the administrator of the server. The default value is "admin".
    *
    * @param adminName The administrator user name
    */
@@ -112,8 +107,8 @@ public class PropertiesUserManagerFactory implements UserManagerFactory {
   /**
    * Retrieve the password encryptor used by user managers created by this factory
    *
-   * @return The password encryptor. Default to {@link Md5PasswordEncryptor}
-   * if no other has been provided
+   * @return The password encryptor. Default to {@link Md5PasswordEncryptor} if no other has been
+   *     provided
    */
   public PasswordEncryptor getPasswordEncryptor() {
     return passwordEncryptor;

@@ -23,41 +23,29 @@ import java.net.InetAddress;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * FTP statistics observer interface.
+ *
+ * <p>FTP statistics observer interface.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public interface StatisticsObserver {
 
-  /**
-   * User file upload notification.
-   */
+  /** User file upload notification. */
   void notifyUpload();
 
-  /**
-   * User file download notification.
-   */
+  /** User file download notification. */
   void notifyDownload();
 
-  /**
-   * User file delete notification.
-   */
+  /** User file delete notification. */
   void notifyDelete();
 
-  /**
-   * User make directory notification.
-   */
+  /** User make directory notification. */
   void notifyMkdir();
 
-  /**
-   * User remove directory notification.
-   */
+  /** User remove directory notification. */
   void notifyRmdir();
 
-  /**
-   * New user login notification.
-   */
+  /** New user login notification. */
   void notifyLogin(boolean anonymous);
 
   /**
@@ -67,19 +55,12 @@ public interface StatisticsObserver {
    */
   void notifyLoginFail(InetAddress address);
 
-  /**
-   * User logout notification.
-   */
+  /** User logout notification. */
   void notifyLogout(boolean anonymous);
 
-  /**
-   * Connection open notification
-   */
+  /** Connection open notification */
   void notifyOpenConnection();
 
-  /**
-   * Connection close notification
-   */
+  /** Connection close notification */
   void notifyCloseConnection();
-
 }

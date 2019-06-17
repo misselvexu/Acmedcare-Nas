@@ -22,9 +22,7 @@ package com.acmedcare.nas.ftp.server.clienttests;
 import com.acmedcare.nas.ftp.server.ConnectionConfigFactory;
 import com.acmedcare.nas.ftp.server.FtpServerFactory;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class LoginNoAnonTest extends ClientTestTemplate {
 
   /*
@@ -48,5 +46,4 @@ public class LoginNoAnonTest extends ClientTestTemplate {
   public void testLoginWithAnon() throws Exception {
     assertFalse(client.login(ANONYMOUS_USERNAME, ANONYMOUS_PASSWORD));
   }
-
 }

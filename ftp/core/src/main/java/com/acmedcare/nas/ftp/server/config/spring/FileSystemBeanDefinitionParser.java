@@ -32,32 +32,26 @@ import org.w3c.dom.Element;
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-public class FileSystemBeanDefinitionParser extends
-    AbstractSingleBeanDefinitionParser {
+public class FileSystemBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
-  protected Class<? extends FileSystemFactory> getBeanClass(
-      final Element element) {
+  protected Class<? extends FileSystemFactory> getBeanClass(final Element element) {
     return NativeFileSystemFactory.class;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
-  protected void doParse(final Element element,
-                         final ParserContext parserContext,
-                         final BeanDefinitionBuilder builder) {
+  protected void doParse(
+      final Element element,
+      final ParserContext parserContext,
+      final BeanDefinitionBuilder builder) {
     if (StringUtils.hasText(element.getAttribute("case-insensitive"))) {
-      builder.addPropertyValue("caseInsensitive", Boolean
-          .valueOf(element.getAttribute("case-insensitive")));
+      builder.addPropertyValue(
+          "caseInsensitive", Boolean.valueOf(element.getAttribute("case-insensitive")));
     }
     if (StringUtils.hasText(element.getAttribute("create-home"))) {
-      builder.addPropertyValue("createHome", Boolean
-          .valueOf(element.getAttribute("create-home")));
+      builder.addPropertyValue("createHome", Boolean.valueOf(element.getAttribute("create-home")));
     }
   }
 }

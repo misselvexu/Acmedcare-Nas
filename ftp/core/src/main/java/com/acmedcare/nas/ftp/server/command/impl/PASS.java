@@ -35,12 +35,11 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * PASS &lt;SP&gt; <password> &lt;CRLF&gt;</code><br>
  *
- * <code>PASS &lt;SP&gt; <password> &lt;CRLF&gt;</code><br>
- * <p>
- * The argument field is a Telnet string specifying the user's password. This
- * command must be immediately preceded by the user name command.
+ * <p>The argument field is a Telnet string specifying the user's password. This command must be
+ * immediately preceded by the user name command.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -48,17 +47,15 @@ public class PASS extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(PASS.class);
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     boolean success = false;
 
-    ServerFtpStatistics stat = (ServerFtpStatistics) context
-        .getFtpStatistics();
+    ServerFtpStatistics stat = (ServerFtpStatistics) context.getFtpStatistics();
     try {
 
       // reset state variables
@@ -67,49 +64,57 @@ public class PASS extends AbstractCommand {
       // argument check
       String password = request.getArgument();
 
-
       // check user name
       String userName = session.getUserArgument();
 
       if (userName == null && session.getUser() == null) {
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_503_BAD_SEQUENCE_OF_COMMANDS, "PASS",
-            null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_503_BAD_SEQUENCE_OF_COMMANDS,
+                "PASS",
+                null));
         return;
       }
 
       // already logged-in
       if (session.isLoggedIn()) {
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_202_COMMAND_NOT_IMPLEMENTED, "PASS",
-            null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_202_COMMAND_NOT_IMPLEMENTED,
+                "PASS",
+                null));
         return;
       }
 
       // anonymous login limit check
 
-      boolean anonymous = userName != null
-          && userName.equals("anonymous");
+      boolean anonymous = userName != null && userName.equals("anonymous");
       if (anonymous) {
         int currAnonLogin = stat.getCurrentAnonymousLoginNumber();
-        int maxAnonLogin = context.getConnectionConfig()
-            .getMaxAnonymousLogins();
+        int maxAnonLogin = context.getConnectionConfig().getMaxAnonymousLogins();
         if (maxAnonLogin == 0) {
           LOG.debug("Currently {} anonymous users logged in, unlimited allowed", currAnonLogin);
         } else {
-          LOG.debug("Currently {} out of {} anonymous users logged in", currAnonLogin, maxAnonLogin);
+          LOG.debug(
+              "Currently {} out of {} anonymous users logged in", currAnonLogin, maxAnonLogin);
         }
 
         if (currAnonLogin >= maxAnonLogin) {
           LOG.debug("Too many anonymous users logged in, user will be disconnected");
-          session
-              .write(LocalizedFtpReply
-                  .translate(
-                      session,
-                      request,
-                      context,
-                      FtpReply.REPLY_421_SERVICE_NOT_AVAILABLE_CLOSING_CONTROL_CONNECTION,
-                      "PASS.anonymous", null));
+          session.write(
+              LocalizedFtpReply.translate(
+                  session,
+                  request,
+                  context,
+                  FtpReply.REPLY_421_SERVICE_NOT_AVAILABLE_CLOSING_CONTROL_CONNECTION,
+                  "PASS.anonymous",
+                  null));
           return;
         }
       }
@@ -124,14 +129,14 @@ public class PASS extends AbstractCommand {
       }
       if (maxLogin != 0 && currLogin >= maxLogin) {
         LOG.debug("Too many users logged in, user will be disconnected");
-        session
-            .write(LocalizedFtpReply
-                .translate(
-                    session,
-                    request,
-                    context,
-                    FtpReply.REPLY_421_SERVICE_NOT_AVAILABLE_CLOSING_CONTROL_CONNECTION,
-                    "PASS.login", null));
+        session.write(
+            LocalizedFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_421_SERVICE_NOT_AVAILABLE_CLOSING_CONTROL_CONNECTION,
+                "PASS.login",
+                null));
         return;
       }
 
@@ -142,18 +147,16 @@ public class PASS extends AbstractCommand {
         UserMetadata userMetadata = new UserMetadata();
 
         if (session.getRemoteAddress() instanceof InetSocketAddress) {
-          userMetadata.setInetAddress(((InetSocketAddress) session
-              .getRemoteAddress()).getAddress());
+          userMetadata.setInetAddress(
+              ((InetSocketAddress) session.getRemoteAddress()).getAddress());
         }
-        userMetadata.setCertificateChain(session
-            .getClientCertificates());
+        userMetadata.setCertificateChain(session.getClientCertificates());
 
         Authentication auth;
         if (anonymous) {
           auth = new AnonymousAuthentication(userMetadata);
         } else {
-          auth = new UsernamePasswordAuthentication(userName,
-              password, userMetadata);
+          auth = new UsernamePasswordAuthentication(userName, password, userMetadata);
         }
 
         authenticatedUser = userManager.authenticate(auth);
@@ -172,17 +175,11 @@ public class PASS extends AbstractCommand {
 
       if (authenticatedUser != null) {
         if (!authenticatedUser.getEnabled()) {
-          session
-              .write(LocalizedFtpReply
-                  .translate(
-                      session,
-                      request,
-                      context,
-                      FtpReply.REPLY_530_NOT_LOGGED_IN,
-                      "PASS", null));
+          session.write(
+              LocalizedFtpReply.translate(
+                  session, request, context, FtpReply.REPLY_530_NOT_LOGGED_IN, "PASS", null));
           return;
         }
-
 
         session.setUser(authenticatedUser);
         session.setUserArgument(null);
@@ -198,21 +195,19 @@ public class PASS extends AbstractCommand {
         session.setUserArgument(oldUserArgument);
         session.setMaxIdleTime(oldMaxIdleTime);
 
-        delayAfterLoginFailure(context.getConnectionConfig()
-            .getLoginFailureDelay());
+        delayAfterLoginFailure(context.getConnectionConfig().getLoginFailureDelay());
 
         LOG.warn("Login failure - " + userName);
-        session.write(LocalizedFtpReply.translate(session, request, context,
-            FtpReply.REPLY_530_NOT_LOGGED_IN, "PASS", userName));
+        session.write(
+            LocalizedFtpReply.translate(
+                session, request, context, FtpReply.REPLY_530_NOT_LOGGED_IN, "PASS", userName));
         stat.setLoginFail(session);
 
         session.increaseFailedLogins();
 
         // kick the user if the max number of failed logins is reached
-        int maxAllowedLoginFailues = context.getConnectionConfig()
-            .getMaxLoginFailures();
-        if (maxAllowedLoginFailues != 0
-            && session.getFailedLogins() >= maxAllowedLoginFailues) {
+        int maxAllowedLoginFailues = context.getConnectionConfig().getMaxLoginFailures();
+        if (maxAllowedLoginFailues != 0 && session.getFailedLogins() >= maxAllowedLoginFailues) {
           LOG.warn("User exceeded the number of allowed failed logins, session will be closed");
 
           session.close(false).awaitUninterruptibly(10000);
@@ -223,14 +218,14 @@ public class PASS extends AbstractCommand {
 
       // update different objects
       FileSystemFactory fmanager = context.getFileSystemManager();
-      FileSystemView fsview = fmanager
-          .createFileSystemView(authenticatedUser);
+      FileSystemView fsview = fmanager.createFileSystemView(authenticatedUser);
       session.setLogin(fsview);
       stat.setLogin(session);
 
       // everything is fine - send login ok message
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_230_USER_LOGGED_IN, "PASS", userName));
+      session.write(
+          LocalizedFtpReply.translate(
+              session, request, context, FtpReply.REPLY_230_USER_LOGGED_IN, "PASS", userName));
       if (anonymous) {
         LOG.info("Anonymous login success - " + password);
       } else {
@@ -249,8 +244,7 @@ public class PASS extends AbstractCommand {
   private void delayAfterLoginFailure(final int loginFailureDelay) {
 
     if (loginFailureDelay > 0) {
-      LOG.debug("Waiting for " + loginFailureDelay
-          + " milliseconds due to login failure");
+      LOG.debug("Waiting for " + loginFailureDelay + " milliseconds due to login failure");
 
       try {
         Thread.sleep(loginFailureDelay);

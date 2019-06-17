@@ -30,26 +30,23 @@ import com.acmedcare.nas.ftp.server.impl.LocalizedFtpReply;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>NOOP &lt;CRLF&gt;</code><br>
  *
- * <code>NOOP &lt;CRLF&gt;</code><br>
- * <p>
- * This command does not affect any parameters or previously entered commands.
- * It specifies no action other than that the server send an OK reply.
+ * <p>This command does not affect any parameters or previously entered commands. It specifies no
+ * action other than that the server send an OK reply.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class NOOP extends AbstractCommand {
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     session.resetState();
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_200_COMMAND_OKAY, "NOOP", null));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "NOOP", null));
   }
 }

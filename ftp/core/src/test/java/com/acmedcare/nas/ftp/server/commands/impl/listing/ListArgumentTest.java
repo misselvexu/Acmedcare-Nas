@@ -24,14 +24,12 @@ import junit.framework.TestCase;
 
 import java.util.Arrays;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ListArgumentTest extends TestCase {
 
-  private static final char[] OPTIONS = new char[]{'a', 'b', 'c'};
+  private static final char[] OPTIONS = new char[] {'a', 'b', 'c'};
 
-  private static final char[] OPTIONS_EMPTY = new char[]{};
+  private static final char[] OPTIONS_EMPTY = new char[] {};
 
   public void testFilePatternAndOptions() {
     ListArgument arg = new ListArgument("bar", "foo", OPTIONS);
@@ -68,5 +66,4 @@ public class ListArgumentTest extends TestCase {
     assertEquals("bar", arg.getFile());
     assertNull(arg.getPattern());
   }
-
 }

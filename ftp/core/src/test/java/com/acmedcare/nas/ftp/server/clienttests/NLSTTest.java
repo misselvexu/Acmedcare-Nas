@@ -24,9 +24,7 @@ import org.apache.commons.net.ftp.FTPClientConfig;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class NLSTTest extends ClientTestTemplate {
   private static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
 
@@ -36,8 +34,7 @@ public class NLSTTest extends ClientTestTemplate {
 
   private static final File TEST_DIR2 = new File(ROOT_DIR, "dir2");
 
-  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1,
-      "test3.txt");
+  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1, "test3.txt");
 
   private static final File TEST_DIR_IN_DIR1 = new File(TEST_DIR1, "dir3");
 
@@ -59,7 +56,6 @@ public class NLSTTest extends ClientTestTemplate {
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
   }
-
 
   public void testListNames() throws Exception {
     TEST_FILE1.createNewFile();

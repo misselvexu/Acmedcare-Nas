@@ -26,9 +26,7 @@ import org.apache.commons.net.ftp.FTPClientConfig;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ActiveModeReplyTest extends ClientTestTemplate {
   private static final File TEST_TMP_DIR = new File("test-tmp");
 
@@ -70,8 +68,6 @@ public class ActiveModeReplyTest extends ClientTestTemplate {
   private void sendCommand(final String command) throws IOException {
     final int returnCode = client.sendCommand(command);
     assertEquals(503, returnCode);
-    assertEquals("503 PORT or PASV must be issued first", client
-        .getReplyString().trim());
+    assertEquals("503 PORT or PASV must be issued first", client.getReplyString().trim());
   }
-
 }

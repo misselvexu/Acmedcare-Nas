@@ -40,12 +40,12 @@ import java.util.List;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This is another database based user manager class. It has been tested in
- * MySQL and Oracle 8i database. The schema file is </code>res/ftp-db.sql</code>
- * <p>
- * All the user attributes are replaced during run-time. So we can use your
- * database schema. Then you need to modify the SQLs in the configuration file.
+ *
+ * <p>This is another database based user manager class. It has been tested in MySQL and Oracle 8i
+ * database. The schema file is </code>res/ftp-db.sql</code>
+ *
+ * <p>All the user attributes are replaced during run-time. So we can use your database schema. Then
+ * you need to modify the SQLs in the configuration file.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -69,14 +69,18 @@ public class DbUserManager extends AbstractUserManager {
 
   private DataSource dataSource;
 
-  /**
-   * Internal constructor, do not use directly. Use {@link DbUserManagerFactory} instead.
-   */
-  public DbUserManager(DataSource dataSource, String selectAllStmt,
-                       String selectUserStmt, String insertUserStmt,
-                       String updateUserStmt, String deleteUserStmt,
-                       String authenticateStmt, String isAdminStmt,
-                       PasswordEncryptor passwordEncryptor, String adminName) {
+  /** Internal constructor, do not use directly. Use {@link DbUserManagerFactory} instead. */
+  public DbUserManager(
+      DataSource dataSource,
+      String selectAllStmt,
+      String selectUserStmt,
+      String insertUserStmt,
+      String updateUserStmt,
+      String deleteUserStmt,
+      String authenticateStmt,
+      String isAdminStmt,
+      PasswordEncryptor passwordEncryptor,
+      String adminName) {
     super(adminName, passwordEncryptor);
     this.dataSource = dataSource;
     this.selectAllStmt = selectAllStmt;
@@ -95,8 +99,7 @@ public class DbUserManager extends AbstractUserManager {
       LOG.info("Database connection opened.");
     } catch (SQLException ex) {
       LOG.error("Failed to open connection to user database", ex);
-      throw new FtpServerConfigurationException(
-          "Failed to open connection to user database", ex);
+      throw new FtpServerConfigurationException("Failed to open connection to user database", ex);
     } finally {
       closeQuitely(con);
     }
@@ -130,8 +133,8 @@ public class DbUserManager extends AbstractUserManager {
   }
 
   /**
-   * Set the SQL INSERT statement used to add a new user. All the dynamic
-   * values will be replaced during runtime.
+   * Set the SQL INSERT statement used to add a new user. All the dynamic values will be replaced
+   * during runtime.
    *
    * @param sql The SQL statement
    */
@@ -149,8 +152,8 @@ public class DbUserManager extends AbstractUserManager {
   }
 
   /**
-   * Set the SQL DELETE statement used to delete an existing user. All the
-   * dynamic values will be replaced during runtime.
+   * Set the SQL DELETE statement used to delete an existing user. All the dynamic values will be
+   * replaced during runtime.
    *
    * @param sql The SQL statement
    */
@@ -168,8 +171,8 @@ public class DbUserManager extends AbstractUserManager {
   }
 
   /**
-   * Set the SQL UPDATE statement used to update an existing user. All the
-   * dynamic values will be replaced during runtime.
+   * Set the SQL UPDATE statement used to update an existing user. All the dynamic values will be
+   * replaced during runtime.
    *
    * @param sql The SQL statement
    */
@@ -187,8 +190,8 @@ public class DbUserManager extends AbstractUserManager {
   }
 
   /**
-   * Set the SQL SELECT statement used to select an existing user. All the
-   * dynamic values will be replaced during runtime.
+   * Set the SQL SELECT statement used to select an existing user. All the dynamic values will be
+   * replaced during runtime.
    *
    * @param sql The SQL statement
    */
@@ -206,8 +209,8 @@ public class DbUserManager extends AbstractUserManager {
   }
 
   /**
-   * Set the SQL SELECT statement used to select all user ids. All the dynamic
-   * values will be replaced during runtime.
+   * Set the SQL SELECT statement used to select all user ids. All the dynamic values will be
+   * replaced during runtime.
    *
    * @param sql The SQL statement
    */
@@ -225,8 +228,8 @@ public class DbUserManager extends AbstractUserManager {
   }
 
   /**
-   * Set the SQL SELECT statement used to authenticate user. All the dynamic
-   * values will be replaced during runtime.
+   * Set the SQL SELECT statement used to authenticate user. All the dynamic values will be replaced
+   * during runtime.
    *
    * @param sql The SQL statement
    */
@@ -235,8 +238,7 @@ public class DbUserManager extends AbstractUserManager {
   }
 
   /**
-   * Get the SQL SELECT statement used to find whether an user is admin or
-   * not.
+   * Get the SQL SELECT statement used to find whether an user is admin or not.
    *
    * @return The SQL statement
    */
@@ -245,8 +247,8 @@ public class DbUserManager extends AbstractUserManager {
   }
 
   /**
-   * Set the SQL SELECT statement used to find whether an user is admin or
-   * not. All the dynamic values will be replaced during runtime.
+   * Set the SQL SELECT statement used to find whether an user is admin or not. All the dynamic
+   * values will be replaced during runtime.
    *
    * @param sql The SQL statement
    */
@@ -254,9 +256,7 @@ public class DbUserManager extends AbstractUserManager {
     isAdminStmt = sql;
   }
 
-  /**
-   * @return true if user with this login is administrator
-   */
+  /** @return true if user with this login is administrator */
   @Override
   public boolean isAdmin(String login) throws FtpException {
 
@@ -288,9 +288,7 @@ public class DbUserManager extends AbstractUserManager {
     }
   }
 
-  /**
-   * Open connection to database.
-   */
+  /** Open connection to database. */
   protected Connection createConnection() throws SQLException {
     Connection connection = dataSource.getConnection();
     connection.setAutoCommit(true);
@@ -298,10 +296,7 @@ public class DbUserManager extends AbstractUserManager {
     return connection;
   }
 
-
-  /**
-   * Delete user. Delete the row from the table.
-   */
+  /** Delete user. Delete the row from the table. */
   @Override
   public void delete(String name) throws FtpException {
     // create sql query
@@ -323,9 +318,7 @@ public class DbUserManager extends AbstractUserManager {
     }
   }
 
-  /**
-   * Save user. If new insert a new row, else update the existing row.
-   */
+  /** Save user. If new insert a new row, else update the existing row. */
   @Override
   public void save(User user) throws FtpException {
     // null value check
@@ -362,7 +355,6 @@ public class DbUserManager extends AbstractUserManager {
       }
       map.put(ATTR_PASSWORD, escapeString(password));
 
-
       String home = user.getHomeDirectory();
       if (home == null) {
         home = "/";
@@ -370,35 +362,27 @@ public class DbUserManager extends AbstractUserManager {
       map.put(ATTR_HOME, escapeString(home));
       map.put(ATTR_ENABLE, String.valueOf(user.getEnabled()));
 
-      map.put(ATTR_WRITE_PERM, String.valueOf(user
-          .authorize(new WriteRequest()) != null));
+      map.put(ATTR_WRITE_PERM, String.valueOf(user.authorize(new WriteRequest()) != null));
       map.put(ATTR_MAX_IDLE_TIME, user.getMaxIdleTime());
 
       TransferRateRequest transferRateRequest = new TransferRateRequest();
-      transferRateRequest = (TransferRateRequest) user
-          .authorize(transferRateRequest);
+      transferRateRequest = (TransferRateRequest) user.authorize(transferRateRequest);
 
       if (transferRateRequest != null) {
-        map.put(ATTR_MAX_UPLOAD_RATE, transferRateRequest
-            .getMaxUploadRate());
-        map.put(ATTR_MAX_DOWNLOAD_RATE, transferRateRequest
-            .getMaxDownloadRate());
+        map.put(ATTR_MAX_UPLOAD_RATE, transferRateRequest.getMaxUploadRate());
+        map.put(ATTR_MAX_DOWNLOAD_RATE, transferRateRequest.getMaxDownloadRate());
       } else {
         map.put(ATTR_MAX_UPLOAD_RATE, 0);
         map.put(ATTR_MAX_DOWNLOAD_RATE, 0);
       }
 
       // request that always will succeed
-      ConcurrentLoginRequest concurrentLoginRequest = new ConcurrentLoginRequest(
-          0, 0);
-      concurrentLoginRequest = (ConcurrentLoginRequest) user
-          .authorize(concurrentLoginRequest);
+      ConcurrentLoginRequest concurrentLoginRequest = new ConcurrentLoginRequest(0, 0);
+      concurrentLoginRequest = (ConcurrentLoginRequest) user.authorize(concurrentLoginRequest);
 
       if (concurrentLoginRequest != null) {
-        map.put(ATTR_MAX_LOGIN_NUMBER, concurrentLoginRequest
-            .getMaxConcurrentLogins());
-        map.put(ATTR_MAX_LOGIN_PER_IP, concurrentLoginRequest
-            .getMaxConcurrentLoginsPerIP());
+        map.put(ATTR_MAX_LOGIN_NUMBER, concurrentLoginRequest.getMaxConcurrentLogins());
+        map.put(ATTR_MAX_LOGIN_PER_IP, concurrentLoginRequest.getMaxConcurrentLoginsPerIP());
       } else {
         map.put(ATTR_MAX_LOGIN_NUMBER, 0);
         map.put(ATTR_MAX_LOGIN_PER_IP, 0);
@@ -488,12 +472,12 @@ public class DbUserManager extends AbstractUserManager {
           authorities.add(new WritePermission());
         }
 
-        authorities.add(new ConcurrentLoginPermission(rs
-            .getInt(ATTR_MAX_LOGIN_NUMBER), rs
-            .getInt(ATTR_MAX_LOGIN_PER_IP)));
-        authorities.add(new TransferRatePermission(rs
-            .getInt(ATTR_MAX_DOWNLOAD_RATE), rs
-            .getInt(ATTR_MAX_UPLOAD_RATE)));
+        authorities.add(
+            new ConcurrentLoginPermission(
+                rs.getInt(ATTR_MAX_LOGIN_NUMBER), rs.getInt(ATTR_MAX_LOGIN_PER_IP)));
+        authorities.add(
+            new TransferRatePermission(
+                rs.getInt(ATTR_MAX_DOWNLOAD_RATE), rs.getInt(ATTR_MAX_UPLOAD_RATE)));
 
         thisUser.setAuthorities(authorities);
       }
@@ -505,9 +489,7 @@ public class DbUserManager extends AbstractUserManager {
     }
   }
 
-  /**
-   * Get the user object. Fetch the row from the table.
-   */
+  /** Get the user object. Fetch the row from the table. */
   @Override
   public User getUserByName(String name) throws FtpException {
     Statement stmt = null;
@@ -522,7 +504,6 @@ public class DbUserManager extends AbstractUserManager {
       }
       return user;
 
-
     } catch (SQLException ex) {
       LOG.error("DbUserManager.getUserByName()", ex);
       throw new FtpException("DbUserManager.getUserByName()", ex);
@@ -532,9 +513,7 @@ public class DbUserManager extends AbstractUserManager {
     }
   }
 
-  /**
-   * User existance check.
-   */
+  /** User existance check. */
   @Override
   public boolean doesExist(String name) throws FtpException {
     Statement stmt = null;
@@ -560,9 +539,7 @@ public class DbUserManager extends AbstractUserManager {
     }
   }
 
-  /**
-   * Get all user names from the database.
-   */
+  /** Get all user names from the database. */
   @Override
   public String[] getAllUserNames() throws FtpException {
 
@@ -593,12 +570,9 @@ public class DbUserManager extends AbstractUserManager {
     }
   }
 
-  /**
-   * User authentication.
-   */
+  /** User authentication. */
   @Override
-  public User authenticate(Authentication authentication)
-      throws AuthenticationFailedException {
+  public User authenticate(Authentication authentication) throws AuthenticationFailedException {
     if (authentication instanceof UsernamePasswordAuthentication) {
       UsernamePasswordAuthentication upauth = (UsernamePasswordAuthentication) authentication;
 
@@ -632,21 +606,17 @@ public class DbUserManager extends AbstractUserManager {
             if (getPasswordEncryptor().matches(password, storedPassword)) {
               return getUserByName(user);
             } else {
-              throw new AuthenticationFailedException(
-                  "Authentication failed");
+              throw new AuthenticationFailedException("Authentication failed");
             }
           } catch (FtpException e) {
-            throw new AuthenticationFailedException(
-                "Authentication failed", e);
+            throw new AuthenticationFailedException("Authentication failed", e);
           }
         } else {
-          throw new AuthenticationFailedException(
-              "Authentication failed");
+          throw new AuthenticationFailedException("Authentication failed");
         }
       } catch (SQLException ex) {
         LOG.error("DbUserManager.authenticate()", ex);
-        throw new AuthenticationFailedException(
-            "Authentication failed", ex);
+        throw new AuthenticationFailedException("Authentication failed", ex);
       } finally {
         closeQuitely(rs);
         closeQuitely(stmt);
@@ -656,24 +626,19 @@ public class DbUserManager extends AbstractUserManager {
         if (doesExist("anonymous")) {
           return getUserByName("anonymous");
         } else {
-          throw new AuthenticationFailedException(
-              "Authentication failed");
+          throw new AuthenticationFailedException("Authentication failed");
         }
       } catch (AuthenticationFailedException e) {
         throw e;
       } catch (FtpException e) {
-        throw new AuthenticationFailedException(
-            "Authentication failed", e);
+        throw new AuthenticationFailedException("Authentication failed", e);
       }
     } else {
-      throw new IllegalArgumentException(
-          "Authentication not supported by this user manager");
+      throw new IllegalArgumentException("Authentication not supported by this user manager");
     }
   }
 
-  /**
-   * Escape string to be embedded in SQL statement.
-   */
+  /** Escape string to be embedded in SQL statement. */
   private String escapeString(String input) {
     if (input == null) {
       return input;
@@ -682,8 +647,14 @@ public class DbUserManager extends AbstractUserManager {
     StringBuilder valBuf = new StringBuilder(input);
     for (int i = 0; i < valBuf.length(); i++) {
       char ch = valBuf.charAt(i);
-      if (ch == '\'' || ch == '\\' || ch == '$' || ch == '^' || ch == '['
-          || ch == ']' || ch == '{' || ch == '}') {
+      if (ch == '\''
+          || ch == '\\'
+          || ch == '$'
+          || ch == '^'
+          || ch == '['
+          || ch == ']'
+          || ch == '{'
+          || ch == '}') {
 
         valBuf.insert(i, '\\');
         i++;

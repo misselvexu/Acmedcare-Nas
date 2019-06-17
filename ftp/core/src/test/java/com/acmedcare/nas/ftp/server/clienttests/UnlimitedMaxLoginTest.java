@@ -22,9 +22,7 @@ package com.acmedcare.nas.ftp.server.clienttests;
 import com.acmedcare.nas.ftp.server.ConnectionConfigFactory;
 import com.acmedcare.nas.ftp.server.FtpServerFactory;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class UnlimitedMaxLoginTest extends ClientTestTemplate {
   private static final String UNKNOWN_USERNAME = "foo";
 

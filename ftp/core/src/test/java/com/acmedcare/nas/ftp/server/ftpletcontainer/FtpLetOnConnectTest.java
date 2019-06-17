@@ -33,9 +33,7 @@ import java.net.SocketException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class FtpLetOnConnectTest extends ClientTestTemplate {
   private static final byte[] TESTDATA = "TESTDATA".getBytes();
 
@@ -75,13 +73,13 @@ public class FtpLetOnConnectTest extends ClientTestTemplate {
   }
 
   public void testDisconnectOnConnect() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onConnect(FtpSession session)
-          throws FtpException, IOException {
-        return mockReturnValue;
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onConnect(FtpSession session) throws FtpException, IOException {
+            return mockReturnValue;
+          }
+        };
 
     try {
       connectClient();
@@ -94,13 +92,13 @@ public class FtpLetOnConnectTest extends ClientTestTemplate {
   }
 
   public void testExceptionOnConnect() throws Exception {
-    MockFtplet.callback = new MockFtpletCallback() {
-      @Override
-      public FtpletResult onConnect(FtpSession session)
-          throws FtpException, IOException {
-        throw new FtpException();
-      }
-    };
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          @Override
+          public FtpletResult onConnect(FtpSession session) throws FtpException, IOException {
+            throw new FtpException();
+          }
+        };
 
     try {
       connectClient();

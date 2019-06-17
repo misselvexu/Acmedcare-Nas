@@ -34,9 +34,7 @@ import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class FtpLetReturnDefaultTest extends ClientTestTemplate {
   private static final byte[] TESTDATA = "TESTDATA".getBytes();
 
@@ -63,7 +61,6 @@ public class FtpLetReturnDefaultTest extends ClientTestTemplate {
     initServer();
 
     connectClient();
-
   }
 
   @Override
@@ -81,15 +78,15 @@ public class FtpLetReturnDefaultTest extends ClientTestTemplate {
   public void testLogin() throws Exception {
     final LinkedBlockingQueue<User> loggedInUser = new LinkedBlockingQueue<User>();
 
-    MockFtplet.callback = new MockFtpletCallback() {
-      public FtpletResult onLogin(FtpSession session, FtpRequest request)
-          throws FtpException, IOException {
-        loggedInUser.add(session.getUser());
+    MockFtplet.callback =
+        new MockFtpletCallback() {
+          public FtpletResult onLogin(FtpSession session, FtpRequest request)
+              throws FtpException, IOException {
+            loggedInUser.add(session.getUser());
 
-        return super.onLogin(session, request);
-      }
-
-    };
+            return super.onLogin(session, request);
+          }
+        };
     MockFtpletCallback.returnValue = FtpletResult.DEFAULT;
 
     assertTrue(client.login(ADMIN_USERNAME, ADMIN_PASSWORD));
@@ -150,16 +147,14 @@ public class FtpLetReturnDefaultTest extends ClientTestTemplate {
 
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
 
-    client.appendFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-        TESTDATA));
+    client.appendFile(TEST_FILE1.getName(), new ByteArrayInputStream(TESTDATA));
 
     TestUtil.assertFileEqual(DOUBLE_TESTDATA, TEST_FILE1);
   }
 
   public void testUpload() throws Exception {
     client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
-    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
-        TESTDATA));
+    client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(TESTDATA));
 
     TestUtil.assertFileEqual(TESTDATA, TEST_FILE1);
   }

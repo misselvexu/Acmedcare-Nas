@@ -31,17 +31,16 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This ftplet calls other ftplet methods and returns appropriate return value.
  *
- * <strong><strong>Internal class, do not use directly.</strong></strong>
+ * <p>This ftplet calls other ftplet methods and returns appropriate return value.
+ *
+ * <p><strong><strong>Internal class, do not use directly.</strong></strong>
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class DefaultFtpletContainer implements FtpletContainer {
 
-  private final Logger LOG = LoggerFactory
-      .getLogger(DefaultFtpletContainer.class);
+  private final Logger LOG = LoggerFactory.getLogger(DefaultFtpletContainer.class);
 
   private final Map<String, Ftplet> ftplets;
 
@@ -53,9 +52,8 @@ public class DefaultFtpletContainer implements FtpletContainer {
     this.ftplets = ftplets;
   }
 
-  /**
-   * Get Ftplet for the given name.
-   */
+  /** Get Ftplet for the given name. */
+  @Override
   public synchronized Ftplet getFtplet(String name) {
     if (name == null) {
       return null;
@@ -71,16 +69,13 @@ public class DefaultFtpletContainer implements FtpletContainer {
     }
   }
 
-  /**
-   * @see FtpletContainer#getFtplets()
-   */
+  /** @see FtpletContainer#getFtplets() */
+  @Override
   public synchronized Map<String, Ftplet> getFtplets() {
     return ftplets;
   }
 
-  /**
-   * Destroy all ftplets.
-   */
+  /** Destroy all ftplets. */
   @Override
   public void destroy() {
     for (Entry<String, Ftplet> entry : ftplets.entrySet()) {
@@ -92,12 +87,9 @@ public class DefaultFtpletContainer implements FtpletContainer {
     }
   }
 
-  /**
-   * Call ftplet onConnect.
-   */
+  /** Call ftplet onConnect. */
   @Override
-  public FtpletResult onConnect(FtpSession session) throws FtpException,
-      IOException {
+  public FtpletResult onConnect(FtpSession session) throws FtpException, IOException {
     FtpletResult retVal = FtpletResult.DEFAULT;
     for (Entry<String, Ftplet> entry : ftplets.entrySet()) {
       retVal = entry.getValue().onConnect(session);
@@ -113,12 +105,9 @@ public class DefaultFtpletContainer implements FtpletContainer {
     return retVal;
   }
 
-  /**
-   * Call ftplet onDisconnect.
-   */
+  /** Call ftplet onDisconnect. */
   @Override
-  public FtpletResult onDisconnect(FtpSession session) throws FtpException,
-      IOException {
+  public FtpletResult onDisconnect(FtpSession session) throws FtpException, IOException {
     FtpletResult retVal = FtpletResult.DEFAULT;
     for (Entry<String, Ftplet> entry : ftplets.entrySet()) {
 
@@ -172,5 +161,4 @@ public class DefaultFtpletContainer implements FtpletContainer {
     }
     return retVal;
   }
-
 }

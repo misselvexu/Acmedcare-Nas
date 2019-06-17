@@ -21,9 +21,8 @@ package com.acmedcare.nas.ftp.server.util;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This is a simplified regular character mattching class. Supports *?^[]-
- * pattern characters.
+ *
+ * <p>This is a simplified regular character mattching class. Supports *?^[]- pattern characters.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -40,9 +39,7 @@ public class RegularExpr {
     this.pattern = pattern.toCharArray();
   }
 
-  /**
-   * Compare string with a regular expression.
-   */
+  /** Compare string with a regular expression. */
   public boolean isMatch(String name) {
 
     // common pattern - *
@@ -53,9 +50,7 @@ public class RegularExpr {
     return isMatch(name.toCharArray(), 0, 0);
   }
 
-  /**
-   * Is a match?
-   */
+  /** Is a match? */
   private boolean isMatch(char[] strName, int strIndex, int patternIndex) {
 
     while (true) {
@@ -69,8 +64,8 @@ public class RegularExpr {
       char pc = pattern[patternIndex++];
       switch (pc) {
 
-        // Match a single character in the range
-        // If no more strName character - return false
+          // Match a single character in the range
+          // If no more strName character - return false
         case '[':
 
           // no more string character - returns false
@@ -151,9 +146,9 @@ public class RegularExpr {
           }
           break;
 
-        // * - skip zero or more characters
-        // No more pattern character - return true
-        // Increment strIndex till the rest of the pattern matches.
+          // * - skip zero or more characters
+          // No more pattern character - return true
+          // Increment strIndex till the rest of the pattern matches.
         case '*':
 
           // no more string character remaining - returns true
@@ -171,8 +166,8 @@ public class RegularExpr {
           // Example pattern is (a*b) and the string is (adfdc).
           return false;
 
-        // ? - skip one character - increment strIndex.
-        // If no more strName character - return false.
+          // ? - skip one character - increment strIndex.
+          // If no more strName character - return false.
         case '?':
 
           // already at the end - no more character - returns false
@@ -182,7 +177,7 @@ public class RegularExpr {
           strIndex++;
           break;
 
-        // match character.
+          // match character.
         default:
 
           // already at the end - no match
@@ -198,5 +193,4 @@ public class RegularExpr {
       }
     }
   }
-
 }

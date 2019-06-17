@@ -29,11 +29,10 @@ import java.security.GeneralSecurityException;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Used to configure the SSL settings for the control channel or the data
- * channel.
  *
- * <strong><strong>Internal class, do not use directly.</strong></strong>
+ * <p>Used to configure the SSL settings for the control channel or the data channel.
+ *
+ * <p><strong><strong>Internal class, do not use directly.</strong></strong>
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -42,27 +41,25 @@ public class DefaultSslConfiguration implements SslConfiguration {
   private final KeyManagerFactory keyManagerFactory;
 
   private final TrustManagerFactory trustManagerFactory;
-
-  private String sslProtocol = "TLS";
-
-  private final ClientAuth clientAuth;// = ClientAuth.NONE;
-
+  private final ClientAuth clientAuth; // = ClientAuth.NONE;
   private final String keyAlias;
-
   private final String[] enabledCipherSuites;
-
   private final SSLContext sslContext;
-
   private final SSLSocketFactory socketFactory;
+  private String sslProtocol = "TLS";
 
   /**
    * Internal constructor, do not use directly. Instead, use {@link SslConfigurationFactory}
    *
    * @throws GeneralSecurityException
    */
-  public DefaultSslConfiguration(KeyManagerFactory keyManagerFactory,
-                                 TrustManagerFactory trustManagerFactory, ClientAuth clientAuthReqd,
-                                 String sslProtocol, String[] enabledCipherSuites, String keyAlias)
+  public DefaultSslConfiguration(
+      KeyManagerFactory keyManagerFactory,
+      TrustManagerFactory trustManagerFactory,
+      ClientAuth clientAuthReqd,
+      String sslProtocol,
+      String[] enabledCipherSuites,
+      String keyAlias)
       throws GeneralSecurityException {
     super();
     this.clientAuth = clientAuthReqd;
@@ -79,31 +76,22 @@ public class DefaultSslConfiguration implements SslConfiguration {
     return socketFactory;
   }
 
-  /**
-   * @see SslConfiguration#getSSLContext(String)
-   */
-  public SSLContext getSSLContext(String protocol)
-      throws GeneralSecurityException {
+  /** @see SslConfiguration#getSSLContext(String) */
+  public SSLContext getSSLContext(String protocol) throws GeneralSecurityException {
     return sslContext;
   }
 
-  /**
-   * @see SslConfiguration#getClientAuth()
-   */
+  /** @see SslConfiguration#getClientAuth() */
   public ClientAuth getClientAuth() {
     return clientAuth;
   }
 
-  /**
-   * @see SslConfiguration#getSSLContext()
-   */
+  /** @see SslConfiguration#getSSLContext() */
   public SSLContext getSSLContext() throws GeneralSecurityException {
     return getSSLContext(sslProtocol);
   }
 
-  /**
-   * @see SslConfiguration#getEnabledCipherSuites()
-   */
+  /** @see SslConfiguration#getEnabledCipherSuites() */
   public String[] getEnabledCipherSuites() {
     if (enabledCipherSuites != null) {
       return enabledCipherSuites.clone();
@@ -118,10 +106,9 @@ public class DefaultSslConfiguration implements SslConfiguration {
     // wrap key managers to allow us to control their behavior
     // (FTPSERVER-93)
     for (int i = 0; i < keyManagers.length; i++) {
-      if (ClassUtils.extendsClass(keyManagers[i].getClass(),
-          "javax.net.ssl.X509ExtendedKeyManager")) {
-        keyManagers[i] = new ExtendedAliasKeyManager(keyManagers[i],
-            keyAlias);
+      if (ClassUtils.extendsClass(
+          keyManagers[i].getClass(), "javax.net.ssl.X509ExtendedKeyManager")) {
+        keyManagers[i] = new ExtendedAliasKeyManager(keyManagers[i], keyAlias);
       } else if (keyManagers[i] instanceof X509KeyManager) {
         keyManagers[i] = new AliasKeyManager(keyManagers[i], keyAlias);
       }
@@ -130,7 +117,7 @@ public class DefaultSslConfiguration implements SslConfiguration {
     // create and initialize the SSLContext
     SSLContext ctx = SSLContext.getInstance(sslProtocol);
     ctx.init(keyManagers, trustManagerFactory.getTrustManagers(), null);
-    //Create the socket factory
+    // Create the socket factory
     return ctx;
   }
 }

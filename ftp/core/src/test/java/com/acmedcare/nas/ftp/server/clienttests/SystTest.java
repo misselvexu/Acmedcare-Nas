@@ -21,9 +21,7 @@ package com.acmedcare.nas.ftp.server.clienttests;
 
 import org.apache.commons.net.ftp.FTPReply;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class SystTest extends ClientTestTemplate {
 
   /*
@@ -41,8 +39,6 @@ public class SystTest extends ClientTestTemplate {
   public void testSyst() throws Exception {
     assertTrue(FTPReply.isPositiveCompletion(client.syst()));
     // hardcoded to Unix as that's the type of list etc we use
-    assertEquals("215 UNIX Type: Apache FtpServer", client.getReplyString()
-        .trim());
+    assertEquals("215 UNIX Type: Apache FtpServer", client.getReplyString().trim());
   }
-
 }

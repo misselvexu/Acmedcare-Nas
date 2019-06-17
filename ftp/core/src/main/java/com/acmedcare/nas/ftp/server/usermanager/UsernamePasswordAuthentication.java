@@ -23,8 +23,7 @@ import com.acmedcare.nas.ftp.server.ftplet.Authentication;
 import com.acmedcare.nas.ftp.server.usermanager.impl.UserMetadata;
 
 /**
- * Class representing a normal authentication attempt using username and
- * password
+ * Class representing a normal authentication attempt using username and password
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -42,8 +41,7 @@ public class UsernamePasswordAuthentication implements Authentication {
    * @param username The user name
    * @param password The password, can be null
    */
-  public UsernamePasswordAuthentication(final String username,
-                                        final String password) {
+  public UsernamePasswordAuthentication(final String username, final String password) {
     this.username = username;
     this.password = password;
   }
@@ -51,12 +49,12 @@ public class UsernamePasswordAuthentication implements Authentication {
   /**
    * Constructor with an additonal parameter for user metadata
    *
-   * @param username     The user name
-   * @param password     The password, can be null
+   * @param username The user name
+   * @param password The password, can be null
    * @param userMetadata The user metadata
    */
-  public UsernamePasswordAuthentication(final String username,
-                                        final String password, final UserMetadata userMetadata) {
+  public UsernamePasswordAuthentication(
+      final String username, final String password, final UserMetadata userMetadata) {
     this(username, password);
     this.userMetadata = userMetadata;
   }

@@ -28,9 +28,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class NativeFtpFileTest extends FtpFileTestTemplate {
 
   private static final File TEST_TMP_DIR = new File("test-tmp");
@@ -56,7 +54,6 @@ public class NativeFtpFileTest extends FtpFileTestTemplate {
     FILE_MAPPINGS.put(DIR1_WITH_SLASH_PATH, TEST_DIR1);
     FILE_MAPPINGS.put(" \t", TEST_FILE2_IN_DIR1);
   }
-
 
   @Override
   protected void setUp() throws Exception {
@@ -95,7 +92,7 @@ public class NativeFtpFileTest extends FtpFileTestTemplate {
     }
 
     assertTrue(fileObj.isRemovable());
-    //can we actually delete this file?
+    // can we actually delete this file?
     assertTrue(physicalFile.delete());
   }
 
@@ -104,9 +101,7 @@ public class NativeFtpFileTest extends FtpFileTestTemplate {
     cleanTmpDirs();
   }
 
-  /**
-   * @throws IOException
-   */
+  /** @throws IOException */
   protected void initDirs() throws IOException {
     cleanTmpDirs();
 
@@ -119,5 +114,4 @@ public class NativeFtpFileTest extends FtpFileTestTemplate {
       IoUtils.delete(TEST_TMP_DIR);
     }
   }
-
 }

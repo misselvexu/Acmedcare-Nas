@@ -24,9 +24,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class SizeTest extends ClientTestTemplate {
   protected static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");
 
@@ -56,12 +54,10 @@ public class SizeTest extends ClientTestTemplate {
   public void testSizeOnFile() throws Exception {
     TestUtil.writeDataToFile(TEST_FILE1, TEST_DATA1);
 
-    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("SIZE "
-        + TEST_FILE1.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("SIZE " + TEST_FILE1.getName())));
     assertSizeReply(client.getReplyString(), TEST_DATA1.length);
 
-    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("SIZE /"
-        + TEST_FILE1.getName())));
+    assertTrue(FTPReply.isPositiveCompletion(client.sendCommand("SIZE /" + TEST_FILE1.getName())));
     assertSizeReply(client.getReplyString(), TEST_DATA1.length);
   }
 
@@ -77,5 +73,4 @@ public class SizeTest extends ClientTestTemplate {
     TEST_DIR1.mkdirs();
     assertEquals(550, client.sendCommand("SIZE " + TEST_DIR1.getName()));
   }
-
 }

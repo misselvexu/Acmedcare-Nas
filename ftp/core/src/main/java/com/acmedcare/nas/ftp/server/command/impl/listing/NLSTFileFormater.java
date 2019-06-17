@@ -22,18 +22,16 @@ import com.acmedcare.nas.ftp.server.ftplet.FtpFile;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Formats files according to the NLST specification
+ *
+ * <p>Formats files according to the NLST specification
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class NLSTFileFormater implements FileFormater {
 
-  private final static char[] NEWLINE = {'\r', '\n'};
+  private static final char[] NEWLINE = {'\r', '\n'};
 
-  /**
-   * @see FileFormater#format(FtpFile)
-   */
+  /** @see FileFormater#format(FtpFile) */
   public String format(FtpFile file) {
     StringBuilder sb = new StringBuilder();
     sb.append(file.getName());

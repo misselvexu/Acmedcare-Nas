@@ -40,55 +40,37 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public abstract class ClientTestTemplate extends TestCase {
 
-  private final Logger LOG = LoggerFactory
-      .getLogger(ClientTestTemplate.class);
-
   protected static final String ADMIN_PASSWORD = "admin";
-
   protected static final String ADMIN_USERNAME = "admin";
-
   protected static final String ANONYMOUS_PASSWORD = "foo@bar.com";
-
   protected static final String ANONYMOUS_USERNAME = "anonymous";
-
   protected static final String TESTUSER2_USERNAME = "testuser2";
-
   protected static final String TESTUSER1_USERNAME = "testuser1";
-
   protected static final String TESTUSER_PASSWORD = "password";
-
+  private static final File USERS_FILE =
+      new File(TestUtil.getBaseDir(), "src/test/resources/users.properties");
+  private static final File TEST_TMP_DIR = new File("test-tmp");
+  protected static final File ROOT_DIR = new File(TEST_TMP_DIR, "ftproot");
+  private final Logger LOG = LoggerFactory.getLogger(ClientTestTemplate.class);
   protected DefaultFtpServer server;
-
   protected FTPClient client;
 
-  private static final File USERS_FILE = new File(TestUtil.getBaseDir(),
-      "src/test/resources/users.properties");
-
-  private static final File TEST_TMP_DIR = new File("test-tmp");
-
-  protected static final File ROOT_DIR = new File(TEST_TMP_DIR, "ftproot");
-
   protected FtpServerFactory createServer() throws Exception {
-    assertTrue(USERS_FILE.getAbsolutePath() + " must exist", USERS_FILE
-        .exists());
+    assertTrue(USERS_FILE.getAbsolutePath() + " must exist", USERS_FILE.exists());
 
     FtpServerFactory serverFactory = new FtpServerFactory();
 
-    serverFactory.setConnectionConfig(createConnectionConfigFactory()
-        .createConnectionConfig());
+    serverFactory.setConnectionConfig(createConnectionConfigFactory().createConnectionConfig());
 
     ListenerFactory listenerFactory = new ListenerFactory();
 
     listenerFactory.setPort(0);
 
-    listenerFactory
-        .setDataConnectionConfiguration(createDataConnectionConfigurationFactory()
-            .createDataConnectionConfiguration());
+    listenerFactory.setDataConnectionConfiguration(
+        createDataConnectionConfigurationFactory().createDataConnectionConfiguration());
 
     serverFactory.addListener("default", listenerFactory.createListener());
 
@@ -124,9 +106,7 @@ public abstract class ClientTestTemplate extends TestCase {
     connectClient();
   }
 
-  /**
-   * @throws IOException
-   */
+  /** @throws IOException */
   protected void initDirs() throws IOException {
     cleanTmpDirs();
 
@@ -161,22 +141,20 @@ public abstract class ClientTestTemplate extends TestCase {
     return client;
   }
 
-  /**
-   * @throws Exception
-   */
+  /** @throws Exception */
   protected void connectClient() throws Exception {
     client = createFTPClient();
-    client.addProtocolCommandListener(new ProtocolCommandListener() {
+    client.addProtocolCommandListener(
+        new ProtocolCommandListener() {
 
-      public void protocolCommandSent(ProtocolCommandEvent event) {
-        LOG.debug("> " + event.getMessage().trim());
+          public void protocolCommandSent(ProtocolCommandEvent event) {
+            LOG.debug("> " + event.getMessage().trim());
+          }
 
-      }
-
-      public void protocolReplyReceived(ProtocolCommandEvent event) {
-        LOG.debug("< " + event.getMessage().trim());
-      }
-    });
+          public void protocolReplyReceived(ProtocolCommandEvent event) {
+            LOG.debug("< " + event.getMessage().trim());
+          }
+        });
 
     if (isConnectClient()) {
       doConnect();
@@ -204,8 +182,7 @@ public abstract class ClientTestTemplate extends TestCase {
   }
 
   protected FtpIoSession getActiveSession() {
-    return server.getListener("default").getActiveSessions().iterator()
-        .next();
+    return server.getListener("default").getActiveSessions().iterator().next();
   }
 
   /*
@@ -234,5 +211,4 @@ public abstract class ClientTestTemplate extends TestCase {
 
     cleanTmpDirs();
   }
-
 }

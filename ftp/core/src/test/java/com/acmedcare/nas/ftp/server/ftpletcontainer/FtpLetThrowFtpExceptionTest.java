@@ -23,9 +23,7 @@ import com.acmedcare.nas.ftp.server.ftplet.FtpException;
 
 import java.io.IOException;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class FtpLetThrowFtpExceptionTest extends FtpLetReturnDisconnectTest {
 
   @Override

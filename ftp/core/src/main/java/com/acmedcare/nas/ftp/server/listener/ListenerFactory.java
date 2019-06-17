@@ -32,8 +32,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 /**
- * Factory for listeners. Listeners themselves are immutable and must be
- * created using this factory.
+ * Factory for listeners. Listeners themselves are immutable and must be created using this factory.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -47,8 +46,8 @@ public class ListenerFactory {
 
   private boolean implicitSsl = false;
 
-  private DataConnectionConfiguration dataConnectionConfig = new DataConnectionConfigurationFactory()
-      .createDataConnectionConfiguration();
+  private DataConnectionConfiguration dataConnectionConfig =
+      new DataConnectionConfigurationFactory().createDataConnectionConfiguration();
 
   private int idleTimeout = 300;
 
@@ -56,14 +55,10 @@ public class ListenerFactory {
 
   private List<Subnet> blockedSubnets;
 
-  /**
-   * The Session filter
-   */
+  /** The Session filter */
   private SessionFilter sessionFilter = null;
 
-  /**
-   * Default constructor
-   */
+  /** Default constructor */
   public ListenerFactory() {
     // do nothing
   }
@@ -106,12 +101,18 @@ public class ListenerFactory {
       }
     }
     if (blockedAddresses != null || blockedSubnets != null) {
-      return new NioListener(serverAddress, port, implicitSsl, ssl,
-          dataConnectionConfig, idleTimeout, blockedAddresses,
+      return new NioListener(
+          serverAddress,
+          port,
+          implicitSsl,
+          ssl,
+          dataConnectionConfig,
+          idleTimeout,
+          blockedAddresses,
           blockedSubnets);
     } else {
-      return new NioListener(serverAddress, port, implicitSsl, ssl,
-          dataConnectionConfig, idleTimeout, sessionFilter);
+      return new NioListener(
+          serverAddress, port, implicitSsl, ssl, dataConnectionConfig, idleTimeout, sessionFilter);
     }
   }
 
@@ -119,8 +120,7 @@ public class ListenerFactory {
    * Is listeners created by this factory in SSL mode automatically or must the client explicitly
    * request to use SSL
    *
-   * @return true is listeners created by this factory is automatically in SSL mode, false
-   * otherwise
+   * @return true is listeners created by this factory is automatically in SSL mode, false otherwise
    */
   public boolean isImplicitSsl() {
     return implicitSsl;
@@ -130,8 +130,8 @@ public class ListenerFactory {
    * Should listeners created by this factory be in SSL mode automatically or must the client
    * explicitly request to use SSL
    *
-   * @param implicitSsl true is listeners created by this factory should automatically be in SSL mode,
-   *                    false otherwise
+   * @param implicitSsl true is listeners created by this factory should automatically be in SSL
+   *     mode, false otherwise
    */
   public void setImplicitSsl(boolean implicitSsl) {
     this.implicitSsl = implicitSsl;
@@ -157,8 +157,8 @@ public class ListenerFactory {
   }
 
   /**
-   * Get the {@link InetAddress} used for binding the local socket. Defaults
-   * to null, that is, the server binds to all available network interfaces
+   * Get the {@link InetAddress} used for binding the local socket. Defaults to null, that is, the
+   * server binds to all available network interfaces
    *
    * @return The local socket {@link InetAddress}, if set
    */
@@ -167,8 +167,8 @@ public class ListenerFactory {
   }
 
   /**
-   * Set the {@link InetAddress} used for binding the local socket. Defaults
-   * to null, that is, the server binds to all available network interfaces
+   * Set the {@link InetAddress} used for binding the local socket. Defaults to null, that is, the
+   * server binds to all available network interfaces
    *
    * @param serverAddress The local socket {@link InetAddress}
    */
@@ -208,14 +208,13 @@ public class ListenerFactory {
    *
    * @param dataConnectionConfig The data connection configuration
    */
-  public void setDataConnectionConfiguration(
-      DataConnectionConfiguration dataConnectionConfig) {
+  public void setDataConnectionConfiguration(DataConnectionConfiguration dataConnectionConfig) {
     this.dataConnectionConfig = dataConnectionConfig;
   }
 
   /**
-   * Get the number of seconds during which no network activity
-   * is allowed before a session is closed due to inactivity.
+   * Get the number of seconds during which no network activity is allowed before a session is
+   * closed due to inactivity.
    *
    * @return The idle time out
    */
@@ -224,8 +223,8 @@ public class ListenerFactory {
   }
 
   /**
-   * Set the number of seconds during which no network activity
-   * is allowed before a session is closed due to inactivity.
+   * Set the number of seconds during which no network activity is allowed before a session is
+   * closed due to inactivity.
    *
    * @param idleTimeout The idle timeout in seconds
    */
@@ -235,9 +234,8 @@ public class ListenerFactory {
 
   /**
    * @return The list of {@link InetAddress}es
-   * @deprecated Replaced by the IpFilter.
-   * Retrieves the {@link InetAddress} for which listeners created by this factory blocks
-   * connections
+   * @deprecated Replaced by the IpFilter. Retrieves the {@link InetAddress} for which listeners
+   *     created by this factory blocks connections
    */
   @Deprecated
   public List<InetAddress> getBlockedAddresses() {
@@ -246,9 +244,8 @@ public class ListenerFactory {
 
   /**
    * @param blockedAddresses The list of {@link InetAddress}es
-   * @deprecated Replaced by the IpFilter.
-   * Sets the {@link InetAddress} that listeners created by this factory will block from
-   * connecting
+   * @deprecated Replaced by the IpFilter. Sets the {@link InetAddress} that listeners created by
+   *     this factory will block from connecting
    */
   @Deprecated
   public void setBlockedAddresses(List<InetAddress> blockedAddresses) {
@@ -257,8 +254,8 @@ public class ListenerFactory {
 
   /**
    * @return The list of {@link Subnet}s
-   * @deprecated Replaced by the IpFilter.
-   * Retrives the {@link Subnet}s for which listeners created by this factory blocks connections
+   * @deprecated Replaced by the IpFilter. Retrives the {@link Subnet}s for which listeners created
+   *     by this factory blocks connections
    */
   @Deprecated
   public List<Subnet> getBlockedSubnets() {
@@ -279,9 +276,8 @@ public class ListenerFactory {
   /**
    * Returns the currently configured <code>SessionFilter</code>, if any.
    *
-   * @return the currently configured <code>SessionFilter</code>, if any.
-   * Returns <code>null</code>, if no <code>SessionFilter</code> is
-   * configured.
+   * @return the currently configured <code>SessionFilter</code>, if any. Returns <code>null</code>,
+   *     if no <code>SessionFilter</code> is configured.
    */
   public SessionFilter getSessionFilter() {
     return sessionFilter;

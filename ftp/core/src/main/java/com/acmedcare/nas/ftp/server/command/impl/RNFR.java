@@ -33,13 +33,11 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>
+ * RNFR &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
  *
- * <code>RNFR &lt;SP&gt; &lt;pathname&gt; &lt;CRLF&gt;</code><br>
- * <p>
- * This command specifies the old pathname of the file which is to be renamed.
- * This command must be immediately followed by a "rename to" command specifying
- * the new file pathname.
+ * <p>This command specifies the old pathname of the file which is to be renamed. This command must
+ * be immediately followed by a "rename to" command specifying the new file pathname.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -47,11 +45,9 @@ public class RNFR extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(RNFR.class);
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variable
@@ -60,9 +56,14 @@ public class RNFR extends AbstractCommand {
     // argument check
     String fileName = request.getArgument();
     if (fileName == null) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "RNFR", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "RNFR",
+              null));
       return;
     }
 
@@ -76,21 +77,25 @@ public class RNFR extends AbstractCommand {
 
     // check file
     if (renFr == null) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN, "RNFR",
-          fileName));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+              "RNFR",
+              fileName));
     } else {
       session.setRenameFrom(renFr);
       fileName = renFr.getAbsolutePath();
-      session
-          .write(LocalizedFtpReply
-              .translate(
-                  session,
-                  request,
-                  context,
-                  FtpReply.REPLY_350_REQUESTED_FILE_ACTION_PENDING_FURTHER_INFORMATION,
-                  "RNFR", fileName));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_350_REQUESTED_FILE_ACTION_PENDING_FURTHER_INFORMATION,
+              "RNFR",
+              fileName));
     }
   }
-
 }

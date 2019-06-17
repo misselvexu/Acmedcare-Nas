@@ -22,8 +22,8 @@ import com.acmedcare.nas.ftp.server.ftplet.FtpFile;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Interface for selecting files based on some critera.
+ *
+ * <p>Interface for selecting files based on some critera.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @see java.io.FileFilter
@@ -37,5 +37,4 @@ public interface FileFilter {
    * @return true if the {@link FtpFile} was selected
    */
   boolean accept(FtpFile file);
-
 }

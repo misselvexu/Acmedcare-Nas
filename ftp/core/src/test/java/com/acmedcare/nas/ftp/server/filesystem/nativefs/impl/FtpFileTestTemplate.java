@@ -27,9 +27,7 @@ import junit.framework.TestCase;
 
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public abstract class FtpFileTestTemplate extends TestCase {
 
   protected static final String FILE2_PATH = "/dir1/file2";
@@ -42,14 +40,15 @@ public abstract class FtpFileTestTemplate extends TestCase {
 
   protected static final String FILE3_PATH = "/file3";
 
-  protected static final User USER = new BaseUser() {
-    private static final long serialVersionUID = 4906315989316879758L;
+  protected static final User USER =
+      new BaseUser() {
+        private static final long serialVersionUID = 4906315989316879758L;
 
-    @Override
-    public AuthorizationRequest authorize(AuthorizationRequest request) {
-      return request;
-    }
-  };
+        @Override
+        public AuthorizationRequest authorize(AuthorizationRequest request) {
+          return request;
+        }
+      };
 
   protected abstract FtpFile createFileObject(String fileName, User user);
 
@@ -120,5 +119,4 @@ public abstract class FtpFileTestTemplate extends TestCase {
     assertEquals("file1", files.get(1).getName());
     assertEquals("file3", files.get(2).getName());
   }
-
 }

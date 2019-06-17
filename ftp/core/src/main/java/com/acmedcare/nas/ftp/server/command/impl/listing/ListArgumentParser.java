@@ -22,8 +22,8 @@ import java.util.StringTokenizer;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Parses a list argument (e.g. for LIST or NLST) into a {@link ListArgument}
+ *
+ * <p>Parses a list argument (e.g. for LIST or NLST) into a {@link ListArgument}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -89,8 +89,7 @@ public class ListArgumentParser {
       }
 
       if (containsPattern(file)) {
-        throw new IllegalArgumentException(
-            "Directory path can not contain regular expression");
+        throw new IllegalArgumentException("Directory path can not contain regular expression");
       }
     }
 
@@ -102,8 +101,6 @@ public class ListArgumentParser {
   }
 
   private static boolean containsPattern(String file) {
-    return file.indexOf('*') > -1 || file.indexOf('?') > -1
-        || file.indexOf('[') > -1;
-
+    return file.indexOf('*') > -1 || file.indexOf('?') > -1 || file.indexOf('[') > -1;
   }
 }

@@ -28,9 +28,7 @@ import com.acmedcare.nas.ftp.server.usermanager.UserManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class VolatilePropertiesUserManagerTest extends UserManagerTestTemplate {
 
   @Override
@@ -77,12 +75,9 @@ public class VolatilePropertiesUserManagerTest extends UserManagerTestTemplate {
     user3.setHomeDirectory("home");
 
     userManager.save(user3);
-
   }
 
   // we do not save persistent in this case so this test is disabled
   @Override
-  public void testSavePersistent() {
-
-  }
+  public void testSavePersistent() {}
 }

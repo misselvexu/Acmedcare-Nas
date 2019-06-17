@@ -22,9 +22,7 @@ package com.acmedcare.nas.ftp.server.filesystem.nativefs.impl;
 import com.acmedcare.nas.ftp.server.usermanager.impl.BaseUser;
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public abstract class FileSystemViewTemplate extends TestCase {
 
   protected static final String DIR1_NAME = "dir1";
@@ -67,5 +65,4 @@ public abstract class FileSystemViewTemplate extends TestCase {
     assertEquals("/dir1", view.getWorkingDirectory().getAbsolutePath());
     assertTrue(view.getWorkingDirectory().doesExist());
   }
-
 }

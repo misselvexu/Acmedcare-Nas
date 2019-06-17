@@ -28,32 +28,29 @@ import java.util.Map;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Command factory to return appropriate command implementation depending on the
- * FTP request command string.
  *
- * <strong><strong>Internal class, do not use directly.</strong></strong>
+ * <p>Command factory to return appropriate command implementation depending on the FTP request
+ * command string.
+ *
+ * <p><strong><strong>Internal class, do not use directly.</strong></strong>
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class DefaultCommandFactory implements CommandFactory {
 
+  private final Map<String, Command> commandMap;
+
   public DefaultCommandFactory() {
     this(new HashMap<String, Command>());
   }
 
-  /**
-   * Internal constructor, use {@link CommandFactoryFactory} instead
-   */
+  /** Internal constructor, use {@link CommandFactoryFactory} instead */
   public DefaultCommandFactory(Map<String, Command> commandMap) {
     this.commandMap = commandMap;
   }
 
-  private final Map<String, Command> commandMap;
-
-  /**
-   * Get command. Returns null if not found.
-   */
+  /** Get command. Returns null if not found. */
+  @Override
   public Command getCommand(final String cmdName) {
     if (cmdName == null || cmdName.equals("")) {
       return null;

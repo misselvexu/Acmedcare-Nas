@@ -21,9 +21,7 @@ package com.acmedcare.nas.ftp.server.config.spring;
 
 import com.acmedcare.nas.ftp.server.ftplet.DefaultFtplet;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class TestFtplet extends DefaultFtplet {
 
   private int foo;
@@ -35,5 +33,4 @@ public class TestFtplet extends DefaultFtplet {
   public void setFoo(int foo) {
     this.foo = foo;
   }
-
 }

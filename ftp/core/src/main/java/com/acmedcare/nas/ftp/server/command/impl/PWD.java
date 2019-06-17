@@ -31,28 +31,23 @@ import com.acmedcare.nas.ftp.server.impl.LocalizedFtpReply;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>PWD  &lt;CRLF&gt;</code><br>
  *
- * <code>PWD  &lt;CRLF&gt;</code><br>
- * <p>
- * This command causes the name of the current working directory to be returned
- * in the reply.
+ * <p>This command causes the name of the current working directory to be returned in the reply.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class PWD extends AbstractCommand {
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
     session.resetState();
     FileSystemView fsview = session.getFileSystemView();
     String currDir = fsview.getWorkingDirectory().getAbsolutePath();
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_257_PATHNAME_CREATED, "PWD", currDir));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_257_PATHNAME_CREATED, "PWD", currDir));
   }
-
 }

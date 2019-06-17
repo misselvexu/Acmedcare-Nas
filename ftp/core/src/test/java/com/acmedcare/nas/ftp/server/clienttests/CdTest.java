@@ -21,16 +21,13 @@ package com.acmedcare.nas.ftp.server.clienttests;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class CdTest extends ClientTestTemplate {
   protected static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");
 
   protected static final File TEST_DIR2 = new File(ROOT_DIR, "dir2");
 
-  protected static final File TEST_DIR_WITH_LEADING_SPACE = new File(
-      ROOT_DIR, " leadingspace");
+  protected static final File TEST_DIR_WITH_LEADING_SPACE = new File(ROOT_DIR, " leadingspace");
 
   protected static final File TEST_DIR_IN_DIR1 = new File(TEST_DIR1, "dir3");
 
@@ -81,15 +78,15 @@ public class CdTest extends ClientTestTemplate {
     assertTrue(client.changeWorkingDirectory(".."));
     assertEquals("/", client.printWorkingDirectory());
 
-    assertTrue(client.changeWorkingDirectory(TEST_DIR1.getName() + '/'
-        + TEST_DIR_IN_DIR1.getName()));
+    assertTrue(
+        client.changeWorkingDirectory(TEST_DIR1.getName() + '/' + TEST_DIR_IN_DIR1.getName()));
     assertEquals("/dir1/dir3", client.printWorkingDirectory());
   }
 
   public void testCDUP() throws Exception {
 
-    assertTrue(client.changeWorkingDirectory(TEST_DIR1.getName() + '/'
-        + TEST_DIR_IN_DIR1.getName()));
+    assertTrue(
+        client.changeWorkingDirectory(TEST_DIR1.getName() + '/' + TEST_DIR_IN_DIR1.getName()));
     assertEquals("/dir1/dir3", client.printWorkingDirectory());
 
     assertTrue(client.changeToParentDirectory());
@@ -101,5 +98,4 @@ public class CdTest extends ClientTestTemplate {
     assertTrue(client.changeToParentDirectory());
     assertEquals("/", client.printWorkingDirectory());
   }
-
 }

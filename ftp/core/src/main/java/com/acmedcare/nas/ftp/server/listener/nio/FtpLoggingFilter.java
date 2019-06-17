@@ -26,34 +26,27 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Specialized @see {@link LoggingFilter} that optionally masks FTP passwords.
+ *
+ * <p>Specialized @see {@link LoggingFilter} that optionally masks FTP passwords.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class FtpLoggingFilter extends LoggingFilter {
 
+  private final Logger logger;
   private boolean maskPassword = true;
 
-  private final Logger logger;
-
-  /**
-   * @see LoggingFilter#LoggingFilter()
-   */
+  /** @see LoggingFilter#LoggingFilter() */
   public FtpLoggingFilter() {
     this(FtpLoggingFilter.class.getName());
   }
 
-  /**
-   * @see LoggingFilter#LoggingFilter(Class)
-   */
+  /** @see LoggingFilter#LoggingFilter(Class) */
   public FtpLoggingFilter(Class<?> clazz) {
     this(clazz.getName());
   }
 
-  /**
-   * @see LoggingFilter#LoggingFilter(String)
-   */
+  /** @see LoggingFilter#LoggingFilter(String) */
   public FtpLoggingFilter(String name) {
     super(name);
 
@@ -62,11 +55,11 @@ public class FtpLoggingFilter extends LoggingFilter {
 
   /**
    * @see LoggingFilter#messageReceived(org.apache.mina.core.filterchain.IoFilter.NextFilter,
-   * IoSession, Object)
+   *     IoSession, Object)
    */
   @Override
-  public void messageReceived(NextFilter nextFilter, IoSession session,
-                              Object message) throws Exception {
+  public void messageReceived(NextFilter nextFilter, IoSession session, Object message)
+      throws Exception {
     String request = (String) message;
 
     String logMessage;
@@ -102,5 +95,4 @@ public class FtpLoggingFilter extends LoggingFilter {
   public void setMaskPassword(boolean maskPassword) {
     this.maskPassword = maskPassword;
   }
-
 }

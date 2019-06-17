@@ -22,13 +22,11 @@ package com.acmedcare.nas.ftp.server.clienttests;
 import java.io.File;
 import java.util.regex.Pattern;
 
-
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class StatTest extends ClientTestTemplate {
 
-  private static final String PATTERN = "^-rw-------\\s\\s\\s1\\suser\\sgroup\\s{12}0\\s[A-Za-z0-9\\s]{6}\\s\\d\\d:\\d\\d\\stest\\d.txt$";
+  private static final String PATTERN =
+      "^-rw-------\\s\\s\\s1\\suser\\sgroup\\s{12}0\\s[A-Za-z0-9\\s]{6}\\s\\d\\d:\\d\\d\\stest\\d.txt$";
 
   private static final File TEST_DIR = new File(ROOT_DIR, "test");
   private static final File TEST_FILE1 = new File(TEST_DIR, "test1.txt");
@@ -71,5 +69,4 @@ public class StatTest extends ClientTestTemplate {
     assertEquals("Logged in as admin", reply[3]);
     assertEquals("211 End of status.", reply[4]);
   }
-
 }

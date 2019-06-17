@@ -19,14 +19,11 @@
 
 package com.acmedcare.nas.ftp.server.ssl;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class MinaImplicitSSLTest extends ImplicitSecurityTestTemplate {
 
   @Override
   protected String getAuthValue() {
     return "SSL";
   }
-
 }

@@ -30,12 +30,11 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
 /**
- * A utility class for returning translated messages. The utility method,
- * <code>translateMessage</code> also expands any variables in the message.
+ * A utility class for returning translated messages. The utility method, <code>translateMessage
+ * </code> also expands any variables in the message.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-
 public class FtpReplyTranslator {
 
   public static final String CLIENT_ACCESS_TIME = "client.access.time";
@@ -98,17 +97,21 @@ public class FtpReplyTranslator {
   /**
    * Returns the translated message.
    *
-   * @param session  the FTP session for which a reply is to be sent
-   * @param request  the FTP request object
-   * @param context  the FTP server context
-   * @param code     the reply code
-   * @param subId    the ID of the sub message
+   * @param session the FTP session for which a reply is to be sent
+   * @param request the FTP request object
+   * @param context the FTP server context
+   * @param code the reply code
+   * @param subId the ID of the sub message
    * @param basicMsg the basic message
    * @return the translated message
    */
-  public static String translateMessage(FtpIoSession session,
-                                        FtpRequest request, FtpServerContext context, int code, String subId,
-                                        String basicMsg) {
+  public static String translateMessage(
+      FtpIoSession session,
+      FtpRequest request,
+      FtpServerContext context,
+      int code,
+      String subId,
+      String basicMsg) {
     MessageResource resource = context.getMessageResource();
     String lang = session.getLanguage();
 
@@ -124,12 +127,14 @@ public class FtpReplyTranslator {
     return msg;
   }
 
-  /**
-   * Replace server variables.
-   */
-  private static String replaceVariables(FtpIoSession session,
-                                         FtpRequest request, FtpServerContext context, int code,
-                                         String basicMsg, String str) {
+  /** Replace server variables. */
+  private static String replaceVariables(
+      FtpIoSession session,
+      FtpRequest request,
+      FtpServerContext context,
+      int code,
+      String basicMsg,
+      String str) {
 
     int startIndex = 0;
     int openIndex = str.indexOf('{', startIndex);
@@ -146,8 +151,7 @@ public class FtpReplyTranslator {
     sb.append(str.substring(startIndex, openIndex));
     while (true) {
       String varName = str.substring(openIndex + 1, closeIndex);
-      sb.append(getVariableValue(session, request, context, code,
-          basicMsg, varName));
+      sb.append(getVariableValue(session, request, context, code, basicMsg, varName));
 
       startIndex = closeIndex + 1;
       openIndex = str.indexOf('{', startIndex);
@@ -166,12 +170,14 @@ public class FtpReplyTranslator {
     return sb.toString();
   }
 
-  /**
-   * Get the variable value.
-   */
-  private static String getVariableValue(FtpIoSession session,
-                                         FtpRequest request, FtpServerContext context, int code,
-                                         String basicMsg, String varName) {
+  /** Get the variable value. */
+  private static String getVariableValue(
+      FtpIoSession session,
+      FtpRequest request,
+      FtpServerContext context,
+      int code,
+      String basicMsg,
+      String varName) {
 
     String varVal = null;
 
@@ -206,11 +212,8 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get client variable value.
-   */
-  private static String getClientVariableValue(FtpIoSession session,
-                                               String varName) {
+  /** Get client variable value. */
+  private static String getClientVariableValue(FtpIoSession session, String varName) {
 
     String varVal = null;
 
@@ -264,11 +267,9 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get output variable value.
-   */
-  private static String getOutputVariableValue(FtpIoSession session,
-                                               int code, String basicMsg, String varName) {
+  /** Get output variable value. */
+  private static String getOutputVariableValue(
+      FtpIoSession session, int code, String basicMsg, String varName) {
     String varVal = null;
 
     // output code
@@ -284,11 +285,9 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get request variable value.
-   */
-  private static String getRequestVariableValue(FtpIoSession session,
-                                                FtpRequest request, String varName) {
+  /** Get request variable value. */
+  private static String getRequestVariableValue(
+      FtpIoSession session, FtpRequest request, String varName) {
 
     String varVal = null;
 
@@ -314,11 +313,8 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get server variable value.
-   */
-  private static String getServerVariableValue(FtpIoSession session,
-                                               String varName) {
+  /** Get server variable value. */
+  private static String getServerVariableValue(FtpIoSession session, String varName) {
 
     String varVal = null;
 
@@ -345,9 +341,7 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get statistical connection variable value.
-   */
+  /** Get statistical connection variable value. */
   private static String getStatisticalConnectionVariableValue(
       FtpIoSession session, FtpServerContext context, String varName) {
     String varVal = null;
@@ -366,9 +360,7 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get statistical directory variable value.
-   */
+  /** Get statistical directory variable value. */
   private static String getStatisticalDirectoryVariableValue(
       FtpIoSession session, FtpServerContext context, String varName) {
     String varVal = null;
@@ -387,11 +379,9 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get statistical file variable value.
-   */
-  private static String getStatisticalFileVariableValue(FtpIoSession session,
-                                                        FtpServerContext context, String varName) {
+  /** Get statistical file variable value. */
+  private static String getStatisticalFileVariableValue(
+      FtpIoSession session, FtpServerContext context, String varName) {
     String varVal = null;
     FtpStatistics stat = context.getFtpStatistics();
 
@@ -423,9 +413,7 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get statistical login variable value.
-   */
+  /** Get statistical login variable value. */
   private static String getStatisticalLoginVariableValue(
       FtpIoSession session, FtpServerContext context, String varName) {
     String varVal = null;
@@ -454,11 +442,9 @@ public class FtpReplyTranslator {
     return varVal;
   }
 
-  /**
-   * Get statistical variable value.
-   */
-  private static String getStatisticalVariableValue(FtpIoSession session,
-                                                    FtpServerContext context, String varName) {
+  /** Get statistical variable value. */
+  private static String getStatisticalVariableValue(
+      FtpIoSession session, FtpServerContext context, String varName) {
 
     String varVal = null;
     FtpStatistics stat = context.getFtpStatistics();
@@ -470,8 +456,7 @@ public class FtpReplyTranslator {
 
     // connection statistical variables
     else if (varName.startsWith("stat.con")) {
-      varVal = getStatisticalConnectionVariableValue(session, context,
-          varName);
+      varVal = getStatisticalConnectionVariableValue(session, context, varName);
     }
 
     // login statistical variables
@@ -486,11 +471,9 @@ public class FtpReplyTranslator {
 
     // directory statistical variable
     else if (varName.startsWith("stat.dir.")) {
-      varVal = getStatisticalDirectoryVariableValue(session, context,
-          varName);
+      varVal = getStatisticalDirectoryVariableValue(session, context, varName);
     }
 
     return varVal;
   }
-
 }

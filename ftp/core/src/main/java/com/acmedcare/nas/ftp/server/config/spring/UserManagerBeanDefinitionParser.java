@@ -29,13 +29,11 @@ import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 /**
- * Parses the FtpServer "file-user-manager" or "db-user-manager" elements into a
- * Spring bean graph
+ * Parses the FtpServer "file-user-manager" or "db-user-manager" elements into a Spring bean graph
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-public class UserManagerBeanDefinitionParser extends
-    AbstractSingleBeanDefinitionParser {
+public class UserManagerBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
   @Override
   protected Class<?> getBeanClass(final Element element) {
@@ -43,10 +41,10 @@ public class UserManagerBeanDefinitionParser extends
   }
 
   @Override
-  protected void doParse(final Element element,
-                         final ParserContext parserContext,
-                         final BeanDefinitionBuilder builder) {
-
+  protected void doParse(
+      final Element element,
+      final ParserContext parserContext,
+      final BeanDefinitionBuilder builder) {
 
     Class<?> factoryClass;
     if (element.getLocalName().equals("file-user-manager")) {
@@ -54,8 +52,8 @@ public class UserManagerBeanDefinitionParser extends
     } else {
       factoryClass = DbUserManagerFactory.class;
     }
-    BeanDefinitionBuilder factoryBuilder = BeanDefinitionBuilder.genericBeanDefinition(factoryClass);
-
+    BeanDefinitionBuilder factoryBuilder =
+        BeanDefinitionBuilder.genericBeanDefinition(factoryClass);
 
     // common for both user managers
     if (StringUtils.hasText(element.getAttribute("encrypt-passwords"))) {
@@ -78,37 +76,34 @@ public class UserManagerBeanDefinitionParser extends
         factoryBuilder.addPropertyValue("url", element.getAttribute("url"));
       }
     } else {
-      Element dsElm = SpringUtil.getChildElement(element,
-          FtpServerNamespaceHandler.FTPSERVER_NS, "data-source");
+      Element dsElm =
+          SpringUtil.getChildElement(
+              element, FtpServerNamespaceHandler.FTPSERVER_NS, "data-source");
 
       // schema ensure we get the right type of element
       Element springElm = SpringUtil.getChildElement(dsElm, null, null);
       Object o;
       if ("bean".equals(springElm.getLocalName())) {
-        o = parserContext.getDelegate().parseBeanDefinitionElement(
-            springElm, builder.getBeanDefinition());
+        o =
+            parserContext
+                .getDelegate()
+                .parseBeanDefinitionElement(springElm, builder.getBeanDefinition());
       } else {
         // ref
-        o = parserContext.getDelegate().parsePropertySubElement(
-            springElm, builder.getBeanDefinition());
-
+        o =
+            parserContext
+                .getDelegate()
+                .parsePropertySubElement(springElm, builder.getBeanDefinition());
       }
       factoryBuilder.addPropertyValue("dataSource", o);
 
-      factoryBuilder.addPropertyValue("sqlUserInsert", getSql(element,
-          "insert-user"));
-      factoryBuilder.addPropertyValue("sqlUserUpdate", getSql(element,
-          "update-user"));
-      factoryBuilder.addPropertyValue("sqlUserDelete", getSql(element,
-          "delete-user"));
-      factoryBuilder.addPropertyValue("sqlUserSelect", getSql(element,
-          "select-user"));
-      factoryBuilder.addPropertyValue("sqlUserSelectAll", getSql(element,
-          "select-all-users"));
-      factoryBuilder.addPropertyValue("sqlUserAdmin",
-          getSql(element, "is-admin"));
-      factoryBuilder.addPropertyValue("sqlUserAuthenticate", getSql(element,
-          "authenticate"));
+      factoryBuilder.addPropertyValue("sqlUserInsert", getSql(element, "insert-user"));
+      factoryBuilder.addPropertyValue("sqlUserUpdate", getSql(element, "update-user"));
+      factoryBuilder.addPropertyValue("sqlUserDelete", getSql(element, "delete-user"));
+      factoryBuilder.addPropertyValue("sqlUserSelect", getSql(element, "select-user"));
+      factoryBuilder.addPropertyValue("sqlUserSelectAll", getSql(element, "select-all-users"));
+      factoryBuilder.addPropertyValue("sqlUserAdmin", getSql(element, "is-admin"));
+      factoryBuilder.addPropertyValue("sqlUserAuthenticate", getSql(element, "authenticate"));
     }
 
     BeanDefinition factoryDefinition = factoryBuilder.getBeanDefinition();
@@ -120,11 +115,9 @@ public class UserManagerBeanDefinitionParser extends
     // set the factory on the listener bean
     builder.getRawBeanDefinition().setFactoryBeanName(factoryId);
     builder.getRawBeanDefinition().setFactoryMethodName("createUserManager");
-
   }
 
   private String getSql(final Element element, final String elmName) {
-    return SpringUtil.getChildElementText(element,
-        FtpServerNamespaceHandler.FTPSERVER_NS, elmName);
+    return SpringUtil.getChildElementText(element, FtpServerNamespaceHandler.FTPSERVER_NS, elmName);
   }
 }

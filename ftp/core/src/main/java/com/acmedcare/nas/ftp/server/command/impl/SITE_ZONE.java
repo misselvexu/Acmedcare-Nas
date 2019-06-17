@@ -33,21 +33,19 @@ import java.util.Date;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Displays the FTP server timezone in RFC 822 format.
+ *
+ * <p>Displays the FTP server timezone in RFC 822 format.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class SITE_ZONE extends AbstractCommand {
 
-  private final static SimpleDateFormat TIMEZONE_FMT = new SimpleDateFormat(
-      "Z");
+  private static final SimpleDateFormat TIMEZONE_FMT = new SimpleDateFormat("Z");
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variables
@@ -55,7 +53,6 @@ public class SITE_ZONE extends AbstractCommand {
 
     // send timezone data
     String timezone = TIMEZONE_FMT.format(new Date());
-    session.write(new DefaultFtpReply(FtpReply.REPLY_200_COMMAND_OKAY,
-        timezone));
+    session.write(new DefaultFtpReply(FtpReply.REPLY_200_COMMAND_OKAY, timezone));
   }
 }

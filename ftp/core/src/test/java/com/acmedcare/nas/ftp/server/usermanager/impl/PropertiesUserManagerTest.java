@@ -29,9 +29,7 @@ import com.acmedcare.nas.ftp.server.util.IoUtils;
 import java.io.*;
 import java.util.Properties;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class PropertiesUserManagerTest extends UserManagerTestTemplate {
 
   private static final File TEST_DIR = new File("test-tmp");
@@ -98,15 +96,23 @@ public class PropertiesUserManagerTest extends UserManagerTestTemplate {
     PropertiesUserManager pum = (PropertiesUserManager) userManager;
     pum.refresh();
     User modifiedUser = pum.getUserByName("user1");
-    assertEquals("Home directory should have been \"refresh_test\" after call to refresh().", "refresh_test", modifiedUser.getHomeDirectory());
+    assertEquals(
+        "Home directory should have been \"refresh_test\" after call to refresh().",
+        "refresh_test",
+        modifiedUser.getHomeDirectory());
     // set everything back again
     users.load(new FileInputStream(USERS_FILE));
     users.setProperty("ftpserver.user.user1.homedirectory", originalSetting);
     users.store(new FileOutputStream(USERS_FILE), null);
 
     pum.refresh();
-    //check everything is back again
+    // check everything is back again
     modifiedUser = pum.getUserByName("user1");
-    assertEquals("Home directory should have reset back to \"" + originalSetting + "\" after second call to refresh().", originalSetting, modifiedUser.getHomeDirectory());
+    assertEquals(
+        "Home directory should have reset back to \""
+            + originalSetting
+            + "\" after second call to refresh().",
+        originalSetting,
+        modifiedUser.getHomeDirectory());
   }
 }

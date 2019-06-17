@@ -24,8 +24,8 @@ import com.acmedcare.nas.ftp.server.ftplet.AuthorizationRequest;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * The max upload rate permission
+ *
+ * <p>The max upload rate permission
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -40,9 +40,7 @@ public class TransferRatePermission implements Authority {
     this.maxUploadRate = maxUploadRate;
   }
 
-  /**
-   * @see Authority#authorize(AuthorizationRequest)
-   */
+  /** @see Authority#authorize(AuthorizationRequest) */
   @Override
   public AuthorizationRequest authorize(AuthorizationRequest request) {
     if (request instanceof TransferRateRequest) {
@@ -57,9 +55,7 @@ public class TransferRatePermission implements Authority {
     }
   }
 
-  /**
-   * @see Authority#canAuthorize(AuthorizationRequest)
-   */
+  /** @see Authority#canAuthorize(AuthorizationRequest) */
   @Override
   public boolean canAuthorize(AuthorizationRequest request) {
     return request instanceof TransferRateRequest;

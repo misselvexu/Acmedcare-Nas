@@ -26,49 +26,49 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class BaseUserTest extends TestCase {
 
-  private static final Authority ALWAYS_ALLOW_AUTHORITY = new Authority() {
-    @Override
-    public AuthorizationRequest authorize(AuthorizationRequest request) {
-      return request;
-    }
+  private static final Authority ALWAYS_ALLOW_AUTHORITY =
+      new Authority() {
+        @Override
+        public AuthorizationRequest authorize(AuthorizationRequest request) {
+          return request;
+        }
 
-    @Override
-    public boolean canAuthorize(AuthorizationRequest request) {
-      return true;
-    }
-  };
+        @Override
+        public boolean canAuthorize(AuthorizationRequest request) {
+          return true;
+        }
+      };
 
-  private static final Authority NEVER_ALLOW_AUTHORITY = new Authority() {
-    @Override
-    public AuthorizationRequest authorize(AuthorizationRequest request) {
-      return null;
-    }
+  private static final Authority NEVER_ALLOW_AUTHORITY =
+      new Authority() {
+        @Override
+        public AuthorizationRequest authorize(AuthorizationRequest request) {
+          return null;
+        }
 
-    @Override
-    public boolean canAuthorize(AuthorizationRequest request) {
-      return true;
-    }
-  };
+        @Override
+        public boolean canAuthorize(AuthorizationRequest request) {
+          return true;
+        }
+      };
 
-  private static final Authority CANT_AUTHORITY = new Authority() {
-    @Override
-    public AuthorizationRequest authorize(AuthorizationRequest request) {
-      return null;
-    }
+  private static final Authority CANT_AUTHORITY =
+      new Authority() {
+        @Override
+        public AuthorizationRequest authorize(AuthorizationRequest request) {
+          return null;
+        }
 
-    @Override
-    public boolean canAuthorize(AuthorizationRequest request) {
-      return false;
-    }
-  };
+        @Override
+        public boolean canAuthorize(AuthorizationRequest request) {
+          return false;
+        }
+      };
 
-  private static final AuthorizationRequest REQUEST = new AuthorizationRequest() {
-  };
+  private static final AuthorizationRequest REQUEST = new AuthorizationRequest() {};
 
   private BaseUser user = new BaseUser();
 

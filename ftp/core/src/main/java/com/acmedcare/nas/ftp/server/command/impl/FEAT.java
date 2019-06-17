@@ -31,24 +31,24 @@ import java.io.IOException;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * The FEAT command (introduced in [RFC-2389]) allows servers with additional
- * features to advertise these to a client by responding to the FEAT command. If
- * a server supports the FEAT command then it MUST advertise supported AUTH,
- * PBSZ and PROT commands in the reply.
+ *
+ * <p>The FEAT command (introduced in [RFC-2389]) allows servers with additional features to
+ * advertise these to a client by responding to the FEAT command. If a server supports the FEAT
+ * command then it MUST advertise supported AUTH, PBSZ and PROT commands in the reply.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class FEAT extends AbstractCommand {
 
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     // reset state variables
     session.resetState();
 
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_211_SYSTEM_STATUS_REPLY, "FEAT", null));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_211_SYSTEM_STATUS_REPLY, "FEAT", null));
   }
 }

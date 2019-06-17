@@ -36,12 +36,12 @@ import java.net.UnknownHostException;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * The EPRT command allows for the specification of an extended address for the
- * data connection. The extended address MUST consist of the network protocol as
- * well as the network and transport addresses. The format of EPRT is:
- * <p>
- * EPRT<space><d><net-prt><d><net-addr><d><tcp-port><d>
+ *
+ * <p>The EPRT command allows for the specification of an extended address for the data connection.
+ * The extended address MUST consist of the network protocol as well as the network and transport
+ * addresses. The format of EPRT is:
+ *
+ * <p>EPRT<space><d><net-prt><d><net-addr><d><tcp-port><d>
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -49,11 +49,10 @@ public class EPRT extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(EPRT.class);
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {
 
     // reset state variables
@@ -62,18 +61,28 @@ public class EPRT extends AbstractCommand {
     // argument check
     String arg = request.getArgument();
     if (arg == null) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-          "EPRT", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "EPRT",
+              null));
       return;
     }
 
     // is port enabled
-    DataConnectionConfiguration dataCfg = session.getListener()
-        .getDataConnectionConfiguration();
+    DataConnectionConfiguration dataCfg = session.getListener().getDataConnectionConfiguration();
     if (!dataCfg.isActiveEnabled()) {
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS, "EPRT.disabled", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "EPRT.disabled",
+              null));
       return;
     }
 
@@ -87,8 +96,14 @@ public class EPRT extends AbstractCommand {
       port = arg.substring(lastDelimIdx + 1, arg.length() - 1);
     } catch (Exception ex) {
       LOG.debug("Exception parsing host and port: " + arg, ex);
-      session.write(LocalizedFtpReply.translate(session, request, context,
-          FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS, "EPRT", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "EPRT",
+              null));
       return;
     }
 
@@ -98,25 +113,30 @@ public class EPRT extends AbstractCommand {
       dataAddr = InetAddress.getByName(host);
     } catch (UnknownHostException ex) {
       LOG.debug("Unknown host: " + host, ex);
-      session
-          .write(LocalizedFtpReply
-              .translate(
-                  session,
-                  request,
-                  context,
-                  FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-                  "EPRT.host", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "EPRT.host",
+              null));
       return;
     }
 
     // check IP
     if (dataCfg.isActiveIpCheck()) {
       if (session.getRemoteAddress() instanceof InetSocketAddress) {
-        InetAddress clientAddr = ((InetSocketAddress) session
-            .getRemoteAddress()).getAddress();
+        InetAddress clientAddr = ((InetSocketAddress) session.getRemoteAddress()).getAddress();
         if (!dataAddr.equals(clientAddr)) {
-          session.write(LocalizedFtpReply.translate(session, request,
-              context, FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS, "EPRT.mismatch", null));
+          session.write(
+              LocalizedFtpReply.translate(
+                  session,
+                  request,
+                  context,
+                  FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+                  "EPRT.mismatch",
+                  null));
           return;
         }
       }
@@ -128,20 +148,20 @@ public class EPRT extends AbstractCommand {
       dataPort = Integer.parseInt(port);
     } catch (NumberFormatException ex) {
       LOG.debug("Invalid port: " + port, ex);
-      session
-          .write(LocalizedFtpReply
-              .translate(
-                  session,
-                  request,
-                  context,
-                  FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
-                  "EPRT.invalid", null));
+      session.write(
+          LocalizedFtpReply.translate(
+              session,
+              request,
+              context,
+              FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
+              "EPRT.invalid",
+              null));
       return;
     }
 
-    session.getDataConnection().initActiveDataConnection(
-        new InetSocketAddress(dataAddr, dataPort));
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_200_COMMAND_OKAY, "EPRT", null));
+    session.getDataConnection().initActiveDataConnection(new InetSocketAddress(dataAddr, dataPort));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_200_COMMAND_OKAY, "EPRT", null));
   }
 }

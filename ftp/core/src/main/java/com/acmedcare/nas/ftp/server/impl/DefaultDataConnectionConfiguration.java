@@ -25,13 +25,12 @@ import com.acmedcare.nas.ftp.server.ssl.SslConfiguration;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Data connection configuration.
+ *
+ * <p>Data connection configuration.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-public class DefaultDataConnectionConfiguration implements
-    DataConnectionConfiguration {
+public class DefaultDataConnectionConfiguration implements DataConnectionConfiguration {
 
   // maximum idle time in seconds
   private final int idleTime;
@@ -50,14 +49,21 @@ public class DefaultDataConnectionConfiguration implements
   private final boolean implicitSsl;
 
   /**
-   * Internal constructor, do not use directly. Use
-   * {@link DataConnectionConfigurationFactory} instead.
+   * Internal constructor, do not use directly. Use {@link DataConnectionConfigurationFactory}
+   * instead.
    */
-  public DefaultDataConnectionConfiguration(int idleTime,
-                                            SslConfiguration ssl, boolean activeEnabled, boolean activeIpCheck,
-                                            String activeLocalAddress, int activeLocalPort, String passiveAddress,
-                                            PassivePorts passivePorts, String passiveExternalAddress,
-                                            boolean passiveIpCheck, boolean implicitSsl) {
+  public DefaultDataConnectionConfiguration(
+      int idleTime,
+      SslConfiguration ssl,
+      boolean activeEnabled,
+      boolean activeIpCheck,
+      String activeLocalAddress,
+      int activeLocalPort,
+      String passiveAddress,
+      PassivePorts passivePorts,
+      String passiveExternalAddress,
+      boolean passiveIpCheck,
+      boolean implicitSsl) {
     this.idleTime = idleTime;
     this.ssl = ssl;
     this.activeEnabled = activeEnabled;
@@ -71,63 +77,57 @@ public class DefaultDataConnectionConfiguration implements
     this.implicitSsl = implicitSsl;
   }
 
-  /**
-   * Get the maximum idle time in seconds.
-   */
+  /** Get the maximum idle time in seconds. */
+  @Override
   public int getIdleTime() {
     return idleTime;
   }
 
-  /**
-   * Is PORT enabled?
-   */
+  /** Is PORT enabled? */
+  @Override
   public boolean isActiveEnabled() {
     return activeEnabled;
   }
 
-  /**
-   * Check the PORT IP?
-   */
+  /** Check the PORT IP? */
+  @Override
   public boolean isActiveIpCheck() {
     return activeIpCheck;
   }
 
-  /**
-   * Get the local address for active mode data transfer.
-   */
+  /** Get the local address for active mode data transfer. */
+  @Override
   public String getActiveLocalAddress() {
     return activeLocalAddress;
   }
 
-  /**
-   * Get the active local port number.
-   */
+  /** Get the active local port number. */
+  @Override
   public int getActiveLocalPort() {
     return activeLocalPort;
   }
 
-  /**
-   * Get passive host.
-   */
+  /** Get passive host. */
+  @Override
   public String getPassiveAddress() {
     return passiveAddress;
   }
 
-  /**
-   * Get external passive host.
-   */
+  /** Get external passive host. */
+  @Override
   public String getPassiveExernalAddress() {
     return passiveExternalAddress;
   }
 
+  @Override
   public boolean isPassiveIpCheck() {
     return passiveIpCheck;
   }
 
   /**
-   * Get passive data port. Data port number zero (0) means that any available
-   * port will be used.
+   * Get passive data port. Data port number zero (0) means that any available port will be used.
    */
+  @Override
   public synchronized int requestPassivePort() {
     return passivePorts.reserveNextPort();
   }
@@ -137,27 +137,25 @@ public class DefaultDataConnectionConfiguration implements
    *
    * @return The String of passive ports
    */
+  @Override
   public String getPassivePorts() {
     return passivePorts.toString();
   }
 
-  /**
-   * Release data port
-   */
+  /** Release data port */
+  @Override
   public synchronized void releasePassivePort(final int port) {
     passivePorts.releasePort(port);
   }
 
-  /**
-   * Get SSL component.
-   */
+  /** Get SSL component. */
+  @Override
   public SslConfiguration getSslConfiguration() {
     return ssl;
   }
 
-  /**
-   * @see DataConnectionConfiguration#isImplicitSsl()
-   */
+  /** @see DataConnectionConfiguration#isImplicitSsl() */
+  @Override
   public boolean isImplicitSsl() {
     return implicitSsl;
   }

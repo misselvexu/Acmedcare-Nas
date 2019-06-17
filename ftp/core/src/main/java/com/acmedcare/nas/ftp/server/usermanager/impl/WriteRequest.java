@@ -23,8 +23,8 @@ import com.acmedcare.nas.ftp.server.ftplet.AuthorizationRequest;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Class representing a write request
+ *
+ * <p>Class representing a write request
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -32,16 +32,13 @@ public class WriteRequest implements AuthorizationRequest {
 
   private String file;
 
-  /**
-   * Request write access to the user home directory (/)
-   */
+  /** Request write access to the user home directory (/) */
   public WriteRequest() {
     this("/");
   }
 
   /**
-   * Request write access to a file or directory relative to the user home
-   * directory
+   * Request write access to a file or directory relative to the user home directory
    *
    * @param file
    */
@@ -57,5 +54,4 @@ public class WriteRequest implements AuthorizationRequest {
   public String getFile() {
     return file;
   }
-
 }

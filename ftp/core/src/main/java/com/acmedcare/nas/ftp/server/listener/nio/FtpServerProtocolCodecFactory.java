@@ -29,14 +29,13 @@ import java.nio.charset.Charset;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Factory for creating decoders and encoders
+ *
+ * <p>Factory for creating decoders and encoders
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class FtpServerProtocolCodecFactory implements ProtocolCodecFactory {
-  private final ProtocolDecoder decoder = new TextLineDecoder(Charset
-      .forName("UTF-8"));
+  private final ProtocolDecoder decoder = new TextLineDecoder(Charset.forName("UTF-8"));
 
   private final ProtocolEncoder encoder = new FtpResponseEncoder();
 

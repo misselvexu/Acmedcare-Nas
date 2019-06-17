@@ -23,16 +23,15 @@ import com.acmedcare.nas.ftp.server.impl.DefaultFtpServer;
 import junit.framework.TestCase;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class PropertyPlaceholderTest extends TestCase {
 
   public void test() throws Throwable {
     System.setProperty("port2", "3333");
 
-    FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext(
-        "src/test/resources/spring-config/config-property-placeholder.xml");
+    FileSystemXmlApplicationContext ctx =
+        new FileSystemXmlApplicationContext(
+            "src/test/resources/spring-config/config-property-placeholder.xml");
 
     DefaultFtpServer server = (DefaultFtpServer) ctx.getBean("server");
 

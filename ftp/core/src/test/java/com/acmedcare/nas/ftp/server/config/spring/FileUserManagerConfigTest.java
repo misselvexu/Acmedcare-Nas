@@ -27,9 +27,7 @@ import com.acmedcare.nas.ftp.server.usermanager.impl.PropertiesUserManager;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class FileUserManagerConfigTest extends SpringConfigTestTemplate {
 
   private static final String USER_FILE_PATH = "src/test/resources/users.properties";
@@ -41,38 +39,48 @@ public class FileUserManagerConfigTest extends SpringConfigTestTemplate {
   }
 
   public void testFile() throws Throwable {
-    PropertiesUserManager um = createPropertiesUserManager("<file-user-manager file=\"" + USER_FILE_PATH + "\" />");
+    PropertiesUserManager um =
+        createPropertiesUserManager("<file-user-manager file=\"" + USER_FILE_PATH + "\" />");
     assertEquals(new File("src/test/resources/users.properties"), um.getFile());
   }
 
   public void testMd5PasswordEncryptor() throws Throwable {
-    PropertiesUserManager um = createPropertiesUserManager("<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"md5\" />");
+    PropertiesUserManager um =
+        createPropertiesUserManager(
+            "<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"md5\" />");
 
     assertTrue(um.getPasswordEncryptor() instanceof Md5PasswordEncryptor);
   }
 
   public void testTruePasswordEncryptor() throws Throwable {
-    PropertiesUserManager um = createPropertiesUserManager("<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"true\" />");
+    PropertiesUserManager um =
+        createPropertiesUserManager(
+            "<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"true\" />");
 
     assertTrue(um.getPasswordEncryptor() instanceof Md5PasswordEncryptor);
   }
 
   public void testNonePasswordEncryptor() throws Throwable {
-    PropertiesUserManager um = createPropertiesUserManager("<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"clear\" />");
+    PropertiesUserManager um =
+        createPropertiesUserManager(
+            "<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"clear\" />");
 
     assertTrue(um.getPasswordEncryptor() instanceof ClearTextPasswordEncryptor);
   }
 
   public void testSaltedPasswordEncryptor() throws Throwable {
-    PropertiesUserManager um = createPropertiesUserManager("<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"salted\" />");
+    PropertiesUserManager um =
+        createPropertiesUserManager(
+            "<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"salted\" />");
 
     assertTrue(um.getPasswordEncryptor() instanceof SaltedPasswordEncryptor);
   }
 
   public void testFalsePasswordEncryptor() throws Throwable {
-    PropertiesUserManager um = createPropertiesUserManager("<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"false\" />");
+    PropertiesUserManager um =
+        createPropertiesUserManager(
+            "<file-user-manager file=\"" + USER_FILE_PATH + "\" encrypt-passwords=\"false\" />");
 
     assertTrue(um.getPasswordEncryptor() instanceof ClearTextPasswordEncryptor);
   }
-
 }

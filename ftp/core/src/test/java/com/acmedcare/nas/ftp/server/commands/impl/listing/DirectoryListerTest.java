@@ -32,9 +32,7 @@ import junit.framework.TestCase;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class DirectoryListerTest extends TestCase {
   private static final File TEST_TMP_DIR = new File("test-tmp");
 
@@ -46,11 +44,9 @@ public class DirectoryListerTest extends TestCase {
 
   private static final File TEST_DIR2 = new File(ROOT_DIR, "dir2");
 
-  private static final File TEST_FILE1_IN_DIR1 = new File(TEST_DIR1,
-      "test3.txt");
+  private static final File TEST_FILE1_IN_DIR1 = new File(TEST_DIR1, "test3.txt");
 
-  private static final File TEST_FILE2_IN_DIR1 = new File(TEST_DIR1,
-      "test4.txt");
+  private static final File TEST_FILE2_IN_DIR1 = new File(TEST_DIR1, "test4.txt");
 
   private static final File TEST_DIR_IN_DIR1 = new File(TEST_DIR1, "dir3");
 
@@ -64,8 +60,7 @@ public class DirectoryListerTest extends TestCase {
   protected void setUp() throws Exception {
     BaseUser baseUser = new BaseUser();
     baseUser.setHomeDirectory(ROOT_DIR.getAbsolutePath());
-    fileSystemView = new NativeFileSystemView(baseUser) {
-    };
+    fileSystemView = new NativeFileSystemView(baseUser) {};
     directoryLister = new DirectoryLister();
 
     assertTrue(ROOT_DIR.mkdirs());
@@ -81,8 +76,7 @@ public class DirectoryListerTest extends TestCase {
     ListArgument arg = new ListArgument(TEST_DIR1.getName(), null, null);
     FileFormater formater = new NLSTFileFormater();
 
-    String actual = directoryLister
-        .listFiles(arg, fileSystemView, formater);
+    String actual = directoryLister.listFiles(arg, fileSystemView, formater);
 
     assertEquals("dir3\r\ntest3.txt\r\ntest4.txt\r\n", actual);
   }

@@ -39,8 +39,8 @@ public interface MessageResource {
   /**
    * Get the message for the corresponding code and sub id. If not found it will return null.
    *
-   * @param code     The reply code
-   * @param subId    The sub ID
+   * @param code The reply code
+   * @param subId The sub ID
    * @param language The language
    * @return The message matching the provided inputs, or null if not found
    */

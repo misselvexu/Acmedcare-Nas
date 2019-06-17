@@ -33,39 +33,37 @@ import java.util.List;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Common base class for listener implementations
+ *
+ * <p>Common base class for listener implementations
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public abstract class AbstractListener implements Listener {
 
   private final String serverAddress;
-
+  private final SslConfiguration ssl;
+  private final boolean implicitSsl;
+  private final int idleTimeout;
+  private final List<InetAddress> blockedAddresses;
+  private final List<Subnet> blockedSubnets;
+  private final SessionFilter sessionFilter;
+  private final DataConnectionConfiguration dataConnectionConfig;
   private int port = 21;
 
-  private final SslConfiguration ssl;
-
-  private final boolean implicitSsl;
-
-  private final int idleTimeout;
-
-  private final List<InetAddress> blockedAddresses;
-
-  private final List<Subnet> blockedSubnets;
-
-  private final SessionFilter sessionFilter;
-
-  private final DataConnectionConfiguration dataConnectionConfig;
-
   /**
-   * @deprecated Use the constructor with IpFilter instead.
-   * Constructor for internal use, do not use directly. Instead use {@link ListenerFactory}
+   * @deprecated Use the constructor with IpFilter instead. Constructor for internal use, do not use
+   *     directly. Instead use {@link ListenerFactory}
    */
   @Deprecated
-  public AbstractListener(String serverAddress, int port, boolean implicitSsl,
-                          SslConfiguration sslConfiguration, DataConnectionConfiguration dataConnectionConfig,
-                          int idleTimeout, List<InetAddress> blockedAddresses, List<Subnet> blockedSubnets) {
+  public AbstractListener(
+      String serverAddress,
+      int port,
+      boolean implicitSsl,
+      SslConfiguration sslConfiguration,
+      DataConnectionConfiguration dataConnectionConfig,
+      int idleTimeout,
+      List<InetAddress> blockedAddresses,
+      List<Subnet> blockedSubnets) {
     this.serverAddress = serverAddress;
     this.port = port;
     this.implicitSsl = implicitSsl;
@@ -77,13 +75,15 @@ public abstract class AbstractListener implements Listener {
     this.blockedSubnets = blockedSubnets;
   }
 
-  /**
-   * Constructor for internal use, do not use directly. Instead use {@link ListenerFactory}
-   */
-  public AbstractListener(String serverAddress, int port,
-                          boolean implicitSsl, SslConfiguration sslConfiguration,
-                          DataConnectionConfiguration dataConnectionConfig, int idleTimeout,
-                          SessionFilter sessionFilter) {
+  /** Constructor for internal use, do not use directly. Instead use {@link ListenerFactory} */
+  public AbstractListener(
+      String serverAddress,
+      int port,
+      boolean implicitSsl,
+      SslConfiguration sslConfiguration,
+      DataConnectionConfiguration dataConnectionConfig,
+      int idleTimeout,
+      SessionFilter sessionFilter) {
     this.serverAddress = serverAddress;
     this.port = port;
     this.implicitSsl = implicitSsl;
@@ -96,13 +96,11 @@ public abstract class AbstractListener implements Listener {
   }
 
   /**
-   * Creates a SessionFilter that blacklists the given IP addresses and/or
-   * Subnets.
+   * Creates a SessionFilter that blacklists the given IP addresses and/or Subnets.
    *
    * @param blockedAddresses the addresses to block
-   * @param blockedSubnets   the subnets to block
-   * @return a SessionFilter that blacklists the given IP addresses and/or
-   * Subnets.
+   * @param blockedSubnets the subnets to block
+   * @return a SessionFilter that blacklists the given IP addresses and/or Subnets.
    */
   private static SessionFilter createBlackListFilter(
       List<InetAddress> blockedAddresses, List<Subnet> blockedSubnets) {
@@ -122,16 +120,12 @@ public abstract class AbstractListener implements Listener {
     return ipFilter;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   public boolean isImplicitSsl() {
     return implicitSsl;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   public int getPort() {
     return port;
   }
@@ -145,30 +139,24 @@ public abstract class AbstractListener implements Listener {
     this.port = port;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   public String getServerAddress() {
     return serverAddress;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   public SslConfiguration getSslConfiguration() {
     return ssl;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   public DataConnectionConfiguration getDataConnectionConfiguration() {
     return dataConnectionConfig;
   }
 
   /**
-   * Get the number of seconds during which no network activity
-   * is allowed before a session is closed due to inactivity.
+   * Get the number of seconds during which no network activity is allowed before a session is
+   * closed due to inactivity.
    *
    * @return The idle time out
    */
@@ -177,8 +165,7 @@ public abstract class AbstractListener implements Listener {
   }
 
   /**
-   * Retrives the {@link InetAddress} for which this listener blocks
-   * connections
+   * Retrives the {@link InetAddress} for which this listener blocks connections
    *
    * @return The list of {@link InetAddress}es
    */

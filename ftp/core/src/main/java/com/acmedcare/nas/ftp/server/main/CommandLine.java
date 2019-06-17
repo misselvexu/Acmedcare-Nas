@@ -24,27 +24,24 @@ import com.acmedcare.nas.ftp.server.FtpServerFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
- * This class is the starting point for the FtpServer when it is started using
- * the command line mode.
+ * This class is the starting point for the FtpServer when it is started using the command line
+ * mode.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class CommandLine {
 
   /**
-   * The purpose of this class is to allow the final user to start the
-   * FtpServer application. Because of that it has only <code>static</code>
-   * methods and cannot be instanced.
+   * The purpose of this class is to allow the final user to start the FtpServer application.
+   * Because of that it has only <code>static</code> methods and cannot be instanced.
    */
-  protected CommandLine() {
-  }
+  protected CommandLine() {}
 
   /**
-   * This method is the FtpServer starting point when running by using the
-   * command line mode.
+   * This method is the FtpServer starting point when running by using the command line mode.
    *
-   * @param args The first element of this array must specify the kind of
-   *             configuration to be used to start the server.
+   * @param args The first element of this array must specify the kind of configuration to be used
+   *     to start the server.
    */
   public static void main(String args[]) {
 
@@ -68,44 +65,36 @@ public class CommandLine {
     }
   }
 
-  /**
-   * Add shutdown hook.
-   */
+  /** Add shutdown hook. */
   private void addShutdownHook(final FtpServer engine) {
 
     // create shutdown hook
-    Runnable shutdownHook = new Runnable() {
-      public void run() {
-        System.out.println("Stopping server...");
-        engine.stop();
-      }
-    };
+    Runnable shutdownHook =
+        new Runnable() {
+          public void run() {
+            System.out.println("Stopping server...");
+            engine.stop();
+          }
+        };
 
     // add shutdown hook
     Runtime runtime = Runtime.getRuntime();
     runtime.addShutdownHook(new Thread(shutdownHook));
   }
 
-  /**
-   * Print the usage message.
-   */
+  /** Print the usage message. */
   protected void usage() {
-    System.err
-        .println("Usage: java CommandLine [OPTION] [CONFIGFILE]");
-    System.err
-        .println("Starts FtpServer using the default configuration of the ");
+    System.err.println("Usage: java CommandLine [OPTION] [CONFIGFILE]");
+    System.err.println("Starts FtpServer using the default configuration of the ");
     System.err.println("configuration file if provided.");
     System.err.println("");
-    System.err
-        .println("      --default              use the default configuration, ");
-    System.err
-        .println("                             also used if no command line argument is given ");
+    System.err.println("      --default              use the default configuration, ");
+    System.err.println(
+        "                             also used if no command line argument is given ");
     System.err.println("  -?, --help                 print this message");
   }
 
-  /**
-   * Get the configuration object.
-   */
+  /** Get the configuration object. */
   protected FtpServer getConfiguration(String[] args) throws Exception {
 
     FtpServer server = null;
@@ -114,8 +103,7 @@ public class CommandLine {
       server = new FtpServerFactory().createServer();
     } else if ((args.length == 1) && args[0].equals("-default")) {
       // supported for backwards compatibility, but not documented
-      System.out
-          .println("The -default switch is deprecated, please use --default instead");
+      System.out.println("The -default switch is deprecated, please use --default instead");
       System.out.println("Using default configuration");
       server = new FtpServerFactory().createServer();
     } else if ((args.length == 1) && args[0].equals("--default")) {
@@ -126,10 +114,8 @@ public class CommandLine {
     } else if ((args.length == 1) && args[0].equals("-?")) {
       usage();
     } else if (args.length == 1) {
-      System.out.println("Using XML configuration file " + args[0]
-          + "...");
-      FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext(
-          args[0]);
+      System.out.println("Using XML configuration file " + args[0] + "...");
+      FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext(args[0]);
 
       if (ctx.containsBean("server")) {
         server = (FtpServer) ctx.getBean("server");
@@ -138,13 +124,11 @@ public class CommandLine {
         if (beanNames.length == 1) {
           server = (FtpServer) ctx.getBean(beanNames[0]);
         } else if (beanNames.length > 1) {
-          System.out
-              .println("Using the first server defined in the configuration, named "
-                  + beanNames[0]);
+          System.out.println(
+              "Using the first server defined in the configuration, named " + beanNames[0]);
           server = (FtpServer) ctx.getBean(beanNames[0]);
         } else {
-          System.err
-              .println("XML configuration does not contain a server configuration");
+          System.err.println("XML configuration does not contain a server configuration");
         }
       }
     } else {

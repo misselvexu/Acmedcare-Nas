@@ -21,9 +21,7 @@ package com.acmedcare.nas.ftp.server.clienttests;
 
 import com.acmedcare.nas.ftp.server.listener.nio.NioListener;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ConnectTest extends ClientTestTemplate {
 
   @Override
@@ -37,13 +35,10 @@ public class ConnectTest extends ClientTestTemplate {
   }
 
   public void testPort() throws Exception {
-    assertEquals(0, ((NioListener) server
-        .getListener("default")).getPort());
+    assertEquals(0, ((NioListener) server.getListener("default")).getPort());
 
     server.start();
 
-    assertTrue(((NioListener) server
-        .getListener("default")).getPort() > 0);
+    assertTrue(((NioListener) server.getListener("default")).getPort() > 0);
   }
-
 }

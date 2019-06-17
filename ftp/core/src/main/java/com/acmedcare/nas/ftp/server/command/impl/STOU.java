@@ -32,14 +32,11 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>STOU &lt;CRLF&gt;</code><br>
  *
- * <code>STOU &lt;CRLF&gt;</code><br>
- * <p>
- * This command behaves like STOR except that the resultant file is to be
- * created in the current directory under a name unique to that directory. The
- * 150 Transfer Started response must include the name generated, See RFC1123
- * section 4.1.2.9
+ * <p>This command behaves like STOR except that the resultant file is to be created in the current
+ * directory under a name unique to that directory. The 150 Transfer Started response must include
+ * the name generated, See RFC1123 section 4.1.2.9
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -47,11 +44,10 @@ public class STOU extends AbstractCommand {
 
   private final Logger LOG = LoggerFactory.getLogger(STOU.class);
 
-  /**
-   * Execute command.
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command. */
+  @Override
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException, FtpException {
 
     try {
@@ -59,12 +55,12 @@ public class STOU extends AbstractCommand {
       // https://issues.apache.org/jira/browse/FTPSERVER-110
       DataConnectionFactory connFactory = session.getDataConnection();
       if (connFactory instanceof IODataConnectionFactory) {
-        InetAddress address = ((IODataConnectionFactory) connFactory)
-            .getInetAddress();
+        InetAddress address = ((IODataConnectionFactory) connFactory).getInetAddress();
         if (address == null) {
-          session.write(new DefaultFtpReply(
-              FtpReply.REPLY_503_BAD_SEQUENCE_OF_COMMANDS,
-              "PORT or PASV must be issued first"));
+          session.write(
+              new DefaultFtpReply(
+                  FtpReply.REPLY_503_BAD_SEQUENCE_OF_COMMANDS,
+                  "PORT or PASV must be issued first"));
           return;
         }
       }
@@ -81,8 +77,7 @@ public class STOU extends AbstractCommand {
         if (pathName == null) {
           filePrefix = "ftp.dat";
         } else {
-          FtpFile dir = session.getFileSystemView().getFile(
-              pathName);
+          FtpFile dir = session.getFileSystemView().getFile(pathName);
           if (dir.isDirectory()) {
             filePrefix = pathName + "/ftp.dat";
           } else {
@@ -99,24 +94,35 @@ public class STOU extends AbstractCommand {
       }
 
       if (file == null) {
-        session.write(LocalizedDataTransferFtpReply.translate(session, request, context,
-            FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN, "STOU",
-            null, null));
+        session.write(
+            LocalizedDataTransferFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+                "STOU",
+                null,
+                null));
         return;
       }
       String fileName = file.getAbsolutePath();
 
       // check permission
       if (!file.isWritable()) {
-        session.write(LocalizedDataTransferFtpReply.translate(session, request, context,
-            FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
-            "STOU.permission", fileName, file));
+        session.write(
+            LocalizedDataTransferFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_550_REQUESTED_ACTION_NOT_TAKEN,
+                "STOU.permission",
+                fileName,
+                file));
         return;
       }
 
       // get data connection
-      session.write(new DefaultFtpReply(
-          FtpReply.REPLY_150_FILE_STATUS_OKAY, "FILE: " + fileName));
+      session.write(new DefaultFtpReply(FtpReply.REPLY_150_FILE_STATUS_OKAY, "FILE: " + fileName));
 
       // get data from client
       boolean failure = false;
@@ -127,9 +133,15 @@ public class STOU extends AbstractCommand {
         dataConnection = session.getDataConnection().openConnection();
       } catch (Exception e) {
         LOG.debug("Exception getting the input data stream", e);
-        session.write(LocalizedDataTransferFtpReply.translate(session, request, context,
-            FtpReply.REPLY_425_CANT_OPEN_DATA_CONNECTION, "STOU",
-            fileName, file));
+        session.write(
+            LocalizedDataTransferFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_425_CANT_OPEN_DATA_CONNECTION,
+                "STOU",
+                fileName,
+                file));
         return;
       }
 
@@ -151,8 +163,7 @@ public class STOU extends AbstractCommand {
         LOG.info("File uploaded {}", fileName);
 
         // notify the statistics component
-        ServerFtpStatistics ftpStat = (ServerFtpStatistics) context
-            .getFtpStatistics();
+        ServerFtpStatistics ftpStat = (ServerFtpStatistics) context.getFtpStatistics();
         if (ftpStat != null) {
           ftpStat.setUpload(session, file, transSz);
         }
@@ -160,20 +171,27 @@ public class STOU extends AbstractCommand {
       } catch (SocketException ex) {
         LOG.debug("Socket exception during data transfer", ex);
         failure = true;
-        session.write(LocalizedDataTransferFtpReply.translate(session, request, context,
-            FtpReply.REPLY_426_CONNECTION_CLOSED_TRANSFER_ABORTED,
-            "STOU", fileName, file));
+        session.write(
+            LocalizedDataTransferFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_426_CONNECTION_CLOSED_TRANSFER_ABORTED,
+                "STOU",
+                fileName,
+                file));
       } catch (IOException ex) {
         LOG.debug("IOException during data transfer", ex);
         failure = true;
-        session
-            .write(LocalizedDataTransferFtpReply
-                .translate(
-                    session,
-                    request,
-                    context,
-                    FtpReply.REPLY_551_REQUESTED_ACTION_ABORTED_PAGE_TYPE_UNKNOWN,
-                    "STOU", fileName, file));
+        session.write(
+            LocalizedDataTransferFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_551_REQUESTED_ACTION_ABORTED_PAGE_TYPE_UNKNOWN,
+                "STOU",
+                fileName,
+                file));
       } finally {
         // make sure we really close the output stream
         IoUtils.close(os);
@@ -181,34 +199,34 @@ public class STOU extends AbstractCommand {
 
       // if data transfer ok - send transfer complete message
       if (!failure) {
-        session.write(LocalizedDataTransferFtpReply.translate(session, request, context,
-            FtpReply.REPLY_226_CLOSING_DATA_CONNECTION, "STOU",
-            fileName, file, transSz));
-
+        session.write(
+            LocalizedDataTransferFtpReply.translate(
+                session,
+                request,
+                context,
+                FtpReply.REPLY_226_CLOSING_DATA_CONNECTION,
+                "STOU",
+                fileName,
+                file,
+                transSz));
       }
     } finally {
       session.getDataConnection().closeDataConnection();
     }
-
   }
 
-  /**
-   * Get unique file object.
-   */
-  //TODO may need synchronization
-  protected FtpFile getUniqueFile(FtpIoSession session, FtpFile oldFile)
-      throws FtpException {
+  /** Get unique file object. */
+  // TODO may need synchronization
+  protected FtpFile getUniqueFile(FtpIoSession session, FtpFile oldFile) throws FtpException {
     FtpFile newFile = oldFile;
     FileSystemView fsView = session.getFileSystemView();
     String fileName = newFile.getAbsolutePath();
     while (newFile.doesExist()) {
-      newFile = fsView.getFile(fileName + '.'
-          + System.currentTimeMillis());
+      newFile = fsView.getFile(fileName + '.' + System.currentTimeMillis());
       if (newFile == null) {
         break;
       }
     }
     return newFile;
   }
-
 }

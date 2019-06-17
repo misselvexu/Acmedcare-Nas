@@ -23,17 +23,13 @@ import org.apache.mina.core.filterchain.IoFilterAdapter;
 import org.apache.mina.core.session.IoSession;
 
 /**
- * A wrapper for <code>SessionFilter</code> so it can be added to the MINA
- * filter chain.
+ * A wrapper for <code>SessionFilter</code> so it can be added to the MINA filter chain.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
-
 public class MinaSessionFilter extends IoFilterAdapter {
 
-  /**
-   * The actual (or wrapped) <code>SessionFilter</code> used by this filter.
-   */
+  /** The actual (or wrapped) <code>SessionFilter</code> used by this filter. */
   private final SessionFilter filter;
 
   /**

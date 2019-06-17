@@ -23,32 +23,27 @@ import com.acmedcare.nas.ftp.server.util.DateUtils;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Formats files according to the MLST specification
+ *
+ * <p>Formats files according to the MLST specification
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class MLSTFileFormater implements FileFormater {
 
-  private static final String[] DEFAULT_TYPES = new String[]{"Size",
-      "Modify", "Type"};
+  private static final String[] DEFAULT_TYPES = new String[] {"Size", "Modify", "Type"};
 
-  private final static char[] NEWLINE = {'\r', '\n'};
+  private static final char[] NEWLINE = {'\r', '\n'};
 
   private String[] selectedTypes = DEFAULT_TYPES;
 
-  /**
-   * @param selectedTypes The types to show in the formated file
-   */
+  /** @param selectedTypes The types to show in the formated file */
   public MLSTFileFormater(String[] selectedTypes) {
     if (selectedTypes != null) {
       this.selectedTypes = selectedTypes.clone();
     }
   }
 
-  /**
-   * @see FileFormater#format(FtpFile)
-   */
+  /** @see FileFormater#format(FtpFile) */
   public String format(FtpFile file) {
     StringBuilder sb = new StringBuilder();
 

@@ -36,18 +36,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyStore;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public abstract class SSLTestTemplate extends ClientTestTemplate {
 
-  protected static final File FTPCLIENT_KEYSTORE = new File(TestUtil
-      .getBaseDir(), "src/test/resources/client.jks");
+  protected static final File FTPCLIENT_KEYSTORE =
+      new File(TestUtil.getBaseDir(), "src/test/resources/client.jks");
 
   protected static final String KEYSTORE_PASSWORD = "password";
 
-  private static final File FTPSERVER_KEYSTORE = new File(TestUtil
-      .getBaseDir(), "src/test/resources/ftpserver.jks");
+  private static final File FTPSERVER_KEYSTORE =
+      new File(TestUtil.getBaseDir(), "src/test/resources/ftpserver.jks");
 
   protected KeyManager clientKeyManager;
   protected TrustManager clientTrustManager;
@@ -97,13 +95,13 @@ public abstract class SSLTestTemplate extends ClientTestTemplate {
     fin.close();
 
     // initialize key manager factory
-    KeyManagerFactory keyManagerFactory = KeyManagerFactory
-        .getInstance(KeyManagerFactory.getDefaultAlgorithm());
+    KeyManagerFactory keyManagerFactory =
+        KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
     keyManagerFactory.init(store, KEYSTORE_PASSWORD.toCharArray());
 
     // initialize trust manager factory
-    TrustManagerFactory trustManagerFactory = TrustManagerFactory
-        .getInstance(TrustManagerFactory.getDefaultAlgorithm());
+    TrustManagerFactory trustManagerFactory =
+        TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
 
     trustManagerFactory.init(store);
 
@@ -113,14 +111,13 @@ public abstract class SSLTestTemplate extends ClientTestTemplate {
     ftpsClient.setKeyManager(clientKeyManager);
     ftpsClient.setTrustManager(clientTrustManager);
 
-
     String auth = getAuthValue();
     if (auth != null) {
       ftpsClient.setAuthValue(auth);
 
       if (auth.equals("SSL")) {
         // SSLv3 is disabled by default on the JBM JDK, therefore we need to enable it
-        ftpsClient.setEnabledProtocols(new String[]{"SSLv3"});
+        ftpsClient.setEnabledProtocols(new String[] {"SSLv3"});
       }
     }
     return ftpsClient;
@@ -139,5 +136,4 @@ public abstract class SSLTestTemplate extends ClientTestTemplate {
       IoUtils.close(fos);
     }
   }
-
 }

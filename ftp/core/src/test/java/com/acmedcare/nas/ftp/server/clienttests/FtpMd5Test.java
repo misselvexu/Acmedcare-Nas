@@ -27,19 +27,15 @@ import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class FtpMd5Test extends ClientTestTemplate {
   private static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
 
-  private static final File TEST_FILE_WITH_SPACE = new File(ROOT_DIR,
-      "test 2.txt");
+  private static final File TEST_FILE_WITH_SPACE = new File(ROOT_DIR, "test 2.txt");
 
   private static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");
 
-  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1,
-      "test4.txt");
+  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1, "test4.txt");
 
   private static byte[] testData = null;
 
@@ -130,8 +126,7 @@ public class FtpMd5Test extends ClientTestTemplate {
     TestUtil.writeDataToFile(TEST_FILE_IN_DIR1, testData);
     assertTrue(TEST_FILE_IN_DIR1.exists());
 
-    String fileName = TEST_DIR1.getName() + "/"
-        + TEST_FILE_IN_DIR1.getName();
+    String fileName = TEST_DIR1.getName() + "/" + TEST_FILE_IN_DIR1.getName();
 
     assertEquals(251, client.sendCommand("MD5 " + fileName));
 
@@ -150,14 +145,12 @@ public class FtpMd5Test extends ClientTestTemplate {
     assertTrue(TEST_FILE1.exists());
     assertTrue(TEST_FILE_WITH_SPACE.exists());
 
-    String fileNames = TEST_FILE1.getName() + ","
-        + TEST_FILE_WITH_SPACE.getName();
+    String fileNames = TEST_FILE1.getName() + "," + TEST_FILE_WITH_SPACE.getName();
 
     assertEquals(252, client.sendCommand("MMD5 " + fileNames));
 
     assertHash(testDataHash, client.getReplyString(), TEST_FILE1.getName());
-    assertHash(testData2Hash, client.getReplyString(), TEST_FILE_WITH_SPACE
-        .getName());
+    assertHash(testData2Hash, client.getReplyString(), TEST_FILE_WITH_SPACE.getName());
   }
 
   public void testMMd5SingleFile() throws Exception {

@@ -24,8 +24,8 @@ import com.acmedcare.nas.ftp.server.ftplet.AuthorizationRequest;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * The max upload rate permission
+ *
+ * <p>The max upload rate permission
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -35,33 +35,26 @@ public class ConcurrentLoginPermission implements Authority {
 
   private final int maxConcurrentLoginsPerIP;
 
-  public ConcurrentLoginPermission(int maxConcurrentLogins,
-                                   int maxConcurrentLoginsPerIP) {
+  public ConcurrentLoginPermission(int maxConcurrentLogins, int maxConcurrentLoginsPerIP) {
     this.maxConcurrentLogins = maxConcurrentLogins;
     this.maxConcurrentLoginsPerIP = maxConcurrentLoginsPerIP;
   }
 
-  /**
-   * @see Authority#authorize(AuthorizationRequest)
-   */
+  /** @see Authority#authorize(AuthorizationRequest) */
   @Override
   public AuthorizationRequest authorize(AuthorizationRequest request) {
     if (request instanceof ConcurrentLoginRequest) {
       ConcurrentLoginRequest concurrentLoginRequest = (ConcurrentLoginRequest) request;
 
       if (maxConcurrentLogins != 0
-          && maxConcurrentLogins < concurrentLoginRequest
-          .getConcurrentLogins()) {
+          && maxConcurrentLogins < concurrentLoginRequest.getConcurrentLogins()) {
         return null;
       } else if (maxConcurrentLoginsPerIP != 0
-          && maxConcurrentLoginsPerIP < concurrentLoginRequest
-          .getConcurrentLoginsFromThisIP()) {
+          && maxConcurrentLoginsPerIP < concurrentLoginRequest.getConcurrentLoginsFromThisIP()) {
         return null;
       } else {
-        concurrentLoginRequest
-            .setMaxConcurrentLogins(maxConcurrentLogins);
-        concurrentLoginRequest
-            .setMaxConcurrentLoginsPerIP(maxConcurrentLoginsPerIP);
+        concurrentLoginRequest.setMaxConcurrentLogins(maxConcurrentLogins);
+        concurrentLoginRequest.setMaxConcurrentLoginsPerIP(maxConcurrentLoginsPerIP);
 
         return concurrentLoginRequest;
       }
@@ -70,9 +63,7 @@ public class ConcurrentLoginPermission implements Authority {
     }
   }
 
-  /**
-   * @see Authority#canAuthorize(AuthorizationRequest)
-   */
+  /** @see Authority#canAuthorize(AuthorizationRequest) */
   @Override
   public boolean canAuthorize(AuthorizationRequest request) {
     return request instanceof ConcurrentLoginRequest;

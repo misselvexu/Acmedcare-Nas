@@ -24,9 +24,7 @@ import com.acmedcare.nas.ftp.server.message.MessageResourceFactory;
 
 import java.util.Arrays;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class LangTest extends ClientTestTemplate {
 
   /*
@@ -39,7 +37,7 @@ public class LangTest extends ClientTestTemplate {
     FtpServerFactory server = super.createServer();
 
     MessageResourceFactory factory = new MessageResourceFactory();
-    factory.setLanguages(Arrays.asList(new String[]{"en", "zh-tw"}));
+    factory.setLanguages(Arrays.asList(new String[] {"en", "zh-tw"}));
     server.setMessageResource(factory.createMessageResource());
 
     return server;
@@ -76,5 +74,4 @@ public class LangTest extends ClientTestTemplate {
   public void testLangUnknownLang() throws Exception {
     assertEquals(504, client.sendCommand("LANG FOO"));
   }
-
 }

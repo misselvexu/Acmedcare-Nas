@@ -58,7 +58,6 @@ public class MessageResourceFactory {
    *
    * @param languages The list of available languages
    */
-
   public void setLanguages(List<String> languages) {
     this.languages = languages;
   }

@@ -31,13 +31,12 @@ import java.security.GeneralSecurityException;
 public interface SslConfiguration {
 
   /**
-   * Returns the socket factory that can be used to create sockets using
-   * this <code>SslConfiguration</code>.
+   * Returns the socket factory that can be used to create sockets using this <code>SslConfiguration
+   * </code>.
    *
-   * @return the socket factory that can be used to create sockets using this
-   * <code>SslConfiguration</code>.
-   * @throws GeneralSecurityException if any error occurs while creating the
-   *                                  socket factory.
+   * @return the socket factory that can be used to create sockets using this <code>SslConfiguration
+   *     </code>.
+   * @throws GeneralSecurityException if any error occurs while creating the socket factory.
    */
   SSLSocketFactory getSocketFactory() throws GeneralSecurityException;
 
@@ -50,8 +49,7 @@ public interface SslConfiguration {
   SSLContext getSSLContext() throws GeneralSecurityException;
 
   /**
-   * Return the SSL context for this configuration given the specified
-   * protocol
+   * Return the SSL context for this configuration given the specified protocol
    *
    * @param protocol The protocol, SSL or TLS must be supported
    * @return The {@link SSLContext}
@@ -60,9 +58,8 @@ public interface SslConfiguration {
   SSLContext getSSLContext(String protocol) throws GeneralSecurityException;
 
   /**
-   * Returns the cipher suites that should be enabled for this connection.
-   * Must return null if the default (as decided by the JVM) cipher suites
-   * should be used.
+   * Returns the cipher suites that should be enabled for this connection. Must return null if the
+   * default (as decided by the JVM) cipher suites should be used.
    *
    * @return An array of cipher suites, or null.
    */
@@ -71,10 +68,9 @@ public interface SslConfiguration {
   /**
    * Return the required client authentication setting
    *
-   * @return {@link ClientAuth#NEED} if client authentication is required,
-   * {@link ClientAuth#WANT} is client authentication is wanted or
-   * {@link ClientAuth#NONE} if no client authentication is the be
-   * performed
+   * @return {@link ClientAuth#NEED} if client authentication is required, {@link ClientAuth#WANT}
+   *     is client authentication is wanted or {@link ClientAuth#NONE} if no client authentication
+   *     is the be performed
    */
   ClientAuth getClientAuth();
 }

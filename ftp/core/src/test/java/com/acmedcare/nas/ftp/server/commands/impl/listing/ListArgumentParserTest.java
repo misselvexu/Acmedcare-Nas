@@ -23,9 +23,7 @@ import com.acmedcare.nas.ftp.server.command.impl.listing.ListArgument;
 import com.acmedcare.nas.ftp.server.command.impl.listing.ListArgumentParser;
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class ListArgumentParserTest extends TestCase {
 
   public void testParseOnlyFile() {

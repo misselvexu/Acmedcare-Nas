@@ -21,9 +21,7 @@ package com.acmedcare.nas.ftp.server.impl;
 
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class FtpRequestImplTest extends TestCase {
 
   public void testCommandOnly() {

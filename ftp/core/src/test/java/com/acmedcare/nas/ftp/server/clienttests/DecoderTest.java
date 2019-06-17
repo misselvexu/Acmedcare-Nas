@@ -31,14 +31,10 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.MalformedInputException;
 
-
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>*
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>* */
 public class DecoderTest extends ClientTestTemplate {
-  private String dump = "4C 49 53 54 20 61 62 63 64 AE 2E 0D 0A".replace(" ", "");
-
   byte[] b;
+  private String dump = "4C 49 53 54 20 61 62 63 64 AE 2E 0D 0A".replace(" ", "");
 
   public DecoderTest() throws DecoderException {
     b = Hex.decodeHex(dump.toCharArray());
@@ -53,13 +49,6 @@ public class DecoderTest extends ClientTestTemplate {
       fail("Must throw MalformedInputException");
     } catch (MalformedInputException e) {
       // OK
-    }
-  }
-
-  private static class MyFTPClient extends FTPClient {
-    public void sendRawCommand(byte[] b) throws IOException {
-      OutputStream out = _socket_.getOutputStream();
-      out.write(b);
     }
   }
 
@@ -79,4 +68,10 @@ public class DecoderTest extends ClientTestTemplate {
     assertEquals(501, client.getReplyCode());
   }
 
+  private static class MyFTPClient extends FTPClient {
+    public void sendRawCommand(byte[] b) throws IOException {
+      OutputStream out = _socket_.getOutputStream();
+      out.write(b);
+    }
+  }
 }

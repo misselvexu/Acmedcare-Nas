@@ -28,9 +28,7 @@ import org.apache.mina.filter.firewall.Subnet;
 
 import java.net.InetAddress;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class IpFilterTest extends ClientTestTemplate {
 
   private RemoteIpFilter filter = new RemoteIpFilter(IpFilterType.DENY);

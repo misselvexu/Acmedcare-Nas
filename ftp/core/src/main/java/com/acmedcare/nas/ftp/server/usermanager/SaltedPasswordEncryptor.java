@@ -25,21 +25,20 @@ import com.acmedcare.nas.ftp.server.util.PasswordUtil;
 import java.security.SecureRandom;
 
 /**
- * Password encryptor that hashes a salt together with the password using MD5.
- * Using a salt protects against birthday attacks. The hashing is also made in
- * iterations, making lookup attacks much harder.
- * <p>
- * The algorithm is based on the principles described in
+ * Password encryptor that hashes a salt together with the password using MD5. Using a salt protects
+ * against birthday attacks. The hashing is also made in iterations, making lookup attacks much
+ * harder.
+ *
+ * <p>The algorithm is based on the principles described in
  * http://www.jasypt.org/howtoencryptuserpasswords.html
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class SaltedPasswordEncryptor implements PasswordEncryptor {
 
-  private SecureRandom rnd = new SecureRandom();
-
   private static final int MAX_SEED = 99999999;
   private static final int HASH_ITERATIONS = 1000;
+  private SecureRandom rnd = new SecureRandom();
 
   private String encrypt(String password, String salt) {
     String hash = salt + password;
@@ -50,8 +49,7 @@ public class SaltedPasswordEncryptor implements PasswordEncryptor {
   }
 
   /**
-   * Encrypts the password using a salt concatenated with the password and a
-   * series of MD5 steps.
+   * Encrypts the password using a salt concatenated with the password and a series of MD5 steps.
    */
   public String encrypt(String password) {
     String seed = Integer.toString(rnd.nextInt(MAX_SEED));
@@ -59,9 +57,7 @@ public class SaltedPasswordEncryptor implements PasswordEncryptor {
     return encrypt(password, seed);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   public boolean matches(String passwordToCheck, String storedPassword) {
     if (storedPassword == null) {
       throw new NullPointerException("storedPassword can not be null");
@@ -79,8 +75,7 @@ public class SaltedPasswordEncryptor implements PasswordEncryptor {
 
     String storedSalt = storedPassword.substring(0, divider);
 
-    return PasswordUtil.secureCompareFast(encrypt(passwordToCheck, storedSalt).toLowerCase(),
-        storedPassword.toLowerCase());
+    return PasswordUtil.secureCompareFast(
+        encrypt(passwordToCheck, storedSalt).toLowerCase(), storedPassword.toLowerCase());
   }
-
 }

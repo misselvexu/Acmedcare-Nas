@@ -29,21 +29,17 @@ import com.acmedcare.nas.ftp.server.impl.LocalizedFtpReply;
 import java.io.IOException;
 
 /**
- * <strong>Internal class, do not use directly.</strong>
+ * <strong>Internal class, do not use directly.</strong> <code>SYST &lt;CRLF&gt;</code><br>
  *
- * <code>SYST &lt;CRLF&gt;</code><br>
- * <p>
- * This command is used to find out the type of operating system at the server.
+ * <p>This command is used to find out the type of operating system at the server.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class SYST extends AbstractCommand {
 
-  /**
-   * Execute command
-   */
-  public void execute(final FtpIoSession session,
-                      final FtpServerContext context, final FtpRequest request)
+  /** Execute command */
+  public void execute(
+      final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {
 
     // reset state variables
@@ -58,8 +54,8 @@ public class SYST extends AbstractCommand {
       systemName = systemName.replace(' ', '-');
     }
     // print server system info
-    session.write(LocalizedFtpReply.translate(session, request, context,
-        FtpReply.REPLY_215_NAME_SYSTEM_TYPE, "SYST", systemName));
+    session.write(
+        LocalizedFtpReply.translate(
+            session, request, context, FtpReply.REPLY_215_NAME_SYSTEM_TYPE, "SYST", systemName));
   }
-
 }

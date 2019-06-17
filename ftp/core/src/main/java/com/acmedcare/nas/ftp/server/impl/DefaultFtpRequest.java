@@ -23,8 +23,8 @@ import com.acmedcare.nas.ftp.server.ftplet.FtpRequest;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * FTP request object.
+ *
+ * <p>FTP request object.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -36,20 +36,16 @@ public class DefaultFtpRequest implements FtpRequest {
 
   private final String argument;
 
-  /**
-   * timestamp when this request was received
-   */
+  /** timestamp when this request was received */
   private final long receivedTime;
 
-  /**
-   * Default constructor.
-   */
+  /** Default constructor. */
   public DefaultFtpRequest(final String requestLine) {
-    //Assuming we create the request as soon as we receive the command from
-    //the client, set the received time to current time. If we do a whole
-    //bunch of things after we receive the command from the client and
-    //before constructing this FtpRequest object, then this method is not
-    //going to be accurate and need to look for an alternative solution.
+    // Assuming we create the request as soon as we receive the command from
+    // the client, set the received time to current time. If we do a whole
+    // bunch of things after we receive the command from the client and
+    // before constructing this FtpRequest object, then this method is not
+    // going to be accurate and need to look for an alternative solution.
     this.receivedTime = System.currentTimeMillis();
     line = requestLine.trim();
     int spInd = line.indexOf(' ');
@@ -57,9 +53,7 @@ public class DefaultFtpRequest implements FtpRequest {
     argument = parseArg(line, spInd);
   }
 
-  /**
-   * Parse the ftp command line.
-   */
+  /** Parse the ftp command line. */
   private String parseCmd(final String lineToParse, int spInd) {
     String cmd = null;
     if (spInd != -1) {
@@ -84,38 +78,31 @@ public class DefaultFtpRequest implements FtpRequest {
     return arg;
   }
 
-  /**
-   * Get the ftp command.
-   */
+  /** Get the ftp command. */
   @Override
   public String getCommand() {
     return command;
   }
 
-  /**
-   * Get ftp input argument.
-   */
+  /** Get ftp input argument. */
   @Override
   public String getArgument() {
     return argument;
   }
 
-  /**
-   * Get the ftp request line.
-   */
+  /** Get the ftp request line. */
   @Override
   public String getRequestLine() {
     return line;
   }
 
-  /**
-   * Has argument.
-   */
+  /** Has argument. */
   @Override
   public boolean hasArgument() {
     return getArgument() != null;
   }
 
+  @Override
   public long getReceivedTime() {
     return receivedTime;
   }

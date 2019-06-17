@@ -24,25 +24,20 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class MFMTTest extends ClientTestTemplate {
   private static final File TEST_FILE1 = new File(ROOT_DIR, "test1.txt");
 
   private static final File TEST_DIR1 = new File(ROOT_DIR, "dir1");
 
-  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1,
-      "test4.txt");
+  private static final File TEST_FILE_IN_DIR1 = new File(TEST_DIR1, "test4.txt");
   private static final File TEST_FILE_BLANK_SPACES = new File(ROOT_DIR, "my test.txt");
-
 
   private static final Calendar EXPECTED_TIME = new GregorianCalendar(2002, 6, 17, 21, 7, 15);
 
   static {
     EXPECTED_TIME.setTimeZone(TimeZone.getTimeZone("GMT"));
   }
-
 
   @Override
   protected void setUp() throws Exception {
@@ -91,7 +86,6 @@ public class MFMTTest extends ClientTestTemplate {
     assertEquals(501, client.sendCommand("MFMT", "20021317 test1.txt"));
   }
 
-
   public void testNonExistingFile() throws Exception {
     // should return 550
     assertEquals(550, client.sendCommand("MFMT", "20020717210715 dummy.txt"));
@@ -101,7 +95,6 @@ public class MFMTTest extends ClientTestTemplate {
     // should return 550
     assertEquals(501, client.sendCommand("MFMT", "20020717210715 " + TEST_DIR1.getName()));
   }
-
 
   public void testFeatures() throws Exception {
     client.sendCommand("FEAT");
@@ -129,5 +122,4 @@ public class MFMTTest extends ClientTestTemplate {
 
     assertEquals(EXPECTED_TIME.getTimeInMillis(), TEST_FILE_BLANK_SPACES.lastModified());
   }
-
 }

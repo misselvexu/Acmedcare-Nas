@@ -26,9 +26,7 @@ import com.acmedcare.nas.ftp.server.test.TestUtil;
 
 import java.net.ServerSocket;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class PasvUsedPortTest extends ClientTestTemplate {
 
   private int passivePort;
@@ -37,8 +35,7 @@ public class PasvUsedPortTest extends ClientTestTemplate {
   protected FtpServerFactory createServer() throws Exception {
     FtpServerFactory server = super.createServer();
 
-    ListenerFactory listenerFactory = new ListenerFactory(server
-        .getListener("default"));
+    ListenerFactory listenerFactory = new ListenerFactory(server.getListener("default"));
 
     DataConnectionConfigurationFactory dccFactory = new DataConnectionConfigurationFactory();
 
@@ -46,8 +43,7 @@ public class PasvUsedPortTest extends ClientTestTemplate {
 
     dccFactory.setPassivePorts(passivePort + "-" + (passivePort + 1));
 
-    listenerFactory.setDataConnectionConfiguration(dccFactory
-        .createDataConnectionConfiguration());
+    listenerFactory.setDataConnectionConfiguration(dccFactory.createDataConnectionConfiguration());
 
     server.addListener("default", listenerFactory.createListener());
 

@@ -21,33 +21,27 @@ package com.acmedcare.nas.ftp.server.usermanager;
 
 import junit.framework.TestCase;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class UsernamePasswordAuthenticationTest extends TestCase {
 
   public void testConstructor() {
-    UsernamePasswordAuthentication auth = new UsernamePasswordAuthentication(
-        "user", "pass");
+    UsernamePasswordAuthentication auth = new UsernamePasswordAuthentication("user", "pass");
 
     assertEquals("user", auth.getUsername());
     assertEquals("pass", auth.getPassword());
   }
 
   public void testConstructorNullUsername() {
-    UsernamePasswordAuthentication auth = new UsernamePasswordAuthentication(
-        null, "pass");
+    UsernamePasswordAuthentication auth = new UsernamePasswordAuthentication(null, "pass");
 
     assertNull(auth.getUsername());
     assertEquals("pass", auth.getPassword());
   }
 
   public void testConstructorNullPassword() {
-    UsernamePasswordAuthentication auth = new UsernamePasswordAuthentication(
-        "user", null);
+    UsernamePasswordAuthentication auth = new UsernamePasswordAuthentication("user", null);
 
     assertEquals("user", auth.getUsername());
     assertNull(auth.getPassword());
   }
-
 }

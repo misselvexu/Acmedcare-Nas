@@ -19,9 +19,7 @@
 
 package com.acmedcare.nas.ftp.server.clienttests;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
 public class HelpTest extends ClientTestTemplate {
 
   /*
@@ -46,8 +44,7 @@ public class HelpTest extends ClientTestTemplate {
 
   public void testHelp() throws Exception {
     assertEquals(214, client.help());
-    assertTrue(client.getReplyString().indexOf(
-        "The following commands are implemented") > -1);
+    assertTrue(client.getReplyString().indexOf("The following commands are implemented") > -1);
   }
 
   public void testHelpForCWD() throws Exception {
@@ -62,7 +59,6 @@ public class HelpTest extends ClientTestTemplate {
 
   public void testHelpForUnknownCommand() throws Exception {
     assertEquals(214, client.help("foo"));
-    assertTrue(client.getReplyString().indexOf(
-        "The following commands are implemented") > -1);
+    assertTrue(client.getReplyString().indexOf("The following commands are implemented") > -1);
   }
 }

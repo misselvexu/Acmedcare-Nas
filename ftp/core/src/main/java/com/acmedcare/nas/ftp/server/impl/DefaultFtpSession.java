@@ -18,72 +18,54 @@ public class DefaultFtpSession implements FtpSession {
 
   private final FtpIoSession ioSession;
 
-  /**
-   * Default constructor.
-   */
+  /** Default constructor. */
   public DefaultFtpSession(final FtpIoSession ioSession) {
     this.ioSession = ioSession;
   }
 
-  /**
-   * Is logged-in
-   */
+  /** Is logged-in */
   @Override
   public boolean isLoggedIn() {
     return ioSession.isLoggedIn();
   }
 
-  /**
-   * Get FTP data connection.
-   */
+  /** Get FTP data connection. */
   @Override
   public DataConnectionFactory getDataConnection() {
     return ioSession.getDataConnection();
   }
 
-  /**
-   * Get file system view.
-   */
+  /** Get file system view. */
   @Override
   public FileSystemView getFileSystemView() {
     return ioSession.getFileSystemView();
   }
 
-  /**
-   * Get connection time.
-   */
+  /** Get connection time. */
   @Override
   public Date getConnectionTime() {
     return new Date(ioSession.getCreationTime());
   }
 
-  /**
-   * Get the login time.
-   */
+  /** Get the login time. */
   @Override
   public Date getLoginTime() {
     return ioSession.getLoginTime();
   }
 
-  /**
-   * Get last access time.
-   */
+  /** Get last access time. */
   @Override
   public Date getLastAccessTime() {
     return ioSession.getLastAccessTime();
   }
 
-  /**
-   * Get file offset.
-   */
+  /** Get file offset. */
   @Override
   public long getFileOffset() {
     return ioSession.getFileOffset();
   }
 
-  /**
-   * Get rename from file object.
-   */
+  /** Get rename from file object. */
   @Override
   public FtpFile getRenameFrom() {
     return ioSession.getRenameFrom();
@@ -99,25 +81,19 @@ public class DefaultFtpSession implements FtpSession {
     return ioSession.getUserArgument();
   }
 
-  /**
-   * Get language.
-   */
+  /** Get language. */
   @Override
   public String getLanguage() {
     return ioSession.getLanguage();
   }
 
-  /**
-   * Get user.
-   */
+  /** Get user. */
   @Override
   public User getUser() {
     return ioSession.getUser();
   }
 
-  /**
-   * Get remote address
-   */
+  /** Get remote address */
   @Override
   public InetSocketAddress getClientAddress() {
     if (ioSession.getRemoteAddress() instanceof InetSocketAddress) {
@@ -127,9 +103,7 @@ public class DefaultFtpSession implements FtpSession {
     }
   }
 
-  /**
-   * Get attribute
-   */
+  /** Get attribute */
   @Override
   public Object getAttribute(final String name) {
     if (name.startsWith(FtpIoSession.ATTRIBUTE_PREFIX)) {
@@ -139,9 +113,7 @@ public class DefaultFtpSession implements FtpSession {
     return ioSession.getAttribute(name);
   }
 
-  /**
-   * Set attribute.
-   */
+  /** Set attribute. */
   @Override
   public void setAttribute(final String name, final Object value) {
     if (name.startsWith(FtpIoSession.ATTRIBUTE_PREFIX)) {
@@ -161,17 +133,13 @@ public class DefaultFtpSession implements FtpSession {
     ioSession.setMaxIdleTime(maxIdleTime);
   }
 
-  /**
-   * Get the data type.
-   */
+  /** Get the data type. */
   @Override
   public DataType getDataType() {
     return ioSession.getDataType();
   }
 
-  /**
-   * Get structure.
-   */
+  /** Get structure. */
   @Override
   public Structure getStructure() {
     return ioSession.getStructure();
@@ -234,9 +202,7 @@ public class DefaultFtpSession implements FtpSession {
     ioSession.increaseReadDataBytes(increment);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public UUID getSessionId() {
     return ioSession.getSessionId();

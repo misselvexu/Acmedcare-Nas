@@ -38,10 +38,9 @@ import java.util.Map;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * This is the starting point of all the servers. It invokes a new listener
- * thread. <code>Server</code> implementation is used to create the server
- * socket and handle client connection.
+ *
+ * <p>This is the starting point of all the servers. It invokes a new listener thread. <code>Server
+ * </code> implementation is used to create the server socket and handle client connection.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -55,9 +54,7 @@ public class DefaultFtpServer implements FtpServer {
 
   private boolean started = false;
 
-  /**
-   * Internal constructor, do not use directly. Use {@link FtpServerFactory} instead
-   */
+  /** Internal constructor, do not use directly. Use {@link FtpServerFactory} instead */
   public DefaultFtpServer(final FtpServerContext serverContext) {
     this.serverContext = serverContext;
   }
@@ -100,13 +97,12 @@ public class DefaultFtpServer implements FtpServer {
       } else {
         throw (RuntimeException) e;
       }
-
     }
   }
 
   /**
-   * Stop the server. Stopping the server will close completely and
-   * it not supported to restart using {@link #start()}.
+   * Stop the server. Stopping the server will close completely and it not supported to restart
+   * using {@link #start()}.
    */
   @Override
   public void stop() {
@@ -133,17 +129,13 @@ public class DefaultFtpServer implements FtpServer {
     started = false;
   }
 
-  /**
-   * Get the server status.
-   */
+  /** Get the server status. */
   @Override
   public boolean isStopped() {
     return !started;
   }
 
-  /**
-   * Suspend further requests
-   */
+  /** Suspend further requests */
   @Override
   public void suspend() {
     if (!started) {
@@ -161,9 +153,7 @@ public class DefaultFtpServer implements FtpServer {
     LOG.debug("Server suspended");
   }
 
-  /**
-   * Resume the server handler
-   */
+  /** Resume the server handler */
   @Override
   public void resume() {
     if (!suspended) {
@@ -180,16 +170,13 @@ public class DefaultFtpServer implements FtpServer {
     LOG.debug("Server resumed");
   }
 
-  /**
-   * Is the server suspended
-   */
+  /** Is the server suspended */
+  @Override
   public boolean isSuspended() {
     return suspended;
   }
 
-  /**
-   * Get the root server context.
-   */
+  /** Get the root server context. */
   public FtpServerContext getServerContext() {
     return serverContext;
   }

@@ -19,11 +19,8 @@
 
 package com.acmedcare.nas.ftp.server.ssl;
 
-/**
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
-public abstract class ImplicitSecurityTestTemplate extends
-    ExplicitSecurityTestTemplate {
+/** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a> */
+public abstract class ImplicitSecurityTestTemplate extends ExplicitSecurityTestTemplate {
 
   @Override
   protected boolean useImplicit() {

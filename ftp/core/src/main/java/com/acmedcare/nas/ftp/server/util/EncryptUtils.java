@@ -24,17 +24,15 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * String encryption utility methods.
+ *
+ * <p>String encryption utility methods.
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
 public class EncryptUtils {
 
-  /**
-   * Encrypt byte array.
-   */
-  public final static byte[] encrypt(byte[] source, String algorithm)
+  /** Encrypt byte array. */
+  public static final byte[] encrypt(byte[] source, String algorithm)
       throws NoSuchAlgorithmException {
     MessageDigest md = MessageDigest.getInstance(algorithm);
     md.reset();
@@ -42,19 +40,15 @@ public class EncryptUtils {
     return md.digest();
   }
 
-  /**
-   * Encrypt string
-   */
-  public final static String encrypt(String source, String algorithm)
+  /** Encrypt string */
+  public static final String encrypt(String source, String algorithm)
       throws NoSuchAlgorithmException {
     byte[] resByteArray = encrypt(source.getBytes(), algorithm);
     return StringUtils.toHexString(resByteArray);
   }
 
-  /**
-   * Encrypt string using MD5 algorithm
-   */
-  public final static String encryptMD5(String source) {
+  /** Encrypt string using MD5 algorithm */
+  public static final String encryptMD5(String source) {
     if (source == null) {
       source = "";
     }
@@ -69,10 +63,8 @@ public class EncryptUtils {
     return result;
   }
 
-  /**
-   * Encrypt string using SHA algorithm
-   */
-  public final static String encryptSHA(String source) {
+  /** Encrypt string using SHA algorithm */
+  public static final String encryptSHA(String source) {
     if (source == null) {
       source = "";
     }
@@ -86,5 +78,4 @@ public class EncryptUtils {
     }
     return result;
   }
-
 }

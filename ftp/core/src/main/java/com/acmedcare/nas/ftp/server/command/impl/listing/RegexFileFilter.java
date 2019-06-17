@@ -23,8 +23,8 @@ import com.acmedcare.nas.ftp.server.util.RegularExpr;
 
 /**
  * <strong>Internal class, do not use directly.</strong>
- * <p>
- * Selects files which short name matches a regular expression
+ *
+ * <p>Selects files which short name matches a regular expression
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  */
@@ -46,7 +46,7 @@ public class RegexFileFilter implements FileFilter {
   /**
    * Constructor with a wrapped filter, allows for chaining filters
    *
-   * @param regex         The regular expression to select by
+   * @param regex The regular expression to select by
    * @param wrappedFilter The {@link FileFilter} to wrap
    */
   public RegexFileFilter(String regex, FileFilter wrappedFilter) {
@@ -54,9 +54,7 @@ public class RegexFileFilter implements FileFilter {
     this.wrappedFilter = wrappedFilter;
   }
 
-  /**
-   * @see FileFilter#accept(FtpFile)
-   */
+  /** @see FileFilter#accept(FtpFile) */
   public boolean accept(FtpFile file) {
     if (wrappedFilter != null && !wrappedFilter.accept(file)) {
       return false;
@@ -64,5 +62,4 @@ public class RegexFileFilter implements FileFilter {
 
     return regex.isMatch(file.getName());
   }
-
 }
