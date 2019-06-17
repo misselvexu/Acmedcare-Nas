@@ -349,7 +349,6 @@
         <module>common</module>
         <module>console</module>
         <module>ftp</module>
-        <module>ftp-cluster</module>
         <module>server</module>
         <module>distribution</module>
         <module>test</module>
