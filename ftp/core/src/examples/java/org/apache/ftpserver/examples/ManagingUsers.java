@@ -19,13 +19,13 @@ package org.apache.ftpserver.examples;
  * under the License.
  */
 
-import java.io.File;
-
 import org.apache.ftpserver.ftplet.User;
 import org.apache.ftpserver.ftplet.UserManager;
 import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
 import org.apache.ftpserver.usermanager.SaltedPasswordEncryptor;
 import org.apache.ftpserver.usermanager.UserFactory;
+
+import java.io.File;
 
 /**
 * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>*

@@ -19,13 +19,13 @@ package org.apache.ftpserver.examples;
  * under the License.
  */
 
-import java.io.File;
-
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.listener.ListenerFactory;
 import org.apache.ftpserver.ssl.SslConfigurationFactory;
 import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
+
+import java.io.File;
 
 /*
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
