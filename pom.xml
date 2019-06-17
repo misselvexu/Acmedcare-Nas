@@ -356,6 +356,7 @@
         <module>spring</module>
         <module>samples</module>
         <module>meta</module>
+        <module>sync</module>
     </modules>
 
     <!-- 所有的子项目默认依赖 -->
