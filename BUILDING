@@ -36,3 +36,10 @@ Build Instructions for NAS
 
 	#build nas
     $ mvn -Prelease-nas -DskipTests clean install -U
+
+(5) Build docker images
+
+    Execute the following command in order to build the docker.images packages and install push into docker registry :
+
+    #build images
+    $ mvn docker:build
