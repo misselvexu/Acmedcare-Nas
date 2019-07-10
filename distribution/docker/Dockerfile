@@ -2,7 +2,13 @@
 # Build with:
 # docker build -t nas-server .
 # Run with:
-# docker run -p 18848:18848 --net docker-br0 --ip 172.172.1.109 --add-host nas.acmedcare.com:172.172.1.109 --add-host node1.fs.acmedcare.com:172.172.0.103 --add-host node2.fs.acmedcare.com:172.172.0.104 --add-host node3.fs.acmedcare.com:172.172.0.103 --add-host nacos.acmedcare.com:172.172.1.3 --add-host trace.acmedcare.com:192.168.1.151 --add-host gateway.acmedcare.com:172.172.1.108 -d -v /tmp/logs:/tmp/logs -v /tmp/logs/nas-server:/nas-server/nas/logs --name nas-server docker.apiacmed.com/library/nas-server:2.1.1.BUILD-SNAPSHOT
+# docker run -p 18848:18848 --net docker-br0 --ip 172.172.1.109 --env NAS_TARGET_NODES=http://192.168.1.159:9333,http://192.168.1.159:9334,http://192.168.1.159:9335 --env NAS_HOST=192.168.1.151 --add-host nas.acmedcare.com:172.172.1.109 --add-host nacos.acmedcare.com:172.172.1.3 --add-host trace.acmedcare.com:192.168.1.151 --add-host gateway.acmedcare.com:172.172.1.108 -d -v /tmp/logs:/tmp/logs -v /tmp/logs/nas-server:/nas-server/nas/logs --name nas-server docker.apiacmed.com/library/nas-server:2.1.1.BUILD-SNAPSHOT
+#
+# --env NAS_TARGET_NODES=http://192.168.1.159:9333,http://192.168.1.159:9334,http://192.168.1.159:9335 --env NAS_HOST=192.168.1.151
+#
+#
+#
+#
 #
 FROM docker.apiacmed.com/env/openjdk-acmed:8-jre-alpine
 MAINTAINER Elve.Xu <iskp.me@gmail.com>
