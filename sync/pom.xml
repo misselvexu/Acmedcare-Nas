@@ -15,8 +15,8 @@
 
     <packaging>jar</packaging>
 
-    <name>nas-sync ${project.version}</name>
-    <url>http://maven.apache.org</url>
+    <name>Acmedcare+ Nas Sync Module :: ${project.version}</name>
+    <url>http://www.acmedcare.com</url>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>

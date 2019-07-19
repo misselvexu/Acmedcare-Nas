@@ -15,8 +15,8 @@
 
     <packaging>pom</packaging>
 
-    <name>nas-exts-parent ${project.version}</name>
-    <url>http://maven.apache.org</url>
+    <name>Acmedcare+ Nas Exts Parent Module :: ${project.version}</name>
+    <url>http://www.acmedcare.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -15,8 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>nas-ftp-master ${project.version}</name>
-    <url>http://maven.apache.org</url>
+    <name>Acmedcare+ Nas Ftp Cluster Master Module :: ${project.version}</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

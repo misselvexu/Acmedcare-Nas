@@ -15,8 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>nas-server ${project.version}</name>
-    <url>http://maven.apache.org</url>
+    <name>Acmedcare+ Nas Server Module :: ${project.version}</name>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>

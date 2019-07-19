@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>nas-all</artifactId>
         <groupId>com.acmedcare.nas</groupId>
@@ -10,10 +10,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>nas-fs</artifactId>
+    <artifactId>Acmedcare+ Nas FS Module :: ${project.version}</artifactId>
     <version>2.1.1.BUILD-SNAPSHOT</version>
 
-    <name>nas-fs</name>
+    <name>Acmedcare+ Nas Core FS Module :: ${project.version}</name>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
