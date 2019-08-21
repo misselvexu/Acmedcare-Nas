@@ -13,8 +13,7 @@
     <artifactId>nas-console</artifactId>
     <packaging>jar</packaging>
 
-    <name>nas-console ${project.version}</name>
-    <url>http://maven.apache.org</url>
+    <name>Acmedcare+ Nas Console :: ${project.version}</name>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>

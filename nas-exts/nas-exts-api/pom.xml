@@ -15,8 +15,8 @@
 
     <packaging>jar</packaging>
 
-    <name>nas-exts-api ${project.version}</name>
-    <url>http://maven.apache.org</url>
+    <name>Acmedcare+ Nas Exts Api Module :: ${project.version}</name>
+    <url>http://www.acmedcare.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

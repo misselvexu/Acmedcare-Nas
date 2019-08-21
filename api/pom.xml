@@ -15,8 +15,7 @@
 
     <packaging>jar</packaging>
 
-    <name>nas-api ${project.version}</name>
-    <url>http://maven.apache.org</url>
+    <name>Acmedcare+ Nas Api Module :: ${project.version}</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

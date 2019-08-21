@@ -15,7 +15,7 @@
 
     <packaging>pom</packaging>
 
-    <name>nas-spring ${project.version}</name>
+    <name>Acmedcare+ Nas Spring Module :: ${project.version}</name>
 
     <modules>
         <module>nas-client-spring-starter</module>
