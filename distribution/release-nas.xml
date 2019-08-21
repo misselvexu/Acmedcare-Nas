@@ -18,10 +18,17 @@
 
 		<fileSet>
 			<includes>
+				<include>logs/**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<includes>
 				<include>bin/*</include>
 			</includes>
 			<fileMode>0755</fileMode>
 		</fileSet>
+
 	</fileSets>
 	<files>
 		<file>

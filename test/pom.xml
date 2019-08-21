@@ -53,6 +53,7 @@
             <dependency>
                 <groupId>com.acmedcare.nas</groupId>
                 <artifactId>nas-exts-parent</artifactId>
+                <version>${project.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

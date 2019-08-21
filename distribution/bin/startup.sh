@@ -66,15 +66,10 @@ fi
 
 echo "$JAVA ${JAVA_OPT}"
 
-if [[ "${MODE}" == "standalone" ]]; then
-    echo "nas is starting"
-    $JAVA ${JAVA_OPT}
-else
-    if [ ! -f "${BASE_DIR}/logs/start.out" ]; then
-        touch "${BASE_DIR}/logs/start.out"
-    fi
-
-    echo "$JAVA ${JAVA_OPT}" > ${BASE_DIR}/logs/start.out 2>&1 &
-    nohup $JAVA ${JAVA_OPT} >> ${BASE_DIR}/logs/start.out 2>&1 &
-    echo "nas is starting，you can check the ${BASE_DIR}/logs/start.out"
+if [ ! -f "${BASE_DIR}/logs/start.out" ]; then
+    touch "${BASE_DIR}/logs/start.out"
 fi
+
+echo "$JAVA ${JAVA_OPT}" > ${BASE_DIR}/logs/start.out 2>&1 &
+nohup $JAVA ${JAVA_OPT} >> ${BASE_DIR}/logs/start.out 2>&1 &
+echo "nas is starting，you can check the ${BASE_DIR}/logs/start.out"

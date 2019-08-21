@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <inceptionYear>2018</inceptionYear>
@@ -58,6 +58,7 @@
         <!-- Maven properties -->
         <maven.test.skip>false</maven.test.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
+
         <spring-boot.version>2.0.5.RELEASE</spring-boot.version>
         <!-- Compiler settings properties -->
         <maven.compiler.source>1.6</maven.compiler.source>
@@ -349,7 +350,6 @@
         <module>common</module>
         <module>console</module>
         <module>ftp</module>
-        <module>ftp-cluster</module>
         <module>server</module>
         <module>distribution</module>
         <module>test</module>
@@ -358,6 +358,7 @@
         <module>spring</module>
         <module>samples</module>
         <module>meta</module>
+        <module>sync</module>
     </modules>
 
     <!-- 所有的子项目默认依赖 -->

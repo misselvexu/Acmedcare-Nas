@@ -28,9 +28,9 @@ public class NasClientSpringBootSampleTest {
 
     UploadEntity uploadEntity =
         nasClient.upload(
-            "GFS-REFERENCE-2003",
-            "pdf",
-            "/Users/misselvexu/Documents/acmedcare.gitlab.com/Acmedcare-Nas/GFS-REFERENCE-2003.pdf",
+            "draw.io-9.3.1",
+            "dmg",
+            "/Users/misselvexu/Downloads/draw.io-9.3.1.dmg",
             null);
 
     Assert.assertNotNull(uploadEntity);
