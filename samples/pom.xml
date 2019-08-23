@@ -10,7 +10,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Acmedcare+ Nas Samples :: ${project.version}</artifactId>
+
+    <artifactId>nas-samples</artifactId>
     <version>2.1.1.BUILD-SNAPSHOT</version>
 
     <packaging>pom</packaging>

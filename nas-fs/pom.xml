@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Acmedcare+ Nas FS Module :: ${project.version}</artifactId>
+    <artifactId>nas-fs</artifactId>
     <version>2.1.1.BUILD-SNAPSHOT</version>
 
     <name>Acmedcare+ Nas Core FS Module :: ${project.version}</name>

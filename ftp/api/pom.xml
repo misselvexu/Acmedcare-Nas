@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ftplet-api</artifactId>
-    <name>Acmedcare+ Nas Ftplet Api :: ${parent.version}</name>
+    <name>Acmedcare+ Nas Ftplet Api :: ${project.parent.version}</name>
 
     <description>Ftplets are, similar to servlets, an API to plug into the
         request lifecycle of FtpServer. Ftplets are called on session connect
