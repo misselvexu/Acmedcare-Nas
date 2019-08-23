@@ -13,7 +13,7 @@
     <artifactId>nas-client-spring-boot-sample</artifactId>
     <version>2.1.1.BUILD-SNAPSHOT</version>
 
-    <name>nas-client-spring-boot-sample ${project.version}</name>
+    <name>Acmedcare+ Nas Sample Client Spring Boot :: ${project.version}</name>
 
     <dependencies>
 

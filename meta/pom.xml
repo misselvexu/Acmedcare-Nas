@@ -13,8 +13,7 @@
     <artifactId>nas-meta</artifactId>
     <packaging>jar</packaging>
 
-    <name>nas-meta ${project.version}</name>
-    <url>http://maven.apache.org</url>
+    <name>Acmedcare+ Nas Meta Server Module :: ${project.version}</name>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>

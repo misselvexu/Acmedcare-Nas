@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ftplet-api</artifactId>
-    <name>Acmedcare+ Nas Ftplet Api</name>
+    <name>Acmedcare+ Nas Ftplet Api :: ${parent.version}</name>
 
     <description>Ftplets are, similar to servlets, an API to plug into the
         request lifecycle of FtpServer. Ftplets are called on session connect
@@ -35,7 +35,7 @@
     </reporting>
 
     <properties>
-        <maven.compile.source>1.7</maven.compile.source>
-        <maven.compile.target>1.7</maven.compile.target>
+        <maven.compile.source>1.8</maven.compile.source>
+        <maven.compile.target>1.8</maven.compile.target>
     </properties>
 </project>

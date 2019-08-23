@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ftpserver</artifactId>
     <packaging>pom</packaging>
-    <name>Acmedcare+ FtpServer</name>
+    <name>Acmedcare+ FtpServer Distribution Module :: ${project.version}</name>
 
     <build>
         <finalName>acmedcare-${project.artifactId}-${project.version}</finalName>
