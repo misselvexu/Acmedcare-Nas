@@ -28,9 +28,9 @@ public class NasClientSpringBootSampleTest {
 
     UploadEntity uploadEntity =
         nasClient.upload(
-            "Acmedcare-Proxy-Architecture",
+            "desktop",
             "jpg",
-            "/Users/misselvexu/Downloads/Acmedcare-Proxy-Architecture.jpg",
+            "/Users/misselvexu/Documents/desktop.jpg",
             null);
 
     Assert.assertNotNull(uploadEntity);
