@@ -653,19 +653,5 @@
             <url>http://47.97.26.165:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>Acmedcare-Maven</id>
-            <name>Acmedcare+ Maven</name>
-            <url>http://47.97.26.165:8081/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 </project>
 
