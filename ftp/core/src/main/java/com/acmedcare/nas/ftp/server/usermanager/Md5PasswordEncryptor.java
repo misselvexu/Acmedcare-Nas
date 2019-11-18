@@ -31,11 +31,13 @@ import com.acmedcare.nas.ftp.server.util.PasswordUtil;
 public class Md5PasswordEncryptor implements PasswordEncryptor {
 
   /** Hashes the password using MD5 */
+  @Override
   public String encrypt(String password) {
     return EncryptUtils.encryptMD5(password);
   }
 
   /** {@inheritDoc} */
+  @Override
   public boolean matches(String passwordToCheck, String storedPassword) {
     if (storedPassword == null) {
       throw new NullPointerException("storedPassword can not be null");

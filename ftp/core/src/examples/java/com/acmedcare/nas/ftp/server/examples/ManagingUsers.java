@@ -32,14 +32,16 @@ public class ManagingUsers {
 
   public static void main(String[] args) throws Exception {
     PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
-    userManagerFactory.setFile(new File("myusers.properties"));
+    userManagerFactory.setFile(new File(System.getProperty("user.dir"),"ftp/nas-users.properties"));
     userManagerFactory.setPasswordEncryptor(new SaltedPasswordEncryptor());
     UserManager um = userManagerFactory.createUserManager();
+
+    String dir = System.getProperty("user.dir") + "/ftp/local.dir";
 
     UserFactory userFact = new UserFactory();
     userFact.setName("myNewUser");
     userFact.setPassword("secret");
-    userFact.setHomeDirectory("ftproot");
+    userFact.setHomeDirectory(dir);
     User user = userFact.createUser();
     um.save(user);
   }

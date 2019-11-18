@@ -43,6 +43,7 @@ public class QUIT extends AbstractCommand {
   private final Logger LOG = LoggerFactory.getLogger(QUIT.class);
 
   /** Execute command */
+  @Override
   public void execute(
       final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {

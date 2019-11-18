@@ -41,6 +41,7 @@ public class PropertiesUserManagerFactory implements UserManagerFactory {
   private PasswordEncryptor passwordEncryptor = new Md5PasswordEncryptor();
 
   /** Creates a {@link PropertiesUserManager} instance based on the provided configuration */
+  @Override
   public UserManager createUserManager() {
     if (userDataURL != null) {
       return new PropertiesUserManager(passwordEncryptor, userDataURL, adminName);

@@ -44,6 +44,7 @@ public class TYPE extends AbstractCommand {
   private final Logger LOG = LoggerFactory.getLogger(TYPE.class);
 
   /** Execute command */
+  @Override
   public void execute(
       final FtpIoSession session, final FtpServerContext context, final FtpRequest request)
       throws IOException {

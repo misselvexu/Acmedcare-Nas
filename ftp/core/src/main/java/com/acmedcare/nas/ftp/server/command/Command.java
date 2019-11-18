@@ -26,3 +26,4 @@ public interface Command {
   void execute(FtpIoSession session, FtpServerContext context, FtpRequest request)
       throws IOException, FtpException;
 }
+

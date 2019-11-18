@@ -32,14 +32,17 @@ import org.springframework.beans.factory.FactoryBean;
  */
 public class FtpServerFactoryBean extends FtpServerFactory implements FactoryBean {
 
+  @Override
   public Object getObject() throws Exception {
     return createServer();
   }
 
+  @Override
   public Class<?> getObjectType() {
     return FtpServer.class;
   }
 
+  @Override
   public boolean isSingleton() {
     return false;
   }

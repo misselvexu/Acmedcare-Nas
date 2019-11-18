@@ -51,6 +51,7 @@ public class SaltedPasswordEncryptor implements PasswordEncryptor {
   /**
    * Encrypts the password using a salt concatenated with the password and a series of MD5 steps.
    */
+  @Override
   public String encrypt(String password) {
     String seed = Integer.toString(rnd.nextInt(MAX_SEED));
 
@@ -58,6 +59,7 @@ public class SaltedPasswordEncryptor implements PasswordEncryptor {
   }
 
   /** {@inheritDoc} */
+  @Override
   public boolean matches(String passwordToCheck, String storedPassword) {
     if (storedPassword == null) {
       throw new NullPointerException("storedPassword can not be null");

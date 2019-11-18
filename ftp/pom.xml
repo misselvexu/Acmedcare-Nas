@@ -22,15 +22,15 @@
         <additionalparam>-Xdoclint:none</additionalparam>
 
         <!-- Set versions for depending jars -->
-        <commons.codec.version>1.10</commons.codec.version>
+        <commons.codec.version>1.11</commons.codec.version>
         <commons.net.version>3.5</commons.net.version>
         <hsqldb.version>1.8.0.10</hsqldb.version>
-        <jcl.over.slf4j.version>1.7.21</jcl.over.slf4j.version>
+        <jcl.over.slf4j.version>1.7.25</jcl.over.slf4j.version>
         <junit.version>4.12</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <mina.core.version>2.0.21</mina.core.version>
-        <slf4j.api.version>1.7.21</slf4j.api.version>
-        <slf4j.log4j12.version>1.7.21</slf4j.log4j12.version>
+        <slf4j.api.version>1.7.25</slf4j.api.version>
+        <slf4j.log4j12.version>1.7.25</slf4j.log4j12.version>
 
         <maven.compile.source>1.8</maven.compile.source>
         <maven.compile.target>1.8</maven.compile.target>

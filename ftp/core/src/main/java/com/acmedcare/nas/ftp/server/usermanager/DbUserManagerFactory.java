@@ -52,6 +52,7 @@ public class DbUserManagerFactory implements UserManagerFactory {
 
   private PasswordEncryptor passwordEncryptor = new Md5PasswordEncryptor();
 
+  @Override
   public UserManager createUserManager() {
     if (dataSource == null) {
       throw new FtpServerConfigurationException("Required data source not provided");

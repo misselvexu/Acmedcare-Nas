@@ -18,12 +18,13 @@
  under the License. -->
 <beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns="http://mina.apache.org/ftpserver/spring/v1"
+             xmlns="http://developer.acmedcare.com/ftpserver/spring/v1"
              xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
-	   http://mina.apache.org/ftpserver/spring/v1 http://mina.apache.org/ftpserver/ftpserver-1.0.xsd	
+	   http://developer.acmedcare.com/ftpserver/spring/v1 http://developer.acmedcare.com/ftpserver/ftpserver-1.0.xsd	
 	   ">
 
+    <!--
     <beans:bean id="ftpletBean2" class="com.acmedcare.nas.ftp.server.examples.MyFtplet">
         <beans:property name="foo" value="123"/>
     </beans:bean>
@@ -41,4 +42,5 @@
             </ftplet>
         </ftplets>
     </server>
+    -->
 </beans:beans>

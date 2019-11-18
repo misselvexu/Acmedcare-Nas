@@ -20,13 +20,13 @@
 <beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:context="http://www.springframework.org/schema/context"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns="http://mina.apache.org/ftpserver/spring/v1"
+             xmlns="http://developer.acmedcare.com/ftpserver/spring/v1"
              xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://mina.apache.org/ftpserver/spring/v1 http://mina.apache.org/ftpserver/ftpserver-1.0.xsd    
+       http://developer.acmedcare.com/ftpserver/spring/v1 http://developer.acmedcare.com/ftpserver/ftpserver-1.0.xsd    
        ">
-    <context:property-placeholder location="src/test/resources/spring-config/placeholder.properties"/>
+    <context:property-placeholder location="classpath*:spring-config/placeholder.properties"/>
 
     <server id="server">
         <listeners>

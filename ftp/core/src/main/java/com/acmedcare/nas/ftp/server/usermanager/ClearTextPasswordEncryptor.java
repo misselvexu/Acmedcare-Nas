@@ -29,11 +29,13 @@ import com.acmedcare.nas.ftp.server.util.PasswordUtil;
 public class ClearTextPasswordEncryptor implements PasswordEncryptor {
 
   /** Returns the clear text password */
+  @Override
   public String encrypt(String password) {
     return password;
   }
 
   /** {@inheritDoc} */
+  @Override
   public boolean matches(String passwordToCheck, String storedPassword) {
     if (storedPassword == null) {
       throw new NullPointerException("storedPassword can not be null");

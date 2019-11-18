@@ -27,9 +27,6 @@ import com.acmedcare.nas.ftp.server.usermanager.PropertiesUserManagerFactory;
 
 import java.io.File;
 
-/*
- * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
- */
 public class EmbeddingFtpServer {
 
   public static void main(String[] args) throws Exception {
@@ -42,7 +39,8 @@ public class EmbeddingFtpServer {
 
     // define SSL configuration
     SslConfigurationFactory ssl = new SslConfigurationFactory();
-    ssl.setKeystoreFile(new File("src/test/resources/ftpserver.jks"));
+
+    ssl.setKeystoreFile(new File(System.getProperty("user.dir"),"ftp/core/src/examples/resources/ftpserver.jks"));
     ssl.setKeystorePassword("password");
 
     // set the SSL configuration for the listener
@@ -53,7 +51,7 @@ public class EmbeddingFtpServer {
     serverFactory.addListener("default", factory.createListener());
 
     PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
-    userManagerFactory.setFile(new File("myusers.properties"));
+    userManagerFactory.setFile(new File(System.getProperty("user.dir"),"ftp/nas-users.properties"));
 
     serverFactory.setUserManager(userManagerFactory.createUserManager());
 
