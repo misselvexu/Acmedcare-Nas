@@ -30,6 +30,7 @@
 logs/
 
 local.data/
+local.dir/
 slave.data/
 tmp-files/
 
