@@ -19,13 +19,17 @@ package com.acmedcare.nas.ftp.server.examples;
  * under the License.
  */
 
+import com.acmedcare.nas.ftp.server.ftplet.Authority;
 import com.acmedcare.nas.ftp.server.ftplet.User;
 import com.acmedcare.nas.ftp.server.ftplet.UserManager;
 import com.acmedcare.nas.ftp.server.usermanager.PropertiesUserManagerFactory;
 import com.acmedcare.nas.ftp.server.usermanager.SaltedPasswordEncryptor;
 import com.acmedcare.nas.ftp.server.usermanager.UserFactory;
+import com.acmedcare.nas.ftp.server.usermanager.impl.WritePermission;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /** @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>* */
 public class ManagingUsers {
@@ -39,10 +43,16 @@ public class ManagingUsers {
     String dir = System.getProperty("user.dir") + "/ftp/local.dir";
 
     UserFactory userFact = new UserFactory();
-    userFact.setName("myNewUser");
-    userFact.setPassword("secret");
+    userFact.setName("admin");
+    userFact.setPassword("123456");
     userFact.setHomeDirectory(dir);
+
+    List<Authority> authorities = new ArrayList<>();
+    authorities.add(new WritePermission());
+    userFact.setAuthorities(authorities);
+
     User user = userFact.createUser();
+
     um.save(user);
   }
 }

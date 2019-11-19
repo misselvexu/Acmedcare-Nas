@@ -24,6 +24,7 @@ import com.acmedcare.nas.ftp.server.FtpServerFactory;
 import com.acmedcare.nas.ftp.server.listener.ListenerFactory;
 import com.acmedcare.nas.ftp.server.ssl.SslConfigurationFactory;
 import com.acmedcare.nas.ftp.server.usermanager.PropertiesUserManagerFactory;
+import com.acmedcare.nas.ftp.server.usermanager.SaltedPasswordEncryptor;
 
 import java.io.File;
 
@@ -40,17 +41,18 @@ public class EmbeddingFtpServer {
     // define SSL configuration
     SslConfigurationFactory ssl = new SslConfigurationFactory();
 
-    ssl.setKeystoreFile(new File(System.getProperty("user.dir"),"ftp/core/src/examples/resources/ftpserver.jks"));
-    ssl.setKeystorePassword("password");
+    ssl.setKeystoreFile(new File(System.getProperty("user.dir"),"ftp/keystore.jks"));
+    ssl.setKeystorePassword("Acmedcare+sslpassword");
 
     // set the SSL configuration for the listener
     factory.setSslConfiguration(ssl.createSslConfiguration());
-    factory.setImplicitSsl(true);
+    factory.setImplicitSsl(false);
 
     // replace the default listener
     serverFactory.addListener("default", factory.createListener());
 
     PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
+    userManagerFactory.setPasswordEncryptor(new SaltedPasswordEncryptor());
     userManagerFactory.setFile(new File(System.getProperty("user.dir"),"ftp/nas-users.properties"));
 
     serverFactory.setUserManager(userManagerFactory.createUserManager());

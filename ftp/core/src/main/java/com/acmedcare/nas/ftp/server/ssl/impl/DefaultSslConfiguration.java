@@ -72,26 +72,31 @@ public class DefaultSslConfiguration implements SslConfiguration {
     this.socketFactory = sslContext.getSocketFactory();
   }
 
+  @Override
   public SSLSocketFactory getSocketFactory() throws GeneralSecurityException {
     return socketFactory;
   }
 
   /** @see SslConfiguration#getSSLContext(String) */
+  @Override
   public SSLContext getSSLContext(String protocol) throws GeneralSecurityException {
     return sslContext;
   }
 
   /** @see SslConfiguration#getClientAuth() */
+  @Override
   public ClientAuth getClientAuth() {
     return clientAuth;
   }
 
   /** @see SslConfiguration#getSSLContext() */
+  @Override
   public SSLContext getSSLContext() throws GeneralSecurityException {
     return getSSLContext(sslProtocol);
   }
 
   /** @see SslConfiguration#getEnabledCipherSuites() */
+  @Override
   public String[] getEnabledCipherSuites() {
     if (enabledCipherSuites != null) {
       return enabledCipherSuites.clone();
