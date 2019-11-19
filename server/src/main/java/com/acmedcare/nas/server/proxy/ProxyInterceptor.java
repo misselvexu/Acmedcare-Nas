@@ -1,8 +1,8 @@
-package com.acmedcare.nas.server.weed.proxy;
+package com.acmedcare.nas.server.proxy;
 
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.log.AcmedcareNasLogger;
-import com.acmedcare.nas.server.NasConfigurationRepository.ApplicationContext;
+import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationContext;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

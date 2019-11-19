@@ -1,4 +1,4 @@
-package com.acmedcare.nas.server.weed.proxy;
+package com.acmedcare.nas.server.proxy;
 
 import com.acmedcare.nas.common.exception.NasException;
 

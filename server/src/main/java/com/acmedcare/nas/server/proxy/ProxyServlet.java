@@ -1,38 +1,15 @@
-package com.acmedcare.nas.server.weed.proxy;
+package com.acmedcare.nas.server.proxy;
 
 import com.acmedcare.nas.common.BizResult;
 import com.acmedcare.nas.common.BizResult.ExceptionWrapper;
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.kits.ByteKits;
-import com.acmedcare.nas.server.NasConfigurationRepository.ApplicationContext;
-import com.acmedcare.nas.server.weed.proxy.ProxyInterceptor.Order;
+import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationContext;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpCookie;
-import java.net.URI;
-import java.nio.charset.Charset;
-import java.util.BitSet;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.Formatter;
-import java.util.LinkedList;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpEntityEnclosingRequest;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
+import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
@@ -47,6 +24,19 @@ import org.apache.http.message.HeaderGroup;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpCookie;
+import java.net.URI;
+import java.nio.charset.Charset;
+import java.util.*;
 
 /**
  * An HTTP reverse proxy/gateway servlet. It is designed to be extended for customization if
@@ -100,7 +90,7 @@ public class ProxyServlet extends HttpServlet {
   protected static final HeaderGroup hopByHopHeaders;
 
   protected static final BitSet asciiQueryChars;
-  private static Logger logger = LoggerFactory.getLogger(ProxyServlet.class);
+  protected static Logger logger = LoggerFactory.getLogger(ProxyServlet.class);
 
   static {
     hopByHopHeaders = new HeaderGroup();
@@ -191,10 +181,10 @@ public class ProxyServlet extends HttpServlet {
         new Comparator<ProxyInterceptor>() {
           @Override
           public int compare(ProxyInterceptor o1, ProxyInterceptor o2) {
-            if (o1.getClass().isAnnotationPresent(Order.class)
-                && o2.getClass().isAnnotationPresent(Order.class)) {
-              int v1 = o1.getClass().getAnnotation(Order.class).value();
-              int v2 = o2.getClass().getAnnotation(Order.class).value();
+            if (o1.getClass().isAnnotationPresent(ProxyInterceptor.Order.class)
+                && o2.getClass().isAnnotationPresent(ProxyInterceptor.Order.class)) {
+              int v1 = o1.getClass().getAnnotation(ProxyInterceptor.Order.class).value();
+              int v2 = o2.getClass().getAnnotation(ProxyInterceptor.Order.class).value();
               return v1 < v2 ? -1 : v1 == v2 ? 0 : 1;
             }
             return 0;
@@ -515,7 +505,7 @@ public class ProxyServlet extends HttpServlet {
               + servletRequest.getMethod()
               + " uri: "
               + servletRequest.getRequestURI()
-              + " -- "
+              + " >>->> "
               + proxyRequest.getRequestLine().getUri());
     }
     return proxyClient.execute(getTargetHost(servletRequest), proxyRequest);
@@ -563,12 +553,6 @@ public class ProxyServlet extends HttpServlet {
       //      System.out.println(">>>" + headerName);
       copyRequestHeader(servletRequest, proxyRequest, headerName);
     }
-
-    //    proxyRequest.addHeader("Access-Control-Allow-Origin", "*");
-    //    proxyRequest.addHeader("Access-Control-Allow-Headers", "*");
-    //    proxyRequest.addHeader("Access-Control-Allow-Credentials", "true");
-    //    proxyRequest.addHeader("Access-Control-Allow-Methods", "POST, HEAD, GET, OPTIONS, PUT,
-    // DELETE");
   }
 
   /**

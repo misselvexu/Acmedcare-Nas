@@ -1,15 +1,10 @@
 package com.acmedcare.nas.server;
 
-import static com.acmedcare.nas.common.kits.SystemKits.LOCAL_IP;
-import static com.acmedcare.nas.common.kits.SystemKits.NAS_LOCAL_IP_KEY;
-
 import com.acmedcare.framework.kits.servlet.filter.compression.CompressingFilter;
+import com.acmedcare.nas.server.proxy.ProxyConfig;
+import com.acmedcare.nas.server.proxy.URITemplateProxyServlet;
 import com.acmedcare.nas.server.proxy.filter.AuthHeaderInterceptor;
-import com.acmedcare.nas.server.weed.proxy.ProxyConfig;
-import com.acmedcare.nas.server.weed.proxy.URITemplateProxyServlet;
 import com.google.common.collect.Lists;
-import java.io.Serializable;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +15,12 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.Serializable;
+import java.util.List;
+
+import static com.acmedcare.nas.common.kits.SystemKits.LOCAL_IP;
+import static com.acmedcare.nas.common.kits.SystemKits.NAS_LOCAL_IP_KEY;
+
 /**
  * Nas Server Auto Configuration
  *
@@ -28,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties(ProxyConfig.class)
-public class NasConfigurationRepository {
+public class NasAutoConfiguration {
 
   @Configuration
   public static class ApplicationContext {
