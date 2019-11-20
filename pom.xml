@@ -463,6 +463,14 @@
             </dependency>
 
             <dependency>
+                <groupId>com.acmedcare.framework.kits</groupId>
+                <artifactId>acmedcare-framework-kits-dependencies</artifactId>
+                <version>Antarctica.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.25</version>

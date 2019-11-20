@@ -4,7 +4,7 @@ import com.acmedcare.nas.common.BizResult;
 import com.acmedcare.nas.common.BizResult.ExceptionWrapper;
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.kits.ByteKits;
-import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationContext;
+import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationConfigurations;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
@@ -758,7 +758,7 @@ public class ProxyServlet extends HttpServlet {
 
           if (contentObject.containsKey("fileUrl")) {
             String fid = contentObject.getString("fid");
-            contentObject.replace("fileUrl", ApplicationContext.getNasConfig().renderLink(fid));
+            contentObject.replace("fileUrl", ApplicationConfigurations.getProxyConfig().renderLink(fid));
           }
           BizResult result = BizResult.builder().code(code).data(contentObject).build();
           // reset content length

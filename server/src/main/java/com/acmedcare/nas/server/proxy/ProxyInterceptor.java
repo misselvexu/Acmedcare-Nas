@@ -2,21 +2,18 @@ package com.acmedcare.nas.server.proxy;
 
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.log.AcmedcareNasLogger;
-import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationContext;
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationConfigurations;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.springframework.http.MediaType;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.annotation.*;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Proxy Filter
@@ -31,10 +28,11 @@ public abstract class ProxyInterceptor {
 
   protected static final Pattern PUBLIC_URL_REGEX =
       Pattern.compile(
-          ApplicationContext.getProxyConfig().getContextPath() + "/public/\\d+,[0-9A-Za-z_*\\-]+");
+          ApplicationConfigurations.getProxyConfig().getContextPath()
+              + "/public/\\d+,[0-9A-Za-z_*\\-]+");
 
   protected static final Pattern FIX_REGEX =
-      Pattern.compile(ApplicationContext.getProxyConfig().getContextPath() + "/.+");
+      Pattern.compile(ApplicationConfigurations.getProxyConfig().getContextPath() + "/.+");
 
   /**
    * Url Mapping Prefix

@@ -1,13 +1,16 @@
 package com.acmedcare.nas.server.proxy;
 
 import com.acmedcare.nas.common.BizResult;
+import com.acmedcare.nas.server.NasType;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 
+import javax.servlet.AsyncContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
@@ -48,7 +51,8 @@ public class URITemplateProxyServlet extends ProxyServlet {
    * if defined for this proxy URL.
    */
 
-  private static final String ATTR_QUERY_STRING = URITemplateProxyServlet.class.getSimpleName() + ".queryString";
+  private static final String ATTR_QUERY_STRING =
+      URITemplateProxyServlet.class.getSimpleName() + ".queryString";
 
   protected String targetUriTemplate; // has {name} parts
 
@@ -72,6 +76,26 @@ public class URITemplateProxyServlet extends ProxyServlet {
       throws ServletException, IOException {
 
     try {
+
+      // Match NAS TYPE
+      String requestURI = servletRequest.getRequestURI();
+
+      if (proxyConfig.getNasType().equals(NasType.FTP)) {
+
+        boolean upload = proxyConfig.isUploadRequestURI(requestURI);
+
+        if (upload) {
+          // upload
+          this.upload(servletRequest, servletResponse);
+
+        } else {
+          // download
+          this.download(servletRequest, servletResponse);
+        }
+
+        return;
+      }
+
       // First collect params
       /*
        * Do not use servletRequest.getParameter(arg) because that will
@@ -164,9 +188,32 @@ public class URITemplateProxyServlet extends ProxyServlet {
     }
   }
 
+  void upload(HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+    // TODO upload
+    AsyncContext asyncContext = servletRequest.startAsync();
+
+  }
+
+  void download(HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+    // TODO download
+
+  }
+
   @Override
   protected String rewriteQueryStringFromRequest(
       HttpServletRequest servletRequest, String queryString) {
     return (String) servletRequest.getAttribute(ATTR_QUERY_STRING);
+  }
+
+  private String getSubmittedFileName(Part part) {
+    for (String cd : part.getHeader("Content-Disposition").split(";")) {
+      if (cd.trim().startsWith("filename")) {
+        String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+        return fileName
+            .substring(fileName.lastIndexOf('/') + 1)
+            .substring(fileName.lastIndexOf('\\') + 1);
+      }
+    }
+    return null;
   }
 }

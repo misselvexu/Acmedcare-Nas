@@ -6,20 +6,13 @@ import com.acmedcare.nas.server.proxy.URITemplateProxyServlet;
 import com.acmedcare.nas.server.proxy.filter.AuthHeaderInterceptor;
 import com.google.common.collect.Lists;
 import lombok.Getter;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.Serializable;
 import java.util.List;
-
-import static com.acmedcare.nas.common.kits.SystemKits.LOCAL_IP;
-import static com.acmedcare.nas.common.kits.SystemKits.NAS_LOCAL_IP_KEY;
 
 /**
  * Nas Server Auto Configuration
@@ -28,83 +21,49 @@ import static com.acmedcare.nas.common.kits.SystemKits.NAS_LOCAL_IP_KEY;
  * @version ${project.version} - 2018-11-30.
  */
 @Configuration
-@EnableConfigurationProperties(ProxyConfig.class)
+@EnableConfigurationProperties({NasProperties.class, ProxyConfig.class})
 public class NasAutoConfiguration {
 
   @Configuration
-  public static class ApplicationContext {
+  public static class ApplicationConfigurations {
 
-    @Getter private static ProxyConfig proxyConfig;
+    @Getter static ProxyConfig proxyConfig;
 
-    @Getter private static NasConfig nasConfig;
+    static NasProperties nasConfig;
 
-    @Autowired
-    public void setNasConfig(NasConfig nasConfig) {
-      ApplicationContext.nasConfig = nasConfig;
-    }
-
-    @Autowired
-    public void setProxyConfig(ProxyConfig proxyConfig) {
-      ApplicationContext.proxyConfig = proxyConfig;
+    public ApplicationConfigurations(NasProperties nasConfig, ProxyConfig proxyConfig) {
+      ApplicationConfigurations.nasConfig = nasConfig;
+      ApplicationConfigurations.proxyConfig = proxyConfig;
     }
 
     @Bean
     public ServletRegistrationBean nasServlet() {
-      return new ServletRegistrationBean<URITemplateProxyServlet>(
+      return new ServletRegistrationBean<>(
           new URITemplateProxyServlet(
-              ApplicationContext.getProxyConfig(),
+              ApplicationConfigurations.proxyConfig,
               // Interceptor List
               new AuthHeaderInterceptor()),
           // servlet mapping
-          ApplicationContext.getProxyConfig().getContextPath() + "/*");
+          ApplicationConfigurations.proxyConfig.getContextPath() + "/*");
     }
 
     @Bean
-    @SuppressWarnings("unchecked")
     public FilterRegistrationBean<CompressingFilter> newServletFilter() {
-      FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+      FilterRegistrationBean<CompressingFilter> registrationBean = new FilterRegistrationBean<>();
 
       CompressingFilter compressingFilter = new CompressingFilter();
       registrationBean.setFilter(compressingFilter);
 
       List<String> urlPatterns = Lists.newArrayList();
-      urlPatterns.add(ApplicationContext.getProxyConfig().getContextPath() + "/*");
+      urlPatterns.add(ApplicationConfigurations.proxyConfig.getContextPath() + "/*");
 
       registrationBean.setUrlPatterns(urlPatterns);
       registrationBean.addInitParameter("debug", "true");
       registrationBean.addInitParameter("compressionLevel", "9");
       registrationBean.addInitParameter(
-          "includeContentTypes", ApplicationContext.getNasConfig().getIncludeContentTypes());
+          "includeContentTypes", ApplicationConfigurations.nasConfig.getIncludeContentTypes());
 
       return registrationBean;
-    }
-  }
-
-  /** Nas Config */
-  @Getter
-  @Setter
-  @Configuration
-  public static class NasConfig implements Serializable {
-
-    private static final long serialVersionUID = -8718095574026379565L;
-
-    @Value("${server.servlet.context-path:/nas}")
-    private String contextPath;
-
-    @Value("${nas.export.url.template}")
-    private String exportUrlTemplate;
-
-    @Value("${server.compression.mime-types}")
-    private String includeContentTypes;
-
-    /**
-     * Render Request Url
-     *
-     * @param fid file id
-     * @return url
-     */
-    public String renderLink(String fid) {
-      return String.format(this.exportUrlTemplate.replace(NAS_LOCAL_IP_KEY, LOCAL_IP), fid);
     }
   }
 }

@@ -10,12 +10,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import java.io.Serializable;
 import java.util.List;
+
+import static com.acmedcare.nas.common.kits.SystemKits.LOCAL_IP;
+import static com.acmedcare.nas.common.kits.SystemKits.NAS_LOCAL_IP_KEY;
+import static com.acmedcare.nas.server.proxy.ProxyConfig.NAS_PROXY_PREFIX;
+import static lombok.AccessLevel.PRIVATE;
 
 /**
  * Proxy Config
@@ -25,14 +28,14 @@ import java.util.List;
  */
 @Getter
 @Setter
-@Configuration
-@PropertySource(value = "classpath:proxy.properties")
-@ConfigurationProperties(prefix = "proxy")
+@ConfigurationProperties(prefix = NAS_PROXY_PREFIX)
 public class ProxyConfig implements Serializable, EnvironmentAware, InitializingBean {
 
   private static final long serialVersionUID = -3047132860550946253L;
 
   private static final Logger logger = LoggerFactory.getLogger(ProxyConfig.class);
+
+  public static final String NAS_PROXY_PREFIX = "nas.proxy";
 
   private static final String LOCAL_DEFAULT_URL = "http://127.0.0.1:9333";
 
@@ -40,8 +43,11 @@ public class ProxyConfig implements Serializable, EnvironmentAware, Initializing
 
   private static final String SERVLET_CONTEXT_PATH = "server.servlet.context-path";
 
+  @Getter(value = PRIVATE)
   private Environment environment;
 
+  @Getter(value = PRIVATE)
+  @Setter(value = PRIVATE)
   private static String submitURI;
 
   // ====== Config Properties ========
@@ -73,6 +79,13 @@ public class ProxyConfig implements Serializable, EnvironmentAware, Initializing
    * </pre>
    */
   private List<String> targetUrls;
+
+  /**
+   * 文件输出路径模板
+   *
+   * <p>
+   */
+  private String exportUrlTemplate;
 
   // ====== Config Properties Methods ========
 
@@ -106,5 +119,15 @@ public class ProxyConfig implements Serializable, EnvironmentAware, Initializing
   @Override
   public void setEnvironment(Environment environment) {
     this.environment = environment;
+  }
+
+  /**
+   * Render Request Url
+   *
+   * @param fid file id
+   * @return url
+   */
+  public String renderLink(String fid) {
+    return String.format(this.exportUrlTemplate.replace(NAS_LOCAL_IP_KEY, LOCAL_IP), fid);
   }
 }
