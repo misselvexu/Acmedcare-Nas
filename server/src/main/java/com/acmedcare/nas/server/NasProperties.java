@@ -1,9 +1,12 @@
 package com.acmedcare.nas.server;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.io.Serializable;
 
@@ -17,6 +20,8 @@ import static com.acmedcare.nas.server.NasProperties.NAS_CONFIG_PREFIX;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ConfigurationProperties(prefix = NAS_CONFIG_PREFIX)
 public class NasProperties implements Serializable {
 
@@ -39,4 +44,28 @@ public class NasProperties implements Serializable {
    */
   @Value("${server.compression.mime-types}")
   private String includeContentTypes;
+
+  /**
+   * Access Control Lists Enabled Flag
+   *
+   * <p>default: false
+   */
+  private boolean aclEnabled = false;
+
+  /**
+   * Acl Config Properties
+   *
+   * <p>Condition: <code>nas.acl-enabled=true</code>
+   */
+  @NestedConfigurationProperty private AclProperties acl;
+
+  @Getter
+  @Setter
+  @NoArgsConstructor
+  public static class AclProperties implements Serializable {
+
+    public static final String NAS_ACL_CONFIG_PREFIX = "nas.acl";
+
+
+  }
 }
