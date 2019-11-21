@@ -3,6 +3,7 @@ package com.acmedcare.nas.server.proxy;
 import com.acmedcare.nas.server.NasType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ import static lombok.AccessLevel.PRIVATE;
  */
 @Getter
 @Setter
+@ToString
 public class ProxyConfig implements Serializable {
 
   private static final long serialVersionUID = -3047132860550946253L;

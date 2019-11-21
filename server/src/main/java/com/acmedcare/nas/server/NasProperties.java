@@ -2,10 +2,9 @@ package com.acmedcare.nas.server;
 
 import com.acmedcare.nas.server.ftp.FtpServerProperties;
 import com.acmedcare.nas.server.proxy.ProxyConfig;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,12 +27,15 @@ import static lombok.AccessLevel.PRIVATE;
  */
 @Getter
 @Setter
+@ToString(exclude = {"environment"})
 @NoArgsConstructor
 @AllArgsConstructor
 @ConfigurationProperties(prefix = NAS_CONFIG_PREFIX)
 public class NasProperties implements Serializable, InitializingBean, EnvironmentAware {
 
   private static final long serialVersionUID = -8718095574026379565L;
+
+  private static final Logger log = LoggerFactory.getLogger(NasProperties.class);
 
   public static final String NAS_CONFIG_PREFIX = "nas";
 
@@ -50,7 +52,7 @@ public class NasProperties implements Serializable, InitializingBean, Environmen
    *
    * <p>
    */
-  @Value("${server.compression.mime-types}")
+  @Value("${server.compression.mime-types:}")
   private String includeContentTypes;
 
   /**
@@ -102,6 +104,8 @@ public class NasProperties implements Serializable, InitializingBean, Environmen
     } else {
       throw new IllegalArgumentException("missing nas proxy config properties , @nas.proxy.xxx ");
     }
+
+    log.info("[==Nas Properties==] loaded , data : {}" , toString());
   }
 
   @Getter(value = PRIVATE)
