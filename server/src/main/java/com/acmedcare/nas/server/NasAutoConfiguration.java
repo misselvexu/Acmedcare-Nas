@@ -21,7 +21,7 @@ import java.util.List;
  * @version ${project.version} - 2018-11-30.
  */
 @Configuration
-@EnableConfigurationProperties({NasProperties.class, ProxyConfig.class})
+@EnableConfigurationProperties({NasProperties.class})
 public class NasAutoConfiguration {
 
   @Configuration
@@ -31,16 +31,16 @@ public class NasAutoConfiguration {
 
     static NasProperties nasConfig;
 
-    public ApplicationConfigurations(NasProperties nasConfig, ProxyConfig proxyConfig) {
+    public ApplicationConfigurations(NasProperties nasConfig) {
       ApplicationConfigurations.nasConfig = nasConfig;
-      ApplicationConfigurations.proxyConfig = proxyConfig;
+      ApplicationConfigurations.proxyConfig = nasConfig.getProxy();
     }
 
     @Bean
     public ServletRegistrationBean nasServlet() {
       return new ServletRegistrationBean<>(
           new URITemplateProxyServlet(
-              ApplicationConfigurations.proxyConfig,
+              ApplicationConfigurations.nasConfig,
               // Interceptor List
               new AuthHeaderInterceptor()),
           // servlet mapping

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.Serializable;
 
@@ -22,7 +21,6 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ConfigurationProperties(prefix = FtpServerProperties.NAS_FTP_PROPERTIES_PREFIX)
 public class FtpServerProperties implements Serializable, InitializingBean {
 
   private static final Logger log = LoggerFactory.getLogger(FtpServerProperties.class);
@@ -48,6 +46,13 @@ public class FtpServerProperties implements Serializable, InitializingBean {
    * <p>
    */
   private String localStoragePath;
+
+  /**
+   * 文件输出路径
+   *
+   * <p>
+   */
+  private String exportUrlTemplate;
 
   /**
    * Invoked by the containing {@code BeanFactory} after it has set all bean properties and

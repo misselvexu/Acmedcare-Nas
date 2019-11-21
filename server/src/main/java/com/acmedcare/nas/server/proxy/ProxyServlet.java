@@ -5,6 +5,10 @@ import com.acmedcare.nas.common.BizResult.ExceptionWrapper;
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.kits.ByteKits;
 import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationConfigurations;
+import com.acmedcare.nas.server.NasProperties;
+import com.acmedcare.nas.server.NasType;
+import com.acmedcare.nas.server.ftp.FtpFileService;
+import com.acmedcare.nas.server.ftp.FtpServerProperties;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
@@ -161,11 +165,14 @@ public class ProxyServlet extends HttpServlet {
   protected HttpHost targetHost; // URIUtils.extractHost(targetUriObj);
   /* INIT PARAMETER NAME CONSTANTS */
   protected ProxyConfig proxyConfig;
+  protected NasProperties nasProperties;
+  protected FtpServerProperties ftpServerProperties;
   private LinkedList<ProxyInterceptor> interceptors;
   private HttpClient proxyClient;
+  protected FtpFileService ftpFileService;
 
-  public ProxyServlet(ProxyConfig proxyConfig, ProxyInterceptor... interceptors) {
-    if (proxyConfig == null || StringUtils.isBlank(proxyConfig.getTargetUrl())) {
+  public ProxyServlet(NasProperties nasProperties, ProxyInterceptor... interceptors) {
+    if (nasProperties == null || StringUtils.isBlank(nasProperties.getProxy().getTargetUrl())) {
       throw new NasException("Proxy Config Can't be null or empty.");
     }
 
@@ -191,7 +198,14 @@ public class ProxyServlet extends HttpServlet {
           }
         });
 
-    this.proxyConfig = proxyConfig;
+    this.nasProperties = nasProperties;
+    this.proxyConfig = nasProperties.getProxy();
+
+    if (nasProperties.getFtp() != null
+        && nasProperties.getFtp().isEnabled()
+        && proxyConfig.getNasType().equals(NasType.FTP)) {
+      this.ftpFileService = new FtpFileService(nasProperties.getFtp().getLocalStoragePath());
+    }
   }
 
   /**
@@ -758,7 +772,8 @@ public class ProxyServlet extends HttpServlet {
 
           if (contentObject.containsKey("fileUrl")) {
             String fid = contentObject.getString("fid");
-            contentObject.replace("fileUrl", ApplicationConfigurations.getProxyConfig().renderLink(fid));
+            contentObject.replace(
+                "fileUrl", ApplicationConfigurations.getProxyConfig().renderLink(fid));
           }
           BizResult result = BizResult.builder().code(code).data(contentObject).build();
           // reset content length

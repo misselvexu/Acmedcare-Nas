@@ -7,9 +7,6 @@ import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
 import java.io.Serializable;
@@ -17,7 +14,6 @@ import java.util.List;
 
 import static com.acmedcare.nas.common.kits.SystemKits.LOCAL_IP;
 import static com.acmedcare.nas.common.kits.SystemKits.NAS_LOCAL_IP_KEY;
-import static com.acmedcare.nas.server.proxy.ProxyConfig.NAS_PROXY_PREFIX;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
@@ -28,8 +24,7 @@ import static lombok.AccessLevel.PRIVATE;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = NAS_PROXY_PREFIX)
-public class ProxyConfig implements Serializable, EnvironmentAware, InitializingBean {
+public class ProxyConfig implements Serializable {
 
   private static final long serialVersionUID = -3047132860550946253L;
 
@@ -42,9 +37,6 @@ public class ProxyConfig implements Serializable, EnvironmentAware, Initializing
   private static final String UPLOAD_URI = "/submit";
 
   private static final String SERVLET_CONTEXT_PATH = "server.servlet.context-path";
-
-  @Getter(value = PRIVATE)
-  private Environment environment;
 
   @Getter(value = PRIVATE)
   @Setter(value = PRIVATE)
@@ -60,7 +52,7 @@ public class ProxyConfig implements Serializable, EnvironmentAware, Initializing
    *
    * @see NasType
    */
-  private NasType nasType = NasType.DFS;
+  private NasType nasType = NasType.FTP;
 
   /**
    * Proxy Servlet Base URL Mapping
@@ -105,8 +97,7 @@ public class ProxyConfig implements Serializable, EnvironmentAware, Initializing
     return submitURI.equals(requestURI);
   }
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet(Environment environment) throws Exception {
     ProxyConfig.submitURI =
         environment
             .getProperty(SERVLET_CONTEXT_PATH, "/")
@@ -114,11 +105,6 @@ public class ProxyConfig implements Serializable, EnvironmentAware, Initializing
             .concat(UPLOAD_URI);
 
     logger.info("[==Nas==] Proxy config's submit uri: {}", ProxyConfig.submitURI);
-  }
-
-  @Override
-  public void setEnvironment(Environment environment) {
-    this.environment = environment;
   }
 
   /**

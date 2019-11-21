@@ -1,6 +1,7 @@
 package com.acmedcare.nas.server.proxy;
 
 import com.acmedcare.nas.common.BizResult;
+import com.acmedcare.nas.server.NasProperties;
 import com.acmedcare.nas.server.NasType;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIUtils;
@@ -56,8 +57,8 @@ public class URITemplateProxyServlet extends ProxyServlet {
 
   protected String targetUriTemplate; // has {name} parts
 
-  public URITemplateProxyServlet(ProxyConfig proxyConfig, ProxyInterceptor... interceptors) {
-    super(proxyConfig, interceptors);
+  public URITemplateProxyServlet(NasProperties nasPropertoes, ProxyInterceptor... interceptors) {
+    super(nasPropertoes, interceptors);
   }
 
   @Override
