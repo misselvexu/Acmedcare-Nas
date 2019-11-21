@@ -70,16 +70,9 @@ public class NasProperties implements Serializable, InitializingBean, Environmen
   @NestedConfigurationProperty private ProxyConfig proxy;
 
   /**
-   * Access Control Lists Enabled Flag
-   *
-   * <p>default: false
-   */
-  private boolean aclEnabled = false;
-
-  /**
    * Acl Config Properties
    *
-   * <p>Condition: <code>nas.acl-enabled=true</code>
+   * <p>Condition: <code>nas.acl.enabled=true</code>
    */
   @NestedConfigurationProperty private AclProperties acl;
 
@@ -118,9 +111,12 @@ public class NasProperties implements Serializable, InitializingBean, Environmen
 
   @Getter
   @Setter
+  @ToString
   @NoArgsConstructor
   public static class AclProperties implements Serializable {
 
     public static final String NAS_ACL_CONFIG_PREFIX = "nas.acl";
+
+    private boolean enabled = false;
   }
 }

@@ -81,7 +81,7 @@ public class URITemplateProxyServlet extends ProxyServlet {
       // Match NAS TYPE
       String requestURI = servletRequest.getRequestURI();
 
-      if (proxyConfig.getNasType().equals(NasType.FTP)) {
+      if (proxyConfig.getNasType().equals(NasType.FTP) && nasProperties.getFtp() != null && nasProperties.getFtp().isEnabled()) {
 
         boolean upload = proxyConfig.isUploadRequestURI(requestURI);
 

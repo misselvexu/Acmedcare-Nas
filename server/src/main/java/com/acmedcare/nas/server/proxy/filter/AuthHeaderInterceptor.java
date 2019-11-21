@@ -7,13 +7,14 @@ import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationConfigurations;
 import com.acmedcare.nas.server.proxy.ProxyInterceptor;
 import com.acmedcare.nas.server.proxy.ProxyInterceptor.Order;
 import com.google.common.collect.Maps;
-import java.util.Enumeration;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
+import java.util.Map;
 
 /**
  * Auth Header Filter
@@ -25,7 +26,10 @@ import org.springframework.http.MediaType;
 public class AuthHeaderInterceptor extends ProxyInterceptor {
 
   public AuthHeaderInterceptor() {
-    super(ApplicationConfigurations.getProxyConfig().getContextPath() + "/");
+    super(
+        ApplicationConfigurations.getNasConfig().getContextPath()
+            + ApplicationConfigurations.getProxyConfig().getContextPath()
+            + "/");
   }
 
   @Override
@@ -52,15 +56,13 @@ public class AuthHeaderInterceptor extends ProxyInterceptor {
       }
     }
 
-    //
-
     BizResult.BizResultBuilder builder = BizResult.builder();
     // check auth token /account /org
     for (String extProxyHeader : EXT_PROXY_HEADERS) {
       if (!headers.containsKey(extProxyHeader)) {
         builder.exception(
             ExceptionWrapper.builder()
-                .message("Request Header [" + extProxyHeader + "] is needed~")
+                .message("Request Header [" + extProxyHeader + "] is missing.")
                 .build());
         break;
       }
@@ -75,7 +77,7 @@ public class AuthHeaderInterceptor extends ProxyInterceptor {
           originalResponse,
           HttpStatus.SC_UNAUTHORIZED,
           result.bytes(),
-          MediaType.TEXT_HTML_VALUE,
+          MediaType.TEXT_PLAIN_VALUE,
           null);
     }
 

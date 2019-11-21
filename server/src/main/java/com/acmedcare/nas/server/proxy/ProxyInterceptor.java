@@ -26,13 +26,23 @@ public abstract class ProxyInterceptor {
   /** Proxy Request Required Header */
   protected static final String[] EXT_PROXY_HEADERS = {"NAS-APPID", "NAS-APPKEY"};
 
-  protected static final Pattern PUBLIC_URL_REGEX =
-      Pattern.compile(
-          ApplicationConfigurations.getProxyConfig().getContextPath()
-              + "/public/\\d+,[0-9A-Za-z_*\\-]+");
-
   protected static final Pattern FIX_REGEX =
-      Pattern.compile(ApplicationConfigurations.getProxyConfig().getContextPath() + "/.+");
+      Pattern.compile(
+          ApplicationConfigurations.getNasConfig().getContextPath()
+              + ApplicationConfigurations.getProxyConfig().getContextPath()
+              + "/.+");
+
+  protected static final Pattern UPLOAD_REGEX =
+      Pattern.compile(
+          ApplicationConfigurations.getNasConfig().getContextPath()
+              + ApplicationConfigurations.getProxyConfig().getContextPath()
+              + "/submit");
+
+  protected static final Pattern FILE_URI_REGEX =
+      Pattern.compile(
+          ApplicationConfigurations.getNasConfig().getContextPath()
+              + ApplicationConfigurations.getProxyConfig().getContextPath()
+              + "/\\d++,[0-9A-Za-z_*\\-]+");
 
   /**
    * Url Mapping Prefix
@@ -57,7 +67,7 @@ public abstract class ProxyInterceptor {
     if (StringUtils.isBlank(frontRequestUri)) {
       return false;
     }
-    Matcher matcher = PUBLIC_URL_REGEX.matcher(frontRequestUri);
+    Matcher matcher = FILE_URI_REGEX.matcher(frontRequestUri);
     return matcher.matches();
   }
 
@@ -99,7 +109,7 @@ public abstract class ProxyInterceptor {
         // set content
       }
     } catch (Exception e) {
-      AcmedcareNasLogger.logger().error("Build Response Error ,{}", e);
+      AcmedcareNasLogger.logger().error("Build Response Error", e);
     }
   }
 

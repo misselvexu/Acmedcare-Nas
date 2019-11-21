@@ -29,7 +29,7 @@ public class NasAutoConfiguration {
 
     @Getter static ProxyConfig proxyConfig;
 
-    static NasProperties nasConfig;
+    @Getter static NasProperties nasConfig;
 
     public ApplicationConfigurations(NasProperties nasConfig) {
       ApplicationConfigurations.nasConfig = nasConfig;
