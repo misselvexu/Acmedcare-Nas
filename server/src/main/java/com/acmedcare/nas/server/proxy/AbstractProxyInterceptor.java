@@ -3,7 +3,6 @@ package com.acmedcare.nas.server.proxy;
 import com.acmedcare.nas.common.exception.NasException;
 import com.acmedcare.nas.common.log.AcmedcareNasLogger;
 import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationConfigurations;
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.springframework.http.MediaType;
@@ -21,16 +20,13 @@ import java.util.regex.Pattern;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version v1.0 - 28/08/2018.
  */
-public abstract class ProxyInterceptor {
+public abstract class AbstractProxyInterceptor {
+
+  public static final String NAS_APP_ID_NAME = "NAS-APPID";
+  public static final String NAS_APP_KEY_NAME = "NAS-APPKEY";
 
   /** Proxy Request Required Header */
-  protected static final String[] EXT_PROXY_HEADERS = {"NAS-APPID", "NAS-APPKEY"};
-
-  protected static final Pattern FIX_REGEX =
-      Pattern.compile(
-          ApplicationConfigurations.getNasConfig().getContextPath()
-              + ApplicationConfigurations.getProxyConfig().getContextPath()
-              + "/.+");
+  protected static final String[] EXT_PROXY_HEADERS = {NAS_APP_ID_NAME, NAS_APP_KEY_NAME};
 
   protected static final Pattern UPLOAD_REGEX =
       Pattern.compile(
@@ -44,30 +40,20 @@ public abstract class ProxyInterceptor {
               + ApplicationConfigurations.getProxyConfig().getContextPath()
               + "/\\d++,[0-9A-Za-z_*\\-]+");
 
-  /**
-   * Url Mapping Prefix
-   *
-   * <pre>
-   *
-   *
-   * </pre>
-   */
-  @Getter protected final String urlMappingPrefix;
-
-  public ProxyInterceptor(String urlMappingPrefix) {
-    if (StringUtils.isNoneBlank(urlMappingPrefix)) {
-      // replace `*` or `**` ,not support regex yet~
-      this.urlMappingPrefix = urlMappingPrefix.replaceAll("\\*?", "");
-    } else {
-      this.urlMappingPrefix = "/";
-    }
-  }
 
   protected boolean isNasPublicRequest(String frontRequestUri) {
     if (StringUtils.isBlank(frontRequestUri)) {
       return false;
     }
     Matcher matcher = FILE_URI_REGEX.matcher(frontRequestUri);
+    return matcher.matches();
+  }
+
+  protected boolean isNasUploadRequest(String frontRequestUri) {
+    if (StringUtils.isBlank(frontRequestUri)) {
+      return false;
+    }
+    Matcher matcher = UPLOAD_REGEX.matcher(frontRequestUri);
     return matcher.matches();
   }
 
@@ -119,16 +105,7 @@ public abstract class ProxyInterceptor {
    * @param frontRequestUri request url
    * @return true/ false
    */
-  public boolean match(String frontRequestUri) {
-    if (StringUtils.isBlank(frontRequestUri)) {
-      return false;
-    }
-    Matcher matcher = FIX_REGEX.matcher(frontRequestUri);
-    if (matcher.matches()) {
-      return false; // 匹配文件访问标识
-    }
-    return StringUtils.startsWith(frontRequestUri, urlMappingPrefix);
-  }
+  public abstract boolean match(String frontRequestUri);
 
   /**
    * Before invoke proxy request

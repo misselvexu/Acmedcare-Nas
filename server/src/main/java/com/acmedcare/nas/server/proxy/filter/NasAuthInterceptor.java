@@ -3,10 +3,11 @@ package com.acmedcare.nas.server.proxy.filter;
 import com.acmedcare.nas.common.BizResult;
 import com.acmedcare.nas.common.BizResult.ExceptionWrapper;
 import com.acmedcare.nas.common.exception.NasException;
-import com.acmedcare.nas.server.NasAutoConfiguration.ApplicationConfigurations;
-import com.acmedcare.nas.server.proxy.ProxyInterceptor;
-import com.acmedcare.nas.server.proxy.ProxyInterceptor.Order;
+import com.acmedcare.nas.server.NasProperties;
+import com.acmedcare.nas.server.proxy.AbstractProxyInterceptor;
+import com.acmedcare.nas.server.proxy.AbstractProxyInterceptor.Order;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,18 +24,30 @@ import java.util.Map;
  * @version v1.0 - 28/08/2018.
  */
 @Order(value = 0)
-public class AuthHeaderInterceptor extends ProxyInterceptor {
+public class NasAuthInterceptor extends AbstractProxyInterceptor {
 
-  public AuthHeaderInterceptor() {
-    super(
-        ApplicationConfigurations.getNasConfig().getContextPath()
-            + ApplicationConfigurations.getProxyConfig().getContextPath()
-            + "/");
+  private final NasProperties nasProperties;
+
+  public NasAuthInterceptor(NasProperties nasProperties) {
+    this.nasProperties = nasProperties;
   }
 
   @Override
   public boolean match(String frontRequestUri) {
-    return super.match(frontRequestUri);
+
+    if (StringUtils.isBlank(frontRequestUri)) {
+      return false;
+    }
+
+    // is upload uri ?
+    if (isNasUploadRequest(frontRequestUri)) {
+      if (nasProperties.getAcl() != null && nasProperties.getAcl().isEnabled()) {
+        return true;
+      }
+    }
+
+    // default
+    return false;
   }
 
   /**
@@ -67,6 +80,11 @@ public class AuthHeaderInterceptor extends ProxyInterceptor {
         break;
       }
     }
+
+    String nasId = headers.get(NAS_APP_ID_NAME);
+    String nasKey = headers.get(NAS_APP_KEY_NAME);
+
+    // TODO nas auth service
 
     BizResult result = builder.build();
     result.setCode(result.getException() == null ? 0 : -1);

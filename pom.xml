@@ -356,6 +356,7 @@
     <!-- 子模块管理 -->
     <modules>
         <module>api</module>
+        <module>auth</module>
         <module>client</module>
         <module>common</module>
         <module>console</module>
@@ -369,6 +370,7 @@
         <module>samples</module>
         <module>meta</module>
         <module>sync</module>
+        <module>repository</module>
     </modules>
 
     <!-- 所有的子项目默认依赖 -->
@@ -422,6 +424,12 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>nas-auth</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>nas-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -442,6 +450,13 @@
             <dependency>
                 <groupId>com.acmedcare.nas</groupId>
                 <artifactId>nas-exts-parent</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.acmedcare.nas</groupId>
+                <artifactId>nas-repository</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>

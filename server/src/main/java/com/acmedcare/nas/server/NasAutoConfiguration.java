@@ -3,7 +3,7 @@ package com.acmedcare.nas.server;
 import com.acmedcare.framework.kits.servlet.filter.compression.CompressingFilter;
 import com.acmedcare.nas.server.proxy.ProxyConfig;
 import com.acmedcare.nas.server.proxy.URITemplateProxyServlet;
-import com.acmedcare.nas.server.proxy.filter.AuthHeaderInterceptor;
+import com.acmedcare.nas.server.proxy.filter.NasAuthInterceptor;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -37,12 +37,12 @@ public class NasAutoConfiguration {
     }
 
     @Bean
-    public ServletRegistrationBean nasServlet() {
+    public ServletRegistrationBean nasServlet(NasProperties nasConfig) {
       return new ServletRegistrationBean<>(
           new URITemplateProxyServlet(
               ApplicationConfigurations.nasConfig,
               // Interceptor List
-              new AuthHeaderInterceptor()),
+              new NasAuthInterceptor(nasConfig)),
           // servlet mapping
           ApplicationConfigurations.proxyConfig.getContextPath() + "/*");
     }

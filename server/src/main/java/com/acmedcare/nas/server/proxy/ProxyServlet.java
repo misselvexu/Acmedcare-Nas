@@ -167,31 +167,31 @@ public class ProxyServlet extends HttpServlet {
   protected ProxyConfig proxyConfig;
   protected NasProperties nasProperties;
   protected FtpServerProperties ftpServerProperties;
-  private LinkedList<ProxyInterceptor> interceptors;
+  private LinkedList<AbstractProxyInterceptor> interceptors;
   private HttpClient proxyClient;
   protected FtpFileService ftpFileService;
 
-  public ProxyServlet(NasProperties nasProperties, ProxyInterceptor... interceptors) {
+  public ProxyServlet(NasProperties nasProperties, AbstractProxyInterceptor... interceptors) {
     if (nasProperties == null || StringUtils.isBlank(nasProperties.getProxy().getTargetUrl())) {
       throw new NasException("Proxy Config Can't be null or empty.");
     }
 
     if (interceptors != null && interceptors.length > 0) {
       this.interceptors = Lists.newLinkedList();
-      for (ProxyInterceptor interceptor : interceptors) {
+      for (AbstractProxyInterceptor interceptor : interceptors) {
         this.interceptors.add(interceptor);
       }
     }
 
     // sort
     this.interceptors.sort(
-        new Comparator<ProxyInterceptor>() {
+        new Comparator<AbstractProxyInterceptor>() {
           @Override
-          public int compare(ProxyInterceptor o1, ProxyInterceptor o2) {
-            if (o1.getClass().isAnnotationPresent(ProxyInterceptor.Order.class)
-                && o2.getClass().isAnnotationPresent(ProxyInterceptor.Order.class)) {
-              int v1 = o1.getClass().getAnnotation(ProxyInterceptor.Order.class).value();
-              int v2 = o2.getClass().getAnnotation(ProxyInterceptor.Order.class).value();
+          public int compare(AbstractProxyInterceptor o1, AbstractProxyInterceptor o2) {
+            if (o1.getClass().isAnnotationPresent(AbstractProxyInterceptor.Order.class)
+                && o2.getClass().isAnnotationPresent(AbstractProxyInterceptor.Order.class)) {
+              int v1 = o1.getClass().getAnnotation(AbstractProxyInterceptor.Order.class).value();
+              int v2 = o2.getClass().getAnnotation(AbstractProxyInterceptor.Order.class).value();
               return v1 < v2 ? -1 : v1 == v2 ? 0 : 1;
             }
             return 0;
@@ -407,7 +407,7 @@ public class ProxyServlet extends HttpServlet {
     try {
       // execute ProxyInterceptors
       if (interceptors != null && interceptors.size() > 0) {
-        for (ProxyInterceptor interceptor : interceptors) {
+        for (AbstractProxyInterceptor interceptor : interceptors) {
           if (interceptor != null) {
             if (interceptor.match(requestUrl)) {
               int code = interceptor.beforeProxy(servletRequest, servletResponse);
@@ -445,7 +445,7 @@ public class ProxyServlet extends HttpServlet {
       // Process the response:
       // execute ProxyInterceptors
       if (interceptors != null && interceptors.size() > 0) {
-        for (ProxyInterceptor interceptor : interceptors) {
+        for (AbstractProxyInterceptor interceptor : interceptors) {
           if (interceptor != null) {
             if (interceptor.match(requestUrl)) {
               interceptor.afterProxy(proxyResponse, servletResponse);
@@ -745,7 +745,7 @@ public class ProxyServlet extends HttpServlet {
           try {
             // execute ProxyInterceptors
             if (interceptors != null && interceptors.size() > 0) {
-              for (ProxyInterceptor interceptor : interceptors) {
+              for (AbstractProxyInterceptor interceptor : interceptors) {
                 if (interceptor != null) {
                   if (interceptor.match(proxyRequestUri)) {
                     int code = interceptor.onTailProcess(res, servletResponse);

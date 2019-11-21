@@ -1,13 +1,14 @@
 package com.acmedcare.nas.exts.api;
 
-import static com.acmedcare.nas.exts.api.util.ClassLoaderUtils.getClassLoader;
-
 import com.acmedcare.nas.api.Extensible;
 import com.acmedcare.nas.api.Extension;
 import com.acmedcare.nas.exts.api.exception.NasContextException;
 import com.acmedcare.nas.exts.api.util.ClassTypeUtils;
 import com.acmedcare.nas.exts.api.util.ClassUtils;
 import com.acmedcare.nas.exts.api.util.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
@@ -15,8 +16,8 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static com.acmedcare.nas.exts.api.util.ClassLoaderUtils.getClassLoader;
 
 /**
  * Extension Loader
@@ -27,7 +28,7 @@ import org.slf4j.LoggerFactory;
 public class ExtensionLoader<T> {
 
   /** 扩展点加载的路径 */
-  public static final String EXTENSION_LOAD_PATH = "META-INF/services/nas-exts/";
+  public static final String EXTENSION_LOAD_PATH = "META-INF/services/nas/";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ExtensionLoader.class);
   /** 当前加载的接口类名 */

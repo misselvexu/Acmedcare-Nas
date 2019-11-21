@@ -57,7 +57,7 @@ public class URITemplateProxyServlet extends ProxyServlet {
 
   protected String targetUriTemplate; // has {name} parts
 
-  public URITemplateProxyServlet(NasProperties nasPropertoes, ProxyInterceptor... interceptors) {
+  public URITemplateProxyServlet(NasProperties nasPropertoes, AbstractProxyInterceptor... interceptors) {
     super(nasPropertoes, interceptors);
   }
 
