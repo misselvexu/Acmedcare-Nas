@@ -23,7 +23,7 @@
 
         <!-- Set versions for depending jars -->
         <commons.codec.version>1.11</commons.codec.version>
-        <commons.net.version>3.5</commons.net.version>
+        <commons.net.version>3.9.0</commons.net.version>
         <hsqldb.version>1.8.0.10</hsqldb.version>
         <jcl.over.slf4j.version>1.7.25</jcl.over.slf4j.version>
         <junit.version>4.12</junit.version>
